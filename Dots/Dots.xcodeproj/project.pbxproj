@@ -56,13 +56,10 @@
 		1379976E2A64C5AA008F5F01 /* Dots */ = {
 			isa = PBXGroup;
 			children = (
+				1379976F2A64C5AA008F5F01 /* DotsApp.swift */,
 				137997842A64C64B008F5F01 /* View */,
 				137997832A64C647008F5F01 /* Model */,
-				1379976F2A64C5AA008F5F01 /* DotsApp.swift */,
 				137997732A64C5AC008F5F01 /* Assets.xcassets */,
-				137997782A64C5AC008F5F01 /* Persistence.swift */,
-				1379977D2A64C5AC008F5F01 /* Info.plist */,
-				1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */,
 				137997752A64C5AC008F5F01 /* Preview Content */,
 			);
 			path = Dots;
@@ -79,6 +76,9 @@
 		137997832A64C647008F5F01 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				137997782A64C5AC008F5F01 /* Persistence.swift */,
+				1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */,
+				1379977D2A64C5AC008F5F01 /* Info.plist */,
 			);
 			path = Model;
 			sourceTree = "<group>";
