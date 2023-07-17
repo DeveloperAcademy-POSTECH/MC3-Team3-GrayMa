@@ -8,22 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1379976F2A64C5AA008F5F01 /* DotsApp.swift */; };
-		137997722A64C5AA008F5F01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997712A64C5AA008F5F01 /* ContentView.swift */; };
 		137997742A64C5AC008F5F01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 137997732A64C5AC008F5F01 /* Assets.xcassets */; };
 		137997772A64C5AC008F5F01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 137997762A64C5AC008F5F01 /* Preview Assets.xcassets */; };
 		137997792A64C5AC008F5F01 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997782A64C5AC008F5F01 /* Persistence.swift */; };
 		1379977C2A64C5AC008F5F01 /* Dots.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */; };
+		137997872A64C661008F5F01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997862A64C661008F5F01 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1379976C2A64C5AA008F5F01 /* Dots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1379976F2A64C5AA008F5F01 /* DotsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsApp.swift; sourceTree = "<group>"; };
-		137997712A64C5AA008F5F01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		137997732A64C5AC008F5F01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		137997762A64C5AC008F5F01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		137997782A64C5AC008F5F01 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dots.xcdatamodel; sourceTree = "<group>"; };
 		1379977D2A64C5AC008F5F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		137997862A64C661008F5F01 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,8 +56,9 @@
 		1379976E2A64C5AA008F5F01 /* Dots */ = {
 			isa = PBXGroup;
 			children = (
+				137997842A64C64B008F5F01 /* View */,
+				137997832A64C647008F5F01 /* Model */,
 				1379976F2A64C5AA008F5F01 /* DotsApp.swift */,
-				137997712A64C5AA008F5F01 /* ContentView.swift */,
 				137997732A64C5AC008F5F01 /* Assets.xcassets */,
 				137997782A64C5AC008F5F01 /* Persistence.swift */,
 				1379977D2A64C5AC008F5F01 /* Info.plist */,
@@ -73,6 +74,29 @@
 				137997762A64C5AC008F5F01 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		137997832A64C647008F5F01 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		137997842A64C64B008F5F01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				137997862A64C661008F5F01 /* MainView.swift */,
+				137997852A64C651008F5F01 /* Component */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		137997852A64C651008F5F01 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -146,7 +170,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
-				137997722A64C5AA008F5F01 /* ContentView.swift in Sources */,
+				137997872A64C661008F5F01 /* MainView.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* Dots.xcdatamodeld in Sources */,
 			);
