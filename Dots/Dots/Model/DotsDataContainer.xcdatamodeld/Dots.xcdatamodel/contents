@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="MyStrengthEntity" representedClassName="MyStrengthEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="myStrengthUUID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="strengthLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MyStrengthNoteEntity" inverseName="relatedStrength" inverseEntity="MyStrengthNoteEntity"/>
+        <relationship name="ownStrength" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StrengthEntity" inverseName="personalStrength" inverseEntity="StrengthEntity"/>
+    </entity>
+    <entity name="MyStrengthNoteEntity" representedClassName="MyStrengthNoteEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="myStrengthNoteID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="relatedStrength" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MyStrengthEntity" inverseName="notes" inverseEntity="MyStrengthEntity"/>
+    </entity>
+    <entity name="NetworkingNoteEntity" representedClassName="NetworkingNoteEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="content" optional="YES" attributeType="String"/>
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="networkingNoteID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="relatedPerson" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NetworkingPersonEntity" inverseName="networkingNotes" inverseEntity="NetworkingPersonEntity"/>
+    </entity>
+    <entity name="NetworkingPersonEntity" representedClassName="NetworkingPersonEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="company" optional="YES" attributeType="String"/>
+        <attribute name="contanctNum" optional="YES" attributeType="String"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="job" optional="YES" attributeType="String"/>
+        <attribute name="linkedIn" optional="YES" attributeType="String"/>
+        <attribute name="peopleID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <relationship name="networkingNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NetworkingNoteEntity" inverseName="relatedPerson" inverseEntity="NetworkingNoteEntity"/>
+        <relationship name="strengthSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StrengthEntity" inverseName="networkingPeople" inverseEntity="StrengthEntity"/>
+    </entity>
+    <entity name="StrengthEntity" representedClassName="StrengthEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="strengthColor" optional="YES" attributeType="String"/>
+        <attribute name="strengthName" optional="YES" attributeType="String"/>
+        <relationship name="networkingPeople" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NetworkingPersonEntity" inverseName="strengthSet" inverseEntity="NetworkingPersonEntity"/>
+        <relationship name="personalStrength" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MyStrengthEntity" inverseName="ownStrength" inverseEntity="MyStrengthEntity"/>
+    </entity>
+</model>
