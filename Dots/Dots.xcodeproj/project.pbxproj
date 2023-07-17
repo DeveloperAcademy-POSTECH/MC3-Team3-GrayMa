@@ -11,10 +11,12 @@
 		137997742A64C5AC008F5F01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 137997732A64C5AC008F5F01 /* Assets.xcassets */; };
 		137997772A64C5AC008F5F01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 137997762A64C5AC008F5F01 /* Preview Assets.xcassets */; };
 		137997792A64C5AC008F5F01 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997782A64C5AC008F5F01 /* Persistence.swift */; };
-		1379977C2A64C5AC008F5F01 /* Dots.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */; };
+		1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */; };
 		137997872A64C661008F5F01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997862A64C661008F5F01 /* MainView.swift */; };
 		A1349E332A64E81C0006611C /* newContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* newContactsView.swift */; };
 		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
+		3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */; };
+		3D0B1F242A654BD20012A6F4 /* DotsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F232A654BD20012A6F4 /* DotsModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		137997862A64C661008F5F01 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		A1349E322A64E81C0006611C /* newContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newContactsView.swift; sourceTree = "<group>"; };
 		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
+		3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsDataManager.swift; sourceTree = "<group>"; };
+		3D0B1F232A654BD20012A6F4 /* DotsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +85,10 @@
 			isa = PBXGroup;
 			children = (
 				137997782A64C5AC008F5F01 /* Persistence.swift */,
-				1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */,
+				1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */,
 				1379977D2A64C5AC008F5F01 /* Info.plist */,
+				3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */,
+				3D0B1F232A654BD20012A6F4 /* DotsModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -176,11 +182,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
+				3D0B1F242A654BD20012A6F4 /* DotsModel.swift in Sources */,
+				3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */,
 				137997872A64C661008F5F01 /* MainView.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
 				A1349E332A64E81C0006611C /* newContactsView.swift in Sources */,
 				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* Dots.xcdatamodeld in Sources */,
+				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,13 +390,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */ = {
+		1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */,
 			);
 			currentVersion = 1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */;
-			path = Dots.xcdatamodeld;
+			path = DotsDataContainer.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
