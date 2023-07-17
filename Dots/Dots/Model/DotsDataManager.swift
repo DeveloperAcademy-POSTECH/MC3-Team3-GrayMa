@@ -15,7 +15,7 @@ class CoreDataManager {
     
     init() {
         // Container 지정 = Database
-        container = NSPersistentContainer(name: "DotsDB")
+        container = NSPersistentContainer(name: "DotsDataContainer")
         container.loadPersistentStores { description, error in
             if let error = error {
                 print("Error loading Core Data. \(error)")
