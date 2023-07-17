@@ -13,6 +13,7 @@
 		137997792A64C5AC008F5F01 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997782A64C5AC008F5F01 /* Persistence.swift */; };
 		1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */; };
 		137997872A64C661008F5F01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997862A64C661008F5F01 /* MainView.swift */; };
+		3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dots.xcdatamodel; sourceTree = "<group>"; };
 		1379977D2A64C5AC008F5F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		137997862A64C661008F5F01 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				137997782A64C5AC008F5F01 /* Persistence.swift */,
 				1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */,
 				1379977D2A64C5AC008F5F01 /* Info.plist */,
+				3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
+				3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */,
 				137997872A64C661008F5F01 /* MainView.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
