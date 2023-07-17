@@ -11,7 +11,7 @@
 		137997742A64C5AC008F5F01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 137997732A64C5AC008F5F01 /* Assets.xcassets */; };
 		137997772A64C5AC008F5F01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 137997762A64C5AC008F5F01 /* Preview Assets.xcassets */; };
 		137997792A64C5AC008F5F01 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997782A64C5AC008F5F01 /* Persistence.swift */; };
-		1379977C2A64C5AC008F5F01 /* Dots.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */; };
+		1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */; };
 		137997872A64C661008F5F01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997862A64C661008F5F01 /* MainView.swift */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				137997782A64C5AC008F5F01 /* Persistence.swift */,
-				1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */,
+				1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */,
 				1379977D2A64C5AC008F5F01 /* Info.plist */,
 			);
 			path = Model;
@@ -172,7 +172,7 @@
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
 				137997872A64C661008F5F01 /* MainView.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
-				1379977C2A64C5AC008F5F01 /* Dots.xcdatamodeld in Sources */,
+				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,13 +373,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */ = {
+		1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */,
 			);
 			currentVersion = 1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */;
-			path = Dots.xcdatamodeld;
+			path = DotsDataContainer.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
