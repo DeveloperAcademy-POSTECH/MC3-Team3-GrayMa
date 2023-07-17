@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct DotsApp: App {
-    let persistenceController = PersistenceController.shared
+//    let persistenceController = PersistenceController.shared
 
     var body: some Scene {
         WindowGroup {
