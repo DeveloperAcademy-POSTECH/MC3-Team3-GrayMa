@@ -13,6 +13,8 @@
 		137997792A64C5AC008F5F01 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997782A64C5AC008F5F01 /* Persistence.swift */; };
 		1379977C2A64C5AC008F5F01 /* Dots.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* Dots.xcdatamodeld */; };
 		137997872A64C661008F5F01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997862A64C661008F5F01 /* MainView.swift */; };
+		A1349E332A64E81C0006611C /* newContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* newContactsView.swift */; };
+		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dots.xcdatamodel; sourceTree = "<group>"; };
 		1379977D2A64C5AC008F5F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		137997862A64C661008F5F01 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		A1349E322A64E81C0006611C /* newContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newContactsView.swift; sourceTree = "<group>"; };
+		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,8 @@
 			children = (
 				137997862A64C661008F5F01 /* MainView.swift */,
 				137997852A64C651008F5F01 /* Component */,
+				A1349E322A64E81C0006611C /* newContactsView.swift */,
+				A1349E342A64E9F90006611C /* contactsTextField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -172,6 +178,8 @@
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
 				137997872A64C661008F5F01 /* MainView.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
+				A1349E332A64E81C0006611C /* newContactsView.swift in Sources */,
+				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* Dots.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
