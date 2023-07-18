@@ -13,7 +13,7 @@ struct DotsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            contactsMemoField()
         }
     }
 }
