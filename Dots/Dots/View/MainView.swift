@@ -10,11 +10,18 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView{
-            VStack{
-                Text("adsf")
-            }
+            MyStrengthView()
+                .tabItem {
+                    Text("\(Image(systemName: "star.fill"))")
+                    Text("내 강점")
+                }
+            
             VStack{
                 Text("asdf")
+            }
+            .tabItem {
+                Text("\(Image(systemName: "star.fill"))")
+                Text("인맥 관리")
             }
         }
     }
