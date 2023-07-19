@@ -18,8 +18,6 @@ struct contactsImageSelect: View {
                 .frame(width: 88, height: 88)
                 .foregroundColor(.gray)
             
-            
-            
             Text("\(convertUserName(name: userName))")
             
             Image("imagePlusBtn")
@@ -34,46 +32,36 @@ struct contactsImageSelect: View {
 struct ProfileImageModal: View {
     @Environment(\.presentationMode) var presentationMode
     
+    @State var userName : String
+    @State var userImageIdx : Int
+    
     var body: some View {
-//        VStack {
-//            HStack{
-//                Text("프로필 이미지")
-//                Spacer()
-//                    .frame(width: 150)
-//                Image("multiply.circle.fill")
-//                    .onTapGesture {
-//                        presentationMode.wrappedValue.dismiss()
-//                    }
-//            }
-//            
-//            Spacer()
-//            
-//            Text("This is a modal view")
-//            
-//            Button("Close!") {
-//                presentationMode.wrappedValue.dismiss()
-//            }
-//        }
+
         VStack{
             HStack{
-                Text("강점 레벨 선택")
+                Text("프로필 이미지")
                     .font(.system(.title3))
                     .bold()
                 Spacer()
-                CloseBtn(btncolor: Fontcolor.fontGray.colorName, action: {presentationMode.wrappedValue.dismiss()})
+                
             }
             .frame(maxWidth: .infinity)
             .padding(.leading,16)
             .padding(.trailing,21)
-            .padding(.top, 20)
             
             Spacer()
+                .frame(height: 32)
+            
+            contactsUserProfile(userName: userName, userProfileIdx: userImageIdx)
             
             HStack{
-                SelectBtn(fontWeight: .regular, content: "취소", textColor: .black, btnColor: .gray, action: {print("이전")})
+                SelectBtn(fontWeight: .regular, content: "취소", textColor: .black, btnColor: .gray, action: {presentationMode.wrappedValue.dismiss()})
                 Spacer()
                 // 데이터 베이스 연결시에는 데이터 베이스 저장을 해야하는 버튼
-                SelectBtn(fontWeight: .bold, content: "완료", textColor: .white, btnColor: .blue, action: {presentationMode.wrappedValue.dismiss()})
+                SelectBtn(fontWeight: .bold, content: "완료", textColor: .white, btnColor: .blue, action: {
+                    print("완료")
+                    //MARK: coreDate 업데이트
+                })
             }
             .padding(.horizontal,16)
         }

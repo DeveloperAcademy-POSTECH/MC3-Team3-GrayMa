@@ -19,7 +19,8 @@ struct newContactsView: View {
     
     //유저 이미지 모달 컨트롤
     @State private var userImgModal = false
-    
+    @State private var userName = "김앤디" // coredate 연동해야함
+    @State private var userImgIdx = 0 // coredate 연동해야함
     
     var body: some View {
         NavigationView{
@@ -31,7 +32,7 @@ struct newContactsView: View {
                         userImgModal = true
                     }
                     .sheet(isPresented: $userImgModal) {
-                        ProfileImageModal()
+                        ProfileImageModal(userName: userName, userImageIdx: userImgIdx)
                             .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
                     }
                 
@@ -48,14 +49,15 @@ struct newContactsView: View {
                     ForEach(1..<4){ i in
                         contactsTextField(inputCondition: contactsDetailArr[i], text: "", option: i)
                     }
+                    
                 }
             }
         }
     }
 }
 
-struct newContactsView_Previews: PreviewProvider {
-    static var previews: some View {
-        newContactsView()
-    }
-}
+//struct newContactsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        newContactsView()
+//    }
+//}

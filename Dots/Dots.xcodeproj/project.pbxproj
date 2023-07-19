@@ -31,6 +31,7 @@
 		A1349E372A6618190006611C /* contactsModalText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsModalText.swift */; };
 		A1349E392A6685F70006611C /* contactsMemoField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E382A6685F70006611C /* contactsMemoField.swift */; };
 		A1349E3C2A6771910006611C /* contactsImageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3B2A6771910006611C /* contactsImageSelect.swift */; };
+		A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3D2A6796100006611C /* contactsUserProfile.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		A1349E362A6618190006611C /* contactsModalText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsModalText.swift; sourceTree = "<group>"; };
 		A1349E382A6685F70006611C /* contactsMemoField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsMemoField.swift; sourceTree = "<group>"; };
 		A1349E3B2A6771910006611C /* contactsImageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsImageSelect.swift; sourceTree = "<group>"; };
+		A1349E3D2A6796100006611C /* contactsUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsUserProfile.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 				A1349E362A6618190006611C /* contactsModalText.swift */,
 				A1349E382A6685F70006611C /* contactsMemoField.swift */,
 				A1349E3B2A6771910006611C /* contactsImageSelect.swift */,
+				A1349E3D2A6796100006611C /* contactsUserProfile.swift */,
 			);
 			path = ContactView;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
 				A1349E3C2A6771910006611C /* contactsImageSelect.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
+				A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */,
 				136AAC722A66D5F200CA3797 /* TextModifier.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 				136AAC742A66E25100CA3797 /* MyStrengthView.swift in Sources */,
