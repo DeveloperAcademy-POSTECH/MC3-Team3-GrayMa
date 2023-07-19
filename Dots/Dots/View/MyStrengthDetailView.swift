@@ -16,7 +16,6 @@ struct MyStrengthDetailView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                // 현재 들어온 강점 레벨, 이름 받아야함
                 HStack {
                     Image("moderateDot")
                         .resizable()
@@ -31,12 +30,13 @@ struct MyStrengthDetailView: View {
                 // MARK: -  같은 강점 사람들 리스트
                 ScrollView(.horizontal) {
                     HStack {
-                        PortraitBtn(name: "Marcus", hasPortrait: true, portraitName: "testPortrait")
+                        ForEach(dummyPortraitData, id: \.self) { entity in
+                            PortraitBtn(entity: entity)
+                        }
                     }
                     .padding(.leading, 16)
                     .padding(.bottom, 14)
                 }
-                
                 
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
                     ZStack {
@@ -58,46 +58,24 @@ struct MyStrengthDetailView: View {
                 
                 // MARK: - 현재 강점 디테일 리스트
                 ScrollView {
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 62)
-                        .padding(.horizontal, 16)
-                        .overlay()
-                    {
-                        HStack {
-                            Text("저장된 기록이 없습니다.")
-                                .modifier(regularSubHeadLine(colorName: .gray))
-                            Spacer()
-                        }
-                        .padding(.leading, 45)
-                    }
-                    
-//                    ForEach(dotsModel.myNotes, id: \.self) { note in
-//                        CustomDetailList(entity: note)
-//                    }
-                    
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 62)
-                        .padding(.horizontal, 16)
-                        .overlay()
-                    {
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text("Grid System")
-                                    .modifier(semiBoldTitle3(colorName: .black))
-                                HStack {
-                                    Group {
-                                        Text("오전 8:47")
-                                        Text("손글씨 메모")
-                                    }
+                    if dummyNoteData.isEmpty {
+                        RoundedRectangle(cornerRadius: 12)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 62)
+                            .padding(.horizontal, 16)
+                            .overlay()
+                        {
+                            HStack {
+                                Text("저장된 기록이 없습니다.")
                                     .modifier(regularSubHeadLine(colorName: .gray))
-                                }
+                                Spacer()
                             }
                             .padding(.leading, 45)
-                            Spacer()
+                        }
+                    } else {
+                        ForEach(dummyNoteData, id: \.self) { entity in
+                            CustomDetailList(entity: entity)
                         }
                     }
                 }

@@ -7,10 +7,19 @@
 
 import SwiftUI
 
-struct PortraitBtn: View {
+struct DummyPortrait: Hashable {
     var name: String
-    var hasPortrait: Bool
-    var portraitName: String
+    var portraitName: String?
+}
+
+var dummyPortraitData: [DummyPortrait] = [
+    DummyPortrait(name: "Marcus", portraitName: "testPortrait"),
+    DummyPortrait(name: "Gyunni"),
+    DummyPortrait(name: "Rash", portraitName: "testPortrait")
+]
+
+struct PortraitBtn: View {
+    var entity: DummyPortrait
     
     var body: some View {
         ZStack {
@@ -22,7 +31,7 @@ struct PortraitBtn: View {
                 
             }, label: {
                 ZStack {
-                    if hasPortrait {
+                    if let portraitName = entity.portraitName {
                         Image(portraitName)
                             .resizable()
                             .scaledToFill()
@@ -33,7 +42,7 @@ struct PortraitBtn: View {
                             Circle()
                                 .frame(width: 64)
                                 .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.97))
-                            Text(name)
+                            Text(entity.name)
                                 .frame(width: 64)
                                 .scaledToFit()
                         }
@@ -43,4 +52,3 @@ struct PortraitBtn: View {
         }
     }
 }
-
