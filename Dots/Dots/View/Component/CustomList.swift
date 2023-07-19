@@ -7,9 +7,15 @@
 
 import SwiftUI
 
+enum StrengthLevelImage: String, CaseIterable {
+    case weakDot
+    case moderateDot
+    case strongDot
+}
+
 struct CustomList: View {
-    var imageName: String
-    var strength: String
+    var entity: MyStrengthEntity
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 12)
             .foregroundColor(.white)
@@ -20,12 +26,12 @@ struct CustomList: View {
             .overlay()
         {
             HStack(alignment: .center){
-                Image(imageName)
+                Image(StrengthLevelImage.allCases[Int(entity.strengthLevel)].rawValue)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 36,height: 36)
                     .padding(.leading,22)
-                Text(strength)
+                Text(entity.ownStrength?.strengthName ?? "이름")
                     .font(.system(size: 17,weight: .semibold))
                     .padding(.leading,12)
                 Spacer()
@@ -42,10 +48,3 @@ struct CustomList: View {
         
     }
 }
-
-struct CustomList_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomList(imageName: "strong dot", strength: "디자인 시스템")
-    }
-}
-

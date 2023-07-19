@@ -25,6 +25,9 @@ class DotsModel: ObservableObject {
         // 메모리에 올라온 객체 모두 제거
         myStrength.removeAll()
         strength.removeAll()
+        myNotes.removeAll()
+        networkingPeople.removeAll()
+        networkingNotes.removeAll()
         
         // 저장된 객체를 새로 뽑아옴
         manager.save()

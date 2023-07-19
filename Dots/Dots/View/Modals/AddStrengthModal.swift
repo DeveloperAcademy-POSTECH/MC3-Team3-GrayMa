@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct AddStrengthModal: View {
-   
+    @EnvironmentObject var dotsModel: DotsModel
     @Binding var strengthName : String
     @Binding var pagenum: Int
-    @Environment(\.presentationMode) var presentaition
+    @Environment(\.presentationMode) var presentation
+    
     var body: some View {
         
         VStack(alignment: .center){
@@ -19,7 +20,7 @@ struct AddStrengthModal: View {
                 Text("강점 추가")
                     .font(.system(.title3))
                 Spacer()
-                CloseBtn(btncolor: Fontcolor.fontGray.colorName, action: {presentaition.wrappedValue.dismiss()})
+                CloseBtn(btncolor: Fontcolor.fontGray.colorName, action: {presentation.wrappedValue.dismiss()})
             }
             RoundedRectangle(cornerRadius: 40)
                 .frame(maxWidth: .infinity)
@@ -58,10 +59,10 @@ struct AddStrengthModal: View {
             
             HStack{
                 Spacer()
-                SelectBtn(fontWeight: .regular, content: "이전", textColor: .gray, btnColor: .accentColor, action:{ presentaition.wrappedValue.dismiss()})
+                SelectBtn(fontWeight: .regular, content: "이전", textColor: .gray, btnColor: .accentColor, action:{ presentation.wrappedValue.dismiss()})
                 SelectBtn(fontWeight: .bold, content: "다음", textColor: .white, btnColor: .blue,action: {
                     pagenum += 1
-                    print(pagenum)
+                    dotsModel.addStrength(name: strengthName)
                 })
                 Spacer()
             }
@@ -74,8 +75,5 @@ struct AddStrengthModal: View {
         .padding(.horizontal,16)
         .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height / 4)
         .fixedSize()
-        
-        
-        
     }
 }
