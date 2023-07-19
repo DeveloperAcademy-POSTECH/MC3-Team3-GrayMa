@@ -23,8 +23,8 @@ struct StrengthList: View {
                 .frame(width: 19,height: 21)
                 .padding(.trailing,31)
         }
-        .background(strengthName == strength ? .gray : .white)
         .frame(height: 56)
+        .background(strengthName == strength ? .gray : .white)
         .frame(maxWidth: .infinity)
         .onTapGesture {
             strengthName = strength
