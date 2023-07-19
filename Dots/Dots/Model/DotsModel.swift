@@ -50,6 +50,7 @@ extension DotsModel {
         let request = NSFetchRequest<MyStrengthEntity>(entityName: "MyStrengthEntity")
         do {
             myStrength = try manager.context.fetch(request)
+            print("MyStrength : \(myStrength)")
         } catch let error {
             print("Fetching Error. \(error.localizedDescription)")
         }
@@ -59,6 +60,10 @@ extension DotsModel {
         let request = NSFetchRequest<StrengthEntity>(entityName: "StrengthEntity")
         do {
             strength = try manager.context.fetch(request)
+            print("Strength : \(strength)")
+            for i in strength {
+                print(i.strengthName)
+            }
         } catch let error {
             print("Fetching Error. \(error.localizedDescription)")
         }
@@ -68,6 +73,7 @@ extension DotsModel {
         let request = NSFetchRequest<MyStrengthNoteEntity>(entityName: "MyStrengthNoteEntity")
         do {
             myNotes = try manager.context.fetch(request)
+            print("MyNote : \(myNotes)")
         } catch let error {
             print("Fetching Error. \(error.localizedDescription)")
         }
@@ -77,6 +83,7 @@ extension DotsModel {
         let request = NSFetchRequest<NetworkingPersonEntity>(entityName: "NetworkingPersonEntity")
         do {
             networkingPeople = try manager.context.fetch(request)
+            print("NetworkingPeople : \(networkingPeople)")
         } catch let error {
             print("Fetching Error. \(error.localizedDescription)")
         }
@@ -86,6 +93,7 @@ extension DotsModel {
         let request = NSFetchRequest<NetworkingNoteEntity>(entityName: "NetworkingNoteEntity")
         do {
             networkingNotes = try manager.context.fetch(request)
+            print("NetworkingNote : \(networkingNotes)")
         } catch let error {
             print("Fetching Error. \(error.localizedDescription)")
         }

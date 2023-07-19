@@ -11,6 +11,7 @@ struct AddStrengthModal: View {
     @EnvironmentObject var dotsModel: DotsModel
     @Binding var strengthName : String
     @Binding var pagenum: Int
+    @State var isError: Bool = false
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
@@ -61,8 +62,11 @@ struct AddStrengthModal: View {
                 Spacer()
                 SelectBtn(fontWeight: .regular, content: "이전", textColor: .gray, btnColor: .accentColor, action:{ presentation.wrappedValue.dismiss()})
                 SelectBtn(fontWeight: .bold, content: "다음", textColor: .white, btnColor: .blue,action: {
-                    pagenum += 1
-                    dotsModel.addStrength(name: strengthName)
+                    if dotsModel.addStrength(name: strengthName) == .redunant {
+                        isError = true
+                    } else {
+                        pagenum += 1
+                    }
                 })
                 Spacer()
             }
@@ -75,5 +79,12 @@ struct AddStrengthModal: View {
         .padding(.horizontal,16)
         .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height / 4)
         .fixedSize()
+        .alert("중복에러", isPresented: $isError) {
+            Button("확인") {
+                isError = false
+            }
+        } message: {
+            Text("이미 나의 강점에 추가된 강점이거나, 존재하는 강점입니다.")
+        }        
     }
 }
