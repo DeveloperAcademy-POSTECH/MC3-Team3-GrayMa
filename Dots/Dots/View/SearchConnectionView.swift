@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SerachConnectionView: View {
+struct SearchConnectionView: View {
     @State var name: String = ""
     var names: [String] = ["신채은","신채은","신채은","신채은"]
     var companys: [String] = ["토스,LG U+","삼성전자","POSCO","OP.GG","카카오뱅크"]
@@ -79,11 +79,5 @@ struct SerachConnectionView: View {
             }
         }
         
-    }
-}
-
-struct SerachConnectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        SerachConnectionView()
     }
 }
