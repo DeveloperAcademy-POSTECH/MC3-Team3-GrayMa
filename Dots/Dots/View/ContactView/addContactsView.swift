@@ -23,7 +23,7 @@ struct addContactsView: View {
     @State private var userImgIdx = 0 // coredate 연동해야함
     
     @State var strengthCount = 7
-    
+    @State var strengthText = ""
     var body: some View {
         NavigationView{
             ScrollView(showsIndicators: false){
@@ -52,10 +52,10 @@ struct addContactsView: View {
                         contactsTextField(inputCondition: contactsDetailArr[i], text: "", option: i)
                     }
                     
-                    contactsStrengthField(inputStrength: strengthCount)
+                    contactsStrengthField(inputStrength: strengthCount, strengthText: $strengthText)
                     
                     //선택된 강점 표시 부분
-                    
+                    Text("\(strengthText)")
                 }
             }
         }
