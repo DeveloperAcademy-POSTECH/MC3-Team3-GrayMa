@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ConnectionProfileModal: View {
     var body: some View {
-        Text("인맥 프로필이 나타나는 모달입니다.")
+        ZStack {
+            Color.green
+            Text("인맥 프로필이 나타나는 모달입니다.")
+        }
+        .ignoresSafeArea()
     }
 }
 
