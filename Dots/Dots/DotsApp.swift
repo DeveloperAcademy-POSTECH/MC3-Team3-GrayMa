@@ -10,10 +10,12 @@ import SwiftUI
 @main
 struct DotsApp: App {
 //    let persistenceController = PersistenceController.shared
-
+    @StateObject var dotsModel: DotsModel = DotsModel()
+    
     var body: some Scene {
         WindowGroup {
-            contactsMemoField()
+            MainView()
+                .environmentObject(dotsModel)
         }
     }
 }
