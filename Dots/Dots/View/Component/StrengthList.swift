@@ -12,7 +12,7 @@ struct StrengthList: View {
     @Binding var strengthName : String
     @State var isChecked: Bool = false
     var body: some View {
-        HStack{
+        HStack {
             Text(strength)
                 .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
                 .padding(.leading,44)
