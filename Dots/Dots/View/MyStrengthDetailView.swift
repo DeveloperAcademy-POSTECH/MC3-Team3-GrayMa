@@ -30,45 +30,8 @@ struct MyStrengthDetailView: View {
                 
                 // MARK: -  같은 강점 사람들 리스트
                 ScrollView(.horizontal) {
-                    HStack(spacing: -8) {
-                        ZStack {
-                            Circle()
-                                .frame(width: 80)
-                                .foregroundColor(.white)
-                            //                        Circle()
-                            //                            .frame(width: 64)
-                            //                            .foregroundColor(Color(red: 0.95, green: 0.95, blue: 0.97))
-                            Image("testPortrait")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 64, height: 64)
-                                .clipShape(Circle())
-                        }
-                        
-                        ZStack {
-                            Circle()
-                                .frame(width: 80)
-                                .foregroundColor(.white)
-                            Image("testPortrait")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 64, height: 64)
-                                .clipShape(Circle())
-                        }
-                        
-                        ZStack {
-                            Circle()
-                                .frame(width: 80)
-                                .foregroundColor(.white)
-                            Image("testPortrait")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 64, height: 64)
-                                .clipShape(Circle())
-                        }
-                        
-                        
-                        
+                    HStack {
+                        PortraitBtn(name: "Marcus", hasPortrait: true, portraitName: "testPortrait")
                     }
                     .padding(.leading, 16)
                     .padding(.bottom, 14)
@@ -95,6 +58,25 @@ struct MyStrengthDetailView: View {
                 
                 // MARK: - 현재 강점 디테일 리스트
                 ScrollView {
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 62)
+                        .padding(.horizontal, 16)
+                        .overlay()
+                    {
+                        HStack {
+                            Text("저장된 기록이 없습니다.")
+                                .modifier(regularSubHeadLine(colorName: .gray))
+                            Spacer()
+                        }
+                        .padding(.leading, 45)
+                    }
+                    
+//                    ForEach(dotsModel.myNotes, id: \.self) { note in
+//                        CustomDetailList(entity: note)
+//                    }
+                    
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundColor(.white)
                         .frame(maxWidth: .infinity)

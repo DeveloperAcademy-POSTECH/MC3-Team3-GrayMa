@@ -30,6 +30,8 @@
 		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
 		A1349E372A6618190006611C /* contactsModalText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsModalText.swift */; };
 		A1349E392A6685F70006611C /* contactsMemoField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E382A6685F70006611C /* contactsMemoField.swift */; };
+		B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* CustomDetailList.swift */; };
+		B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */; };
 		B4EB47212A6774430073E514 /* MyStrengthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +61,8 @@
 		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
 		A1349E362A6618190006611C /* contactsModalText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsModalText.swift; sourceTree = "<group>"; };
 		A1349E382A6685F70006611C /* contactsMemoField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsMemoField.swift; sourceTree = "<group>"; };
+		B4E701982A680678007A3876 /* CustomDetailList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailList.swift; sourceTree = "<group>"; };
+		B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitBtn.swift; sourceTree = "<group>"; };
 		B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStrengthDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,7 +167,9 @@
 			children = (
 				136AAC7B2A66E30E00CA3797 /* SelectBtn.swift */,
 				136AAC7D2A66E32500CA3797 /* CloseBtn.swift */,
+				B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */,
 				136AAC7F2A66E33800CA3797 /* CustomList.swift */,
+				B4E701982A680678007A3876 /* CustomDetailList.swift */,
 				136AAC8A2A676FEF00CA3797 /* CustomConnectionList.swift */,
 			);
 			path = Component;
@@ -250,6 +256,7 @@
 				3D0B1F242A654BD20012A6F4 /* DotsModel.swift in Sources */,
 				3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */,
 				B4EB47212A6774430073E514 /* MyStrengthDetailView.swift in Sources */,
+				B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */,
 				137997872A64C661008F5F01 /* MainView.swift in Sources */,
 				136AAC802A66E33800CA3797 /* CustomList.swift in Sources */,
 				136AAC8B2A676FEF00CA3797 /* CustomConnectionList.swift in Sources */,
@@ -258,6 +265,7 @@
 				A1349E332A64E81C0006611C /* newContactsView.swift in Sources */,
 				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
+				B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */,
 				136AAC722A66D5F200CA3797 /* TextModifier.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 				136AAC742A66E25100CA3797 /* MyStrengthView.swift in Sources */,
