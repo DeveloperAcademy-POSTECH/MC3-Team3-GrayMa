@@ -51,7 +51,7 @@ struct MyStrengthView: View {
             .navigationBarItems(trailing: HStack { Button(action: { self.showModal = true }) { Image(systemName: "plus").foregroundColor(.black) } })
             .sheet(isPresented: $showModal){
                 StrengthModal()
-                    .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
+                    .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
             }
             
         }
