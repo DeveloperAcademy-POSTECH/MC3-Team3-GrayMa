@@ -229,6 +229,21 @@ struct semiBoldCaption2: ViewModifier{
     }
 }
 
+struct contactsStrength: ViewModifier {
+    var colorName: Color
+    
+    func body(content: Content) -> some View {
+        RoundedRectangle(cornerRadius: 4)
+            .frame(width: 64,height: 24)
+            .foregroundColor(colorName)
+            .overlay() {
+                content
+                    .modifier(regularCaption1(colorName: Fontcolor.fontBlack.colorName))
+            }
+
+    }
+}
+
 enum Fontcolor{
     case fontBlack
     case fontGray
