@@ -8,7 +8,7 @@
 import SwiftUI
 import Contacts
 
-struct newContactsView: View {
+struct addContactsView: View {
     
     let contactsDetailArr = ["이름 *", "연락처", "이메일", "LinkedIn"]
     let contactsModalArr = ["회사", "직무 *"]
@@ -21,6 +21,8 @@ struct newContactsView: View {
     @State private var userImgModal = false
     @State private var userName = "김앤디" // coredate 연동해야함
     @State private var userImgIdx = 0 // coredate 연동해야함
+    
+    @State var strengthCount = 7
     
     var body: some View {
         NavigationView{
@@ -43,12 +45,16 @@ struct newContactsView: View {
                     contactsTextField(inputCondition: contactsDetailArr[0], text: "", option: 0)
                     
                     ForEach(0..<2){ i in
-                        contactsModalText(inputCondition: contactsModalArr[i], text: "")
+                        contactsJobCompany(inputCondition: contactsModalArr[i], text: "")
                     }
                     
                     ForEach(1..<4){ i in
                         contactsTextField(inputCondition: contactsDetailArr[i], text: "", option: i)
                     }
+                    
+                    contactsStrengthField(inputStrength: strengthCount)
+                    
+                    //선택된 강점 표시 부분
                     
                 }
             }

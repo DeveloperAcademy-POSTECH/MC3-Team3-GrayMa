@@ -1,25 +1,20 @@
 //
-//  contactsModalText.swift
+//  contactsStrength.swift
 //  Dots
 //
-//  Created by Kim Andrew on 2023/07/18.
+//  Created by Kim Andrew on 2023/07/19.
 //
 
 import SwiftUI
 
-struct contactsModalText: View {
-    
-    //textField가 기본적으로 가져야할 옵션 컨트롤
-    @State var inputCondition : String
-    
-    //선택된 회사 혹은 직무를 표시
-    @State var text : String
-    
+struct contactsStrengthField: View {
+
     //모달 컨트롤
     @State private var modalVissable = false
     
     //input error 컨트롤
-    @State var inputError = false
+    @State var inputStrength : Int
+    @State var maxStrength = 6
     @State var textColor = Color.black
     @State var fieldColor = Color.gray
     let errorMessage = ["직무는 필수 조건입니다."]
@@ -27,7 +22,7 @@ struct contactsModalText: View {
     var body: some View {
         VStack (alignment: .leading) {
             
-            Text("\(inputCondition)")
+            Text("강점 *")
                 .foregroundColor(textColor)
             
             ZStack {
@@ -38,7 +33,7 @@ struct contactsModalText: View {
                         .foregroundColor(.black)
                         .frame(width: 19,height: 20)
                     
-                    Text("\(text)")
+                    Text("최대 6개까지 등록할 수 있습니다.")
                     
                     Spacer()
                 }
@@ -51,34 +46,17 @@ struct contactsModalText: View {
                     .sheet(isPresented: $modalVissable) { ModalView()}
                 .frame(width: 361, height: 56)
             }
-            
+        
             //모달에서 직무가 하나라도 있는지 리턴 받아야함
-            Text("\(errorMessage[0])")
+            Text("직무는 필수 조건입니다.")
                 .foregroundColor(textColor)
-                .opacity(inputError ? 1 : 0)
+                .opacity(inputStrength < maxStrength ? 1 : 0)
         }
     }
 }
 
-//임시 모달뷰
-struct ModalView: View {
-    @Environment(\.presentationMode) var presentationMode
-    
-    var body: some View {
-        VStack {
-            Text("This is a modal view")
-            
-            Button("Close") {
-                presentationMode.wrappedValue.dismiss()
-            }
-        }
-        .padding()
-    }
-}
-
-
-struct contactsModalText_Previews: PreviewProvider {
+struct contactsStrength_Previews: PreviewProvider {
     static var previews: some View {
-        contactsModalText(inputCondition: "회사", text: "놉")
+        contactsStrengthField(inputStrength: 0)
     }
 }
