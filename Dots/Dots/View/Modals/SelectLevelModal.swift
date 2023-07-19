@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct SelectLevelModal: View {
-    @Environment(\.presentationMode) var presentaition
-    let Images = ["weakdot","moderate dot","strong dot"]
+    @Environment(\.presentationMode) var presentation
+    @EnvironmentObject var dotsModel: DotsModel
+    let images = StrengthLevelImage.allCases
     let levels = ["하","중","상"]
     @Binding var strengthName: String
     @Binding var pageNum: Int
-    @Binding var levelList: [String]
-    @Binding var strengthList : [String]
-    @Binding var selectedLevel : String
-    @Binding var level : String
+    @Binding var selectedLevel : Int
+    
     var body: some View {
         VStack{
             HStack{
@@ -24,25 +23,22 @@ struct SelectLevelModal: View {
                     .font(.system(.title3))
                     .bold()
                 Spacer()
-                CloseBtn(btncolor: Fontcolor.fontGray.colorName, action: {presentaition.wrappedValue.dismiss()})
+                CloseBtn(btncolor: Fontcolor.fontGray.colorName, action: {presentation.wrappedValue.dismiss()})
             }
             .frame(maxWidth: .infinity)
             .padding(.leading,16)
             .padding(.trailing,21)
             HStack{
-                ForEach (Images.indices, id: \.self) { index in
-                    Image(Images[index])
+                ForEach (images.indices, id: \.self) { index in
+                    Image(images[index].rawValue)
                         .resizable()
                         .frame(width: 88,height: 88)
                         .onTapGesture {
-                            selectedLevel = Images[index]
-                            print(selectedLevel)
-                            level = levels[index]
-                            print(level)
+                            selectedLevel = index
                         }
                         .overlay(){
                             Circle()
-                                .strokeBorder(selectedLevel == Images[index] ? Color.blue : Color.clear,lineWidth: 3)
+                                .strokeBorder(images[selectedLevel] == images[index] ? Color.blue : Color.clear,lineWidth: 3)
                                 .frame(width: 88,height: 88)
                         }
                     
@@ -55,11 +51,9 @@ struct SelectLevelModal: View {
                 SelectBtn(fontWeight: .regular, content: "이전", textColor: .black, btnColor: .gray, action: {pageNum -= 1})
                 Spacer()
                 // 데이터 베이스 연결시에는 데이터 베이스 저장을 해야하는 버튼
-                SelectBtn(fontWeight: .bold, content: "저장", textColor: .white, btnColor: .blue, action: {presentaition.wrappedValue.dismiss()
-                    strengthList.append(strengthName)
-                    levelList.append(selectedLevel)
-                    print(levelList)
-                    print(strengthList)
+                SelectBtn(fontWeight: .bold, content: "저장", textColor: .white, btnColor: .blue, action: {
+                    dotsModel.addMyStrength(strengthLevel: Int16(selectedLevel), strengthName: strengthName)
+                    presentation.wrappedValue.dismiss()
                 })
             }
             .padding(.horizontal,16)
