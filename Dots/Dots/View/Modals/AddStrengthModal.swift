@@ -20,13 +20,6 @@ struct AddStrengthModal: View {
     var body: some View {
         NavigationView {
             VStack(alignment: .center, spacing: isKeyboardVisible ? 0 : 40) {
-//                HStack{
-//                    Text("강점 추가")
-//                        .font(.system(.title3))
-//                    Spacer()
-//                    CloseBtn(btncolor: Fontcolor.fontGray.colorName, action: )
-//                }
-//                .border(.red)
                 RoundedRectangle(cornerRadius: 40)
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
@@ -59,12 +52,13 @@ struct AddStrengthModal: View {
                             }
                         }
                     }
-                
+                // 키보드가 나타났을때에는 ScrollView가 나타남
                 if isKeyboardVisible {
-                        ZStack{
+                        ZStack {
                             RoundedRectangle(cornerRadius: 12)
                                 .stroke(Color.gray,lineWidth:0.5)
                                 .foregroundColor(.white)
+                            // db에 있는 값들을 리스트로 띄움
                                 ScrollView {
                                     ForEach(samples.indices, id: \.self) { i in
                                         StrengthList(strength: samples[i], strengthName: $strengthName)
@@ -77,7 +71,7 @@ struct AddStrengthModal: View {
                         .padding(.top,10)
                         .frame(height: 200)
                 } else {
-                    VStack{
+                    VStack {
                         HStack {
                             SelectBtn(fontWeight: .regular, content: "이전", textColor: .gray, btnColor: .accentColor, action:{ presentation.wrappedValue.dismiss()})
                             SelectBtn(fontWeight: .bold, content: "다음", textColor: .white, btnColor: .blue,action: {
@@ -99,6 +93,7 @@ struct AddStrengthModal: View {
                 }
    
             }
+            // MARK: 키보드가 나타났을때를 감지
             .onAppear {
                 NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
                     isKeyboardVisible = true
