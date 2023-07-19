@@ -24,6 +24,10 @@
 		3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */; };
 		3D0B1F242A654BD20012A6F4 /* DotsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F232A654BD20012A6F4 /* DotsModel.swift */; };
 		3D0B1F262A6773FC0012A6F4 /* Ex+DotsModel_Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F252A6773FC0012A6F4 /* Ex+DotsModel_Create.swift */; };
+		A1349E332A64E81C0006611C /* newContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* newContactsView.swift */; };
+		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
+		A1349E372A6618190006611C /* contactsModalText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsModalText.swift */; };
+		A1349E392A6685F70006611C /* contactsMemoField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E382A6685F70006611C /* contactsMemoField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsDataManager.swift; sourceTree = "<group>"; };
 		3D0B1F232A654BD20012A6F4 /* DotsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsModel.swift; sourceTree = "<group>"; };
 		3D0B1F252A6773FC0012A6F4 /* Ex+DotsModel_Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Ex+DotsModel_Create.swift"; path = "../../../../../Documents/Ex+DotsModel_Create.swift"; sourceTree = "<group>"; };
+		A1349E322A64E81C0006611C /* newContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = newContactsView.swift; sourceTree = "<group>"; };
+		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
+		A1349E362A6618190006611C /* contactsModalText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsModalText.swift; sourceTree = "<group>"; };
+		A1349E382A6685F70006611C /* contactsMemoField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsMemoField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +142,10 @@
 				136AAC822A66E37400CA3797 /* StrengthModal.swift */,
 				137997862A64C661008F5F01 /* MainView.swift */,
 				137997852A64C651008F5F01 /* Component */,
+				A1349E322A64E81C0006611C /* newContactsView.swift */,
+				A1349E342A64E9F90006611C /* contactsTextField.swift */,
+				A1349E362A6618190006611C /* contactsModalText.swift */,
+				A1349E382A6685F70006611C /* contactsMemoField.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -218,9 +230,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1349E392A6685F70006611C /* contactsMemoField.swift in Sources */,
 				136AAC7A2A66E2D500CA3797 /* SelectLevelModal.swift in Sources */,
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
 				3D0B1F262A6773FC0012A6F4 /* Ex+DotsModel_Create.swift in Sources */,
+				A1349E372A6618190006611C /* contactsModalText.swift in Sources */,
 				136AAC832A66E37400CA3797 /* StrengthModal.swift in Sources */,
 				136AAC762A66E29600CA3797 /* AddStrengthModal.swift in Sources */,
 				3D0B1F242A654BD20012A6F4 /* DotsModel.swift in Sources */,
@@ -229,6 +243,9 @@
 				136AAC802A66E33800CA3797 /* CustomList.swift in Sources */,
 				136AAC7C2A66E30E00CA3797 /* SelectBtn.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
+				A1349E332A64E81C0006611C /* newContactsView.swift in Sources */,
+				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
+				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 				136AAC722A66D5F200CA3797 /* TextModifier.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 				136AAC742A66E25100CA3797 /* MyStrengthView.swift in Sources */,
@@ -361,6 +378,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
+				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -389,6 +407,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
+				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
