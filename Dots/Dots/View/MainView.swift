@@ -17,10 +17,10 @@ struct MainView: View {
                 }
             
             SearchConnectionView()
-            .tabItem {
-                Image(systemName: "star.fill")
-                Text("인맥 관리")
-            }
+                .tabItem {
+                    Image(systemName: "star.fill")
+                    Text("인맥 관리")
+                }
         }
     }
 }

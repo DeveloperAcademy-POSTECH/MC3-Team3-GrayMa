@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct SearchConnectionView: View {
+    @EnvironmentObject var dotsModel: DotsModel
     @State var name: String = ""
-    var names: [String] = ["신채은","신채은","신채은","신채은"]
-    var companys: [String] = ["토스,LG U+","삼성전자","POSCO","OP.GG","카카오뱅크"]
-    var jobs: [String] = ["ios개발","ios개발","안드로이드 개발","ios 개발","ios 개발","ios개발"]
+    
     var body: some View {
         NavigationStack{
             VStack{
@@ -68,9 +67,8 @@ struct SearchConnectionView: View {
                     }
                     .padding(.horizontal,16)
                 ScrollView{
-                    ForEach(names.indices,id: \.self) {i in
-                        CustomConnectionList(name: names[i], company: companys[i], job: jobs[i], strengths: ["논리적 사고", "Core Data"])
-                        
+                    ForEach(dotsModel.networkingPeople) { person in
+                        CustomConnectionList(entity: person)
                     }
                     .padding(.top,15)
                     

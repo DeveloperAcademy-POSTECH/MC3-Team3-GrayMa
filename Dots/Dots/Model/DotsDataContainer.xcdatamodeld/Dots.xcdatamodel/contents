@@ -24,6 +24,7 @@
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="job" optional="YES" attributeType="String"/>
         <attribute name="linkedIn" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="peopleID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="networkingNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NetworkingNoteEntity" inverseName="relatedPerson" inverseEntity="NetworkingNoteEntity"/>
         <relationship name="strengthSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StrengthEntity" inverseName="networkingPeople" inverseEntity="StrengthEntity"/>
