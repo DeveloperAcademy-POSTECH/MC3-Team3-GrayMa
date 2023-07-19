@@ -12,15 +12,13 @@ struct MainView: View {
         TabView{
             MyStrengthView()
                 .tabItem {
-                    Text("\(Image(systemName: "star.fill"))")
+                    Image(systemName: "star.fill")
                     Text("내 강점")
                 }
             
-            VStack{
-                Text("asdf")
-            }
+            SearchConnectionView()
             .tabItem {
-                Text("\(Image(systemName: "star.fill"))")
+                Image(systemName: "star.fill")
                 Text("인맥 관리")
             }
         }

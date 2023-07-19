@@ -8,9 +8,10 @@
 import SwiftUI
 
 struct MyStrengthView: View {
-    @State var levelList: [String] = []
-    @State var strengthList : [String] = []
+    
+    @EnvironmentObject var dotsModel: DotsModel
     @State var showModal = false
+    
     var body: some View {
         NavigationStack{
             VStack {
@@ -19,8 +20,8 @@ struct MyStrengthView: View {
                     .frame(height: 282)
                     .padding(.horizontal,16)
                     .shadow(radius: 2)
-                ScrollView{
-                    if levelList.count == 0{
+                ScrollView {
+                    if dotsModel.myStrength.isEmpty {
                         RoundedRectangle(cornerRadius: 12)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
@@ -36,9 +37,9 @@ struct MyStrengthView: View {
                                 }
                             }
                     }
-                    else{
-                        ForEach(strengthList.indices,id: \.self){index in
-                            CustomList(imageName: levelList[index], strength: strengthList[index])
+                    else {
+                        ForEach(dotsModel.myStrength, id: \.self) { strength in
+                            CustomList(entity: strength)
                         }
                     }
                     
@@ -49,7 +50,7 @@ struct MyStrengthView: View {
             .navigationBarItems(leading: HStack { Text("강점").font(.system(size: 24)) })
             .navigationBarItems(trailing: HStack { Button(action: { self.showModal = true }) { Image(systemName: "plus").foregroundColor(.black) } })
             .sheet(isPresented: $showModal){
-                StrengthModal(levelList: $levelList, strengthList: $strengthList)
+                StrengthModal()
                     .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
             }
             
@@ -63,5 +64,6 @@ struct MyStrengthView: View {
 struct MyStrengthView_Previews: PreviewProvider {
     static var previews: some View {
         MyStrengthView()
+            .environmentObject(DotsModel())
     }
 }
