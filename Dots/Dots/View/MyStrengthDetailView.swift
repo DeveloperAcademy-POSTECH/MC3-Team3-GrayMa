@@ -11,6 +11,7 @@ struct MyStrengthDetailView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var dotsModel: DotsModel
+    @State var showLevelModal = false
     @State var showModal = false
     
     var body: some View {
@@ -38,7 +39,9 @@ struct MyStrengthDetailView: View {
                     .padding(.bottom, 14)
                 }
                 
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                Button(action: {
+                    self.showModal = true
+                }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
                         HStack {
@@ -81,12 +84,15 @@ struct MyStrengthDetailView: View {
                 }
             }
             .navigationBarItems(leading: backButton, trailing: Button(action: {
-                self.showModal = true
+                self.showLevelModal = true
             }) { Text("레벨 선택") })
             .navigationBarBackButtonHidden(true)
-            .sheet(isPresented: $showModal){
+            .sheet(isPresented: $showLevelModal){
                 StrengthModal(pagenum: 1)
                     .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
+            }
+            .sheet(isPresented: $showModal){
+                StrengthNoteModal()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.95, green: 0.95, blue: 0.97))
