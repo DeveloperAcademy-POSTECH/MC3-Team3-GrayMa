@@ -33,7 +33,7 @@ struct contactsMemoField: View {
                     //모달 네비게이션뷰
                     NavigationView{
                         memoModalView(modalMemoText: memoText)
-                        //모달의 취소, 거장
+                        //모달의 취소, 저장
                             .navigationBarItems(leading:Button("취소"){modalVissable = false}, trailing: Button("저장"){ print("\(memoDate)")})
                     }
                 }
@@ -55,7 +55,7 @@ struct memoModalView: View {
                 TextField("상대에 대해 남기고 싶은 점을 자유롭게 기록해주세요.", text: $modalMemoText)
             }
         }
-        .navigationBarTitle("Custom Title \u{F0026}")
+        .navigationBarTitle(Text("Custom Title \u{F0026}"))
         .navigationBarTitleDisplayMode(.inline)
     }
 }
