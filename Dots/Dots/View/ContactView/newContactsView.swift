@@ -17,14 +17,24 @@ struct newContactsView: View {
     @State private var userDetailInput = ["","","",""]
     @State private var userModalInput = ["",""]
     
+    //유저 이미지 모달 컨트롤
+    @State private var userImgModal = false
+    
+    
     var body: some View {
         NavigationView{
-            ScrollView{
+            ScrollView(showsIndicators: false){
                 
                 //이미지 추가
-                HStack{
-                    Image(systemName: "pencil")
-                }
+                contactsImageSelect(userName: "김앤디")
+                    .onTapGesture {
+                        userImgModal = true
+                    }
+                    .sheet(isPresented: $userImgModal) {
+                        ProfileImageModal()
+                            .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
+                    }
+                
                 
                 VStack (alignment: .leading){
                     
