@@ -7,26 +7,19 @@
 
 import SwiftUI
 
-struct DummyNoteEntity: Hashable {
-    var content: String
-    var date: Date
-}
-
-var dummyNoteData: [DummyNoteEntity] = [
-    DummyNoteEntity(content: "Grid System\nContents", date: Date().addingTimeInterval(-1000)),
-    DummyNoteEntity(content: "First line\nSecond line", date: Date().addingTimeInterval(-70000)),
-    DummyNoteEntity(content: "Database Study", date: Date().addingTimeInterval(-250000))
-]
-
 struct CustomDetailList: View {
-    var entity: DummyNoteEntity
+    let noteEntity: MyStrengthNoteEntity
     
     var titleText: String {
-        let splitContent = entity.content.split(separator: "\n")
+        guard let content = noteEntity.content else { return "" }
+        
+        let splitContent = content.split(separator: "\n")
         return String(splitContent.first ?? "제목")
     }
     var subtitleText: String {
-        let splitContent = entity.content.split(separator: "\n")
+        guard let content = noteEntity.content else { return "" }
+        
+        let splitContent = content.split(separator: "\n")
         return splitContent.count > 1 ? String(splitContent[1]) : "내용"
     }
     
@@ -35,18 +28,19 @@ struct CustomDetailList: View {
         let currentDate = Date()
         let startOfToday = calendar.startOfDay(for: currentDate)
         let startOfYesterday = calendar.startOfDay(for: calendar.date(byAdding: .day, value: -1, to: currentDate) ?? currentDate)
-
-        if let date = calendar.date(byAdding: .minute, value: 1, to: entity.date), date >= startOfToday {
+        
+        if let date = calendar.date(byAdding: .minute, value: 1, to: noteEntity.date!), date >= startOfToday {
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "ko_KR")
             dateFormatter.dateFormat = "a h:mm"
-            return dateFormatter.string(from: entity.date)
-        } else if let date = calendar.date(byAdding: .day, value: 1, to: entity.date), date >= startOfYesterday {
+            
+            return dateFormatter.string(from: noteEntity.date!)
+        } else if let date = calendar.date(byAdding: .day, value: 1, to: noteEntity.date!), date >= startOfYesterday {
             return "어제"
         } else {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy. MM. d"
-            return dateFormatter.string(from: entity.date)
+            return dateFormatter.string(from: noteEntity.date!)
         }
     }
     

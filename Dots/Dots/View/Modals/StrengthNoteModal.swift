@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StrengthNoteModal: View {
     @Environment(\.presentationMode) var presentation
+    @EnvironmentObject var dotsModel: DotsModel
     @State private var textFieldContent: String = ""
     @State private var date: Date = Date()
     @State private var showKeyboardToolbar: Bool = false
@@ -35,7 +36,9 @@ struct StrengthNoteModal: View {
                     Spacer()
                     
                     Button(action: {
-                        // 저장하는 기능
+                        // 저장 기능
+                        dotsModel.addMyNote(date: date, content: textFieldContent)
+                        presentation.wrappedValue.dismiss()
                     }) {
                         Text("저장")
                     }
