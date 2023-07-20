@@ -56,15 +56,23 @@ struct AddStrengthModal: View {
                 if isKeyboardVisible {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.gray,lineWidth:0.5)
+                            .stroke(Color.gray,lineWidth:1)
                             .foregroundColor(.white)
                         // db에 있는 값들을 리스트로 띄움
                         ScrollView {
-                            //sample에 filter를 걸어서 포함 되는 단어만 띄우는 반복문
-                            ForEach(samples.filter{$0.hasPrefix(strengthName) || strengthName == ""}, id:\.self) {
-                                filteredStrength in
-                                StrengthList(strength: filteredStrength, strengthName: $strengthName)
+                            //sample에 filter를 걸어서 포함 되는 단어만 띄우는 반복문 만약 필터에 해당 되는 것이 없다면 직접 입력하라고 리턴
+                            if samples.filter({ $0.hasPrefix(strengthName) || strengthName.isEmpty }).isEmpty {
+                                Text("검색 결과가 없습니다. 직접입력해주세요")
+                                    .padding(.top,10)
+                                    .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                            } else {
+                                ForEach(samples.filter{$0.hasPrefix(strengthName) || strengthName == ""}, id:\.self) {
+                                    filteredStrength in
+                                    StrengthList(strength: filteredStrength, strengthName: $strengthName)
+                                }
+                                
                             }
+                          
                         }
                     }
                     .padding(.top,10)
