@@ -66,16 +66,23 @@ struct SearchConnectionView: View {
                         }
                     }
                     .padding(.horizontal,16)
-                ScrollView{
+                List {
                     ForEach(dotsModel.networkingPeople) { person in
                         CustomConnectionList(entity: person)
                     }
+                    .onDelete(perform: removeConnection)
                     .padding(.top,15)
-                    
                 }
+                .listStyle(.plain)
                
             }
         }
         
+    }
+}
+
+extension SearchConnectionView {
+    func removeConnection(at offsets: IndexSet) {
+        dotsModel.deleteConnection(offsets: offsets)
     }
 }
