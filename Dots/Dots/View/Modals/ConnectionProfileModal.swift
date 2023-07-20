@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ConnectionProfileModal: View {
-    // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity)
-    let profileIdx = 1
-    let phoneNum = "010-0000-0000"
-    let mailAdd = "apple@academy.com"
-    let linkedinLink = "http://linkedin.com/in/upub"
+    let person: NetworkingPersonEntity
+    
+//    // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity)
+//    let profileIdx = 1
+//    let phoneNum = "010-0000-0000"
+//    let mailAdd = "apple@academy.com"
+//    let linkedinLink = "http://linkedin.com/in/upub"
     
     // 데이터 연동 필요 - 메모(NetworkingNoteEntity)
     
@@ -20,7 +22,7 @@ struct ConnectionProfileModal: View {
         ZStack {
             Color.white
             VStack(spacing: 25) {
-                BasicProfile()
+                BasicProfile(name: person.name, company: person.company, job: person.job)
                 HStack {
                     ZStack {
                         Image("profileImageBackground")
@@ -28,13 +30,14 @@ struct ConnectionProfileModal: View {
                             .scaledToFit()
                             .frame(height: 105)
                         
-                        Image("user_default_profile \(profileIdx)")
+                        Image("user_default_profile \(person.profileImageIndex)")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 88)
                     }
                     Spacer()
-                    ContactButtons(phoneNum: phoneNum, mailAdd: mailAdd, linkedinLink: linkedinLink)
+                    
+                    ContactButtons(phoneNum: person.contanctNum, mailAdd: person.email, linkedinLink: person.linkedIn)
                         .padding(.trailing, 15)
                 }
                 
@@ -66,9 +69,9 @@ struct ConnectionProfileModal: View {
 
 struct BasicProfile: View {
     // 데이터 연동 부분
-    let name = "신채은"
-    let company = "애플 디벨로퍼 아카데미"
-    let job = "iOS 개발"
+    let name: String?
+    let company: String?
+    let job: String?
     
     var body: some View {
         VStack {
@@ -79,11 +82,13 @@ struct BasicProfile: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 15) {
-                    Text("\(name)")
-                        .modifier(boldTitle1(colorName: Fontcolor.fontBlack.colorName))
-                    HStack {
-                        Text("\(company) ﹒ \(job)")
-                            .modifier(regularBody(colorName: Fontcolor.fontGray.colorName))
+                    if let name = name, let company = company, let job = job {
+                        Text("\(name)")
+                            .modifier(boldTitle1(colorName: Fontcolor.fontBlack.colorName))
+                        HStack {
+                            Text("\(company) ﹒ \(job)")
+                                .modifier(regularBody(colorName: Fontcolor.fontGray.colorName))
+                        }
                     }
                 }
                 .padding(.leading, 17)
@@ -316,6 +321,6 @@ struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
 
 struct ConnectionProfileModal_Previews: PreviewProvider {
     static var previews: some View {
-        ConnectionProfileModal()
+        ConnectionProfileModal(person: NetworkingPersonEntity())
     }
 }
