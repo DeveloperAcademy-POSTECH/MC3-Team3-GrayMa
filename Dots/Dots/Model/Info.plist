@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>NSContactsUsageDescription</key>
-	<string></string>
+	<string>전화번호 접근권한을 허용해주세요</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 </dict>

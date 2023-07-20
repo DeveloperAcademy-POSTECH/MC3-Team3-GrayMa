@@ -6,10 +6,15 @@
 //
 
 import SwiftUI
+import Contacts
 
 struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var name: String = ""
+    
+    //연락처 가져오는 Arr
+    //let store = CNContactStore() //리퀘스트 접근 객체
+    var contacts : [CNContact] = []
     
     //actionsheet 컨트롤 변수
     @State var actionSheetvisable = false
@@ -40,7 +45,9 @@ struct SearchConnectionView: View {
                         .default(Text("연락처에서 가져오기")) {
                             // Option 1 선택 시 실행할 동작
                             //MARK: 연락처 연동 필요
-                            navigationActive = true
+                            //navigationActive = true
+                            fetchContacts()
+                            //navigationActive = true
                         },
                         .default(Text("새로 입력하기")) {
                             // Option 2 선택 시 실행할 동작
@@ -112,6 +119,22 @@ struct SearchConnectionView: View {
             }
         }
     }
+    
+    func fetchContacts() {
+            let store = CNContactStore()
+            let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
+            let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+            
+            do {
+                try store.enumerateContacts(with: request) { contact, stop in
+                    let name = contact.familyName + contact.givenName
+                    print("\(name)")
+                }
+            } catch {
+                print("Error fetching contacts: \(error)")
+            }
+        }
+    
 }
 
 extension SearchConnectionView {
