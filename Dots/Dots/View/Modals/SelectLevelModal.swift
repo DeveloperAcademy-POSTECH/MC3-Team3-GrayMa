@@ -17,51 +17,45 @@ struct SelectLevelModal: View {
     @Binding var selectedLevel : Int
     
     var body: some View {
-        VStack {
-            HStack {
-                Text("강점 레벨 선택")
-                    .font(.system(.title3))
-                    .bold()
-                Spacer()
-                CloseBtn(btncolor: Fontcolor.fontGray.colorName, action: {presentation.wrappedValue.dismiss()})
-            }
-            .frame(maxWidth: .infinity)
-            .padding(.leading,16)
-            .padding(.trailing,21)
-            HStack {
-                ForEach (images.indices, id: \.self) { index in
-                    Image(images[index].rawValue)
-                        .resizable()
-                        .frame(width: 88,height: 88)
-                        .onTapGesture {
-                            selectedLevel = index
-                        }
-                        .overlay() {
-                            Circle()
-                                .strokeBorder(images[selectedLevel] == images[index] ? Color.blue : Color.clear,lineWidth: 3)
-                                .frame(width: 88,height: 88)
-                        }
-                    
+        NavigationView {
+            VStack(spacing: 50) {
+                HStack {
+                    ForEach (images.indices, id: \.self) { index in
+                        Image(images[index].rawValue)
+                            .resizable()
+                            .frame(width: 88,height: 88)
+                            .onTapGesture {
+                                selectedLevel = index
+                            }
+                            .overlay() {
+                                Circle()
+                                    .strokeBorder(images[selectedLevel] == images[index] ? Color.blue : Color.clear,lineWidth: 3)
+                                    .frame(width: 88,height: 88)
+                            }
+                        
+                        
+                    }
                     
                 }
-                
+                .padding(.horizontal,30)
+                HStack {
+                    SelectBtn(fontWeight: .regular, content: "이전", textColor: .black, btnColor: .gray, action: {pageNum -= 1})
+                    Spacer()
+                    // 데이터 베이스 연결시에는 데이터 베이스 저장을 해야하는 버튼
+                    SelectBtn(fontWeight: .bold, content: "저장", textColor: .white, btnColor: .blue, action: {
+                        dotsModel.addMyStrength(strengthLevel: Int16(selectedLevel), strengthName: strengthName)
+                        presentation.wrappedValue.dismiss()
+                    })
+                }
+                .padding(.horizontal,16)
             }
-            .padding(.horizontal,30)
-            HStack {
-                SelectBtn(fontWeight: .regular, content: "이전", textColor: .black, btnColor: .gray, action: {pageNum -= 1})
-                Spacer()
-                // 데이터 베이스 연결시에는 데이터 베이스 저장을 해야하는 버튼
-                SelectBtn(fontWeight: .bold, content: "저장", textColor: .white, btnColor: .blue, action: {
-                    dotsModel.addMyStrength(strengthLevel: Int16(selectedLevel), strengthName: strengthName)
-                    presentation.wrappedValue.dismiss()
-                })
-            }
+            .allowsTightening(true)
             .padding(.horizontal,16)
+            .frame(width: UIScreen.main.bounds.width)
+            
+            .navigationBarItems(leading: Text("강점 레벨 선택").modifier(semiBoldTitle3(colorName: Fontcolor.fontBlack.colorName)))
         }
-        .interactiveDismissDisabled()
-        .allowsTightening(true)
-        .padding(.horizontal,16)
-        .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height / 4)
-        .fixedSize()
+       
+        
     }
 }
