@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct contactsMemoField: View {
+struct contactsMemo: View {
     
     @State private var memoDate = Date()
     @State private var memoText = ""
@@ -63,6 +63,6 @@ struct memoModalView: View {
 
 struct contactsMemoField_Previews: PreviewProvider {
     static var previews: some View {
-        contactsMemoField()
+        contactsMemo()
     }
 }

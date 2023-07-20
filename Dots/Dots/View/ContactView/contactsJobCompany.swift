@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct contactsModalText: View {
+struct contactsJobCompany: View {
     
     //textField가 기본적으로 가져야할 옵션 컨트롤
     @State var inputCondition : String
@@ -48,7 +48,7 @@ struct contactsModalText: View {
                 RoundedRectangle(cornerRadius: 40)
                     .strokeBorder(Color.gray, lineWidth: 1)
                     .onTapGesture{ modalVissable = true }
-                    .sheet(isPresented: $modalVissable) { ModalView()}
+                    .sheet(isPresented: $modalVissable) { bindingModalView(text: $text)}
                 .frame(width: 361, height: 56)
             }
             
@@ -61,13 +61,16 @@ struct contactsModalText: View {
 }
 
 //임시 모달뷰
-struct ModalView: View {
+struct bindingModalView: View {
     @Environment(\.presentationMode) var presentationMode
+    
+    @Binding var text : String
     
     var body: some View {
         VStack {
-            Text("This is a modal view")
-            
+            Text("임시 모달뷰")
+            TextField("", text: $text)
+                .border(.blue)
             Button("Close") {
                 presentationMode.wrappedValue.dismiss()
             }
@@ -79,6 +82,6 @@ struct ModalView: View {
 
 struct contactsModalText_Previews: PreviewProvider {
     static var previews: some View {
-        contactsModalText(inputCondition: "회사", text: "놉")
+        contactsJobCompany(inputCondition: "회사", text: "놉")
     }
 }
