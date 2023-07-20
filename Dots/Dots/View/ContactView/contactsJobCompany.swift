@@ -48,7 +48,7 @@ struct contactsJobCompany: View {
                 RoundedRectangle(cornerRadius: 40)
                     .strokeBorder(Color.gray, lineWidth: 1)
                     .onTapGesture{ modalVissable = true }
-                    .sheet(isPresented: $modalVissable) { ModalView()}
+                    .sheet(isPresented: $modalVissable) { bindingModalView(text: $text)}
                 .frame(width: 361, height: 56)
             }
             
@@ -61,13 +61,16 @@ struct contactsJobCompany: View {
 }
 
 //임시 모달뷰
-struct ModalView: View {
+struct bindingModalView: View {
     @Environment(\.presentationMode) var presentationMode
+    
+    @Binding var text : String
     
     var body: some View {
         VStack {
-            Text("This is a modal view")
-            
+            Text("임시 모달뷰")
+            TextField("", text: $text)
+                .border(.blue)
             Button("Close") {
                 presentationMode.wrappedValue.dismiss()
             }

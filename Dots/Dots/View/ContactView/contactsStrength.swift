@@ -19,6 +19,8 @@ struct contactsStrengthField: View {
     @State var fieldColor = Color.gray
     let errorMessage = ["직무는 필수 조건입니다."]
     
+    @Binding var strengthText : String
+    
     var body: some View {
         VStack (alignment: .leading) {
             
@@ -43,7 +45,7 @@ struct contactsStrengthField: View {
                 RoundedRectangle(cornerRadius: 40)
                     .strokeBorder(Color.gray, lineWidth: 1)
                     .onTapGesture{ modalVissable = true }
-                    .sheet(isPresented: $modalVissable) { ModalView()}
+                    .sheet(isPresented: $modalVissable) { bindingModalView (text: $strengthText)}
                 .frame(width: 361, height: 56)
             }
         
@@ -55,8 +57,9 @@ struct contactsStrengthField: View {
     }
 }
 
-struct contactsStrength_Previews: PreviewProvider {
-    static var previews: some View {
-        contactsStrengthField(inputStrength: 0)
-    }
-}
+
+//struct contactsStrength_Previews: PreviewProvider {
+//    static var previews: some View {
+//        contactsStrengthField(inputStrength: 0,strengthText: "ㅎㅇ")
+//    }
+//}

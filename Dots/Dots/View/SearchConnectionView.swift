@@ -12,9 +12,9 @@ struct SearchConnectionView: View {
     @State var name: String = ""
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             VStack{
-                HStack{
+                HStack {
                     Spacer()
                     NavigationLink(destination: EmptyView()) {
                         Image(systemName: "plus")
@@ -66,6 +66,7 @@ struct SearchConnectionView: View {
                         }
                     }
                     .padding(.horizontal,16)
+              
                 List {
                     ForEach(dotsModel.networkingPeople) { person in
                         CustomConnectionList(entity: person)
@@ -74,7 +75,6 @@ struct SearchConnectionView: View {
                     .padding(.top,15)
                 }
                 .listStyle(.plain)
-               
             }
         }
         
