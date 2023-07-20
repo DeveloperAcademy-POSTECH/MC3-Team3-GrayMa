@@ -8,7 +8,13 @@
 import SwiftUI
 
 struct ConnectionProfileModal: View {
+    // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity)
     let profileIdx = 1
+    let phoneNum = "010-0000-0000"
+    let mailAdd = "apple@academy.com"
+    let linkedinLink = "http://linkedin.com/in/upub"
+    
+    // 데이터 연동 필요 - 메모(NetworkingNoteEntity)
     
     var body: some View {
         ZStack {
@@ -28,7 +34,7 @@ struct ConnectionProfileModal: View {
                             .frame(width: 88)
                     }
                     Spacer()
-                    ContactButtons(phoneNum: "010-0000-0000", mailAdd: "apple@academy.com", linkedinLink: "http://linkedin.com/in/upub")
+                    ContactButtons(phoneNum: "\(phoneNum)", mailAdd: "\(mailAdd)", linkedinLink: "\(linkedinLink)")
                         .padding(.trailing, 15)
                 }
                 
@@ -59,6 +65,11 @@ struct ConnectionProfileModal: View {
 }
 
 struct BasicProfile: View {
+    // 데이터 연동 부분
+    let name = "신채은"
+    let company = "애플 디벨로퍼 아카데미"
+    let job = "iOS 개발"
+    
     var body: some View {
         VStack {
             Capsule()
@@ -68,10 +79,10 @@ struct BasicProfile: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 15) {
-                    Text("신채은")     // 이름 데이터 연동 필요
+                    Text("\(name)")     // 이름 데이터 연동 필요
                         .modifier(boldTitle1(colorName: Fontcolor.fontBlack.colorName))
                     HStack {
-                        Text("애플 디벨로퍼 아카데미 ﹒ iOS 개발")    // 직장, 직무 데이터 연동 필요
+                        Text("\(company) ﹒ \(job)")    // 직장, 직무 데이터 연동 필요
                             .modifier(regularBody(colorName: Fontcolor.fontGray.colorName))
                     }
                 }
