@@ -11,6 +11,7 @@ import Contacts
 struct addContactsView: View {
     //다른 뷰에서 닫기 컨트롤을 위한 변수
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var dotsModel: DotsModel
     
     let contactsDetailArr = ["이름 *", "연락처", "이메일", "LinkedIn"]
     let contactsModalArr = ["회사", "직무 *"]
@@ -40,12 +41,12 @@ struct addContactsView: View {
             ScrollView(showsIndicators: false){
                 
                 //이미지 추가
-                contactsImageSelect(userName: coreDataUserName)
+                contactsImageSelect(userName: coreDataUserName, coreDataUserIdx: $coreDataUSerProfileImgIdx)
                     .onTapGesture {
                         userImgModal = true
                     }
                     .sheet(isPresented: $userImgModal) {
-                        ProfileImageModal(userName: coreDataUserName, userImageIdx: coreDataUSerProfileImgIdx)
+                        ProfileImageModal(userName: coreDataUserName, userImageIdx: $coreDataUSerProfileImgIdx)
                             .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
                     }
                 
@@ -79,6 +80,7 @@ struct addContactsView: View {
                             .foregroundColor(.blue)
                             .onTapGesture {
                                 userInputToCoreData()
+                                dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
                             })
     }
     

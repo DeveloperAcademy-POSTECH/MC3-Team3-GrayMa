@@ -11,7 +11,7 @@ struct contactsUserProfile: View {
 
     //유저 프로필 정보
     @State var userName : String
-    @State var CoreDatauserProfileIdx : Int
+    @Binding var CoreDatauserProfileIdx : Int
     
     var body: some View {
         profileIamgeSelect(CoreDataUserIdx: $CoreDatauserProfileIdx, userName: userName)
