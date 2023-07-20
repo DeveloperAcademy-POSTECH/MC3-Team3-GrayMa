@@ -6,20 +6,16 @@
 //
 
 import SwiftUI
-import Contacts
 
 struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var name: String = ""
     
-    //연락처 가져오는 Arr
-    //let store = CNContactStore() //리퀘스트 접근 객체
-    var contacts : [CNContact] = []
-    
     //actionsheet 컨트롤 변수
-    @State var actionSheetvisable = false
+    @State var actionSheetvisible = false
     
     //인맥추가 navigationLink 컨트롤 변수
+    @State var contactsSelectListvisible = false
     @State private var navigationActive = false
     
     var body: some View {
@@ -32,13 +28,13 @@ struct SearchConnectionView: View {
                             .frame(width: 30,height: 34)
                             .foregroundColor(.black)
                             .onTapGesture {
-                                actionSheetvisable = true
+                                actionSheetvisible = true
                             }
                     }
                 }
                 .padding(.trailing,20)
             }
-            .actionSheet(isPresented: $actionSheetvisable){
+            .actionSheet(isPresented: $actionSheetvisible){
                 ActionSheet(
                     title: Text("인맥추가"),
                     buttons: [
@@ -46,8 +42,7 @@ struct SearchConnectionView: View {
                             // Option 1 선택 시 실행할 동작
                             //MARK: 연락처 연동 필요
                             //navigationActive = true
-                            fetchContacts()
-                            //navigationActive = true
+                            contactsSelectListvisible = true
                         },
                         .default(Text("새로 입력하기")) {
                             // Option 2 선택 시 실행할 동작
@@ -115,28 +110,17 @@ struct SearchConnectionView: View {
             }
             .listStyle(.plain)
         }
+        .fullScreenCover(isPresented: $contactsSelectListvisible){
+            NavigationView{
+                ContactsSelectListView()
+            }
+        }
         .fullScreenCover(isPresented: $navigationActive) {
             NavigationView{
                 addContactsView()
             }
         }
     }
-    
-    func fetchContacts() {
-            let store = CNContactStore()
-            let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
-            let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
-            
-            do {
-                try store.enumerateContacts(with: request) { contact, stop in
-                    let name = contact.familyName + contact.givenName
-                    print("\(name)")
-                }
-            } catch {
-                print("Error fetching contacts: \(error)")
-            }
-        }
-    
 }
 
 extension SearchConnectionView {
