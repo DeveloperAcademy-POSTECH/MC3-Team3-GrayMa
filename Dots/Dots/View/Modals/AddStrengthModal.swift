@@ -35,7 +35,7 @@ struct AddStrengthModal: View {
                             }
                             .padding(.leading,14)
                             TextField("예) 디자인 시스템", text: $strengthName)
-                                .onChange(of: strengthName){
+                                .onChange(of: strengthName) {
                                     newvalue in if strengthName.count > 20 {
                                         strengthName = String(strengthName.prefix(20))
                                     }
@@ -54,22 +54,29 @@ struct AddStrengthModal: View {
                     }
                 // 키보드가 나타났을때에는 ScrollView가 나타남
                 if isKeyboardVisible {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.gray,lineWidth:0.5)
-                                .foregroundColor(.white)
-                            // db에 있는 값들을 리스트로 띄움
-                                ScrollView {
-                                    ForEach(samples.indices, id: \.self) { i in
-                                        StrengthList(strength: samples[i], strengthName: $strengthName)
-                                        
-                                    }
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray,lineWidth:1)
+                            .foregroundColor(.white)
+                        // db에 있는 값들을 리스트로 띄움
+                        ScrollView {
+                            //sample에 filter를 걸어서 포함 되는 단어만 띄우는 반복문 만약 필터에 해당 되는 것이 없다면 직접 입력하라고 리턴
+                            if samples.filter({ $0.hasPrefix(strengthName) || strengthName.isEmpty }).isEmpty {
+                                Text("검색 결과가 없습니다. 직접입력해주세요")
+                                    .padding(.top,10)
+                                    .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                            } else {
+                                ForEach(samples.filter{$0.hasPrefix(strengthName) || strengthName == ""}, id:\.self) {
+                                    filteredStrength in
+                                    StrengthList(strength: filteredStrength, strengthName: $strengthName)
                                 }
+                                
+                            }
                           
-                            
                         }
-                        .padding(.top,10)
-                        .frame(height: 200)
+                    }
+                    .padding(.top,10)
+                    .frame(height: 200)
                 } else {
                     VStack {
                         HStack {
@@ -89,9 +96,9 @@ struct AddStrengthModal: View {
                             .frame(height: 50)
                         
                     }
-                      
+                    
                 }
-   
+                
             }
             // MARK: 키보드가 나타났을때를 감지
             .onAppear {
@@ -106,7 +113,6 @@ struct AddStrengthModal: View {
             .onDisappear {
                 NotificationCenter.default.removeObserver(self)
             }
-            .interactiveDismissDisabled()
             .allowsTightening(true)
             .padding(.horizontal,16)
             .frame(width: UIScreen.main.bounds.width)
@@ -118,9 +124,9 @@ struct AddStrengthModal: View {
                 Text("이미 나의 강점에 추가된 강점이거나, 존재하는 강점입니다.")
             }
             .navigationBarItems(leading: HStack { Text("강점").font(.system(size: 24)) })
-            .navigationBarItems(trailing: HStack { Button(action: { presentation.wrappedValue.dismiss()}) { Image(systemName: "plus").foregroundColor(.black) } })
             
             
         }
+        
     }
 }
