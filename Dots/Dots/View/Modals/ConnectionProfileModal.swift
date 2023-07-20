@@ -21,18 +21,13 @@ struct ConnectionProfileModal: View {
                             .scaledToFit()
                             .frame(height: 105)
                         
-                        Circle()
+                        Circle()    // 프로필 이미지 자리
                             .frame(width: 88)
                             .foregroundColor(.brown)
                     }
                     Spacer()
-                    ZStack {
-                        Image("contactButtonBackground")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 72)
-                    }
-                    .padding(.trailing, 15)
+                    ContactButtons(phoneNum: "010-0000-0000", mailAdd: "apple@academy.com", linkedinLink: "http://linkedin.com/in/upub")
+                        .padding(.trailing, 15)
                 }
                 
                 Button {
@@ -50,16 +45,7 @@ struct ConnectionProfileModal: View {
                 }
                 
                 ScrollView {
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                    ConnectionMemoItem(meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
+                    ConnectionMemoItem(title: "Landing page", meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
                 }
                 .padding(.top, -10)
                 .scrollIndicators(.hidden)
@@ -70,17 +56,144 @@ struct ConnectionProfileModal: View {
     }
 }
 
+struct ContactButtons: View {
+    @State private var pushMessage = false
+    @State private var pushCall = false
+    @State private var pushMail = false
+    
+    // 개인정보 - 입력 필요
+    let phoneNum: String
+    let mailAdd: String
+    let linkedinLink: String
+    
+    var body: some View {
+        ZStack {
+            Image("contactButtonBackground")
+                .resizable()
+                .scaledToFit()
+                .frame(height: 72)
+                .fixedSize()
+            HStack(spacing: 2.5) {
+                Button {
+                    pushMessage.toggle()
+                } label: {
+                    Circle()
+                        .frame(width: 58)
+                        .foregroundColor(.white)
+                        .opacity(pushMessage ? 1 : 0)
+                        .overlay(
+                            Image(systemName: "message")
+                                .modifier(regularTitle1(colorName: pushMessage ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                        )
+                }
+                .confirmationDialog("메시지 보내기", isPresented: $pushMessage) {
+                    Button {
+                        // 메시지 연결 필요
+                    } label: {
+                        Text("메시지 보내기")
+                    }
+                    Button {
+                        // 전화 번호 복사 기능
+                    } label: {
+                        Text("복사")
+                    }
+                    Button(role: .cancel, action: {
+                    }, label: {
+                        Text("취소")
+                    })
+                }
+                
+                Button {
+                    pushCall.toggle()
+                } label: {
+                    Circle()
+                        .frame(width: 58)
+                        .foregroundColor(.white)
+                        .opacity(pushCall ? 1 : 0)
+                        .overlay(
+                            Image(systemName: "phone")
+                                .modifier(regularTitle1(colorName: pushCall ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                        )
+                }
+                .confirmationDialog("전화걸기", isPresented: $pushCall) {
+                    Button {
+                        // 전화 연결 필요
+                    } label: {
+                        Text("전화걸기")
+                    }
+                    Button {
+                        // 전화 번호 복사 기능
+                    } label: {
+                        Text("복사")
+                    }
+                    Button(role: .cancel, action: {
+                    }, label: {
+                        Text("취소")
+                    })
+                }
+                
+                Button {
+                    pushMail.toggle()
+                } label: {
+                    Circle()
+                        .frame(width: 58)
+                        .foregroundColor(.white)
+                        .opacity(pushMail ? 1 : 0)
+                        .overlay(
+                            Image(systemName: "envelope")
+                                .modifier(regularTitle1(colorName: pushMail ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                        )
+                }
+                .confirmationDialog("이메일 보내기", isPresented: $pushMail) {
+                    Button {
+                        // 전화 연결 필요
+                    } label: {
+                        Text("이메일 보내기")
+                    }
+                    Button {
+                        // 전화 번호 복사 기능
+                    } label: {
+                        Text("복사")
+                    }
+                    Button(role: .cancel, action: {
+                    }, label: {
+                        Text("취소")
+                    })
+                }
+                
+                Link(destination: URL(string: linkedinLink)!) {
+                    Circle()
+                        .frame(width: 58)
+                        .opacity(0)
+                        .overlay(
+                            Image("linkedInLogo")
+                                .resizable()
+                                .scaledToFit()
+                                .colorMultiply(Fontcolor.fontWhite.colorName)
+                                .frame(width: 24)
+                        )
+                }
+            }
+        }
+    }
+}
+
 struct ConnectionMemoItem: View {
-    var meetingDay: String
-    var summary: String
+    let title: String
+    let meetingDay: String
+    let summary: String
     
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 8) {
-                Text("\(meetingDay)")
+                Text("\(title)")
                     .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))    // 컬러 변경 필요
-                Text("\(summary)")
-                    .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))  // 컬러 변경 필요
+                HStack(spacing: 11) {
+                    Text("\(meetingDay)")
+                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
+                    Text("\(summary)")
+                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
+                }  // 컬러 변경 필요
             }
             .padding(.leading, 29)
             
