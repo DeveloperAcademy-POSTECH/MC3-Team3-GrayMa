@@ -68,3 +68,15 @@ extension DotsModel {
         save()
     }
 }
+
+extension DotsModel {
+    func deleteConnection(offsets: IndexSet) {
+        guard let firstIndex = offsets.first, firstIndex < networkingPeople.count else { return }
+        
+        let toDeletePerson = networkingPeople[firstIndex]
+        print(toDeletePerson.name)
+        manager.context.delete(toDeletePerson)
+        
+        save()
+    }
+}
