@@ -23,7 +23,7 @@ extension DotsModel {
             let newStrength = StrengthEntity(context: manager.context)
             newStrength.strengthName = name
             newStrength.strengthColor = "red"
-
+            
             save()
             
             return .ok
@@ -65,6 +65,16 @@ extension DotsModel {
         newNetworking.job = "직업2"
         newNetworking.linkedIn = "링크드인 주소"
         newNetworking.addToStrengthSet([strength[0], strength[1]])
+        save()
+    }
+    
+    func addMyNote(date: Date, content: String) {
+        let newMyNote = MyStrengthNoteEntity(context: manager.context)
+        
+        newMyNote.myStrengthNoteID = UUID()
+        newMyNote.date = date
+        newMyNote.content = content
+        
         save()
     }
 }
