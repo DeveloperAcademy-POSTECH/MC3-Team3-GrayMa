@@ -71,6 +71,12 @@ extension DotsModel {
     
     func getMyNotes() {
         let request = NSFetchRequest<MyStrengthNoteEntity>(entityName: "MyStrengthNoteEntity")
+        
+        // 최신순 정렬
+        let descendingSort = NSSortDescriptor(keyPath: \MyStrengthNoteEntity.date, ascending: false)
+        
+        request.sortDescriptors = [descendingSort]
+        
         do {
             myNotes = try manager.context.fetch(request)
             print("MyNote : \(myNotes)")

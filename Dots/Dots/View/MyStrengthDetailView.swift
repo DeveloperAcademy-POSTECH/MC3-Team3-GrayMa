@@ -13,16 +13,17 @@ struct MyStrengthDetailView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var showLevelModal = false
     @State var showModal = false
+    let myStrengthEntity: MyStrengthEntity
     
     var body: some View {
         NavigationStack{
             VStack {
                 HStack {
-                    Image("moderateDot")
+                    Image(StrengthLevelImage.allCases[Int(myStrengthEntity.strengthLevel)].rawValue)
                         .resizable()
                         .scaledToFit()
                         .frame(width: 36, height: 36)
-                    Text("UX design method")
+                    Text(myStrengthEntity.ownStrength?.strengthName ?? "")
                         .modifier(boldLargeTitle(colorName: .black))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -61,7 +62,7 @@ struct MyStrengthDetailView: View {
                 
                 // MARK: - 현재 강점 디테일 리스트
                 ScrollView {
-                    if dummyNoteData.isEmpty {
+                    if dotsModel.myNotes.isEmpty {
                         RoundedRectangle(cornerRadius: 12)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
@@ -77,8 +78,8 @@ struct MyStrengthDetailView: View {
                             .padding(.leading, 45)
                         }
                     } else {
-                        ForEach(dummyNoteData, id: \.self) { entity in
-                            CustomDetailList(entity: entity)
+                        ForEach(dotsModel.myNotes) { entity in
+                            CustomDetailList(noteEntity: entity)
                         }
                     }
                 }
@@ -114,6 +115,6 @@ struct MyStrengthDetailView: View {
 
 struct MyStrengthDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        MyStrengthDetailView()
+        MyStrengthDetailView(myStrengthEntity: MyStrengthEntity())
     }
 }
