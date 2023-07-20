@@ -25,6 +25,7 @@
 		1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */; };
 		137997872A64C661008F5F01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997862A64C661008F5F01 /* MainView.swift */; };
 		30D982912A68CFBE00E89B37 /* ConnectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D982902A68CFBE00E89B37 /* ConnectionDetailView.swift */; };
+		30D982932A68D07C00E89B37 /* ConnectionProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D982922A68D07C00E89B37 /* ConnectionProfileModal.swift */; };
 		3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */; };
 		3D0B1F242A654BD20012A6F4 /* DotsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F232A654BD20012A6F4 /* DotsModel.swift */; };
 		3D0B1F282A67882F0012A6F4 /* Ex+DotsModel_Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */; };
@@ -63,6 +64,7 @@
 		1379977D2A64C5AC008F5F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		137997862A64C661008F5F01 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		30D982902A68CFBE00E89B37 /* ConnectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetailView.swift; sourceTree = "<group>"; };
+		30D982922A68D07C00E89B37 /* ConnectionProfileModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionProfileModal.swift; sourceTree = "<group>"; };
 		3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsDataManager.swift; sourceTree = "<group>"; };
 		3D0B1F232A654BD20012A6F4 /* DotsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsModel.swift; sourceTree = "<group>"; };
 		3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ex+DotsModel_Create.swift"; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				136AAC792A66E2D500CA3797 /* SelectLevelModal.swift */,
 				B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */,
 				136AAC752A66E29600CA3797 /* AddStrengthModal.swift */,
+				30D982922A68D07C00E89B37 /* ConnectionProfileModal.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			files = (
 				A1349E392A6685F70006611C /* contactsMemo.swift in Sources */,
 				136AAC7A2A66E2D500CA3797 /* SelectLevelModal.swift in Sources */,
+				30D982932A68D07C00E89B37 /* ConnectionProfileModal.swift in Sources */,
 				3D0B1F282A67882F0012A6F4 /* Ex+DotsModel_Create.swift in Sources */,
 				1373F05A2A67CD26001A704D /* StrengthList.swift in Sources */,
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
