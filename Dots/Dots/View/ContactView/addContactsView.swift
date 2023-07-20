@@ -9,6 +9,7 @@ import SwiftUI
 import Contacts
 
 struct addContactsView: View {
+    @Environment(\.presentationMode) var presentationMode
     
     let contactsDetailArr = ["이름 *", "연락처", "이메일", "LinkedIn"]
     let contactsModalArr = ["회사", "직무 *"]
@@ -59,6 +60,12 @@ struct addContactsView: View {
                 }
             }
         }
+        .navigationBarItems(leading: Text("􀆉 인맥관리")
+            .foregroundColor(.blue)
+            .onTapGesture {
+            presentationMode.wrappedValue.dismiss()},
+            //MARK: CoreDate 연동 버튼
+            trailing: Text("완료").foregroundColor(.blue))
     }
 }
 
