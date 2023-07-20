@@ -8,10 +8,8 @@
 import SwiftUI
 
 struct CustomConnectionList: View {
-    var name: String
-    var company: String
-    var job: String
-    var strengths: [String]
+    let entity: NetworkingPersonEntity
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 12)
             .stroke(Color.gray, lineWidth: 0.5)
@@ -21,11 +19,17 @@ struct CustomConnectionList: View {
             .overlay() {
                 VStack(alignment: .leading) {
                     HStack {
-                        Text(name)
+                        Text(entity.name ?? "")
                             .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))
-                        Text(company+"・"+job)
-                            .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
-                            .padding(.leading,16)
+                        if let company = entity.company {
+                            Text(company + "・" + entity.job!)
+                                .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                                .padding(.leading,16)
+                        } else {
+                            Text(entity.job ?? "")
+                                .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                                .padding(.leading,16)
+                        }
                         Spacer()
                     }
                     .padding(.leading,16)
@@ -34,11 +38,13 @@ struct CustomConnectionList: View {
                             .foregroundColor(Color.gray)
                             .padding(.leading,336)
                     }
+                    
                     HStack {
-                        ForEach (strengths.indices,id: \.self) {i in
-                            Text(strengths[i])
-                                .modifier(contactsStrength(colorName: Color.white))
-                            
+                        if let strengthList = entity.strengthSet?.allObjects as? [StrengthEntity] {
+                            ForEach(strengthList) { strength in
+                                Text(strength.strengthName ?? "")
+                                    .modifier(contactsStrength(colorName: Color.white))
+                            }
                         }
                     }
                     .padding(.leading,16)
@@ -46,11 +52,5 @@ struct CustomConnectionList: View {
                 
             }
             .padding(.horizontal,16)
-    }
-}
-
-struct CustomConnectionList_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomConnectionList(name: "신채은", company: "토스", job: "ios 개발", strengths: ["논리적사고", "Core Data"])
     }
 }

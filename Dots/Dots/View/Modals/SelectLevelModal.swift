@@ -17,8 +17,8 @@ struct SelectLevelModal: View {
     @Binding var selectedLevel : Int
     
     var body: some View {
-        VStack{
-            HStack{
+        VStack {
+            HStack {
                 Text("강점 레벨 선택")
                     .font(.system(.title3))
                     .bold()
@@ -28,7 +28,7 @@ struct SelectLevelModal: View {
             .frame(maxWidth: .infinity)
             .padding(.leading,16)
             .padding(.trailing,21)
-            HStack{
+            HStack {
                 ForEach (images.indices, id: \.self) { index in
                     Image(images[index].rawValue)
                         .resizable()
@@ -36,7 +36,7 @@ struct SelectLevelModal: View {
                         .onTapGesture {
                             selectedLevel = index
                         }
-                        .overlay(){
+                        .overlay() {
                             Circle()
                                 .strokeBorder(images[selectedLevel] == images[index] ? Color.blue : Color.clear,lineWidth: 3)
                                 .frame(width: 88,height: 88)
@@ -47,7 +47,7 @@ struct SelectLevelModal: View {
                 
             }
             .padding(.horizontal,30)
-            HStack{
+            HStack {
                 SelectBtn(fontWeight: .regular, content: "이전", textColor: .black, btnColor: .gray, action: {pageNum -= 1})
                 Spacer()
                 // 데이터 베이스 연결시에는 데이터 베이스 저장을 해야하는 버튼

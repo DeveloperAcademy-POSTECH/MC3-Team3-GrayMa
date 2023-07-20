@@ -54,4 +54,29 @@ extension DotsModel {
             entity.ownStrength?.strengthName == name
         })
     }
+    
+    func addNetworking() {
+        let newNetworking = NetworkingPersonEntity(context: manager.context)
+        
+        newNetworking.peopleID = UUID()
+        newNetworking.company = "회사"
+        newNetworking.contanctNum = "010-1111-1111"
+        newNetworking.email = "sffwfe@naver.com"
+        newNetworking.job = "직업2"
+        newNetworking.linkedIn = "링크드인 주소"
+        newNetworking.addToStrengthSet([strength[0], strength[1]])
+        save()
+    }
+}
+
+extension DotsModel {
+    func deleteConnection(offsets: IndexSet) {
+        guard let firstIndex = offsets.first, firstIndex < networkingPeople.count else { return }
+        
+        let toDeletePerson = networkingPeople[firstIndex]
+        print(toDeletePerson.name)
+        manager.context.delete(toDeletePerson)
+        
+        save()
+    }
 }
