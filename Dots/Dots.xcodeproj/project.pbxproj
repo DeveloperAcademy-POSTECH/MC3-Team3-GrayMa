@@ -29,18 +29,16 @@
 		3D0B1F282A67882F0012A6F4 /* Ex+DotsModel_Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */; };
 		A1349E332A64E81C0006611C /* addContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* addContactsView.swift */; };
 		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
-		A1349E372A6618190006611C /* contactsModalText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsModalText.swift */; };
-		A1349E392A6685F70006611C /* contactsMemoField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E382A6685F70006611C /* contactsMemoField.swift */; };
-		B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* CustomDetailList.swift */; };
-		B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */; };
-		B4E7019D2A68573A007A3876 /* StrengthNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */; };
-		B4E701A12A68611D007A3876 /* KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701A02A68611D007A3876 /* KeyboardToolbar.swift */; };
-		B4EB47212A6774430073E514 /* MyStrengthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */; };
 		A1349E372A6618190006611C /* contactsJobCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsJobCompany.swift */; };
 		A1349E392A6685F70006611C /* contactsMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E382A6685F70006611C /* contactsMemo.swift */; };
 		A1349E3C2A6771910006611C /* contactsImageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3B2A6771910006611C /* contactsImageSelect.swift */; };
 		A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3D2A6796100006611C /* contactsUserProfile.swift */; };
 		A1349E412A67DC810006611C /* contactsStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E402A67DC810006611C /* contactsStrength.swift */; };
+		B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* CustomDetailList.swift */; };
+		B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */; };
+		B4E7019D2A68573A007A3876 /* StrengthNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */; };
+		B4E701A12A68611D007A3876 /* KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701A02A68611D007A3876 /* KeyboardToolbar.swift */; };
+		B4EB47212A6774430073E514 /* MyStrengthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,18 +66,16 @@
 		3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ex+DotsModel_Create.swift"; sourceTree = "<group>"; };
 		A1349E322A64E81C0006611C /* addContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addContactsView.swift; sourceTree = "<group>"; };
 		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
-		A1349E362A6618190006611C /* contactsModalText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsModalText.swift; sourceTree = "<group>"; };
-		A1349E382A6685F70006611C /* contactsMemoField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsMemoField.swift; sourceTree = "<group>"; };
-		B4E701982A680678007A3876 /* CustomDetailList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailList.swift; sourceTree = "<group>"; };
-		B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitBtn.swift; sourceTree = "<group>"; };
-		B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthNoteModal.swift; sourceTree = "<group>"; };
-		B4E701A02A68611D007A3876 /* KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbar.swift; sourceTree = "<group>"; };
-		B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStrengthDetailView.swift; sourceTree = "<group>"; };
 		A1349E362A6618190006611C /* contactsJobCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsJobCompany.swift; sourceTree = "<group>"; };
 		A1349E382A6685F70006611C /* contactsMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsMemo.swift; sourceTree = "<group>"; };
 		A1349E3B2A6771910006611C /* contactsImageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsImageSelect.swift; sourceTree = "<group>"; };
 		A1349E3D2A6796100006611C /* contactsUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsUserProfile.swift; sourceTree = "<group>"; };
 		A1349E402A67DC810006611C /* contactsStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsStrength.swift; sourceTree = "<group>"; };
+		B4E701982A680678007A3876 /* CustomDetailList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailList.swift; sourceTree = "<group>"; };
+		B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitBtn.swift; sourceTree = "<group>"; };
+		B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthNoteModal.swift; sourceTree = "<group>"; };
+		B4E701A02A68611D007A3876 /* KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbar.swift; sourceTree = "<group>"; };
+		B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStrengthDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,7 +430,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
-				DEVELOPMENT_TEAM = 34K3V5D9X5;
+				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -463,7 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
-				DEVELOPMENT_TEAM = 34K3V5D9X5;
+				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

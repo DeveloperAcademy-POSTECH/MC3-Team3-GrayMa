@@ -26,6 +26,7 @@
         <attribute name="linkedIn" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="peopleID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="profileImageIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="networkingNotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="NetworkingNoteEntity" inverseName="relatedPerson" inverseEntity="NetworkingNoteEntity"/>
         <relationship name="strengthSet" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StrengthEntity" inverseName="networkingPeople" inverseEntity="StrengthEntity"/>
     </entity>

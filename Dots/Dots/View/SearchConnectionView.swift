@@ -11,6 +11,12 @@ struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var name: String = ""
     
+    //actionsheet 컨트롤 변수
+    @State var actionSheetvisable = false
+    
+    //인맥추가 navigationLink 컨트롤 변수
+    @State private var navigationActive = false
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -20,64 +26,91 @@ struct SearchConnectionView: View {
                         Image(systemName: "plus")
                             .frame(width: 30,height: 34)
                             .foregroundColor(.black)
+                            .onTapGesture {
+                                actionSheetvisable = true
+                            }
                     }
-                    .padding(.trailing,20)
                 }
-                
-                RoundedRectangle(cornerRadius: 40)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .shadow(radius: 2)
-                    .foregroundColor(.white)
-                    .overlay() {
-                        HStack {
-                            Button {
-                                print("검색기능 예정")
-                            } label: {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.black)
-                            }
-                            .padding(.leading,14)
-                            TextField("이름 검색", text: $name)
-                            Spacer()
-                            if(name.count >= 1) {
-                                Button {
-                                    name = ""
-                                } label: {
-                                    Text("\(Image(systemName: "x.circle.fill"))")
-                                        .foregroundColor(.gray)
-                                        .frame(width: 24,height: 24)
-                                        .padding(.trailing,5)
-                                }
-                            }
-                            Button {
-                                print("ㅇ")
-                            } label: {
-                                Circle()
-                                    .strokeBorder(Color.gray,lineWidth: 1.5)
-                                    .frame(width: 36,height: 36)
-                                    .foregroundColor(.white)
-                                    .overlay(){
-                                        Image(systemName: "slider.vertical.3")
-                                            .foregroundColor(.black)
-                                    }
-                            }
-                            .padding(.trailing,9)
+                .padding(.trailing,20)
+            }
+            .actionSheet(isPresented: $actionSheetvisable){
+                ActionSheet(
+                    title: Text("인맥추가"),
+                    buttons: [
+                        .default(Text("연락처에서 가져오기")) {
+                            // Option 1 선택 시 실행할 동작
+                            //MARK: 연락처 연동 필요
+                            navigationActive = true
+                        },
+                        .default(Text("새로 입력하기")) {
+                            // Option 2 선택 시 실행할 동작
+                            navigationActive = true
+                        },
+                        .cancel(Text("취소")) {
+                            // 취소 버튼 선택 시 실행할 동작
+                            print("취소")
                         }
+                    ]
+                )
+            }
+            
+            RoundedRectangle(cornerRadius: 40)
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
+                .shadow(radius: 2)
+                .foregroundColor(.white)
+                .overlay() {
+                    HStack {
+                        Button {
+                            print("검색기능 예정")
+                        } label: {
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.black)
+                        }
+                        .padding(.leading,14)
+                        TextField("이름 검색", text: $name)
+                        Spacer()
+                        if(name.count >= 1) {
+                            Button {
+                                name = ""
+                            } label: {
+                                Text("\(Image(systemName: "x.circle.fill"))")
+                                    .foregroundColor(.gray)
+                                    .frame(width: 24,height: 24)
+                                    .padding(.trailing,5)
+                            }
+                        }
+                        Button {
+                            print("ㅇ")
+                        } label: {
+                            Circle()
+                                .strokeBorder(Color.gray,lineWidth: 1.5)
+                                .frame(width: 36,height: 36)
+                                .foregroundColor(.white)
+                                .overlay(){
+                                    Image(systemName: "slider.vertical.3")
+                                        .foregroundColor(.black)
+                                }
+                        }
+                        .padding(.trailing,9)
                     }
-                    .padding(.horizontal,16)
-              
-                List {
-                    ForEach(dotsModel.networkingPeople) { person in
-                        CustomConnectionList(entity: person)
-                    }
-                    .onDelete(perform: removeConnection)
-                    .padding(.top,15)
                 }
-                .listStyle(.plain)
+                .padding(.horizontal,16)
+            
+            List {
+                ForEach(dotsModel.networkingPeople) { person in
+                    CustomConnectionList(entity: person)
+                }
+                .onDelete(perform: removeConnection)
+                .padding(.top,15)
+            }
+            .listStyle(.plain)
+        }
+        .fullScreenCover(isPresented: $navigationActive) {
+            NavigationView{
+                addContactsView()
             }
         }
-        
     }
 }
 
