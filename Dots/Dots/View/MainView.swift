@@ -10,7 +10,7 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView{
-            MyStrengthDetailView()
+            MyStrengthView()
                 .tabItem {
                     Image(systemName: "star.fill")
                     Text("내 강점")
