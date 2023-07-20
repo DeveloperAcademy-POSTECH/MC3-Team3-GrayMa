@@ -43,7 +43,6 @@ enum StrengthLevelImage: String, CaseIterable {
 
 struct CustomList: View {
     var entity: MyStrengthEntity
-    
     var body: some View {
         SwipeItemView(content: {
             Button {
@@ -59,36 +58,32 @@ struct CustomList: View {
                         .font(.system(size: 17,weight: .semibold))
                         .padding(.leading,12)
                     Spacer()
-                    NavigationLink(destination: EmptyView()) {
-                        Text("\(Image(systemName: "chevron.right"))")
-                            .font(.system(size: 15, weight: .regular))
-                            .padding(.trailing, 14)
-                    }
                 }
             }
         }, right: {
-            VStack {
+            VStack(spacing: 0) {
                 Button(action: {
                     print("삭제예정")
                 }, label: {
-                    ZStack {
-                        Image(systemName: "trash")
-                            .resizable()
-                            .font(.system(size: 17))
-                            .foregroundColor(.red)
-                    }
+                        Rectangle()
+                            .fill(.red)
+                            .cornerRadius(12, corners: .topRight)
+                            .cornerRadius(12, corners: .bottomRight)
+                            .overlay(){
+                                Image(systemName: "trash.fill")
+                                    .font(.system(size: 17))
+                                    .foregroundColor(.white)
+                            }
                 })
-                .buttonStyle(PlainButtonStyle())
-                .cornerRadius(10)
-
+                .ignoresSafeArea()
             }
-            .padding(.trailing, 20)
+            .border(.gray)
         }, itemHeight: 84)
-
-//        func delete() {
-//            //디비 삭제 예정
-//            return
-//        }
+        
+        //        func delete() {
+        //            //디비 삭제 예정
+        //            return
+        //        }
         
     }
 }

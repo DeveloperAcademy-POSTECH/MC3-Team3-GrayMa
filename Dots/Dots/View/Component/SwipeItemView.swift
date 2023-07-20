@@ -22,8 +22,8 @@ struct SwipeItemView<Content: View, Right: View>: View {
     @State var anchor: CGFloat = 0
     
     let screenWidth = UIScreen.main.bounds.width
-    var anchorWidth: CGFloat { screenWidth / 3}
-    var swipeTreshold: CGFloat { screenWidth / 15 }
+    var anchorWidth: CGFloat { screenWidth / 6}
+    var swipeTreshold: CGFloat { screenWidth / 8 }
     
     @State var rightPast = false
     
@@ -64,17 +64,17 @@ struct SwipeItemView<Content: View, Right: View>: View {
         GeometryReader { geo in
             HStack(spacing: 0) {
                 content()
-                    .frame(width: geo.size.width + 20)
+                    .frame(width: geo.size.width + anchorWidth/2 + 3)
                 right()
-                    .frame(width: anchorWidth)
+                    .frame(width: anchorWidth,height: geo.size.height + anchorWidth)
+                    .ignoresSafeArea()
                     .zIndex(1)
                     .clipped()
             }
             .offset(x: hoffSet)
             .frame(maxHeight: 84)
-            .contentShape(RoundedRectangle(cornerRadius: 12))
+            .contentShape(Rectangle())
             .gesture(drag)
-            .clipped()
             
         }
     }

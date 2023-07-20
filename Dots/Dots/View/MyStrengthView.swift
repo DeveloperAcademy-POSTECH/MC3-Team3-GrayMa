@@ -15,12 +15,8 @@ struct MyStrengthView: View {
     var body: some View {
         NavigationStack{
             VStack {
-                Rectangle()
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 282)
-                    .padding(.horizontal,16)
-                    .shadow(radius: 2)
-                ScrollView {
+                List {
+                    
                     if dotsModel.myStrength.isEmpty {
                         RoundedRectangle(cornerRadius: 12)
                             .foregroundColor(.white)
@@ -37,17 +33,50 @@ struct MyStrengthView: View {
                                 }
                             }
                     }
-                    else {
-                        ForEach(dotsModel.myStrength, id: \.self) { strength in
-                            NavigationLink {
-                                MyStrengthDetailView(myStrengthEntity: strength)
-                            } label: {
-                                CustomList(entity: strength)
-                            }
+                    
+                    ForEach(dotsModel.myStrength, id: \.self) { strength in
+                        NavigationLink {
+                            MyStrengthDetailView(myStrengthEntity: strength)
+                        } label: {
+                            CustomList(entity: strength)
                         }
+                        .frame(height: 84)
                     }
                     
                 }
+                //                Rectangle()
+                //                    .frame(maxWidth: .infinity)
+                //                    .frame(height: 282)
+                //                    .padding(.horizontal,16)
+                //                    .shadow(radius: 2)
+                //                ScrollView {
+                //                    if dotsModel.myStrength.isEmpty {
+                //                        RoundedRectangle(cornerRadius: 12)
+                //                            .foregroundColor(.white)
+                //                            .frame(maxWidth: .infinity)
+                //                            .frame(height: 62)
+                //                            .padding(.horizontal,16)
+                //                            .overlay(){
+                //                                HStack(alignment: .center){
+                //                                    Text("저장된 강점이 없습니다.")
+                //                                        .font(.system(size: 17,weight: .regular))
+                //                                        .foregroundColor(.gray)
+                //                                        .padding(.leading,22)
+                //                                    Spacer()
+                //                                }
+                //                            }
+                //                    }
+                //                    else {
+                //                        ForEach(dotsModel.myStrength, id: \.self) { strength in
+                //                            NavigationLink {
+                //                                MyStrengthDetailView(myStrengthEntity: strength)
+                //                            } label: {
+                //                                CustomList(entity: strength)
+                //                            }
+                //                        }
+                //                    }
+                //
+                //                }
                 
                 
             }
