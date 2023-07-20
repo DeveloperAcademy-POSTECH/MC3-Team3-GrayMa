@@ -14,10 +14,10 @@ struct ConnectionDetailView: View {
     
     var body: some View {
         ZStack {
-            Color.yellow
-            Text("인맥 디테일 뷰입니다.")
+            Color(red: 0, green: 50, blue: 50)    // 이미지 대체 자리
             VStack {
-                Spacer()
+                CompareStrenth()
+                    .padding(.top, 20)
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundColor(.white)
@@ -40,6 +40,75 @@ struct ConnectionDetailView: View {
         .sheet(isPresented: $showProfile) {
             ConnectionProfileModal()
         }
+    }
+}
+
+enum StrenthViewType: String, CaseIterable, Identifiable {
+    case take, common, give
+    
+    var id: String { self.rawValue }
+}
+struct CompareStrenth: View {
+    @State private var isSelected: StrenthViewType = .take
+    
+    var body: some View {
+        VStack {
+            Picker("Strenth Comparison", selection: $isSelected) {
+                ForEach(StrenthViewType.allCases) { viewType in
+                    Text(viewType.rawValue).tag(viewType)
+                }
+            }
+            .pickerStyle(.segmented)
+            .frame(width: 361, height: 44)
+            CompareStrenthItem(strenthType: isSelected.rawValue)
+        }
+    }
+}
+
+struct CompareStrenthItem: View {
+    // DB연동시 strenthType에 따른 강점 필터링 필요
+    let strenthType: String
+    
+    // 임시데이터
+    let strenthList = ["논리적 사고", "User Test", "호", "이십자를 꽉 채우는 사람도 있을까요?", "함냐"]
+
+    let screenWidth = UIScreen.main.bounds.size.width
+    
+    var body: some View {
+        ZStack {
+            Color.yellow    // 이미지 대체 예정
+            HStack {
+                VStack(alignment: .leading) {
+                    Spacer()
+                    // TODO: 텍스트 길이에 따라 유동적인 배치 필요
+                    ForEach(strenthList, id: \.self) { item in
+                        StrenthName(strenthText: item)
+                    }
+                }
+                .padding(.bottom, 15)
+                
+                Spacer()
+            }
+            .padding(.leading, 15)
+        }
+    }
+}
+
+struct StrenthName: View {
+    let strenthText: String
+    
+    var body: some View {
+        Text(strenthText)
+            .padding(10)
+            .padding(.leading, 8)
+            .padding(.trailing, 8)
+            .background(.white.opacity(0.5))
+            .clipShape(RoundedRectangle(cornerRadius: 40))
+            .overlay(
+                RoundedRectangle(cornerRadius: 40)
+                    .strokeBorder(Color.gray, lineWidth: 1)
+            )
+            .fixedSize()
     }
 }
 

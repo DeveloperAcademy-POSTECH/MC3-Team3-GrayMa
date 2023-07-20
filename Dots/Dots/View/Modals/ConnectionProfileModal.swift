@@ -226,7 +226,7 @@ struct ContactButtons: View {
                     Button {
                         // 전화 번호 복사 기능
                     } label: {
-                        Text("이메일 공유")
+                        Text("복사")
                     }
                     Button(role: .cancel, action: {
                     }, label: {
@@ -283,7 +283,7 @@ struct ContactButtons: View {
     }
 }
 
-struct ConnectionMemoItem: View {
+struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
     let title: String
     let meetingDay: String
     let summary: String
