@@ -34,7 +34,7 @@ struct ConnectionProfileModal: View {
                             .frame(width: 88)
                     }
                     Spacer()
-                    ContactButtons(phoneNum: "\(phoneNum)", mailAdd: "\(mailAdd)", linkedinLink: "\(linkedinLink)")
+                    ContactButtons(phoneNum: phoneNum, mailAdd: mailAdd, linkedinLink: linkedinLink)
                         .padding(.trailing, 15)
                 }
                 
@@ -79,10 +79,10 @@ struct BasicProfile: View {
             
             HStack {
                 VStack(alignment: .leading, spacing: 15) {
-                    Text("\(name)")     // 이름 데이터 연동 필요
+                    Text("\(name)")
                         .modifier(boldTitle1(colorName: Fontcolor.fontBlack.colorName))
                     HStack {
-                        Text("\(company) ﹒ \(job)")    // 직장, 직무 데이터 연동 필요
+                        Text("\(company) ﹒ \(job)")
                             .modifier(regularBody(colorName: Fontcolor.fontGray.colorName))
                     }
                 }
@@ -100,10 +100,15 @@ struct ContactButtons: View {
     @State private var pushCall = false
     @State private var pushMail = false
     
+    @State private var noMessageAlert = false
+    @State private var noCallAlert = false
+    @State private var noMailAlert = false
+    @State private var noLinkAlert = false
+    
     // 개인정보 - 입력 필요
-    let phoneNum: String
-    let mailAdd: String
-    let linkedinLink: String
+    let phoneNum: String?
+    let mailAdd: String?
+    let linkedinLink: String?
     
     var body: some View {
         ZStack {
@@ -114,25 +119,30 @@ struct ContactButtons: View {
                 .fixedSize()
             HStack(spacing: 2.5) {
                 Button {
-                    pushMessage.toggle()
+                    if let unwrappedPhoneNum = phoneNum {
+                        pushMessage.toggle()
+                        // TODO: 휴대폰 번호 -> 메시지 앱 연결
+                    } else {
+                        noMessageAlert.toggle()
+                    }
                 } label: {
                     Circle()
                         .frame(width: 58)
                         .foregroundColor(.white)
-                        .opacity(pushMessage ? 1 : 0)
+                        .opacity(pushMessage || noMessageAlert ? 1 : 0)
                         .overlay(
                             Image(systemName: "message")
-                                .modifier(regularTitle1(colorName: pushMessage ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: pushMessage || noMessageAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
                         )
                 }
                 .confirmationDialog("메시지 보내기", isPresented: $pushMessage) {
                     Button {
-                        // 메시지 연결 필요
+                        // TODO: 메시지 연결 필요
                     } label: {
                         Text("메시지 보내기")
                     }
                     Button {
-                        // 전화 번호 복사 기능
+                        // TODO: 전화 번호 복사 기능
                     } label: {
                         Text("복사")
                     }
@@ -141,27 +151,39 @@ struct ContactButtons: View {
                         Text("취소")
                     })
                 }
+                .alert("등록된 연락처가 없습니다.", isPresented: $noMessageAlert)  {
+                    Button(role: .cancel, action: {
+                        noMessageAlert.toggle()
+                    }, label: {
+                        Text("확인")
+                    })
+                }
                 
                 Button {
-                    pushCall.toggle()
+                    if let unwrappedPhoneNum = phoneNum {
+                        pushCall.toggle()
+                        // TODO: 휴대폰 번호 -> 전화 앱 연결
+                    } else {
+                        noCallAlert.toggle()
+                    }
                 } label: {
                     Circle()
                         .frame(width: 58)
                         .foregroundColor(.white)
-                        .opacity(pushCall ? 1 : 0)
+                        .opacity(pushCall || noCallAlert ? 1 : 0)
                         .overlay(
                             Image(systemName: "phone")
-                                .modifier(regularTitle1(colorName: pushCall ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: pushCall || noCallAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
                         )
                 }
                 .confirmationDialog("전화걸기", isPresented: $pushCall) {
                     Button {
-                        // 전화 연결 필요
+                        // TODO: 전화 연결 필요
                     } label: {
                         Text("전화걸기")
                     }
                     Button {
-                        // 전화 번호 복사 기능
+                        // TODO: 전화 번호 복사 기능
                     } label: {
                         Text("복사")
                     }
@@ -170,47 +192,91 @@ struct ContactButtons: View {
                         Text("취소")
                     })
                 }
+                .alert("등록된 연락처가 없습니다.", isPresented: $noCallAlert)  {
+                    Button(role: .cancel, action: {
+                        noCallAlert.toggle()
+                    }, label: {
+                        Text("확인")
+                    })
+                }
                 
                 Button {
-                    pushMail.toggle()
+                    if let unwrappedMailAdd = mailAdd {
+                        pushMail.toggle()
+                        // TODO: 메일 주소 -> 메일 앱 연결
+                    } else {
+                        noMailAlert.toggle()
+                    }
                 } label: {
                     Circle()
                         .frame(width: 58)
                         .foregroundColor(.white)
-                        .opacity(pushMail ? 1 : 0)
+                        .opacity(pushMail || noMailAlert ? 1 : 0)
                         .overlay(
                             Image(systemName: "envelope")
-                                .modifier(regularTitle1(colorName: pushMail ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: pushMail || noMailAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
                         )
                 }
                 .confirmationDialog("이메일 보내기", isPresented: $pushMail) {
                     Button {
-                        // 전화 연결 필요
+                        // 이메일 연결 필요
                     } label: {
                         Text("이메일 보내기")
                     }
                     Button {
                         // 전화 번호 복사 기능
                     } label: {
-                        Text("복사")
+                        Text("이메일 공유")
                     }
                     Button(role: .cancel, action: {
                     }, label: {
                         Text("취소")
                     })
                 }
+                .alert("등록된 이메일이 없습니다.", isPresented: $noMailAlert)  {
+                    Button(role: .cancel, action: {
+                        noMailAlert.toggle()
+                    }, label: {
+                        Text("확인")
+                    })
+                }
                 
-                Link(destination: URL(string: linkedinLink)!) {
-                    Circle()
-                        .frame(width: 58)
-                        .opacity(0)
-                        .overlay(
-                            Image("linkedInLogo")
-                                .resizable()
-                                .scaledToFit()
-                                .colorMultiply(Fontcolor.fontWhite.colorName)
-                                .frame(width: 24)
-                        )
+                if let unwrappedLink = linkedinLink {
+                    Link(destination: URL(string: unwrappedLink)!) {
+                        Circle()
+                            .frame(width: 58)
+                            .opacity(0)
+                            .overlay(
+                                Image("linkedInLogo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .colorMultiply(Fontcolor.fontWhite.colorName)
+                                    .frame(width: 24)
+                            )
+                    }
+                } else {
+                    Button {
+                        noLinkAlert.toggle()
+                    } label: {
+                        Circle()
+                            .frame(width: 58)
+                            .foregroundColor(.white)
+                            .opacity(noLinkAlert ? 1 : 0)
+                            .overlay(
+                                Image("linkedInLogo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .colorMultiply(noLinkAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName)
+                                    .frame(width: 24)
+                            )
+                    }
+                    .alert("등록된 링크가 없습니다.", isPresented: $noLinkAlert)  {
+                        Button(role: .cancel, action: {
+                            noLinkAlert.toggle()
+                        }, label: {
+                            Text("확인")
+                        })
+                    }
                 }
             }
         }

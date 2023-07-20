@@ -10,7 +10,7 @@ import SwiftUI
 struct ConnectionDetailView: View {
     @State private var showProfile = false
     
-    // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity)
+    // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity), 강점(StrengthEntity)
     
     var body: some View {
         ZStack {
