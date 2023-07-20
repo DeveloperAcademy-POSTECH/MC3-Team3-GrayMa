@@ -247,6 +247,7 @@ struct contactsStrength: ViewModifier {
 enum Fontcolor{
     case fontBlack
     case fontGray
+    case fontWhite
     
     var colorName: Color{
         switch self{
@@ -254,6 +255,8 @@ enum Fontcolor{
             return Color("FontBlack")
         case .fontGray:
             return Color("FontGray")
+        case .fontWhite:
+            return Color("FontWhite")
         }
     }
 }

@@ -10,15 +10,21 @@ import SwiftUI
 struct contactsImageSelect: View {
     
     @State var userName : String
+    @Binding var coreDataUserIdx: Int
     
     var body: some View {
         ZStack{
-            //이미지 선택 디자인
-            Ellipse()
-                .frame(width: 88, height: 88)
-                .foregroundColor(.gray)
-            
-            Text("\(convertUserName(name: userName))")
+            if coreDataUserIdx == 0 {
+                Ellipse()
+                    .frame(width: 88, height: 88)
+                    .foregroundColor(.gray)
+                Text("\(convertUserName(name: userName))")
+            } else {
+                //이미지 선택 디자인
+                Image("user_default_profile \(coreDataUserIdx)")
+                    .clipShape(Ellipse())
+                    .frame(width: 88, height: 88)
+            }
             
             Image("imagePlusBtn")
                 .resizable()
@@ -33,7 +39,7 @@ struct ProfileImageModal: View {
     @Environment(\.presentationMode) var presentationMode
     
     @State var userName : String
-    @State var userImageIdx : Int
+    @Binding var userImageIdx : Int
     
     var body: some View {
 
@@ -52,7 +58,7 @@ struct ProfileImageModal: View {
             Spacer()
                 .frame(height: 32)
             
-            contactsUserProfile(userName: userName, CoreDatauserProfileIdx: userImageIdx)
+            contactsUserProfile(userName: userName, CoreDatauserProfileIdx: $userImageIdx)
             
             HStack{
                 SelectBtn(fontWeight: .regular, content: "취소", textColor: .black, btnColor: .gray, action: {presentationMode.wrappedValue.dismiss()})
@@ -61,7 +67,7 @@ struct ProfileImageModal: View {
                 SelectBtn(fontWeight: .bold, content: "완료", textColor: .white, btnColor: .blue, action: {
                     print("완료")
                     //MARK: coreDate 업데이트
-                    
+                    presentationMode.wrappedValue.dismiss()
                 })
             }
             .padding(.horizontal,16)
@@ -79,9 +85,9 @@ func convertUserName(name: String) -> String {
     
     return modifiedName
 }
-
-struct contactsImageSelect_Previews: PreviewProvider {
-    static var previews: some View {
-        contactsImageSelect(userName: "김정현")
-    }
-}
+//
+//struct contactsImageSelect_Previews: PreviewProvider {
+//    static var previews: some View {
+//        contactsImageSelect(userName: "김정현")
+//    }
+//}

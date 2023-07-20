@@ -74,16 +74,21 @@ extension DotsModel {
         }
     }
     
-    func addNetworking() {
+    func addNetworking(profileImgIdx: Int, name: String, company: String, job: String, phoneNum: String, email: String, snsUrl: String) {
         let newNetworking = NetworkingPersonEntity(context: manager.context)
         
         newNetworking.peopleID = UUID()
-        newNetworking.company = "회사"
-        newNetworking.contanctNum = "010-1111-1111"
-        newNetworking.email = "sffwfe@naver.com"
-        newNetworking.job = "직업2"
-        newNetworking.linkedIn = "링크드인 주소"
+        newNetworking.profileImageIndex = Int16(profileImgIdx)
+        newNetworking.name = name
+        newNetworking.company = company
+        newNetworking.contanctNum = phoneNum
+        newNetworking.email = email
+        newNetworking.job = job
+        newNetworking.linkedIn = snsUrl
+        
+        // 동적으로 수정
         newNetworking.addToStrengthSet([strength[0], strength[1]])
+        
         save()
     }
     
