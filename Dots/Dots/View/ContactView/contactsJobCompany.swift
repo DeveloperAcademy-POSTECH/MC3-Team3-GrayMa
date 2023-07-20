@@ -13,7 +13,7 @@ struct contactsJobCompany: View {
     @State var inputCondition : String
     
     //선택된 회사 혹은 직무를 표시
-    @State var text : String
+    @Binding var text : String
     
     //모달 컨트롤
     @State private var modalVissable = false
@@ -80,8 +80,8 @@ struct bindingModalView: View {
 }
 
 
-struct contactsModalText_Previews: PreviewProvider {
-    static var previews: some View {
-        contactsJobCompany(inputCondition: "회사", text: "놉")
-    }
-}
+//struct contactsModalText_Previews: PreviewProvider {
+//    static var previews: some View {
+//        contactsJobCompany(inputCondition: "회사", text: "놉")
+//    }
+//}

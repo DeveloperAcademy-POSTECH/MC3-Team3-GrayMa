@@ -13,7 +13,7 @@ struct contactsTextField: View {
     
     //textField가 기본적으로 가져야할 옵션 컨트롤
     @State var inputCondition : String
-    @State var text : String
+    @Binding var text : String
     @State var option : Int
     @State var selected = false
     
@@ -219,8 +219,8 @@ struct compareSns : View {
     }
 }
 
-struct contactsTextField_Previews: PreviewProvider {
-    static var previews: some View {
-        contactsTextField(inputCondition: "Phone", text: "", option: 0)
-    }
-}
+//struct contactsTextField_Previews: PreviewProvider {
+//    static var previews: some View {
+//        contactsTextField(inputCondition: "Phone", text: "", option: 0)
+//    }
+//}

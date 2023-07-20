@@ -52,7 +52,7 @@ struct ProfileImageModal: View {
             Spacer()
                 .frame(height: 32)
             
-            contactsUserProfile(userName: userName, userProfileIdx: userImageIdx)
+            contactsUserProfile(userName: userName, CoreDatauserProfileIdx: userImageIdx)
             
             HStack{
                 SelectBtn(fontWeight: .regular, content: "취소", textColor: .black, btnColor: .gray, action: {presentationMode.wrappedValue.dismiss()})
@@ -61,6 +61,7 @@ struct ProfileImageModal: View {
                 SelectBtn(fontWeight: .bold, content: "완료", textColor: .white, btnColor: .blue, action: {
                     print("완료")
                     //MARK: coreDate 업데이트
+                    
                 })
             }
             .padding(.horizontal,16)
