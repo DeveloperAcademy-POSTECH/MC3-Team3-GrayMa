@@ -39,7 +39,11 @@ struct MyStrengthView: View {
                     }
                     else {
                         ForEach(dotsModel.myStrength, id: \.self) { strength in
-                            CustomList(entity: strength)
+                            NavigationLink {
+                                MyStrengthDetailView(myStrengthEntity: strength)
+                            } label: {
+                                CustomList(entity: strength)
+                            }
                         }
                     }
                     
