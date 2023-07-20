@@ -13,13 +13,26 @@ enum CreateStatus {
     case ok
 }
 
+enum RedundantCheck {
+    case exist
+    case redunant
+    case new
+}
+
 extension DotsModel {
     func addStrength(name: String) -> CreateStatus {
-        if checkRedundantVaildation(name) {
+        let checkedValue = checkRedundantVaildation(name)
+        
+        switch checkedValue {
+        case .exist:
+            print("이미 존재하는 거라 안만들어도 됨.")
+            
+            return .ok
+        case .redunant:
             print("중복임")
             
             return .redunant
-        } else {
+        case .new:
             let newStrength = StrengthEntity(context: manager.context)
             newStrength.strengthName = name
             newStrength.strengthColor = "red"
@@ -47,12 +60,18 @@ extension DotsModel {
         }
     }
     
-    func checkRedundantVaildation(_ name: String) -> Bool {
-        return strength.contains { entity in
-            entity.strengthName == name
-        } || myStrength.contains(where: { entity in
+    func checkRedundantVaildation(_ name: String) -> RedundantCheck {
+        if myStrength.contains(where: { entity in
             entity.ownStrength?.strengthName == name
-        })
+        }) {
+            return .redunant
+        } else if strength.contains(where: { entity in
+            entity.strengthName == name
+        }) {
+            return .exist
+        } else {
+            return .new
+        }
     }
     
     func addNetworking() {

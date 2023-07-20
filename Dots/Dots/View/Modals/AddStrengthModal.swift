@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AddStrengthModal: View {
-    var samples: [String] = ["UIkit","SwiftUI","UI구현","샘플입니다","검색어에안떠야해요"]
     @EnvironmentObject var dotsModel: DotsModel
     @Binding var strengthName : String
     @Binding var pagenum: Int
@@ -61,14 +60,15 @@ struct AddStrengthModal: View {
                         // db에 있는 값들을 리스트로 띄움
                         ScrollView {
                             //sample에 filter를 걸어서 포함 되는 단어만 띄우는 반복문 만약 필터에 해당 되는 것이 없다면 직접 입력하라고 리턴
-                            if samples.filter({ $0.hasPrefix(strengthName) || strengthName.isEmpty }).isEmpty {
+                            if dotsModel.strength.filter({ $0.strengthName!.hasPrefix(strengthName) || strengthName.isEmpty }).isEmpty {
                                 Text("검색 결과가 없습니다. 직접입력해주세요")
                                     .padding(.top,10)
                                     .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
                             } else {
-                                ForEach(samples.filter{$0.hasPrefix(strengthName) || strengthName == ""}, id:\.self) {
+                                // TODO: 앞, 중간, 뒤 키워드 매칭 시 검색 되도록.
+                                ForEach(dotsModel.strength.filter{ $0.strengthName!.hasPrefix(strengthName) || strengthName == "" }, id:\.self) {
                                     filteredStrength in
-                                    StrengthList(strength: filteredStrength, strengthName: $strengthName)
+                                    StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName)
                                 }
                                 
                             }
