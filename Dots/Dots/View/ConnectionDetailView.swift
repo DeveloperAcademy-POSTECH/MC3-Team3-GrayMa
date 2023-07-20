@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ConnectionDetailView: View {
     @State private var showProfile = false
+    let person: NetworkingPersonEntity
     
     // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity), 강점(StrengthEntity)
     
@@ -16,7 +17,7 @@ struct ConnectionDetailView: View {
         ZStack {
             Color(red: 0, green: 50, blue: 50)    // 이미지 대체 자리
             VStack {
-                CompareStrenth()
+                CompareStrenth(person: person)
                     .padding(.top, 20)
                 ZStack {
                     RoundedRectangle(cornerRadius: 12)
@@ -29,7 +30,7 @@ struct ConnectionDetailView: View {
                         )
                         .overlay(
                             VStack {
-                                BasicProfile()
+                                BasicProfile(name: person.name, company: person.company, job: person.job)
                                 Spacer()
                             }
                         )
@@ -38,7 +39,7 @@ struct ConnectionDetailView: View {
         }
         .ignoresSafeArea()
         .sheet(isPresented: $showProfile) {
-            ConnectionProfileModal()
+            ConnectionProfileModal(person: person)
         }
     }
 }
@@ -49,6 +50,7 @@ enum StrenthViewType: String, CaseIterable, Identifiable {
     var id: String { self.rawValue }
 }
 struct CompareStrenth: View {
+    let person: NetworkingPersonEntity
     @State private var isSelected: StrenthViewType = .take
     
     var body: some View {
@@ -60,7 +62,8 @@ struct CompareStrenth: View {
             }
             .pickerStyle(.segmented)
             .frame(width: 361, height: 44)
-            CompareStrenthItem(strenthType: isSelected.rawValue)
+            
+            CompareStrenthItem(strenthType: isSelected.rawValue, person: person)
         }
     }
 }
@@ -68,9 +71,7 @@ struct CompareStrenth: View {
 struct CompareStrenthItem: View {
     // DB연동시 strenthType에 따른 강점 필터링 필요
     let strenthType: String
-    
-    // 임시데이터
-    let strenthList = ["논리적 사고", "User Test", "호", "이십자를 꽉 채우는 사람도 있을까요?", "함냐"]
+    let person: NetworkingPersonEntity
 
     let screenWidth = UIScreen.main.bounds.size.width
     
@@ -81,9 +82,12 @@ struct CompareStrenthItem: View {
                 VStack(alignment: .leading) {
                     Spacer()
                     // TODO: 텍스트 길이에 따라 유동적인 배치 필요
-                    ForEach(strenthList, id: \.self) { item in
-                        StrenthName(strenthText: item)
+                    if let strengthList = person.strengthSet?.allObjects as? [StrengthEntity] {
+                        ForEach(strengthList) { strength in
+                            StrenthName(strenthText: strength.strengthName)
+                        }
                     }
+                   
                 }
                 .padding(.bottom, 15)
                 
@@ -95,10 +99,10 @@ struct CompareStrenthItem: View {
 }
 
 struct StrenthName: View {
-    let strenthText: String
+    let strenthText: String?
     
     var body: some View {
-        Text(strenthText)
+        Text(strenthText ?? "")
             .padding(10)
             .padding(.leading, 8)
             .padding(.trailing, 8)
@@ -114,6 +118,6 @@ struct StrenthName: View {
 
 struct ConnectionDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ConnectionDetailView()
+        ConnectionDetailView(person: NetworkingPersonEntity())
     }
 }

@@ -99,7 +99,9 @@ struct SearchConnectionView: View {
             
             List {
                 ForEach(dotsModel.networkingPeople) { person in
-                    CustomConnectionList(entity: person)
+                    NavigationLink(destination: ConnectionDetailView(person: person)) {
+                        CustomConnectionList(entity: person)
+                    }
                 }
                 .onDelete(perform: removeConnection)
                 .padding(.top,15)

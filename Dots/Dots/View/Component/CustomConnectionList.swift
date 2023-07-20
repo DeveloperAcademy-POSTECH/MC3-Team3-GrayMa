@@ -33,7 +33,7 @@ struct CustomConnectionList: View {
                         Spacer()
                     }
                     .padding(.leading,16)
-                    NavigationLink(destination: ConnectionDetailView()){
+                    NavigationLink(destination: ConnectionDetailView(person: entity)){
                         Image(systemName: "chevron.right")
                             .foregroundColor(Color.gray)
                             .padding(.leading,336)
