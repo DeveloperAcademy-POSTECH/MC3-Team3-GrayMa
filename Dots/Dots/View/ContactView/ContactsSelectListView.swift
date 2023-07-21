@@ -9,46 +9,72 @@ import SwiftUI
 import Contacts
 
 struct ContactsSelectListView: View {
+    @Environment(\.presentationMode) var presentationMode
     
     //연락처 가져오는 Arr
     //let store = CNContactStore() //리퀘스트 접근 객체
     var contacts : [CNContact] = []
+    
+    @State private var searchText = ""
     
     @State private var selectedMode = 0
     @State var contactList : [String] = []
     
     var body: some View {
         NavigationView{
-            List {
-                //SearchBar(text: $contactList[0])
+            VStack{
+                SearchBar(text: $searchText)
                 
-                Picker(selection: $selectedMode, label: Text("연락처")) {
-                    ForEach(0 ..< contactList.count) { item in
-                        Text("\(contactList[item])")
-                    }
-                } .pickerStyle(.inline)
-                
-                ForEach(0 ..< contactList.count) { item in
-                    Text("\(contactList[item])")
-                        .onTapGesture {
-                            
+                List {
+                        if (searchText == ""){
+                            Picker("",selection: $selectedMode) {
+                                ForEach(0 ..< contactList.count) { item in
+                                    Text("\(contactList[item])")
+                                }
+                            }.pickerStyle(.inline)
+                        } else {
+                            Picker("",selection: $selectedMode) {
+                                ForEach(contactList.filter{$0.hasPrefix(searchText)}, id: \.self) { item in
+                                    Text(item)
+                                }
+                            }.pickerStyle(.inline)
                         }
+                    }.listStyle(PlainListStyle())
                 }
-            }
+            
         }
+        .navigationBarItems(leading: Text("􀆉 인맥관리")
+            .foregroundColor(.blue)
+            .onTapGesture {presentationMode.wrappedValue.dismiss()})
         .onAppear(perform: fetchContacts)
     }
     
     struct SearchBar: View {
-        @Binding var text: String
         
+        @Binding var text: String
+     
         var body: some View {
             HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundColor(.gray)
-                
-                TextField("Search", text: $text)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                HStack {
+                    Image(systemName: "magnifyingglass")
+     
+                    TextField("Search", text: $text)
+                        .foregroundColor(.primary)
+     
+                    if !text.isEmpty {
+                        Button(action: {
+                            self.text = ""
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                        }
+                    } else {
+                        EmptyView()
+                    }
+                }
+                .padding(EdgeInsets(top: 4, leading: 8, bottom: 4, trailing: 8))
+                .foregroundColor(.secondary)
+                .background(Color(.secondarySystemBackground))
+                .cornerRadius(10.0)
             }
             .padding(.horizontal)
         }
