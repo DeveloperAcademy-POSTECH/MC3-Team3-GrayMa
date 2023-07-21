@@ -113,4 +113,16 @@ extension DotsModel {
         
         save()
     }
+    
+    func deleteMyStrength(myStrength entity: MyStrengthEntity) {
+        let targetEntity = myStrength.first {
+            $0.myStrengthUUID == entity.myStrengthUUID
+        }
+        
+        guard let targetEntity = targetEntity else { return }
+        
+        manager.context.delete(targetEntity)
+        
+        save()
+    }
 }
