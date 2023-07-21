@@ -35,14 +35,9 @@ struct MyStrengthView: View {
                     }
                     
                     ForEach(dotsModel.myStrength, id: \.self) { strength in
-                        NavigationLink {
-                            MyStrengthDetailView(myStrengthEntity: strength)
-                        } label: {
-                            CustomList(entity: strength)
-                        }
-                        .frame(height: 84)
-                    }
-                    
+                        CustomList(entity: strength)
+                            .frame(height: 84)
+                    }                    
                 }
                 //                Rectangle()
                 //                    .frame(maxWidth: .infinity)

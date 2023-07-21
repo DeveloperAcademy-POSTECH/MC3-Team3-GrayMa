@@ -42,29 +42,40 @@ enum StrengthLevelImage: String, CaseIterable {
 }
 
 struct CustomList: View {
+    @EnvironmentObject var dotsModel: DotsModel
+    @State private var isNavigation = false
     var entity: MyStrengthEntity
+    
     var body: some View {
-        SwipeItemView(content: {
-            Button {
-                print("버튼인척")
-            } label: {
-                HStack(alignment: .center){
-                    Image(StrengthLevelImage.allCases[Int(entity.strengthLevel)].rawValue)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 36,height: 36)
-                        .padding(.leading,22)
-                    Text(entity.ownStrength?.strengthName ?? "이름")
-                        .font(.system(size: 17,weight: .semibold))
-                        .padding(.leading,12)
-                    Spacer()
+        HStack{
+            SwipeItemView(content: {
+                HStack {
+                    NavigationLink {
+                        MyStrengthDetailView(myStrengthEntity: entity)
+                    }label: {
+                        HStack(alignment: .center){
+                            Image(StrengthLevelImage.allCases[Int(entity.strengthLevel)].rawValue)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 36,height: 36)
+                                .padding(.leading,22)
+                            Text(entity.ownStrength?.strengthName ?? "이름")
+                                .font(.system(size: 17,weight: .semibold))
+                                .padding(.leading,12)
+                            Spacer()
+                        }
+                    }
+                    
                 }
-            }
-        }, right: {
-            VStack(spacing: 0) {
-                Button(action: {
-                    print("삭제예정")
-                }, label: {
+                
+                
+                
+            }, right: {
+                HStack(spacing: 0) {
+                    Button(action: {
+                        print("삭제 완")
+                        dotsModel.deleteMyStrength(myStrength: entity)
+                    }, label: {
                         Rectangle()
                             .fill(.red)
                             .cornerRadius(12, corners: .topRight)
@@ -74,16 +85,11 @@ struct CustomList: View {
                                     .font(.system(size: 17))
                                     .foregroundColor(.white)
                             }
-                })
-                .ignoresSafeArea()
-            }
-            .border(.gray)
-        }, itemHeight: 84)
-        
-        //        func delete() {
-        //            //디비 삭제 예정
-        //            return
-        //        }
+                    })
+                }
+            }, itemHeight: 84)
+            
+        }
         
     }
 }
