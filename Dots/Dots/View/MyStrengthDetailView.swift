@@ -93,7 +93,7 @@ struct MyStrengthDetailView: View {
                     .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
             }
             .sheet(isPresented: $showModal){
-                StrengthNoteModal()
+                StrengthNoteModal(myStrength: myStrengthEntity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.95, green: 0.95, blue: 0.97))
