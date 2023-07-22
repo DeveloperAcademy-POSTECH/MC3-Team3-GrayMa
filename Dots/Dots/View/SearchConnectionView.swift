@@ -19,6 +19,9 @@ struct SearchConnectionView: View {
     @State var contactsSelectListVisible = false
     @State private var navigationActive = false
     
+    // sheet 컨트롤 변수
+    @State var isFilterSheetOn = false
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -87,7 +90,7 @@ struct SearchConnectionView: View {
                             }
                         }
                         Button {
-                            print("ㅇ")
+                            isFilterSheetOn = true
                         } label: {
                             Circle()
                                 .strokeBorder(Color.gray,lineWidth: 1.5)
@@ -154,6 +157,9 @@ struct SearchConnectionView: View {
             .padding(.horizontal, 16)
             
         }
+        .sheet(isPresented: $isFilterSheetOn, content: {
+            SearchFilterView()
+        })
         .fullScreenCover(isPresented: $contactsSelectListVisible){
             NavigationView{
                 ContactsSelectListView()
