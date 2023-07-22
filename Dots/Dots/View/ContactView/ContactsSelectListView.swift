@@ -17,8 +17,10 @@ struct ContactsSelectListView: View {
     
     @State private var searchText = ""
     
-    @State private var selectedMode = 0
+    @State private var selectedName = ""
     @State var contactList : [String] = []
+    
+    @State private var navigationActive = false
     
     var body: some View {
         NavigationView{
@@ -26,27 +28,36 @@ struct ContactsSelectListView: View {
                 SearchBar(text: $searchText)
                 
                 List {
-                        if (searchText == ""){
-                            Picker("",selection: $selectedMode) {
-                                ForEach(0 ..< contactList.count) { item in
-                                    Text("\(contactList[item])")
-                                }
-                            }.pickerStyle(.inline)
-                        } else {
-                            Picker("",selection: $selectedMode) {
-                                ForEach(contactList.filter{$0.hasPrefix(searchText)}, id: \.self) { item in
-                                    Text(item)
-                                }
-                            }.pickerStyle(.inline)
-                        }
-                    }.listStyle(PlainListStyle())
-                }
+                    if (searchText == ""){
+                        Picker("",selection: $selectedName) {
+                            ForEach(contactList, id: \.self) {
+                                Text($0)
+                            }
+                        }.pickerStyle(.inline)
+                    } else {
+                        Picker("",selection: $selectedName) {
+                            ForEach(contactList.filter{$0.hasPrefix(searchText)}, id: \.self) { item in
+                                Text(item)
+                            }
+                        }.pickerStyle(.inline)
+                    }
+                    
+                }.listStyle(PlainListStyle())
+            }
             
         }
         .navigationBarItems(leading: Text("􀆉 인맥관리")
             .foregroundColor(.blue)
-            .onTapGesture {presentationMode.wrappedValue.dismiss()})
+            .onTapGesture {presentationMode.wrappedValue.dismiss()},
+                            trailing: Text("다음")
+            .foregroundColor(.blue)
+            .onTapGesture { navigationActive = true })
         .onAppear(perform: fetchContacts)
+        .fullScreenCover(isPresented: $navigationActive) {
+            NavigationView{
+                addContactsView()
+            }
+        }
     }
     
     struct SearchBar: View {
@@ -87,7 +98,7 @@ struct ContactsSelectListView: View {
         request.sortOrder = CNContactSortOrder.userDefault
         
         do {
-            // 이미 반복되는 형식
+            // 이미 반복되는 형식?
             try store.enumerateContacts(with: request) { contact, stop in
                 let name = contact.familyName + contact.givenName
                 self.contactList.append(name)
