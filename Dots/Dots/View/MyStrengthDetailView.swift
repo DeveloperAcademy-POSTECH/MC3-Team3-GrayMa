@@ -62,7 +62,7 @@ struct MyStrengthDetailView: View {
                 
                 // MARK: - 현재 강점 디테일 리스트
                 ScrollView {
-                    if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity] {
+                    if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
                         ForEach(notes) { note in
                             CustomDetailList(noteEntity: note)
                         }
