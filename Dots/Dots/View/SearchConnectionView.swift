@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Contacts
 
 struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
@@ -15,7 +16,7 @@ struct SearchConnectionView: View {
     @State var actionSheetvisible = false
     
     //인맥추가 navigationLink 컨트롤 변수
-    @State var contactsSelectListvisible = false
+    @State var contactsSelectListVisible = false
     @State private var navigationActive = false
     
     var body: some View {
@@ -28,7 +29,7 @@ struct SearchConnectionView: View {
                             .frame(width: 30,height: 34)
                             .foregroundColor(.black)
                             .onTapGesture {
-                                actionSheetvisable = true
+                                contactsSelectListVisible = true
                                 dotsModel.addExampleNetworkingPeople()
                             }
                     }
@@ -43,7 +44,7 @@ struct SearchConnectionView: View {
                             // Option 1 선택 시 실행할 동작
                             //MARK: 연락처 연동 필요
                             //navigationActive = true
-                            contactsSelectListvisible = true
+                            contactsSelectListVisible = true
                         },
                         .default(Text("새로 입력하기")) {
                             // Option 2 선택 시 실행할 동작
@@ -140,7 +141,7 @@ struct SearchConnectionView: View {
             .padding(.horizontal, 16)
             
         }
-        .fullScreenCover(isPresented: $contactsSelectListvisible){
+        .fullScreenCover(isPresented: $contactsSelectListVisible){
             NavigationView{
                 ContactsSelectListView()
             }

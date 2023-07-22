@@ -92,12 +92,13 @@ extension DotsModel {
         save()
     }
     
-    func addMyNote(date: Date, content: String) {
+    func addMyNote(date: Date, content: String, strength: MyStrengthEntity) {
         let newMyNote = MyStrengthNoteEntity(context: manager.context)
         
         newMyNote.myStrengthNoteID = UUID()
         newMyNote.date = date
         newMyNote.content = content
+        newMyNote.relatedStrength = strength
         
         save()
     }
