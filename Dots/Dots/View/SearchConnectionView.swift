@@ -28,7 +28,8 @@ struct SearchConnectionView: View {
                             .frame(width: 30,height: 34)
                             .foregroundColor(.black)
                             .onTapGesture {
-                                actionSheetvisible = true
+                                actionSheetvisable = true
+                                dotsModel.addExampleNetworkingPeople()
                             }
                     }
                 }
@@ -99,16 +100,45 @@ struct SearchConnectionView: View {
                 }
                 .padding(.horizontal,16)
             
-            List {
+            ScrollView {
                 ForEach(dotsModel.networkingPeople) { person in
-                    NavigationLink(destination: ConnectionDetailView(person: person)) {
-                        CustomConnectionList(entity: person)
-                    }
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray, lineWidth: 0.5)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 84)
+                        .overlay() {
+                            SwipeItemView(content: {
+                                NavigationLink {
+                                    ConnectionDetailView(person: person)
+                                } label: {
+                                    CustomConnectionList(entity: person)
+                                    
+                                }
+                            }, right: {
+                                HStack(spacing: 0) {
+                                    Button(action: {
+                                        print("삭제 완")
+                                        dotsModel.deleteConnection(person: person)
+                                    }, label: {
+                                        Rectangle()
+                                            .fill(.red)
+                                            .cornerRadius(12, corners: .topRight)
+                                            .cornerRadius(12, corners: .bottomRight)
+                                            .overlay(){
+                                                Image(systemName: "trash.fill")
+                                                    .font(.system(size: 17))
+                                                    .foregroundColor(.white)
+                                            }
+                                    })
+                                }
+                            }, itemHeight: 84)
+                        }
+                        .cornerRadius(12, corners: .allCorners)
                 }
-                .onDelete(perform: removeConnection)
-                .padding(.top,15)
             }
-            .listStyle(.plain)
+            .padding(.horizontal, 16)
+            
         }
         .fullScreenCover(isPresented: $contactsSelectListvisible){
             NavigationView{
@@ -121,10 +151,31 @@ struct SearchConnectionView: View {
             }
         }
     }
+  
+    func fetchContacts() {
+        let store = CNContactStore()
+        let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
+        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+        
+        do {
+            try store.enumerateContacts(with: request) { contact, stop in
+                let name = contact.familyName + contact.givenName
+                print("\(name)")
+            }
+        } catch {
+            print("Error fetching contacts: \(error)")
+        }
+    }
 }
 
 extension SearchConnectionView {
     func removeConnection(at offsets: IndexSet) {
         dotsModel.deleteConnection(offsets: offsets)
+    }
+}
+
+struct SearchConnection_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchConnectionView()
     }
 }

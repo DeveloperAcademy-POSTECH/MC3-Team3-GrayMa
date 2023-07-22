@@ -114,6 +114,22 @@ extension DotsModel {
         save()
     }
     
+    func deleteConnection(person: NetworkingPersonEntity) {
+        let targetEntity = networkingPeople.first {
+            $0 == person
+        }
+        
+        guard let targetEntity = targetEntity else {
+            print("삭제 실패")
+            
+            return
+        }
+        
+        manager.context.delete(targetEntity)
+        
+        save()
+    }
+    
     func deleteMyStrength(myStrength entity: MyStrengthEntity) {
         let targetEntity = myStrength.first {
             $0.myStrengthUUID == entity.myStrengthUUID
