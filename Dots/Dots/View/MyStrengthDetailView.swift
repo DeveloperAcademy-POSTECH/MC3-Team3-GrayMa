@@ -86,17 +86,6 @@ struct MyStrengthDetailView: View {
                     }
                 }
             }
-            .navigationBarItems(leading: backButton, trailing: Button(action: {
-                self.showLevelModal = true
-            }) { Text("레벨 선택") })
-            .navigationBarBackButtonHidden(true)
-            .sheet(isPresented: $showLevelModal){
-                StrengthModal(pagenum: 1)
-                    .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
-            }
-            .sheet(isPresented: $showModal){
-                StrengthNoteModal(myStrength: myStrengthEntity)
-            }
         }
         .navigationBarItems(leading: backButton, trailing: Button(action: {
             self.showLevelModal = true
@@ -114,7 +103,7 @@ struct MyStrengthDetailView: View {
         
         // 새로운 강점노트 클릭시 나오는 Modal
         .sheet(isPresented: $showNoteModal){
-            StrengthNoteModal()
+            StrengthNoteModal(myStrength: myStrengthEntity)
         }
     }
     
