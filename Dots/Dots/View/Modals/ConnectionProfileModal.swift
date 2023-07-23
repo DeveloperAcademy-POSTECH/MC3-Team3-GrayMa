@@ -10,12 +10,6 @@ import SwiftUI
 struct ConnectionProfileModal: View {
     let person: NetworkingPersonEntity
     
-//    // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity)
-//    let profileIdx = 1
-//    let phoneNum = "010-0000-0000"
-//    let mailAdd = "apple@academy.com"
-//    let linkedinLink = "http://linkedin.com/in/upub"
-    
     // 데이터 연동 필요 - 메모(NetworkingNoteEntity)
     
     var body: some View {
@@ -37,7 +31,7 @@ struct ConnectionProfileModal: View {
                     }
                     Spacer()
                     
-                    ContactButtons(phoneNum: person.contanctNum, mailAdd: person.email, linkedinLink: person.linkedIn)
+                    ContactButtons(phoneNum: person.contanctNum!, mailAdd: person.email!, linkedinLink: person.linkedIn!)
                         .padding(.trailing, 15)
                 }
                 
@@ -111,9 +105,9 @@ struct ContactButtons: View {
     @State private var noLinkAlert = false
     
     // 개인정보 - 입력 필요
-    let phoneNum: String?
-    let mailAdd: String?
-    let linkedinLink: String?
+    let phoneNum: String
+    let mailAdd: String
+    let linkedinLink: String
     
     var body: some View {
         ZStack {
@@ -124,7 +118,7 @@ struct ContactButtons: View {
                 .fixedSize()
             HStack(spacing: 2.5) {
                 Button {
-                    if let unwrappedPhoneNum = phoneNum {
+                    if phoneNum == "" {
                         pushMessage.toggle()
                         // TODO: 휴대폰 번호 -> 메시지 앱 연결
                     } else {
@@ -165,7 +159,7 @@ struct ContactButtons: View {
                 }
                 
                 Button {
-                    if let unwrappedPhoneNum = phoneNum {
+                    if phoneNum == "" {
                         pushCall.toggle()
                         // TODO: 휴대폰 번호 -> 전화 앱 연결
                     } else {
@@ -206,7 +200,7 @@ struct ContactButtons: View {
                 }
                 
                 Button {
-                    if let unwrappedMailAdd = mailAdd {
+                    if mailAdd == "" {
                         pushMail.toggle()
                         // TODO: 메일 주소 -> 메일 앱 연결
                     } else {
@@ -246,8 +240,8 @@ struct ContactButtons: View {
                     })
                 }
                 
-                if let unwrappedLink = linkedinLink {
-                    Link(destination: URL(string: unwrappedLink)!) {
+                if linkedinLink != "" {
+                    Link(destination: URL(string: linkedinLink)!) {
                         Circle()
                             .frame(width: 58)
                             .opacity(0)
@@ -319,8 +313,8 @@ struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
     }
 }
 
-struct ConnectionProfileModal_Previews: PreviewProvider {
-    static var previews: some View {
-        ConnectionProfileModal(person: NetworkingPersonEntity())
-    }
-}
+//struct ConnectionProfileModal_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ConnectionProfileModal(person: NetworkingPersonEntity())
+//    }
+//}

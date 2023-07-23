@@ -8,14 +8,15 @@
 import SwiftUI
 
 struct ConnectionDetailView: View {
+    @Environment(\.dismiss) private var dismiss
     @State private var showProfile = false
     let person: NetworkingPersonEntity
     
-    // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity), 강점(StrengthEntity)
+    // 데이터 연동 필요 - 강점(StrengthEntity)
     
     var body: some View {
         ZStack {
-            Color(red: 0, green: 50, blue: 50)    // 이미지 대체 자리
+            Color.yellow  // 이미지 대체 자리
             VStack {
                 CompareStrenth(person: person)
                     .padding(.top, 20)
@@ -37,9 +38,29 @@ struct ConnectionDetailView: View {
                 }
             }
         }
-        .ignoresSafeArea()
+        // MARK: Custom NavigationBar
+        .navigationBarBackButtonHidden()
+        .navigationBarItems(leading: BackButton)
+        // TODO: 인맥 편집 화면 연결 필요(인맥 등록뷰와 동일)
+        .navigationBarItems(trailing: Button(action: {}, label: {Text("편집")}))
+        .edgesIgnoringSafeArea([.bottom])
         .sheet(isPresented: $showProfile) {
             ConnectionProfileModal(person: person)
+//                .presentationDetents([.height(203), .large])
+//                .presentationBackgroundInteraction(.enabled(upThrough: .height(203)))
+//                .interactiveDismissDisabled()
+                
+        }
+    }
+    
+    private var BackButton: some View {
+        Button {
+            dismiss()
+        } label: {
+            HStack(spacing: 3) {
+                Image(systemName: "chevron.backward")
+                Text("인맥관리")
+            }
         }
     }
 }
@@ -49,6 +70,7 @@ enum StrenthViewType: String, CaseIterable, Identifiable {
     
     var id: String { self.rawValue }
 }
+
 struct CompareStrenth: View {
     let person: NetworkingPersonEntity
     @State private var isSelected: StrenthViewType = .take
@@ -60,16 +82,13 @@ struct CompareStrenth: View {
                     Text(viewType.rawValue).tag(viewType)
                 }
             }
-            .pickerStyle(.segmented)
-            .frame(width: 361, height: 44)
-            
             CompareStrenthItem(strenthType: isSelected.rawValue, person: person)
         }
     }
 }
 
 struct CompareStrenthItem: View {
-    // DB연동시 strenthType에 따른 강점 필터링 필요
+    // strenthType에 따른 강점 필터링 필요
     let strenthType: String
     let person: NetworkingPersonEntity
 
@@ -77,7 +96,6 @@ struct CompareStrenthItem: View {
     
     var body: some View {
         ZStack {
-            Color.yellow    // 이미지 대체 예정
             HStack {
                 VStack(alignment: .leading) {
                     Spacer()
@@ -116,8 +134,8 @@ struct StrenthName: View {
     }
 }
 
-struct ConnectionDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        ConnectionDetailView(person: NetworkingPersonEntity())
-    }
-}
+//struct ConnectionDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ConnectionDetailView(person: NetworkingPersonEntity())
+//    }
+//}
