@@ -11,13 +11,18 @@ import Contacts
 struct addContactsView: View {
     //다른 뷰에서 닫기 컨트롤을 위한 변수
     @Environment(\.presentationMode) var presentationMode
+    
+    //CoreData 연동
     @EnvironmentObject var dotsModel: DotsModel
     
-    //연락처 가져오는 Arr
-    var selectedUserName : String? = ""
-    
+    //option에 따른 뷰 이름
     let contactsDetailArr = ["이름 *", "연락처", "이메일", "LinkedIn"]
     let contactsModalArr = ["회사", "직무 *"]
+    
+    //연락처 가져오는 Arr
+    @State var selectedUserName : String? = ""
+    //연락처에서 가져오기로 접근하였는가
+    @State var selectedContacts : Bool? = false
     
     //유저 입력 결과 넣을 Arr
     @State private var userDetailInput = ["","","",""]
@@ -85,8 +90,18 @@ struct addContactsView: View {
                                 userInputToCoreData()
                                 dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
                             })
+        
+        .onAppear{
+            if selectedContacts ?? false{
+                let selectedUser = fetchContact(name: selectedUserName ?? "")
+                for contact in selectedUser {
+                    userModalInput[0] = contact.Name
+                }
+            }
+        }
     }
-    
+        
+          
     //코어데이터에 연동할 수 있도록 변수를 초기화
     func userInputToCoreData(){
         coreaDataUserCompany =  userModalInput[0]
@@ -100,7 +115,7 @@ struct addContactsView: View {
         print("\(coreDataUSerProfileImgIdx)\n\(coreDataUserName)\n\(coreaDataUserCompany)\n\(coreDataUserJob)\n\(coreDataUserPhone)\n\(coreDataUserEmail)\n\(coreDataUserSNS)\n\(coreDataUserStrength)\n")
     }
     
-    //기존에서 가져오기를 선택하였을 경우 연락처에서 정보를 가져옴
+    //기존에서 가져오기를 선택하였을 경우 이름을 사용해 연락처에서 정보를 가져옴
     func fetchContact(name: String) -> [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String?)]{
         var selectedUserContacts : [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String?)] = []
         
@@ -123,10 +138,6 @@ struct addContactsView: View {
         }
         return selectedUserContacts
     }
-    
-    //가져온 연락처에서 이름이 일치하는 연락처를 가져옵니다.
-    
-    
 }
 
 

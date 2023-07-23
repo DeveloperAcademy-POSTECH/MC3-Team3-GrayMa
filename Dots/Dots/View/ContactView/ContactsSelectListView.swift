@@ -55,7 +55,7 @@ struct ContactsSelectListView: View {
         .onAppear(perform: fetchContacts)
         .fullScreenCover(isPresented: $navigationActive) {
             NavigationView{
-                addContactsView()
+                addContactsView(selectedUserName: selectedName, selectedContacts : true)
             }
         }
     }
