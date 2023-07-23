@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ConnectionProfileModal: View {
     let person: NetworkingPersonEntity
@@ -118,9 +119,8 @@ struct ContactButtons: View {
                 .fixedSize()
             HStack(spacing: 2.5) {
                 Button {
-                    if phoneNum == "" {
+                    if phoneNum != "" {
                         pushMessage.toggle()
-                        // TODO: 휴대폰 번호 -> 메시지 앱 연결
                     } else {
                         noMessageAlert.toggle()
                     }
@@ -135,13 +135,9 @@ struct ContactButtons: View {
                         )
                 }
                 .confirmationDialog("메시지 보내기", isPresented: $pushMessage) {
+                    Link("메시지 보내기", destination: URL(string: "sms:\(phoneNum)")!)
                     Button {
-                        // TODO: 메시지 연결 필요
-                    } label: {
-                        Text("메시지 보내기")
-                    }
-                    Button {
-                        // TODO: 전화 번호 복사 기능
+                        copyToClipboard(text: phoneNum)
                     } label: {
                         Text("복사")
                     }
@@ -159,9 +155,8 @@ struct ContactButtons: View {
                 }
                 
                 Button {
-                    if phoneNum == "" {
+                    if phoneNum != "" {
                         pushCall.toggle()
-                        // TODO: 휴대폰 번호 -> 전화 앱 연결
                     } else {
                         noCallAlert.toggle()
                     }
@@ -176,13 +171,9 @@ struct ContactButtons: View {
                         )
                 }
                 .confirmationDialog("전화걸기", isPresented: $pushCall) {
+                    Link("전화걸기", destination: URL(string: "tel:\(phoneNum)")!)
                     Button {
-                        // TODO: 전화 연결 필요
-                    } label: {
-                        Text("전화걸기")
-                    }
-                    Button {
-                        // TODO: 전화 번호 복사 기능
+                        copyToClipboard(text: phoneNum)
                     } label: {
                         Text("복사")
                     }
@@ -200,9 +191,8 @@ struct ContactButtons: View {
                 }
                 
                 Button {
-                    if mailAdd == "" {
+                    if mailAdd != "" {
                         pushMail.toggle()
-                        // TODO: 메일 주소 -> 메일 앱 연결
                     } else {
                         noMailAlert.toggle()
                     }
@@ -217,13 +207,9 @@ struct ContactButtons: View {
                         )
                 }
                 .confirmationDialog("이메일 보내기", isPresented: $pushMail) {
+                    Link("이메일 보내기", destination: URL(string: "mailto:\(mailAdd)")!)
                     Button {
-                        // 이메일 연결 필요
-                    } label: {
-                        Text("이메일 보내기")
-                    }
-                    Button {
-                        // 전화 번호 복사 기능
+                        copyToClipboard(text: mailAdd)
                     } label: {
                         Text("복사")
                     }
@@ -280,6 +266,11 @@ struct ContactButtons: View {
             }
         }
     }
+    
+    private func copyToClipboard(text: String) {
+        let pasteboard = UIPasteboard.general
+        pasteboard.string = text
+    }
 }
 
 struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
@@ -313,22 +304,22 @@ struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
     }
 }
 
-import CoreData
-
-struct ConnectionProfileModal_Previews: PreviewProvider {
-    static var previews: some View {
-        let context = NSPersistentContainer(name: "DotsDataContainer").viewContext
-        //Test data
-        let newEntity = NetworkingPersonEntity(context: context)
-        newEntity.peopleID = UUID()
-        newEntity.profileImageIndex = Int16(2)
-        newEntity.name = "김철수"
-        newEntity.company = "apple"
-        newEntity.contanctNum = "010-1111-2222"
-        newEntity.email = "kkkk@mail.com"
-        newEntity.job = "Dev"
-        newEntity.linkedIn = "linkedin.com/lol"
-        
-        return ConnectionProfileModal(person: newEntity)
-    }
-}
+//import CoreData
+//
+//struct ConnectionProfileModal_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let context = NSPersistentContainer(name: "DotsDataContainer").viewContext
+//        //Test data
+//        let newEntity = NetworkingPersonEntity(context: context)
+//        newEntity.peopleID = UUID()
+//        newEntity.profileImageIndex = Int16(2)
+//        newEntity.name = "김철수"
+//        newEntity.company = "apple"
+//        newEntity.contanctNum = "010-1111-2222"
+//        newEntity.email = "kkkk@mail.com"
+//        newEntity.job = "Dev"
+//        newEntity.linkedIn = "linkedin.com/lol"
+//
+//        return ConnectionProfileModal(person: newEntity)
+//    }
+//}
