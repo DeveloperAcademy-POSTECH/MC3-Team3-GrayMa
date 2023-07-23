@@ -162,8 +162,10 @@ extension SearchFilterDetailView {
     
     func deleteSelectedHistory(historyName: String) {
         guard let selectedIdx = selectedHistoryList.firstIndex(of: historyName) else { return }
-        
+        guard let historyIdx = searchHistory.firstIndex(where: { $0.title == historyName }) else { return }
+                
         selectedHistoryList.remove(at: selectedIdx)
+        searchHistory[historyIdx].isSelected = false
     }
 }
 
