@@ -14,7 +14,8 @@ struct StrengthNoteModal: View {
     @State private var textFieldContent: String = ""
     @State private var date: Date = Date()
     @State private var showKeyboardToolbar: Bool = false
-
+    let myStrength: MyStrengthEntity
+    
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
@@ -38,7 +39,7 @@ struct StrengthNoteModal: View {
                     
                     Button(action: {
                         // 저장 기능
-                        dotsModel.addMyNote(date: date, content: textFieldContent)
+                        dotsModel.addMyNote(date: date, content: textFieldContent, strength: myStrength)
                         presentation.wrappedValue.dismiss()
                     }) {
                         Text("저장")

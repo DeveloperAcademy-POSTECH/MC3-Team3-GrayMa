@@ -105,3 +105,30 @@ extension DotsModel {
         }
     }
 }
+
+extension DotsModel {
+    func addExampleNetworkingPeople() {
+        //Test data
+        let newEntity1 = NetworkingPersonEntity(context: manager.context)
+        newEntity1.peopleID = UUID()
+        newEntity1.profileImageIndex = Int16(2)
+        newEntity1.name = "김철수"
+        newEntity1.company = "apple"
+        newEntity1.contanctNum = "010-1111-2222"
+        newEntity1.email = "kkkk@mail.com"
+        newEntity1.job = "Dev"
+        newEntity1.linkedIn = "linkedin.com/lol"
+        
+        let newEntity2 = NetworkingPersonEntity(context: manager.context)
+        newEntity2.peopleID = UUID()
+        newEntity2.profileImageIndex = Int16(2)
+        newEntity2.name = "김래쉬"
+        newEntity2.company = "apple"
+        newEntity2.contanctNum = "010-1111-2222"
+        newEntity2.email = "kkkk@mail.com"
+        newEntity2.job = "Dev"
+        newEntity2.linkedIn = "linkedin.com/lol"
+        
+        save()
+    }
+}

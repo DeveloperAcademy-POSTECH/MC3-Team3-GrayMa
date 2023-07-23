@@ -17,11 +17,6 @@ struct StrengthList: View {
                 .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
                 .padding(.leading,44)
             Spacer()
-            
-            Image(systemName: "checkmark")
-                .foregroundColor(strengthName == strength ? .blue : .clear)
-                .frame(width: 19,height: 21)
-                .padding(.trailing,31)
         }
         .frame(height: 56)
         .background(strengthName == strength ? .gray : .white)
