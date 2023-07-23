@@ -14,7 +14,7 @@ struct addContactsView: View {
     @EnvironmentObject var dotsModel: DotsModel
     
     //연락처 가져오는 Arr
-    var contacts : [CNContact] = []
+    var selectedUserName : String? = ""
     
     let contactsDetailArr = ["이름 *", "연락처", "이메일", "LinkedIn"]
     let contactsModalArr = ["회사", "직무 *"]
@@ -25,7 +25,7 @@ struct addContactsView: View {
     
     //MARK:CoreDate 연동 변수
     @State var coreDataUSerProfileImgIdx = 0
-    @State var coreDataUserName : String? = ""
+    @State var coreDataUserName  = ""
     
     @State var coreaDataUserCompany =  ""
     @State var coreDataUserJob = ""
@@ -87,6 +87,7 @@ struct addContactsView: View {
                             })
     }
     
+    //코어데이터에 연동할 수 있도록 변수를 초기화
     func userInputToCoreData(){
         coreaDataUserCompany =  userModalInput[0]
         coreDataUserJob = userModalInput[1]
@@ -99,7 +100,10 @@ struct addContactsView: View {
         print("\(coreDataUSerProfileImgIdx)\n\(coreDataUserName)\n\(coreaDataUserCompany)\n\(coreDataUserJob)\n\(coreDataUserPhone)\n\(coreDataUserEmail)\n\(coreDataUserSNS)\n\(coreDataUserStrength)\n")
     }
     
-    func fetchContact() {
+    //기존에서 가져오기를 선택하였을 경우 연락처에서 정보를 가져옴
+    func fetchContact(name: String) -> [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String?)]{
+        var selectedUserContacts : [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String?)] = []
+        
         let store = CNContactStore()
         let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey,CNContactOrganizationNameKey,CNContactJobTitleKey,CNContactPhoneNumbersKey,CNContactEmailAddressesKey]
         let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
@@ -108,16 +112,21 @@ struct addContactsView: View {
             try store.enumerateContacts(with: request) { contact, stop in
                 let name = contact.familyName + contact.givenName
                 let company = contact.organizationName
-                let Job = contact.jobTitle
-                let phoneNum = contact.phoneNumbers
-                let email = contact.emailAddresses
-                self.contactList.append(name)
+                let job = contact.jobTitle
+                let phoneNum = contact.phoneNumbers.first?.value.stringValue
+                let email = contact.emailAddresses.first
+                selectedUserContacts.append((Name: name, Company: company, Job: job, PhoneNumber: phoneNum, Email: email?.value as String?))
                 print("\(name)")
             }
         } catch {
             print("Error fetching contacts: \(error)")
         }
+        return selectedUserContacts
     }
+    
+    //가져온 연락처에서 이름이 일치하는 연락처를 가져옵니다.
+    
+    
 }
 
 
