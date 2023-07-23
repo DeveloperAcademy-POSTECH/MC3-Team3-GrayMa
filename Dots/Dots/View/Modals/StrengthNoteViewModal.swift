@@ -1,28 +1,28 @@
 //
-//  StrengthNoteModal.swift
+//  StrengthNoteViewModal.swift
 //  Dots
 //
 //  Created by Jae Ho Yoon on 7/20/23.
 //
-// 새로운 노트 작성
+// 기존 노트 열람
 import SwiftUI
 
-struct StrengthNoteModal: View {
+struct StrengthNoteViewModal: View {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var dotsModel: DotsModel
     @FocusState private var isTextEditorFocused: Bool
-    @State private var textFieldContent: String = ""
-    @State private var date: Date = Date()
+    let id: UUID
+    @State var textFieldContent: String
+    @State var date: Date
     @State private var showKeyboardToolbar: Bool = false
-    let myStrength: MyStrengthEntity
-    
+
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ko_KR")
         formatter.dateFormat = "yyyy년 M월 d일"
         return formatter
     }
-    
+    //테스트
     var body: some View {
         VStack {
             ZStack {
@@ -38,11 +38,11 @@ struct StrengthNoteModal: View {
                     Spacer()
                     
                     Button(action: {
-                        // 저장 기능
-                        dotsModel.addMyNote(date: date, content: textFieldContent, strength: myStrength)
+                        // 수정 기능
+                        dotsModel.updateMyNote(id: id, date: date, content: textFieldContent)
                         presentation.wrappedValue.dismiss()
                     }) {
-                        Text("저장")
+                        Text("수정")
                     }
                 }
                 Text("\(date, formatter: dateFormatter)")
