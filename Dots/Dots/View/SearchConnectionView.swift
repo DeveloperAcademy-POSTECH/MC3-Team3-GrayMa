@@ -29,7 +29,7 @@ struct SearchConnectionView: View {
                             .frame(width: 30,height: 34)
                             .foregroundColor(.black)
                             .onTapGesture {
-                                contactsSelectListVisible = true
+                                actionSheetvisible = true
                                 dotsModel.addExampleNetworkingPeople()
                             }
                     }
