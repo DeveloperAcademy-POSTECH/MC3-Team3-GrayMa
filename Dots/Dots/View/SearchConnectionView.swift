@@ -12,14 +12,11 @@ struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var name: String = ""
     
-    //연락처 가져오는 Arr
-    //let store = CNContactStore() //리퀘스트 접근 객체
-    var contacts : [CNContact] = []
-    
     //actionsheet 컨트롤 변수
-    @State var actionSheetvisable = false
+    @State var actionSheetvisible = false
     
     //인맥추가 navigationLink 컨트롤 변수
+    @State var contactsSelectListVisible = false
     @State private var navigationActive = false
     
     var body: some View {
@@ -32,13 +29,14 @@ struct SearchConnectionView: View {
                             .frame(width: 30,height: 34)
                             .foregroundColor(.black)
                             .onTapGesture {
-                                actionSheetvisable = true
+                                actionSheetvisible = true
+                                dotsModel.addExampleNetworkingPeople()
                             }
                     }
                 }
                 .padding(.trailing,20)
             }
-            .actionSheet(isPresented: $actionSheetvisable){
+            .actionSheet(isPresented: $actionSheetvisible){
                 ActionSheet(
                     title: Text("인맥추가"),
                     buttons: [
@@ -46,8 +44,7 @@ struct SearchConnectionView: View {
                             // Option 1 선택 시 실행할 동작
                             //MARK: 연락처 연동 필요
                             //navigationActive = true
-                            fetchContacts()
-                            //navigationActive = true
+                            contactsSelectListVisible = true
                         },
                         .default(Text("새로 입력하기")) {
                             // Option 2 선택 시 실행할 동작
@@ -104,16 +101,50 @@ struct SearchConnectionView: View {
                 }
                 .padding(.horizontal,16)
             
-            List {
+            ScrollView {
                 ForEach(dotsModel.networkingPeople) { person in
-                    NavigationLink(destination: ConnectionDetailView(person: person)) {
-                        CustomConnectionList(entity: person)
-                    }
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.gray, lineWidth: 0.5)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 84)
+                        .overlay() {
+                            SwipeItemView(content: {
+                                NavigationLink {
+                                    ConnectionDetailView(person: person)
+                                } label: {
+                                    CustomConnectionList(entity: person)
+                                    
+                                }
+                            }, right: {
+                                HStack(spacing: 0) {
+                                    Button(action: {
+                                        print("삭제 완")
+                                        dotsModel.deleteConnection(person: person)
+                                    }, label: {
+                                        Rectangle()
+                                            .fill(.red)
+                                            .cornerRadius(12, corners: .topRight)
+                                            .cornerRadius(12, corners: .bottomRight)
+                                            .overlay(){
+                                                Image(systemName: "trash.fill")
+                                                    .font(.system(size: 17))
+                                                    .foregroundColor(.white)
+                                            }
+                                    })
+                                }
+                            }, itemHeight: 84)
+                        }
+                        .cornerRadius(12, corners: .allCorners)
                 }
-                .onDelete(perform: removeConnection)
-                .padding(.top,15)
             }
-            .listStyle(.plain)
+            .padding(.horizontal, 16)
+            
+        }
+        .fullScreenCover(isPresented: $contactsSelectListVisible){
+            NavigationView{
+                ContactsSelectListView()
+            }
         }
         .fullScreenCover(isPresented: $navigationActive) {
             NavigationView{
@@ -121,26 +152,31 @@ struct SearchConnectionView: View {
             }
         }
     }
-    
+  
     func fetchContacts() {
-            let store = CNContactStore()
-            let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
-            let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
-            
-            do {
-                try store.enumerateContacts(with: request) { contact, stop in
-                    let name = contact.familyName + contact.givenName
-                    print("\(name)")
-                }
-            } catch {
-                print("Error fetching contacts: \(error)")
+        let store = CNContactStore()
+        let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
+        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+        
+        do {
+            try store.enumerateContacts(with: request) { contact, stop in
+                let name = contact.familyName + contact.givenName
+                print("\(name)")
             }
+        } catch {
+            print("Error fetching contacts: \(error)")
         }
-    
+    }
 }
 
 extension SearchConnectionView {
     func removeConnection(at offsets: IndexSet) {
         dotsModel.deleteConnection(offsets: offsets)
+    }
+}
+
+struct SearchConnection_Previews: PreviewProvider {
+    static var previews: some View {
+        SearchConnectionView()
     }
 }

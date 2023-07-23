@@ -62,7 +62,11 @@ struct MyStrengthDetailView: View {
                 
                 // MARK: - 현재 강점 디테일 리스트
                 ScrollView {
-                    if dotsModel.myNotes.isEmpty {
+                    if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
+                        ForEach(notes) { note in
+                            CustomDetailList(noteEntity: note)
+                        }
+                    } else {
                         RoundedRectangle(cornerRadius: 12)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
@@ -77,10 +81,6 @@ struct MyStrengthDetailView: View {
                             }
                             .padding(.leading, 45)
                         }
-                    } else {
-                        ForEach(dotsModel.myNotes) { entity in
-                            CustomDetailList(noteEntity: entity)
-                        }
                     }
                 }
             }
@@ -93,7 +93,7 @@ struct MyStrengthDetailView: View {
                     .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
             }
             .sheet(isPresented: $showModal){
-                StrengthNoteModal()
+                StrengthNoteModal(myStrength: myStrengthEntity)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color(red: 0.95, green: 0.95, blue: 0.97))

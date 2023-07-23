@@ -313,8 +313,22 @@ struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
     }
 }
 
-//struct ConnectionProfileModal_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ConnectionProfileModal(person: NetworkingPersonEntity())
-//    }
-//}
+import CoreData
+
+struct ConnectionProfileModal_Previews: PreviewProvider {
+    static var previews: some View {
+        let context = NSPersistentContainer(name: "DotsDataContainer").viewContext
+        //Test data
+        let newEntity = NetworkingPersonEntity(context: context)
+        newEntity.peopleID = UUID()
+        newEntity.profileImageIndex = Int16(2)
+        newEntity.name = "김철수"
+        newEntity.company = "apple"
+        newEntity.contanctNum = "010-1111-2222"
+        newEntity.email = "kkkk@mail.com"
+        newEntity.job = "Dev"
+        newEntity.linkedIn = "linkedin.com/lol"
+        
+        return ConnectionProfileModal(person: newEntity)
+    }
+}
