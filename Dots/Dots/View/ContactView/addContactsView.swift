@@ -13,6 +13,9 @@ struct addContactsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var dotsModel: DotsModel
     
+    //연락처 가져오는 Arr
+    var contacts : [CNContact] = []
+    
     let contactsDetailArr = ["이름 *", "연락처", "이메일", "LinkedIn"]
     let contactsModalArr = ["회사", "직무 *"]
     
@@ -22,7 +25,7 @@ struct addContactsView: View {
     
     //MARK:CoreDate 연동 변수
     @State var coreDataUSerProfileImgIdx = 0
-    @State var coreDataUserName = ""
+    @State var coreDataUserName : String? = ""
     
     @State var coreaDataUserCompany =  ""
     @State var coreDataUserJob = ""
@@ -94,6 +97,26 @@ struct addContactsView: View {
         
         
         print("\(coreDataUSerProfileImgIdx)\n\(coreDataUserName)\n\(coreaDataUserCompany)\n\(coreDataUserJob)\n\(coreDataUserPhone)\n\(coreDataUserEmail)\n\(coreDataUserSNS)\n\(coreDataUserStrength)\n")
+    }
+    
+    func fetchContact() {
+        let store = CNContactStore()
+        let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey,CNContactOrganizationNameKey,CNContactJobTitleKey,CNContactPhoneNumbersKey,CNContactEmailAddressesKey]
+        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+        
+        do {
+            try store.enumerateContacts(with: request) { contact, stop in
+                let name = contact.familyName + contact.givenName
+                let company = contact.organizationName
+                let Job = contact.jobTitle
+                let phoneNum = contact.phoneNumbers
+                let email = contact.emailAddresses
+                self.contactList.append(name)
+                print("\(name)")
+            }
+        } catch {
+            print("Error fetching contacts: \(error)")
+        }
     }
 }
 
