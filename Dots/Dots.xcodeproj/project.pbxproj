@@ -35,6 +35,7 @@
 		3D0B1F2C2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F2B2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift */; };
 		3D0B1F2E2A6BA1770012A6F4 /* SearchFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F2D2A6BA1770012A6F4 /* SearchFilterView.swift */; };
 		3D0B1F312A6BA1B20012A6F4 /* SearchFilterListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F302A6BA1B20012A6F4 /* SearchFilterListRow.swift */; };
+		3D0B1F332A6D71C70012A6F4 /* SearchFilterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F322A6D71C70012A6F4 /* SearchFilterDetailView.swift */; };
 		A1349E332A64E81C0006611C /* addContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* addContactsView.swift */; };
 		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
 		A1349E372A6618190006611C /* contactsJobCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsJobCompany.swift */; };
@@ -81,6 +82,7 @@
 		3D0B1F2B2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+NetworkingPersonEntity.swift"; sourceTree = "<group>"; };
 		3D0B1F2D2A6BA1770012A6F4 /* SearchFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterView.swift; sourceTree = "<group>"; };
 		3D0B1F302A6BA1B20012A6F4 /* SearchFilterListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterListRow.swift; sourceTree = "<group>"; };
+		3D0B1F322A6D71C70012A6F4 /* SearchFilterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterDetailView.swift; sourceTree = "<group>"; };
 		A1349E322A64E81C0006611C /* addContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addContactsView.swift; sourceTree = "<group>"; };
 		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
 		A1349E362A6618190006611C /* contactsJobCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsJobCompany.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 			children = (
 				3D0B1F2D2A6BA1770012A6F4 /* SearchFilterView.swift */,
 				3D0B1F302A6BA1B20012A6F4 /* SearchFilterListRow.swift */,
+				3D0B1F322A6D71C70012A6F4 /* SearchFilterDetailView.swift */,
 			);
 			path = SearchView;
 			sourceTree = "<group>";
@@ -337,6 +340,7 @@
 				1373F0632A6959F4001A704D /* RounededCorner.swift in Sources */,
 				136AAC7C2A66E30E00CA3797 /* SelectBtn.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
+				3D0B1F332A6D71C70012A6F4 /* SearchFilterDetailView.swift in Sources */,
 				A1349E332A64E81C0006611C /* addContactsView.swift in Sources */,
 				30D982912A68CFBE00E89B37 /* ConnectionDetailView.swift in Sources */,
 				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
