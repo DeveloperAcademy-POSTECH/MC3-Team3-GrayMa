@@ -16,7 +16,6 @@ struct MyStrengthView: View {
         NavigationStack {
             VStack {
                 List {
-                    
                     if dotsModel.myStrength.isEmpty {
                         RoundedRectangle(cornerRadius: 12)
                             .foregroundColor(.white)
