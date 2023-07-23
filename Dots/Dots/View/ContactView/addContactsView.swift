@@ -44,12 +44,12 @@ struct addContactsView: View {
             ScrollView(showsIndicators: false){
                 
                 //이미지 추가
-                contactsImageSelect(userName: coreDataUserName, coreDataUserIdx: $coreDataUSerProfileImgIdx)
+                contactsImageSelect(userName: coreDataUserName ?? "", coreDataUserIdx: $coreDataUSerProfileImgIdx)
                     .onTapGesture {
                         userImgModal = true
                     }
                     .sheet(isPresented: $userImgModal) {
-                        ProfileImageModal(userName: coreDataUserName, userImageIdx: $coreDataUSerProfileImgIdx)
+                        ProfileImageModal(userName: coreDataUserName ?? "", userImageIdx: $coreDataUSerProfileImgIdx)
                             .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
                     }
                 
