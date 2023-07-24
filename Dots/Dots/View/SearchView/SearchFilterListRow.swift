@@ -24,11 +24,11 @@ struct SearchFilterListRow: View {
                         .padding(.trailing, 14)
                         .padding(.leading, 20)
                     Text(type)
-                        .modifier(regularSubHeadLine(colorName: .theme.fontBlack))
+                        .modifier(regularSubHeadLine(colorName: .theme.gray5Dark))
                     Spacer()
                     
                     Text("모두")
-                        .modifier(regularSubHeadLine(colorName: .theme.fontGray))
+                        .modifier(regularSubHeadLine(colorName: .theme.gray5))
                         .padding(.trailing, 30)
                 }
             }
