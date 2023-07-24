@@ -56,7 +56,7 @@ struct contactsTextField: View {
                         .keyboardType(keybordOption[option])
                         .onChange(of: text) { _ in
                             if (option == 1){
-                                if text.count > 10 {
+                                if  removeHyphens(from: text).count == 11 {
                                     print("\(text.count)")
                                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                                 }
@@ -184,6 +184,11 @@ func convertPhoneNum (_ phoneNum : String) -> String{
     let secondPart = cleanedPhoneNumber[firstPartEndIndex..<secondPartEndIndex]
     
     return "\(areaCode)-\(firstPart)-\(secondPart)"
+}
+
+//- 삭제
+func removeHyphens(from input: String) -> String {
+    return input.replacingOccurrences(of: "-", with: "")
 }
 
 //email의 형식이 올바른지 확인
