@@ -11,6 +11,7 @@ import Contacts
 struct addContactsView: View {
     //다른 뷰에서 닫기 컨트롤을 위한 변수
     @Environment(\.presentationMode) var presentationMode
+    @Binding var modalComtrol : Bool
     
     //CoreData 연동
     @EnvironmentObject var dotsModel: DotsModel
@@ -90,6 +91,7 @@ struct addContactsView: View {
                                 userInputToCoreData()
                                 dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
                                 presentationMode.wrappedValue.dismiss()
+                                modalComtrol = false
                             })
         
         .onAppear{
