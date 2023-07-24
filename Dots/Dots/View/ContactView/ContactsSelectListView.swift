@@ -99,7 +99,7 @@ struct ContactsSelectListView: View {
         
         do {
             // 이미 반복되는 형식?
-            try store.enumerateContacts(with: request) { contact, stop in
+            try store.enumerateContacts(with: request) { (contact, stop) in
                 let name = contact.familyName + contact.givenName
                 self.contactList.append(name)
                 print("\(name)")

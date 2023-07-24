@@ -34,9 +34,9 @@ struct contactsJobCompany: View {
                 HStack{
                     //돋보기 보양
                     Image(systemName: "magnifyingglass")
-                        .resizable()
+                        //.resizable()
                         .foregroundColor(.black)
-                        .frame(width: 19,height: 20)
+                        //.frame(width: 20,height: 20)
                     
                     Text("\(text)")
                     
