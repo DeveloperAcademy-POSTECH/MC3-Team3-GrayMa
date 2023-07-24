@@ -53,11 +53,11 @@ struct StrengthNoteViewModal: View {
             let placeholder: String = "어떤 것을 배웠나요? 자유롭게 기록해주세요."
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $textFieldContent)
-                    .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                    .modifier(regularCallout(colorName: .theme.gray5Dark))
                     .focused($isTextEditorFocused)
                 if textFieldContent.isEmpty && !isTextEditorFocused {
                     Text(placeholder)
-                        .modifier(regularCallout(colorName: Fontcolor.fontGray.colorName))
+                        .modifier(regularCallout(colorName: .theme.gray5))
                         .foregroundColor(.gray)
                         .padding(.leading, 5)
                         .padding(.top, 8)

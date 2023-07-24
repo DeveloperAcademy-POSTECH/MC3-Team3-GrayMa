@@ -18,7 +18,17 @@ struct AddStrengthModal: View {
     
     var body: some View {
         NavigationView {
-            VStack(alignment: .center, spacing: isKeyboardVisible ? 0 : 40) {
+            VStack(alignment: .center, spacing: 0) {
+                HStack {
+                    Text("강점 추가")
+                        .modifier(semiBoldTitle3(colorName: .theme.gray5Dark))
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 23)
+                .padding(.bottom, 31)
+                
                 RoundedRectangle(cornerRadius: 40)
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
@@ -33,14 +43,19 @@ struct AddStrengthModal: View {
                                     .foregroundColor(.black)
                             }
                             .padding(.leading,14)
+                            
                             TextField("예) 디자인 시스템", text: $strengthName)
                                 .onChange(of: strengthName) {
                                     newvalue in if strengthName.count > 20 {
                                         strengthName = String(strengthName.prefix(20))
                                     }
                                 }
+                            
                             Spacer()
+                            
                             Text("\(strengthName.count)/20")
+                                .modifier(regularCallout(colorName: .theme.gray))
+                            
                             Button {
                                 strengthName = ""
                             } label: {
@@ -51,6 +66,9 @@ struct AddStrengthModal: View {
                             }
                         }
                     }
+                
+                Spacer()
+                
                 // 키보드가 나타났을때에는 ScrollView가 나타남
                 if isKeyboardVisible {
                     ZStack(alignment: .center) {
@@ -61,15 +79,25 @@ struct AddStrengthModal: View {
                         ScrollView {
                             //sample에 filter를 걸어서 포함 되는 단어만 띄우는 반복문 만약 필터에 해당 되는 것이 없다면 직접 입력하라고 리턴
                             if dotsModel.strength.filter({ $0.strengthName!.contains(strengthName) || strengthName.isEmpty }).isEmpty {
-                                Text("검색 결과가 없습니다. 직접입력해주세요")
-                                    .padding(.top,10)
-                                    .modifier(regularCallout(colorName: .theme.gray5Dark))
-                            } else {
-                                ForEach(dotsModel.strength.filter{ $0.strengthName!.contains(strengthName) || strengthName == "" }, id:\.self) {
-                                    filteredStrength in
-                                    StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName)
+                                HStack {
+                                    Button {
+                                        _ = dotsModel.addStrength(name: strengthName)
+                                    } label: {
+                                        Label("직접 추가하기", systemImage: "plus.circle.fill")
+                                            .padding(.top, 18)
+                                            .padding(.leading, 44)
+                                            .modifier(regularCallout(colorName: .theme.gray))
+                                    }
+                                    
+                                    Spacer()
                                 }
-                                
+                            } else {
+                                VStack(spacing: 0) {
+                                    ForEach(dotsModel.strength.filter{ $0.strengthName!.contains(strengthName) || strengthName == "" }, id:\.self) {
+                                        filteredStrength in
+                                        StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName)
+                                    }
+                                }
                             }
                             
                         }
@@ -97,6 +125,8 @@ struct AddStrengthModal: View {
                         
                     }
                 }
+                
+                Spacer()
             }
             // MARK: 키보드가 나타났을때를 감지
             .onAppear {
@@ -121,7 +151,6 @@ struct AddStrengthModal: View {
             } message: {
                 Text("이미 나의 강점에 추가된 강점이거나, 존재하는 강점입니다.")
             }
-            .navigationBarItems(leading: HStack { Text("강점").font(.system(size: 24)) })
         }
     }
 }
