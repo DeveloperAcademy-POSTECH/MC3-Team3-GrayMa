@@ -33,7 +33,7 @@ struct SearchConnectionView: View {
                             .foregroundColor(.black)
                             .onTapGesture {
                                 actionSheetvisible = true
-                                dotsModel.addExampleNetworkingPeople()
+                                //dotsModel.addExampleNetworkingPeople()
                             }
                     }
                 }
