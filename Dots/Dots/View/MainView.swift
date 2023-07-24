@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    init() {
+        UITabBar.appearance().unselectedItemTintColor = UIColor(Color.theme.disabled)
+    }
+    
     var body: some View {
         TabView{
             MyStrengthView()
