@@ -48,7 +48,9 @@ struct contactsJobCompany: View {
                 RoundedRectangle(cornerRadius: 40)
                     .strokeBorder(Color.gray, lineWidth: 1)
                     .onTapGesture{ modalVissable = true }
-                    .sheet(isPresented: $modalVissable) { bindingModalView(text: $text)}
+                    .sheet(isPresented: $modalVissable) { 
+                        SearchFilterDetailView(isSheetOn: $modalVissable, type: inputCondition)
+                    }
                 .frame(width: 361, height: 56)
             }
             
