@@ -102,6 +102,15 @@ extension DotsModel {
         
         save()
     }
+    
+    func updateMyNote(id: UUID, date: Date, content: String) {
+        guard let noteIndex = myNotes.firstIndex(where: { $0.myStrengthNoteID == id }) else { return }
+        myNotes[noteIndex].date = date
+        myNotes[noteIndex].content = content
+        
+        save()
+    }
+
 }
 
 extension DotsModel {

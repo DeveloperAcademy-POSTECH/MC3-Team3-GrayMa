@@ -22,7 +22,7 @@ struct AddStrengthModal: View {
                 RoundedRectangle(cornerRadius: 40)
                     .frame(maxWidth: .infinity)
                     .frame(height: 56)
-                    .shadow(radius: 2)
+                    .shadow(radius: 1)
                     .foregroundColor(.white)
                     .overlay() {
                         HStack {
@@ -53,27 +53,27 @@ struct AddStrengthModal: View {
                     }
                 // 키보드가 나타났을때에는 ScrollView가 나타남
                 if isKeyboardVisible {
-                    ZStack {
+                    ZStack(alignment: .center) {
                         RoundedRectangle(cornerRadius: 12)
                             .stroke(Color.gray,lineWidth:1)
                             .foregroundColor(.white)
                         // db에 있는 값들을 리스트로 띄움
                         ScrollView {
                             //sample에 filter를 걸어서 포함 되는 단어만 띄우는 반복문 만약 필터에 해당 되는 것이 없다면 직접 입력하라고 리턴
-                            if dotsModel.strength.filter({ $0.strengthName!.hasPrefix(strengthName) || strengthName.isEmpty }).isEmpty {
+                            if dotsModel.strength.filter({ $0.strengthName!.contains(strengthName) || strengthName.isEmpty }).isEmpty {
                                 Text("검색 결과가 없습니다. 직접입력해주세요")
                                     .padding(.top,10)
                                     .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
                             } else {
-                                // TODO: 앞, 중간, 뒤 키워드 매칭 시 검색 되도록.
-                                ForEach(dotsModel.strength.filter{ $0.strengthName!.hasPrefix(strengthName) || strengthName == "" }, id:\.self) {
+                                ForEach(dotsModel.strength.filter{ $0.strengthName!.contains(strengthName) || strengthName == "" }, id:\.self) {
                                     filteredStrength in
                                     StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName)
                                 }
                                 
                             }
-                          
+                            
                         }
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
                     .padding(.top,10)
                     .frame(height: 200)
@@ -96,9 +96,7 @@ struct AddStrengthModal: View {
                             .frame(height: 50)
                         
                     }
-                    
                 }
-                
             }
             // MARK: 키보드가 나타났을때를 감지
             .onAppear {
@@ -124,9 +122,6 @@ struct AddStrengthModal: View {
                 Text("이미 나의 강점에 추가된 강점이거나, 존재하는 강점입니다.")
             }
             .navigationBarItems(leading: HStack { Text("강점").font(.system(size: 24)) })
-            
-            
         }
-        
     }
 }
