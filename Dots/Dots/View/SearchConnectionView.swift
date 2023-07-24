@@ -8,9 +8,14 @@
 import SwiftUI
 import Contacts
 
+
 struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
-    @State var name: String = ""
+    private let keyName: String = "recentSearchName"
+    @State private var name: String = ""
+    @State private var selectedHistoryList: [String] = loadRecentSearches(keyName: "recentSearchName")
+    @State private var recentNameKey: String = ""
+    @State private var isKeyboardVisible = false
     
     //actionsheet 컨트롤 변수
     @State var actionSheetvisible = false
@@ -76,7 +81,9 @@ struct SearchConnectionView: View {
                         }
                         .padding(.leading,14)
                         
-                        TextField("이름 검색", text: $name)
+                        TextField("이름 검색", text: $name,onCommit: {
+                            saveSearch(name: name, selectedHistoryList: &selectedHistoryList, keyName: "recentSearchName")
+                        })
                         
                         Spacer()
                         if(name.count >= 1) {
@@ -106,57 +113,94 @@ struct SearchConnectionView: View {
                 }
                 .padding(.horizontal,16)
             
-            ScrollView {
-                ForEach(dotsModel.networkingPeople.filter {
-                    if let name = $0.name {
-                        print(name)
-                        if name.range(of: self.name) != nil || self.name.isEmpty {
-                            return true
+            if  isKeyboardVisible && (name.isEmpty || dotsModel.networkingPeople.filter { person in
+                if let name = person.name {
+                    return name.range(of: self.name) != nil || self.name.isEmpty
+                } else {
+                    return false
+                }
+            }.isEmpty) {
+                // 검색 결과가 없을때 최근 검색 표시
+                ScrollView {
+                    ForEach(selectedHistoryList, id: \.self) { history in
+                        VStack(alignment: .leading, spacing: 24) {
+                            Button(action: {
+                                if let person = dotsModel.networkingPeople.first(where: { $0.name == history }) {
+                                    NavigationLink(destination: ConnectionDetailView(person: person)) {
+                                        Text(history)
+                                            .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))
+                                    }
+                                } else {
+                                    // 일치하지 않는 경우에는 아무 동작도 하지 않음
+                                }
+                                
+                                // 버튼을 누를 때, name 값 변경
+                                name = history
+                            }) {
+                                Text(history)
+                                    .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))
+                            }
+                            .border(.black)
+                            .padding(.leading, 33)
+                            .padding(.leading,33)
+                            
+                        }
+                    }
+                    
+                }
+            }else {
+                ScrollView {
+                    ForEach(dotsModel.networkingPeople.filter {
+                        if let name = $0.name {
+                            print(name)
+                            if name.range(of: self.name) != nil || self.name.isEmpty {
+                                return true
+                            } else {
+                                return false
+                            }
                         } else {
                             return false
                         }
-                    } else {
-                        return false
+                    }) { person in
+                        RoundedRectangle(cornerRadius: 12)
+                            .stroke(Color.gray, lineWidth: 0.5)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity)
+                            .frame(height: 84)
+                            .overlay() {
+                                SwipeItemView(content: {
+                                    NavigationLink {
+                                        ConnectionDetailView(person: person)
+                                    } label: {
+                                        CustomConnectionList(entity: person)
+                                        
+                                    }
+                                }, right: {
+                                    HStack(spacing: 0) {
+                                        Button(action: {
+                                            print("삭제 완")
+                                            dotsModel.deleteConnection(person: person)
+                                        }, label: {
+                                            Rectangle()
+                                                .fill(.red)
+                                                .cornerRadius(12, corners: .topRight)
+                                                .cornerRadius(12, corners: .bottomRight)
+                                                .overlay(){
+                                                    Image(systemName: "trash.fill")
+                                                        .font(.system(size: 17))
+                                                        .foregroundColor(.white)
+                                                }
+                                        })
+                                    }
+                                }, itemHeight: 84)
+                            }
+                            .cornerRadius(12, corners: .allCorners)
                     }
-                }) { person in
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray, lineWidth: 0.5)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 84)
-                        .overlay() {
-                            SwipeItemView(content: {
-                                NavigationLink {
-                                    ConnectionDetailView(person: person)
-                                } label: {
-                                    CustomConnectionList(entity: person)
-                                    
-                                }
-                            }, right: {
-                                HStack(spacing: 0) {
-                                    Button(action: {
-                                        print("삭제 완")
-                                        dotsModel.deleteConnection(person: person)
-                                    }, label: {
-                                        Rectangle()
-                                            .fill(.red)
-                                            .cornerRadius(12, corners: .topRight)
-                                            .cornerRadius(12, corners: .bottomRight)
-                                            .overlay(){
-                                                Image(systemName: "trash.fill")
-                                                    .font(.system(size: 17))
-                                                    .foregroundColor(.white)
-                                            }
-                                    })
-                                }
-                            }, itemHeight: 84)
-                        }
-                        .cornerRadius(12, corners: .allCorners)
                 }
+                .padding(.horizontal, 16)
             }
-            .padding(.horizontal, 16)
-            
         }
+        
         .sheet(isPresented: $isFilterSheetOn, content: {
             SearchFilterView()
         })
@@ -170,8 +214,21 @@ struct SearchConnectionView: View {
                 addContactsView()
             }
         }
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                isKeyboardVisible = true
+            }
+            
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
+                Notification in isKeyboardVisible = false
+            }
+            
+        }
+        .onDisappear {
+            NotificationCenter.default.removeObserver(self)
+        }
     }
-  
+    
     func fetchContacts() {
         let store = CNContactStore()
         let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
@@ -192,6 +249,26 @@ extension SearchConnectionView {
     func removeConnection(at offsets: IndexSet) {
         dotsModel.deleteConnection(offsets: offsets)
     }
+    
+    // MARK: 유저디폴트 값에 저장 하는 함수
+    func saveSearch(name: String, selectedHistoryList: inout [String], keyName: String) {
+        guard !name.isEmpty else { return }
+        selectedHistoryList.insert(name, at: 0)
+        if selectedHistoryList.count > 5 {
+            selectedHistoryList.removeLast()
+        }
+        UserDefaults.standard.set(selectedHistoryList, forKey: keyName)
+    }
+    // MARK: 유저디폴트 값을 State배열에 대입 하고 불러와주는 함수
+    func loadRecentSearches(keyName: String) -> [String] {
+        if let savedSearches = UserDefaults.standard.array(forKey: keyName) as? [String] {
+            return savedSearches
+        } else {
+            return []
+        }
+    }
+
+
 }
 
 struct SearchConnection_Previews: PreviewProvider {
@@ -199,3 +276,4 @@ struct SearchConnection_Previews: PreviewProvider {
         SearchConnectionView()
     }
 }
+

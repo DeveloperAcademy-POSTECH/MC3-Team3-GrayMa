@@ -12,7 +12,7 @@ struct AddStrengthModal: View {
     @Binding var strengthName : String
     @Binding var pagenum: Int
     @State var isError: Bool = false
-    @State var isKeyboardVisible = false
+    @State private var isKeyboardVisible = false
     @State var tappedNum = 0
     @Environment(\.presentationMode) var presentation
     

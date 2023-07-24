@@ -10,6 +10,8 @@ import SwiftUI
 struct SearchFilterView: View {
     @State var isSheetOn: Bool = false
     @State var type: String = ""
+    @State var keyName: String = ""
+    
     
     var body: some View {
         NavigationView {
@@ -17,6 +19,7 @@ struct SearchFilterView: View {
                 Button {
                     type = "회사"
                     isSheetOn = true
+                    keyName = ""
                 } label: {
                     SearchFilterListRow(type: "회사")
                 }
@@ -24,13 +27,16 @@ struct SearchFilterView: View {
 
                 Button {
                     type = "직무"
+                    keyName = ""
                     isSheetOn = true
+                    
                 } label: {
                     SearchFilterListRow(type: "직무")
                 }
                 
                 Button {
                     type = "강점"
+                    keyName = ""
                     isSheetOn = true
                 } label: {
                     SearchFilterListRow(type: "강점")

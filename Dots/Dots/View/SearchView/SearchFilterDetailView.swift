@@ -15,8 +15,10 @@ struct SearchHistoryRowModel: Hashable {
 // MARK: - body
 struct SearchFilterDetailView: View {
     @State var searchTextField: String = ""
-    @State var selectedHistoryList: [String] = []
+    @State private var selectedHistoryList: [String] = []
     @Binding var isSheetOn: Bool
+    @Binding var
+    @State private var isKeyboardVisible = false
     let type: String
     
     @State var searchHistory: [SearchHistoryRowModel] = [
@@ -32,7 +34,6 @@ struct SearchFilterDetailView: View {
         NavigationView {
             VStack(spacing: 0) {
                 SearchBar
-                
                 SearchHistory
                 
                 Spacer()
@@ -51,6 +52,19 @@ struct SearchFilterDetailView: View {
                         print("완료 ㄱㄱ")
                     }
                 }
+            }
+            .onAppear {
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                    isKeyboardVisible = true
+                }
+                
+                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
+                    Notification in isKeyboardVisible = false
+                }
+                
+            }
+            .onDisappear {
+                NotificationCenter.default.removeObserver(self)
             }
         }
     }
@@ -71,8 +85,10 @@ extension SearchFilterDetailView {
                         .frame(width: 29)
                         .padding(.trailing, 11)
                         .padding(.leading, 14)
-                    ZStack {
-                        TextField("\(type) 검색", text: $searchTextField)
+                    VStack {
+                        TextField("\(type) 검색", text: $searchTextField) {
+                            SearchConnectionView.
+                        }
                         SelectedBadges
                     }
                     
@@ -141,6 +157,14 @@ extension SearchFilterDetailView {
             }
         }
     }
+    
+    private var LastSearch: some View {
+        VStack {
+            ScrollView {
+                ForEach
+            }
+        }
+    }
 }
 
 // MARK: - Function
@@ -175,10 +199,14 @@ extension SearchFilterDetailView {
         selectedHistoryList.remove(at: selectedIdx)
         searchHistory[historyIdx].isSelected = false
     }
-}
+    
 
-struct SearchFilterDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchFilterDetailView(isSheetOn: .constant(true), type: "회사")
-    }
+
+//struct SearchFilterDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchFilterDetailView(isSheetOn: .constant(true), type: "회사")
+//    }
+//}
+
+
 }
