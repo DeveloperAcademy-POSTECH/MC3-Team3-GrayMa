@@ -17,13 +17,15 @@ struct MainView: View {
         TabView{
             MyStrengthView()
                 .tabItem {
-                    Image(systemName: "star.fill")
+                    Image("myStrengthTabIcon_3x")
+                        .renderingMode(.template)
                     Text("내 강점")
                 }
             
             SearchConnectionView()
                 .tabItem {
-                    Image(systemName: "star.fill")
+                    Image("networkingTabIcon_3x")
+                        .renderingMode(.template)
                     Text("인맥 관리")
                 }
         }
