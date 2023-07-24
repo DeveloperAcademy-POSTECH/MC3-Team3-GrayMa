@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SearchFilterListRow: View {
+    let type: String
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 40)
             .stroke(Color.gray, lineWidth: 0.5)
@@ -21,12 +23,12 @@ struct SearchFilterListRow: View {
                         .frame(width: 29)
                         .padding(.trailing, 14)
                         .padding(.leading, 20)
-                    Text("회사")
-                        .modifier(regularSubHeadLine(colorName: .black))
+                    Text(type)
+                        .modifier(regularSubHeadLine(colorName: .theme.fontBlack))
                     Spacer()
                     
                     Text("모두")
-                        .modifier(regularSubHeadLine(colorName: .gray))
+                        .modifier(regularSubHeadLine(colorName: .theme.fontGray))
                         .padding(.trailing, 30)
                 }
             }
@@ -35,7 +37,7 @@ struct SearchFilterListRow: View {
 
 struct SearchFilterListRow_Previews: PreviewProvider {
     static var previews: some View {
-        SearchFilterListRow()
+        SearchFilterListRow(type: "회사")
             .previewLayout(.sizeThatFits)
     }
 }

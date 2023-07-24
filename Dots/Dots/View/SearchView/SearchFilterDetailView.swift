@@ -73,28 +73,7 @@ extension SearchFilterDetailView {
                         .padding(.leading, 14)
                     ZStack {
                         TextField("\(type) 검색", text: $searchTextField)
-                        HStack {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    ForEach(selectedHistoryList, id: \.self) { history in
-                                        HStack {
-                                            Text(history)
-                                                .padding(.trailing, 10)
-                                            Button {
-                                                deleteSelectedHistory(historyName: history)
-                                            } label: {
-                                                Image(systemName: "x.circle.fill")
-                                                    .foregroundColor(.secondary)
-                                            }
-                                        }
-                                        .padding(.horizontal, 18)
-                                        .padding(.vertical, 9)
-                                        .background(Color.accentColor)
-                                        .cornerRadius(12, corners: .allCorners)
-                                    }
-                                }
-                            }
-                        }
+                        SelectedBadges
                     }
                     
                     Spacer()
@@ -128,6 +107,35 @@ extension SearchFilterDetailView {
                         Image(systemName: "checkmark")
                             .padding(.trailing, 47)
                             .opacity(history.isSelected ? 1 : 0)
+                    }
+                }
+            }
+        }
+    }
+    
+    private var SelectedBadges: some View {
+        HStack {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(selectedHistoryList, id: \.self) { history in
+                        HStack(spacing: 0) {
+                            Text(history)
+                                .modifier(regularBody(colorName: .theme.fontWhite))
+                                .padding(.trailing, 10)
+                            Button {
+                                withAnimation(.easeIn(duration: 0.1)) {
+                                    deleteSelectedHistory(historyName: history)
+                                }
+                            } label: {
+                                Image(systemName: "x.circle.fill")
+                                    .foregroundColor(.theme.secondaryLabel)
+                                    .opacity(0.6)
+                            }
+                        }
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 9)
+                        .background(Color.theme.primary)
+                        .cornerRadius(12, corners: .allCorners)
                     }
                 }
             }

@@ -8,26 +8,32 @@
 import SwiftUI
 
 struct SearchFilterView: View {
+    @State var isSheetOn: Bool = false
+    @State var type: String = ""
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 12) {
-                NavigationLink {
-                    Text("거기")
+                Button {
+                    type = "회사"
+                    isSheetOn = true
                 } label: {
-                    SearchFilterListRow()
+                    SearchFilterListRow(type: "회사")
                 }
                 .padding(.top, 24)
 
-                NavigationLink {
-                    Text("거기")
+                Button {
+                    type = "직무"
+                    isSheetOn = true
                 } label: {
-                    SearchFilterListRow()
+                    SearchFilterListRow(type: "직무")
                 }
                 
-                NavigationLink {
-                    Text("거기")
+                Button {
+                    type = "강점"
+                    isSheetOn = true
                 } label: {
-                    SearchFilterListRow()
+                    SearchFilterListRow(type: "강점")
                 }
                 
                 Spacer()
@@ -45,6 +51,9 @@ struct SearchFilterView: View {
                         print("필터 적용")
                     }
                 }
+            }
+            .sheet(isPresented: $isSheetOn) {
+                SearchFilterDetailView(isSheetOn: $isSheetOn, type: type)
             }
 
         }
