@@ -132,7 +132,8 @@ struct addContactsView: View {
         let store = CNContactStore()
         let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey,CNContactOrganizationNameKey,CNContactJobTitleKey,CNContactPhoneNumbersKey,CNContactEmailAddressesKey]
         let predicate = CNContact.predicateForContacts(matchingName: name)
-        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor], predicate: predicate)
+        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+        request.predicate = predicate
         
         do {
             try store.enumerateContacts(with: request) { contact, stop in
