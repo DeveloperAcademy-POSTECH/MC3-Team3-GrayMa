@@ -49,12 +49,12 @@ struct addContactsView: View {
             ScrollView(showsIndicators: false){
                 
                 //이미지 추가
-                contactsImageSelect(userName: coreDataUserName ?? "", coreDataUserIdx: $coreDataUSerProfileImgIdx)
+                contactsImageSelect(userName: coreDataUserName, coreDataUserIdx: $coreDataUSerProfileImgIdx)
                     .onTapGesture {
                         userImgModal = true
                     }
                     .sheet(isPresented: $userImgModal) {
-                        ProfileImageModal(userName: coreDataUserName ?? "", userImageIdx: $coreDataUSerProfileImgIdx)
+                        ProfileImageModal(userName: coreDataUserName, userImageIdx: $coreDataUSerProfileImgIdx)
                             .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
                     }
                 
@@ -62,7 +62,7 @@ struct addContactsView: View {
                 VStack (alignment: .leading){
                     
                     //TextField 생성
-                    contactsTextField(inputCondition: contactsDetailArr[0], text: $coreDataUserName, option: 0)
+                    contactsTextField(inputCondition: contactsDetailArr[0], text: $userDetailInput[0], option: 0)
                     
                     ForEach(0..<2){ i in
                         contactsJobCompany(inputCondition: contactsModalArr[i], text: $userModalInput[i])
@@ -95,15 +95,25 @@ struct addContactsView: View {
             if selectedContacts ?? false{
                 let selectedUser = fetchContact(name: selectedUserName ?? "")
                 for contact in selectedUser {
-                    userModalInput[0] = contact.Name
+                    userDetailInput[0] = contact.Name
+                    
+                    userModalInput[0] = contact.Company ?? ""
+                    userModalInput[1] = contact.Job ?? ""
+                    
+                    userDetailInput[1] = contact.PhoneNumber ?? ""
+                    userDetailInput[2] = contact.Email ?? ""
+                    //userDetailInput[3] = contact.SNS
                 }
             }
         }
     }
+       
         
           
     //코어데이터에 연동할 수 있도록 변수를 초기화
     func userInputToCoreData(){
+        coreDataUserName = userDetailInput[0]
+        
         coreaDataUserCompany =  userModalInput[0]
         coreDataUserJob = userModalInput[1]
         

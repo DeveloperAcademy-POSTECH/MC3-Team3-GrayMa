@@ -11,10 +11,6 @@ import Contacts
 struct ContactsSelectListView: View {
     @Environment(\.presentationMode) var presentationMode
     
-    //연락처 가져오는 Arr
-    //let store = CNContactStore() //리퀘스트 접근 객체
-    var contacts : [CNContact] = []
-    
     @State private var searchText = ""
     
     @State private var selectedName = ""
