@@ -22,7 +22,7 @@ struct addContactsView: View {
     //연락처 가져오는 Arr
     @State var selectedUserName : String? = ""
     //연락처에서 가져오기로 접근하였는가
-    @State var selectedContacts : Bool? = false
+    //@State var selectedContacts : Bool? = false
     
     //유저 입력 결과 넣을 Arr
     @State private var userDetailInput = ["","","",""]
@@ -92,7 +92,7 @@ struct addContactsView: View {
                             })
         
         .onAppear{
-            if selectedContacts ?? false{
+            if !(selectedUserName?.isEmpty ?? true){
                 let selectedUser = fetchContact(name: selectedUserName ?? "")
                 for contact in selectedUser {
                     userDetailInput[0] = contact.Name
