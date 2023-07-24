@@ -17,75 +17,75 @@ struct MyStrengthDetailView: View {
     let myStrengthEntity: MyStrengthEntity
     
     var body: some View {
-        NavigationStack{
-            VStack {
+        VStack {
+            HStack {
+                Image(StrengthLevelImage.allCases[Int(myStrengthEntity.strengthLevel)].rawValue)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 36, height: 36)
+                Text(myStrengthEntity.ownStrength?.strengthName ?? "")
+                    .modifier(boldLargeTitle(colorName: .black))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(.leading, 16.8)
+            
+            // MARK: -  같은 강점 사람들 리스트
+            ScrollView(.horizontal) {
                 HStack {
-                    Image(StrengthLevelImage.allCases[Int(myStrengthEntity.strengthLevel)].rawValue)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 36, height: 36)
-                    Text(myStrengthEntity.ownStrength?.strengthName ?? "")
-                        .modifier(boldLargeTitle(colorName: .black))
-                        .frame(maxWidth: .infinity, alignment: .leading)
+                    ForEach(dummyPortraitData, id: \.self) { entity in
+                        PortraitBtn(entity: entity)
+                    }
                 }
-                .padding(.leading, 16.8)
-                
-                // MARK: -  같은 강점 사람들 리스트
-                ScrollView(.horizontal) {
+                .padding(.leading, 16)
+                .padding(.bottom, 14)
+            }
+            
+            // 강점메모 만들기
+            Button(action: {
+                self.showNoteModal = true
+            }, label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 12)
                     HStack {
-                        ForEach(dummyPortraitData, id: \.self) { entity in
-                            PortraitBtn(entity: entity)
+                        Group {
+                            Image(systemName: "square.and.pencil")
+                                .foregroundColor(.white)
+                            Text("새로운 기록 작성")
                         }
+                        .modifier(semiBoldBody(colorName: .white))
                     }
-                    .padding(.leading, 16)
-                    .padding(.bottom, 14)
                 }
-                
-                // 강점메모 만들기
-                Button(action: {
-                    self.showNoteModal = true
-                }, label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 12)
-                        HStack {
-                            Group {
-                                Image(systemName: "square.and.pencil")
-                                    .foregroundColor(.white)
-                                Text("새로운 기록 작성")
-                            }
-                            .modifier(semiBoldBody(colorName: .white))
-                        }
-                    }
-                    .frame(height: 44)
-                    .padding(.horizontal, 16)
-                    
-                })
-                .padding(.bottom, 10)
-                
-                // MARK: - 강점메모 리스트
-                ScrollView {
-                    if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
-                        ForEach(notes) { note in
-                            CustomDetailList(noteEntity: note)
-                        }
-                    } else {
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
+                .frame(height: 44)
+                .padding(.horizontal, 16)
+            })
+            
+            // MARK: - 강점메모 리스트
+            List {
+                if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
+                    ForEach(notes) { note in
+                        CustomDetailList(noteEntity: note)
                             .frame(height: 62)
-                            .padding(.horizontal, 16)
-                            .overlay()
-                        {
-                            HStack {
-                                Text("저장된 기록이 없습니다.")
-                                    .modifier(regularSubHeadLine(colorName: .gray))
-                                Spacer()
-                            }
-                            .padding(.leading, 45)
+                    }
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                    .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
+                } else {
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .overlay()
+                    {
+                        HStack {
+                            Text("저장된 기록이 없습니다.")
+                                .modifier(regularSubHeadLine(colorName: .gray))
+                            Spacer()
                         }
                     }
                 }
             }
+            .padding(.horizontal, 16)
+            .listStyle(PlainListStyle())
         }
         .navigationBarItems(leading: backButton, trailing: Button(action: {
             self.showLevelModal = true

@@ -151,4 +151,16 @@ extension DotsModel {
         
         save()
     }
+    
+    func deleteMyNote(myNote entity: MyStrengthNoteEntity) {
+        let targetEntity = myNotes.first {
+            $0.myStrengthNoteID == entity.myStrengthNoteID
+        }
+        
+        guard let targetEntity = targetEntity else { return }
+        
+        manager.context.delete(targetEntity)
+        
+        save()
+    }
 }
