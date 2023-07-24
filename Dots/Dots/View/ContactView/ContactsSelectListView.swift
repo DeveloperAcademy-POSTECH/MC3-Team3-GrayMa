@@ -11,10 +11,6 @@ import Contacts
 struct ContactsSelectListView: View {
     @Environment(\.presentationMode) var presentationMode
     
-    //연락처 가져오는 Arr
-    //let store = CNContactStore() //리퀘스트 접근 객체
-    var contacts : [CNContact] = []
-    
     @State private var searchText = ""
     
     @State private var selectedName = ""
@@ -34,12 +30,16 @@ struct ContactsSelectListView: View {
                                 Text($0)
                             }
                         }.pickerStyle(.inline)
+                        //디버깅용
+                        Text("\(selectedName)")
                     } else {
                         Picker("",selection: $selectedName) {
                             ForEach(contactList.filter{$0.hasPrefix(searchText)}, id: \.self) { item in
                                 Text(item)
                             }
                         }.pickerStyle(.inline)
+                        //디버깅용
+                        Text("\(selectedName)")
                     }
                     
                 }.listStyle(PlainListStyle())
@@ -55,7 +55,7 @@ struct ContactsSelectListView: View {
         .onAppear(perform: fetchContacts)
         .fullScreenCover(isPresented: $navigationActive) {
             NavigationView{
-                addContactsView()
+                addContactsView(selectedUserName: selectedName)
             }
         }
     }
