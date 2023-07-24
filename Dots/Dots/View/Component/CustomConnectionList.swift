@@ -14,14 +14,14 @@ struct CustomConnectionList: View {
         VStack(alignment: .leading) {
             HStack {
                 Text(entity.name ?? "이름")
-                    .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))
+                    .modifier(semiBoldCallout(colorName: .theme.gray5Dark))
                 if let company = entity.company {
                     Text(company + "・" + entity.job!)
-                        .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                        .modifier(regularCallout(colorName: .theme.gray5Dark))
                         .padding(.leading,16)
                 } else {
                     Text(entity.job ?? "직업")
-                        .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                        .modifier(regularCallout(colorName: .theme.gray5Dark))
                         .padding(.leading,16)
                 }
                 Spacer()
@@ -32,7 +32,7 @@ struct CustomConnectionList: View {
                 if let strengthList = entity.strengthSet?.allObjects as? [StrengthEntity] {
                     ForEach(strengthList) { strength in
                         Text(strength.strengthName ?? "스트렝쓰")
-                            .modifier(contactsStrength(colorName: Color.white))
+                            .modifier(contactsStrength(colorName: .theme.secondary))
                     }
                 }
             }
