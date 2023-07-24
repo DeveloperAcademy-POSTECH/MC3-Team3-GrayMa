@@ -11,13 +11,19 @@ import Contacts
 struct addContactsView: View {
     //다른 뷰에서 닫기 컨트롤을 위한 변수
     @Environment(\.presentationMode) var presentationMode
+    @Binding var modalComtrol : Bool
+    
+    //CoreData 연동
     @EnvironmentObject var dotsModel: DotsModel
     
-    //연락처 가져오는 Arr
-    var selectedUserName : String? = ""
-    
+    //option에 따른 뷰 이름
     let contactsDetailArr = ["이름 *", "연락처", "이메일", "LinkedIn"]
     let contactsModalArr = ["회사", "직무 *"]
+    
+    //연락처 가져오는 Arr
+    @State var selectedUserName : String? = ""
+    //연락처에서 가져오기로 접근하였는가
+    //@State var selectedContacts : Bool? = false
     
     //유저 입력 결과 넣을 Arr
     @State private var userDetailInput = ["","","",""]
@@ -44,12 +50,12 @@ struct addContactsView: View {
             ScrollView(showsIndicators: false){
                 
                 //이미지 추가
-                contactsImageSelect(userName: coreDataUserName ?? "", coreDataUserIdx: $coreDataUSerProfileImgIdx)
+                contactsImageSelect(userName: coreDataUserName, coreDataUserIdx: $coreDataUSerProfileImgIdx)
                     .onTapGesture {
                         userImgModal = true
                     }
                     .sheet(isPresented: $userImgModal) {
-                        ProfileImageModal(userName: coreDataUserName ?? "", userImageIdx: $coreDataUSerProfileImgIdx)
+                        ProfileImageModal(userName: coreDataUserName, userImageIdx: $coreDataUSerProfileImgIdx)
                             .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
                     }
                 
@@ -57,7 +63,7 @@ struct addContactsView: View {
                 VStack (alignment: .leading){
                     
                     //TextField 생성
-                    contactsTextField(inputCondition: contactsDetailArr[0], text: $coreDataUserName, option: 0)
+                    contactsTextField(inputCondition: contactsDetailArr[0], text: $userDetailInput[0], option: 0)
                     
                     ForEach(0..<2){ i in
                         contactsJobCompany(inputCondition: contactsModalArr[i], text: $userModalInput[i])
@@ -74,7 +80,7 @@ struct addContactsView: View {
                 }
             }
         }
-        .navigationBarItems(leading: Text("􀆉 인맥관리")
+        .navigationBarItems(leading: Text("\(Image(systemName: "chevron.left")) 인맥관리")
             .foregroundColor(.blue)
             .onTapGesture {
                 presentationMode.wrappedValue.dismiss()},
@@ -84,11 +90,33 @@ struct addContactsView: View {
                             .onTapGesture {
                                 userInputToCoreData()
                                 dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
+                                presentationMode.wrappedValue.dismiss()
+                                modalComtrol = false
                             })
+        
+        .onAppear{
+            if !(selectedUserName?.isEmpty ?? true){
+                let selectedUser = fetchContact(name: selectedUserName ?? "")
+                for contact in selectedUser {
+                    userDetailInput[0] = contact.Name
+                    
+                    userModalInput[0] = contact.Company ?? ""
+                    userModalInput[1] = contact.Job ?? ""
+                    
+                    userDetailInput[1] = contact.PhoneNumber ?? ""
+                    userDetailInput[2] = contact.Email ?? ""
+                    //userDetailInput[3] = contact.SNS
+                }
+            }
+        }
     }
-    
+       
+        
+          
     //코어데이터에 연동할 수 있도록 변수를 초기화
     func userInputToCoreData(){
+        coreDataUserName = userDetailInput[0]
+        
         coreaDataUserCompany =  userModalInput[0]
         coreDataUserJob = userModalInput[1]
         
@@ -100,13 +128,15 @@ struct addContactsView: View {
         print("\(coreDataUSerProfileImgIdx)\n\(coreDataUserName)\n\(coreaDataUserCompany)\n\(coreDataUserJob)\n\(coreDataUserPhone)\n\(coreDataUserEmail)\n\(coreDataUserSNS)\n\(coreDataUserStrength)\n")
     }
     
-    //기존에서 가져오기를 선택하였을 경우 연락처에서 정보를 가져옴
+    //기존에서 가져오기를 선택하였을 경우 이름을 사용해 연락처에서 정보를 가져옴
     func fetchContact(name: String) -> [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String?)]{
         var selectedUserContacts : [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String?)] = []
         
         let store = CNContactStore()
         let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey,CNContactOrganizationNameKey,CNContactJobTitleKey,CNContactPhoneNumbersKey,CNContactEmailAddressesKey]
+        let predicate = CNContact.predicateForContacts(matchingName: name)
         let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+        request.predicate = predicate
         
         do {
             try store.enumerateContacts(with: request) { contact, stop in
@@ -123,10 +153,6 @@ struct addContactsView: View {
         }
         return selectedUserContacts
     }
-    
-    //가져온 연락처에서 이름이 일치하는 연락처를 가져옵니다.
-    
-    
 }
 
 

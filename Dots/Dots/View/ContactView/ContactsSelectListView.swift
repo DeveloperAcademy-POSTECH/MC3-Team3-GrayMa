@@ -10,10 +10,7 @@ import Contacts
 
 struct ContactsSelectListView: View {
     @Environment(\.presentationMode) var presentationMode
-    
-    //연락처 가져오는 Arr
-    //let store = CNContactStore() //리퀘스트 접근 객체
-    var contacts : [CNContact] = []
+    @Binding var modalControl : Bool
     
     @State private var searchText = ""
     
@@ -34,28 +31,34 @@ struct ContactsSelectListView: View {
                                 Text($0)
                             }
                         }.pickerStyle(.inline)
+                        //디버깅용
+//                        Text("\(selectedName)")
                     } else {
                         Picker("",selection: $selectedName) {
                             ForEach(contactList.filter{$0.hasPrefix(searchText)}, id: \.self) { item in
                                 Text(item)
                             }
                         }.pickerStyle(.inline)
+                        //디버깅용
+//                        Text("\(selectedName)")
                     }
                     
                 }.listStyle(PlainListStyle())
             }
             
         }
-        .navigationBarItems(leading: Text("􀆉 인맥관리")
+        .navigationBarItems(leading: Text("\(Image(systemName: "chevron.left")) 인맥관리")
             .foregroundColor(.blue)
             .onTapGesture {presentationMode.wrappedValue.dismiss()},
                             trailing: Text("다음")
             .foregroundColor(.blue)
-            .onTapGesture { navigationActive = true })
+            .onTapGesture {
+                navigationActive = true
+            })
         .onAppear(perform: fetchContacts)
         .fullScreenCover(isPresented: $navigationActive) {
             NavigationView{
-                addContactsView()
+                addContactsView(modalComtrol: $modalControl, selectedUserName: selectedName)
             }
         }
     }
@@ -99,7 +102,7 @@ struct ContactsSelectListView: View {
         
         do {
             // 이미 반복되는 형식?
-            try store.enumerateContacts(with: request) { contact, stop in
+            try store.enumerateContacts(with: request) { (contact, stop) in
                 let name = contact.familyName + contact.givenName
                 self.contactList.append(name)
                 print("\(name)")
@@ -110,8 +113,8 @@ struct ContactsSelectListView: View {
     }
 }
 
-struct ContactsSelectListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContactsSelectListView()
-    }
-}
+//struct ContactsSelectListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContactsSelectListView()
+//    }
+//}

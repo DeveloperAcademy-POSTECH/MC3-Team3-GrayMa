@@ -73,28 +73,7 @@ extension SearchFilterDetailView {
                         .padding(.leading, 14)
                     ZStack {
                         TextField("\(type) 검색", text: $searchTextField)
-                        HStack {
-                            ScrollView(.horizontal, showsIndicators: false) {
-                                HStack {
-                                    ForEach(selectedHistoryList, id: \.self) { history in
-                                        HStack {
-                                            Text(history)
-                                                .padding(.trailing, 10)
-                                            Button {
-                                                deleteSelectedHistory(historyName: history)
-                                            } label: {
-                                                Image(systemName: "x.circle.fill")
-                                                    .foregroundColor(.secondary)
-                                            }
-                                        }
-                                        .padding(.horizontal, 18)
-                                        .padding(.vertical, 9)
-                                        .background(Color.accentColor)
-                                        .cornerRadius(12, corners: .allCorners)
-                                    }
-                                }
-                            }
-                        }
+                        SelectedBadges
                     }
                     
                     Spacer()
@@ -116,7 +95,8 @@ extension SearchFilterDetailView {
                 ZStack {
                     Rectangle()
                         .frame(height: 44)
-                        .foregroundColor(listRowColor(opacity: history.isSelected ? 0.6 : 0))
+                        .foregroundColor(.theme.secondary)
+                        .opacity(history.isSelected ? 1 : 0)
                     
                     HStack {
                         Text(history.title)
@@ -133,14 +113,38 @@ extension SearchFilterDetailView {
             }
         }
     }
+    
+    private var SelectedBadges: some View {
+        HStack {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(selectedHistoryList, id: \.self) { history in
+                        HStack(spacing: 0) {
+                            Text(history)
+                                .modifier(regularBody(colorName: .theme.text))
+                                .padding(.trailing, 10)
+                            Button {
+                                withAnimation(.easeIn(duration: 0.1)) {
+                                    deleteSelectedHistory(historyName: history)
+                                }
+                            } label: {
+                                Image(systemName: "x.circle.fill")
+                                    .foregroundColor(.theme.stroke)
+                            }
+                        }
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 9)
+                        .background(Color.theme.secondary)
+                        .cornerRadius(12, corners: .allCorners)
+                    }
+                }
+            }
+        }
+    }
 }
 
 // MARK: - Function
 extension SearchFilterDetailView {
-    func listRowColor(opacity: Double) -> Color {
-        return Color(red: 235/255, green: 235/255, blue: 245/255, opacity: opacity)
-    }
-    
     func selectAction(history: SearchHistoryRowModel) {
         if history.isSelected {
             selectedHistoryList.append(history.title)

@@ -34,9 +34,9 @@ struct contactsJobCompany: View {
                 HStack{
                     //돋보기 보양
                     Image(systemName: "magnifyingglass")
-                        .resizable()
+                        //.resizable()
                         .foregroundColor(.black)
-                        .frame(width: 19,height: 20)
+                        //.frame(width: 20,height: 20)
                     
                     Text("\(text)")
                     
@@ -48,7 +48,9 @@ struct contactsJobCompany: View {
                 RoundedRectangle(cornerRadius: 40)
                     .strokeBorder(Color.gray, lineWidth: 1)
                     .onTapGesture{ modalVissable = true }
-                    .sheet(isPresented: $modalVissable) { bindingModalView(text: $text)}
+                    .sheet(isPresented: $modalVissable) { 
+                        SearchFilterDetailView(isSheetOn: $modalVissable, type: inputCondition)
+                    }
                 .frame(width: 361, height: 56)
             }
             
@@ -70,6 +72,7 @@ struct bindingModalView: View {
         VStack {
             Text("임시 모달뷰")
             TextField("", text: $text)
+                .frame(height: 50)
                 .border(.blue)
             Button("Close") {
                 presentationMode.wrappedValue.dismiss()

@@ -10,6 +10,7 @@ import SwiftUI
 struct CustomDetailList: View {
     @State var showNoteViewModal = false
     @ObservedObject var noteEntity: MyStrengthNoteEntity
+    @EnvironmentObject var dotsModel: DotsModel
     
     var titleText: String {
         guard let content = noteEntity.content else { return "" }
@@ -30,12 +31,12 @@ struct CustomDetailList: View {
         let startOfToday = calendar.startOfDay(for: currentDate)
         let startOfYesterday = calendar.startOfDay(for: calendar.date(byAdding: .day, value: -1, to: currentDate) ?? currentDate)
         
-        if let date = calendar.date(byAdding: .minute, value: 1, to: noteEntity.date!), date >= startOfToday {
+        if let date = calendar.date(byAdding: .minute, value: 1, to: noteEntity.date ?? Date()), date >= startOfToday {
             let dateFormatter = DateFormatter()
             dateFormatter.locale = Locale(identifier: "ko_KR")
             dateFormatter.dateFormat = "a h:mm"
             
-            return dateFormatter.string(from: noteEntity.date!)
+            return dateFormatter.string(from: noteEntity.date ?? Date())
         } else if let date = calendar.date(byAdding: .day, value: 1, to: noteEntity.date!), date >= startOfYesterday {
             return "어제"
         } else {
@@ -46,37 +47,53 @@ struct CustomDetailList: View {
     }
     
     var body: some View {
-        Button(action: {
-            self.showNoteViewModal = true
-        }, label: {
-            RoundedRectangle(cornerRadius: 12)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 62)
-                .padding(.horizontal, 16)
-                .overlay()
-            {
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(titleText)
-                            .modifier(semiBoldTitle3(colorName: .black))
-                        HStack {
-                            Group {
-                                Text(dateText)
-                                Text(subtitleText)
+        RoundedRectangle(cornerRadius: 12)
+            .foregroundColor(.white)
+            .frame(height: 62)
+            .overlay() {
+                SwipeItemView(content: {
+                    HStack {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(titleText)
+                                .modifier(semiBoldTitle3(colorName: .black))
+                            HStack {
+                                Group {
+                                    Text(dateText)
+                                    Text(subtitleText)
+                                }
+                                .modifier(regularSubHeadLine(colorName: .gray))
                             }
-                            .modifier(regularSubHeadLine(colorName: .gray))
                         }
+                        .padding(.leading, 29)
+                        Spacer()
                     }
-                    .padding(.leading, 45)
-                    Spacer()
-                }
+                    .onTapGesture { self.showNoteViewModal = true }
+                    
+                    
+                }, right: {
+                    HStack(spacing: 0) {
+                        Button(action: {
+                            print("삭제 완")
+                            dotsModel.deleteMyNote(myNote: noteEntity)
+                        }, label: {
+                            Rectangle()
+                                .fill(.red)
+                                .cornerRadius(12, corners: .topRight)
+                                .cornerRadius(12, corners: .bottomRight)
+                                .overlay(){
+                                    Image(systemName: "trash.fill")
+                                        .font(.system(size: 17))
+                                        .foregroundColor(.white)
+                                }
+                        })
+                    }
+                }, itemHeight: 62)
             }
-        })
+            .cornerRadius(12, corners: .allCorners)
         
         // 기존 강점노트 클릭시 나오는 Modal
-        .sheet(isPresented: $showNoteViewModal){
-            StrengthNoteViewModal(id: noteEntity.myStrengthNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
-        }
+            .sheet(isPresented: $showNoteViewModal){
+                StrengthNoteViewModal(id: noteEntity.myStrengthNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
+            }
     }
 }

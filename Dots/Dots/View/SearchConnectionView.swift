@@ -33,7 +33,7 @@ struct SearchConnectionView: View {
                             .foregroundColor(.black)
                             .onTapGesture {
                                 actionSheetvisible = true
-                                dotsModel.addExampleNetworkingPeople()
+                                //dotsModel.addExampleNetworkingPeople()
                             }
                     }
                 }
@@ -162,13 +162,14 @@ struct SearchConnectionView: View {
         })
         .fullScreenCover(isPresented: $contactsSelectListVisible){
             NavigationView{
-                ContactsSelectListView()
+                ContactsSelectListView(modalControl: $contactsSelectListVisible)
             }
         }
         .fullScreenCover(isPresented: $navigationActive) {
             NavigationView{
-                addContactsView()
+                addContactsView(modalComtrol: $navigationActive)
             }
+            
         }
     }
   
@@ -194,8 +195,8 @@ extension SearchConnectionView {
     }
 }
 
-struct SearchConnection_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchConnectionView()
-    }
-}
+//struct SearchConnection_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchConnectionView()
+//    }
+//}
