@@ -55,13 +55,13 @@ struct CustomDetailList: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(titleText)
-                                .modifier(semiBoldTitle3(colorName: .black))
+                                .modifier(semiBoldTitle3(colorName: .theme.gray5Dark))
                             HStack {
                                 Group {
                                     Text(dateText)
                                     Text(subtitleText)
                                 }
-                                .modifier(regularSubHeadLine(colorName: .gray))
+                                .modifier(regularSubHeadLine(colorName: .theme.gray5Dark))
                             }
                         }
                         .padding(.leading, 29)
@@ -94,6 +94,8 @@ struct CustomDetailList: View {
         // 기존 강점노트 클릭시 나오는 Modal
             .sheet(isPresented: $showNoteViewModal){
                 StrengthNoteViewModal(id: noteEntity.myStrengthNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
+                    .interactiveDismissDisabled(true)
+                    .presentationDragIndicator(.hidden)
             }
     }
 }

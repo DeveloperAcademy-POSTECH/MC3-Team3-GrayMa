@@ -31,8 +31,7 @@ struct StrengthNoteModal: View {
                         presentation.wrappedValue.dismiss()
                     }) {
                         HStack {
-                            Image(systemName: "chevron.backward")
-                            Text("목록")
+                            Text("취소")
                         }
                     }
                     Spacer()
@@ -46,19 +45,18 @@ struct StrengthNoteModal: View {
                     }
                 }
                 Text("\(date, formatter: dateFormatter)")
-                    .font(.headline)
+                    .modifier(semiBoldBody(colorName: .theme.gray5Dark))
             }
             .frame(height: 40, alignment: .top)
             
             let placeholder: String = "어떤 것을 배웠나요? 자유롭게 기록해주세요."
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $textFieldContent)
-                    .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                    .modifier(regularCallout(colorName: .theme.gray5Dark))
                     .focused($isTextEditorFocused)
                 if textFieldContent.isEmpty && !isTextEditorFocused {
                     Text(placeholder)
-                        .modifier(regularCallout(colorName: Fontcolor.fontGray.colorName))
-                        .foregroundColor(.gray)
+                        .modifier(regularCallout(colorName: .theme.gray))
                         .padding(.leading, 5)
                         .padding(.top, 8)
                         .onTapGesture {
@@ -70,6 +68,7 @@ struct StrengthNoteModal: View {
         }
         .padding()
         .padding(.top, 10)
+        
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
             self.showKeyboardToolbar = true
         }
