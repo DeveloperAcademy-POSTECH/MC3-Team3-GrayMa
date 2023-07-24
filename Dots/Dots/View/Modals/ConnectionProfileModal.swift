@@ -6,15 +6,12 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ConnectionProfileModal: View {
     let person: NetworkingPersonEntity
     
-//    // 데이터 연동 필요 - 개인정보(NetworkingPersonEntity)
-//    let profileIdx = 1
-//    let phoneNum = "010-0000-0000"
-//    let mailAdd = "apple@academy.com"
-//    let linkedinLink = "http://linkedin.com/in/upub"
+    @State private var showNote = false
     
     // 데이터 연동 필요 - 메모(NetworkingNoteEntity)
     
@@ -37,12 +34,12 @@ struct ConnectionProfileModal: View {
                     }
                     Spacer()
                     
-                    ContactButtons(phoneNum: person.contanctNum, mailAdd: person.email, linkedinLink: person.linkedIn)
+                    ContactButtons(phoneNum: person.contanctNum!, mailAdd: person.email!, linkedinLink: person.linkedIn!)
                         .padding(.trailing, 15)
                 }
-                
+
                 Button {
-                    
+                    showNote.toggle()
                 } label: {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 361, height: 44)
@@ -55,15 +52,39 @@ struct ConnectionProfileModal: View {
                         }
                 }
                 
-                ScrollView {
-                    ConnectionMemoItem(title: "Landing page", meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                }
+                // MARK: - 인맥 노트 리스트
+//                ScrollView {
+//                    if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
+//                        ForEach(notes) { note in
+//                            CustomDetailList(noteEntity: note)
+//                        }
+//                    } else {
+//                        RoundedRectangle(cornerRadius: 12)
+//                            .foregroundColor(.white)
+//                            .frame(maxWidth: .infinity)
+//                            .frame(height: 62)
+//                            .padding(.horizontal, 16)
+//                            .overlay()
+//                        {
+//                            HStack {
+//                                Text("저장된 기록이 없습니다.")
+//                                    .modifier(regularSubHeadLine(colorName: .gray))
+//                                Spacer()
+//                            }
+//                            .padding(.leading, 45)
+//                        }
+//                    }
+//                }
                 .padding(.top, -10)
                 .scrollIndicators(.hidden)
                 Spacer()
             }
         }
         .ignoresSafeArea()
+        .sheet(isPresented: $showNote) {
+            ConnectionNoteModal()
+                .interactiveDismissDisabled()
+        }
     }
 }
 
@@ -111,9 +132,9 @@ struct ContactButtons: View {
     @State private var noLinkAlert = false
     
     // 개인정보 - 입력 필요
-    let phoneNum: String?
-    let mailAdd: String?
-    let linkedinLink: String?
+    let phoneNum: String
+    let mailAdd: String
+    let linkedinLink: String
     
     var body: some View {
         ZStack {
@@ -124,9 +145,8 @@ struct ContactButtons: View {
                 .fixedSize()
             HStack(spacing: 2.5) {
                 Button {
-                    if let unwrappedPhoneNum = phoneNum {
+                    if phoneNum != "" {
                         pushMessage.toggle()
-                        // TODO: 휴대폰 번호 -> 메시지 앱 연결
                     } else {
                         noMessageAlert.toggle()
                     }
@@ -141,13 +161,9 @@ struct ContactButtons: View {
                         )
                 }
                 .confirmationDialog("메시지 보내기", isPresented: $pushMessage) {
+                    Link("메시지 보내기", destination: URL(string: "sms:\(phoneNum)")!)
                     Button {
-                        // TODO: 메시지 연결 필요
-                    } label: {
-                        Text("메시지 보내기")
-                    }
-                    Button {
-                        // TODO: 전화 번호 복사 기능
+                        copyToClipboard(text: phoneNum)
                     } label: {
                         Text("복사")
                     }
@@ -165,9 +181,8 @@ struct ContactButtons: View {
                 }
                 
                 Button {
-                    if let unwrappedPhoneNum = phoneNum {
+                    if phoneNum != "" {
                         pushCall.toggle()
-                        // TODO: 휴대폰 번호 -> 전화 앱 연결
                     } else {
                         noCallAlert.toggle()
                     }
@@ -182,13 +197,9 @@ struct ContactButtons: View {
                         )
                 }
                 .confirmationDialog("전화걸기", isPresented: $pushCall) {
+                    Link("전화걸기", destination: URL(string: "tel:\(phoneNum)")!)
                     Button {
-                        // TODO: 전화 연결 필요
-                    } label: {
-                        Text("전화걸기")
-                    }
-                    Button {
-                        // TODO: 전화 번호 복사 기능
+                        copyToClipboard(text: phoneNum)
                     } label: {
                         Text("복사")
                     }
@@ -206,9 +217,8 @@ struct ContactButtons: View {
                 }
                 
                 Button {
-                    if let unwrappedMailAdd = mailAdd {
+                    if mailAdd != "" {
                         pushMail.toggle()
-                        // TODO: 메일 주소 -> 메일 앱 연결
                     } else {
                         noMailAlert.toggle()
                     }
@@ -223,13 +233,9 @@ struct ContactButtons: View {
                         )
                 }
                 .confirmationDialog("이메일 보내기", isPresented: $pushMail) {
+                    Link("이메일 보내기", destination: URL(string: "mailto:\(mailAdd)")!)
                     Button {
-                        // 이메일 연결 필요
-                    } label: {
-                        Text("이메일 보내기")
-                    }
-                    Button {
-                        // 전화 번호 복사 기능
+                        copyToClipboard(text: mailAdd)
                     } label: {
                         Text("복사")
                     }
@@ -246,8 +252,8 @@ struct ContactButtons: View {
                     })
                 }
                 
-                if let unwrappedLink = linkedinLink {
-                    Link(destination: URL(string: unwrappedLink)!) {
+                if linkedinLink != "" {
+                    Link(destination: URL(string: linkedinLink)!) {
                         Circle()
                             .frame(width: 58)
                             .opacity(0)
@@ -286,55 +292,60 @@ struct ContactButtons: View {
             }
         }
     }
-}
-
-struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
-    let title: String
-    let meetingDay: String
-    let summary: String
     
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("\(title)")
-                    .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))    // 컬러 변경 필요
-                HStack(spacing: 11) {
-                    Text("\(meetingDay)")
-                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
-                    Text("\(summary)")
-                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
-                }  // 컬러 변경 필요
-            }
-            .padding(.leading, 29)
-            
-            Spacer()
-        }
-        .frame(width: 361, height: 62)
-        .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .strokeBorder(Color.gray, lineWidth: 1)
-        )
+    private func copyToClipboard(text: String) {
+        let pasteboard = UIPasteboard.general
+        pasteboard.string = text
     }
 }
 
-import CoreData
+//struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
+//    let title: String
+//    let meetingDay: String
+//    let summary: String
+//
+//    var body: some View {
+//        HStack {
+//            VStack(alignment: .leading, spacing: 8) {
+//                Text("\(title)")
+//                    .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))    // 컬러 변경 필요
+//                HStack(spacing: 11) {
+//                    Text("\(meetingDay)")
+//                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
+//                    Text("\(summary)")
+//                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
+//                }  // 컬러 변경 필요
+//            }
+//            .padding(.leading, 29)
+//
+//            Spacer()
+//        }
+//        .frame(width: 361, height: 62)
+//        .background(.white)
+//        .clipShape(RoundedRectangle(cornerRadius: 12))
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 12)
+//                .strokeBorder(Color.gray, lineWidth: 1)
+//        )
+//    }
+//}
 
-struct ConnectionProfileModal_Previews: PreviewProvider {
-    static var previews: some View {
-        let context = NSPersistentContainer(name: "DotsDataContainer").viewContext
-        //Test data
-        let newEntity = NetworkingPersonEntity(context: context)
-        newEntity.peopleID = UUID()
-        newEntity.profileImageIndex = Int16(2)
-        newEntity.name = "김철수"
-        newEntity.company = "apple"
-        newEntity.contanctNum = "010-1111-2222"
-        newEntity.email = "kkkk@mail.com"
-        newEntity.job = "Dev"
-        newEntity.linkedIn = "linkedin.com/lol"
-        
-        return ConnectionProfileModal(person: newEntity)
-    }
-}
+//import CoreData
+//
+//struct ConnectionProfileModal_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let context = NSPersistentContainer(name: "DotsDataContainer").viewContext
+//        //Test data
+//        let newEntity = NetworkingPersonEntity(context: context)
+//        newEntity.peopleID = UUID()
+//        newEntity.profileImageIndex = Int16(2)
+//        newEntity.name = "김철수"
+//        newEntity.company = "apple"
+//        newEntity.contanctNum = "010-1111-2222"
+//        newEntity.email = "kkkk@mail.com"
+//        newEntity.job = "Dev"
+//        newEntity.linkedIn = "linkedin.com/lol"
+//
+//        return ConnectionProfileModal(person: newEntity)
+//    }
+//}
