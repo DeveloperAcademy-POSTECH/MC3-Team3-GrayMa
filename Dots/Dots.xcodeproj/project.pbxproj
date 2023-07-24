@@ -26,9 +26,11 @@
 		137997792A64C5AC008F5F01 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997782A64C5AC008F5F01 /* Persistence.swift */; };
 		1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */; };
 		137997872A64C661008F5F01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997862A64C661008F5F01 /* MainView.swift */; };
+		307D76B42A6E574600847DA8 /* PopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307D76B32A6E574600847DA8 /* PopGesture.swift */; };
+		307D76B62A6E604E00847DA8 /* ConnectionNoteViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307D76B52A6E604E00847DA8 /* ConnectionNoteViewModal.swift */; };
 		30D982912A68CFBE00E89B37 /* ConnectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D982902A68CFBE00E89B37 /* ConnectionDetailView.swift */; };
-		30D982932A68D07C00E89B37 /* ConnectionProfileModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D982922A68D07C00E89B37 /* ConnectionProfileModal.swift */; };
 		30E33A9A2A6CFEF8009A7905 /* ConnectionNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E33A992A6CFEF8009A7905 /* ConnectionNoteModal.swift */; };
+		30E33A9E2A6E1A50009A7905 /* ConnectionNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E33A9D2A6E1A50009A7905 /* ConnectionNoteList.swift */; };
 		3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */; };
 		3D0B1F242A654BD20012A6F4 /* DotsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F232A654BD20012A6F4 /* DotsModel.swift */; };
 		3D0B1F282A67882F0012A6F4 /* Ex+DotsModel_Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */; };
@@ -75,9 +77,11 @@
 		1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dots.xcdatamodel; sourceTree = "<group>"; };
 		1379977D2A64C5AC008F5F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		137997862A64C661008F5F01 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		307D76B32A6E574600847DA8 /* PopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopGesture.swift; sourceTree = "<group>"; };
+		307D76B52A6E604E00847DA8 /* ConnectionNoteViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionNoteViewModal.swift; sourceTree = "<group>"; };
 		30D982902A68CFBE00E89B37 /* ConnectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionDetailView.swift; sourceTree = "<group>"; };
-		30D982922A68D07C00E89B37 /* ConnectionProfileModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionProfileModal.swift; sourceTree = "<group>"; };
 		30E33A992A6CFEF8009A7905 /* ConnectionNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionNoteModal.swift; sourceTree = "<group>"; };
+		30E33A9D2A6E1A50009A7905 /* ConnectionNoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionNoteList.swift; sourceTree = "<group>"; };
 		3D0B1F212A654AED0012A6F4 /* DotsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsDataManager.swift; sourceTree = "<group>"; };
 		3D0B1F232A654BD20012A6F4 /* DotsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsModel.swift; sourceTree = "<group>"; };
 		3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ex+DotsModel_Create.swift"; sourceTree = "<group>"; };
@@ -128,8 +132,6 @@
 				B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */,
 				B4E26B2A2A696AB900C1948F /* StrengthNoteViewModal.swift */,
 				136AAC752A66E29600CA3797 /* AddStrengthModal.swift */,
-				30D982922A68D07C00E89B37 /* ConnectionProfileModal.swift */,
-				30E33A992A6CFEF8009A7905 /* ConnectionNoteModal.swift */,
 			);
 			path = Modals;
 			sourceTree = "<group>";
@@ -140,6 +142,7 @@
 				1373F0622A6959F4001A704D /* RounededCorner.swift */,
 				3D0B1F292A6A29EE0012A6F4 /* Ex+MyStrengthNoteEntity.swift */,
 				3D0B1F2B2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift */,
+				307D76B32A6E574600847DA8 /* PopGesture.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 		137997842A64C64B008F5F01 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				307D76B72A6E606900847DA8 /* ConnectionView */,
 				3D0B1F2F2A6BA1930012A6F4 /* SearchView */,
 				136AAC812A66E35300CA3797 /* Modals */,
 				136AAC732A66E25100CA3797 /* MyStrengthView.swift */,
@@ -205,7 +209,6 @@
 				136AAC822A66E37400CA3797 /* StrengthModal.swift */,
 				137997862A64C661008F5F01 /* MainView.swift */,
 				136AAC882A676E5500CA3797 /* SearchConnectionView.swift */,
-				30D982902A68CFBE00E89B37 /* ConnectionDetailView.swift */,
 				137997852A64C651008F5F01 /* Component */,
 				A1349E3A2A67710C0006611C /* ContactView */,
 			);
@@ -226,6 +229,17 @@
 				1373F05E2A692A08001A704D /* SwipeItemView.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		307D76B72A6E606900847DA8 /* ConnectionView */ = {
+			isa = PBXGroup;
+			children = (
+				30D982902A68CFBE00E89B37 /* ConnectionDetailView.swift */,
+				30E33A992A6CFEF8009A7905 /* ConnectionNoteModal.swift */,
+				307D76B52A6E604E00847DA8 /* ConnectionNoteViewModal.swift */,
+				30E33A9D2A6E1A50009A7905 /* ConnectionNoteList.swift */,
+			);
+			path = ConnectionView;
 			sourceTree = "<group>";
 		};
 		3D0B1F2F2A6BA1930012A6F4 /* SearchView */ = {
@@ -327,7 +341,6 @@
 				A1349E392A6685F70006611C /* contactsMemo.swift in Sources */,
 				136AAC7A2A66E2D500CA3797 /* SelectLevelModal.swift in Sources */,
 				30E33A9A2A6CFEF8009A7905 /* ConnectionNoteModal.swift in Sources */,
-				30D982932A68D07C00E89B37 /* ConnectionProfileModal.swift in Sources */,
 				3D0B1F2A2A6A29EE0012A6F4 /* Ex+MyStrengthNoteEntity.swift in Sources */,
 				3D0B1F282A67882F0012A6F4 /* Ex+DotsModel_Create.swift in Sources */,
 				B4E26B2B2A696AB900C1948F /* StrengthNoteViewModal.swift in Sources */,
@@ -360,8 +373,11 @@
 				3D0B1F2C2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift in Sources */,
 				B4E701A12A68611D007A3876 /* KeyboardToolbar.swift in Sources */,
 				B4E7019D2A68573A007A3876 /* StrengthNoteModal.swift in Sources */,
+				30E33A9E2A6E1A50009A7905 /* ConnectionNoteList.swift in Sources */,
+				307D76B42A6E574600847DA8 /* PopGesture.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 				136AAC742A66E25100CA3797 /* MyStrengthView.swift in Sources */,
+				307D76B62A6E604E00847DA8 /* ConnectionNoteViewModal.swift in Sources */,
 				3D0B1F312A6BA1B20012A6F4 /* SearchFilterListRow.swift in Sources */,
 				A1349E412A67DC810006611C /* contactsStrength.swift in Sources */,
 				3D0B1F2E2A6BA1770012A6F4 /* SearchFilterView.swift in Sources */,
@@ -494,7 +510,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
-				DEVELOPMENT_TEAM = 34K3V5D9X5;
+				DEVELOPMENT_TEAM = FJ72KV3U2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSContactsUsageDescription = "전화쓴다고 허용하라고";
@@ -524,7 +540,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
-				DEVELOPMENT_TEAM = 34K3V5D9X5;
+				DEVELOPMENT_TEAM = FJ72KV3U2A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSContactsUsageDescription = "전화쓴다고 허용하라고";
