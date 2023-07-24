@@ -70,6 +70,7 @@ struct bindingModalView: View {
         VStack {
             Text("임시 모달뷰")
             TextField("", text: $text)
+                .frame(height: 50)
                 .border(.blue)
             Button("Close") {
                 presentationMode.wrappedValue.dismiss()
