@@ -19,6 +19,9 @@ struct SearchConnectionView: View {
     @State var contactsSelectListVisible = false
     @State private var navigationActive = false
     
+    // sheet 컨트롤 변수
+    @State var isFilterSheetOn = false
+    
     var body: some View {
         NavigationStack {
             VStack{
@@ -72,7 +75,9 @@ struct SearchConnectionView: View {
                                 .foregroundColor(.black)
                         }
                         .padding(.leading,14)
+                        
                         TextField("이름 검색", text: $name)
+                        
                         Spacer()
                         if(name.count >= 1) {
                             Button {
@@ -85,7 +90,7 @@ struct SearchConnectionView: View {
                             }
                         }
                         Button {
-                            print("ㅇ")
+                            isFilterSheetOn = true
                         } label: {
                             Circle()
                                 .strokeBorder(Color.gray,lineWidth: 1.5)
@@ -102,7 +107,18 @@ struct SearchConnectionView: View {
                 .padding(.horizontal,16)
             
             ScrollView {
-                ForEach(dotsModel.networkingPeople) { person in
+                ForEach(dotsModel.networkingPeople.filter {
+                    if let name = $0.name {
+                        print(name)
+                        if name.range(of: self.name) != nil || self.name.isEmpty {
+                            return true
+                        } else {
+                            return false
+                        }
+                    } else {
+                        return false
+                    }
+                }) { person in
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.gray, lineWidth: 0.5)
                         .foregroundColor(.white)
@@ -141,6 +157,9 @@ struct SearchConnectionView: View {
             .padding(.horizontal, 16)
             
         }
+        .sheet(isPresented: $isFilterSheetOn, content: {
+            SearchFilterView()
+        })
         .fullScreenCover(isPresented: $contactsSelectListVisible){
             NavigationView{
                 ContactsSelectListView()
