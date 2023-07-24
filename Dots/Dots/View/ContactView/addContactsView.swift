@@ -89,6 +89,7 @@ struct addContactsView: View {
                             .onTapGesture {
                                 userInputToCoreData()
                                 dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
+                                presentationMode.wrappedValue.dismiss()
                             })
         
         .onAppear{
