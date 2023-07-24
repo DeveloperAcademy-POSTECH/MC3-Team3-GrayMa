@@ -18,18 +18,30 @@ struct SelectLevelModal: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 50) {
+            VStack {
                 HStack {
+                    Text("강점 레벨 선택")
+                        .modifier(semiBoldTitle3(colorName: .theme.gray5Dark))
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 23)
+                
+                Spacer()
+                
+                HStack(spacing: 65) {
                     ForEach (images.indices, id: \.self) { index in
                         Image(images[index].rawValue)
                             .resizable()
-                            .frame(width: 88,height: 88)
+                            .scaledToFit()
+                            .frame(height: images[index].size)
                             .onTapGesture {
                                 selectedLevel = index
                             }
                             .overlay() {
                                 Circle()
-                                    .strokeBorder(images[selectedLevel] == images[index] ? Color.blue : Color.clear,lineWidth: 3)
+                                    .strokeBorder(images[selectedLevel] == images[index] ? Color.accentColor : Color.clear, lineWidth: 3)
                                     .frame(width: 88,height: 88)
                             }
                         
@@ -38,11 +50,14 @@ struct SelectLevelModal: View {
                     
                 }
                 .padding(.horizontal,30)
+                
+                Spacer()
+                
                 HStack {
-                    SelectBtn(fontWeight: .regular, content: "이전", textColor: .black, btnColor: .gray, action: {pageNum -= 1})
+                    SelectBtn(fontWeight: .regular, content: "이전", textColor: .theme.gray5Dark, btnColor: .theme.bgBlank, action: {pageNum -= 1})
                     Spacer()
                     // 데이터 베이스 연결시에는 데이터 베이스 저장을 해야하는 버튼
-                    SelectBtn(fontWeight: .bold, content: "저장", textColor: .white, btnColor: .blue, action: {
+                    SelectBtn(fontWeight: .bold, content: "저장", textColor: .theme.bgPrimary, btnColor: .accentColor, action: {
                         dotsModel.addMyStrength(strengthLevel: Int16(selectedLevel), strengthName: strengthName)
                         presentation.wrappedValue.dismiss()
                     })
@@ -52,7 +67,6 @@ struct SelectLevelModal: View {
             .allowsTightening(true)
             .padding(.horizontal,16)
             .frame(width: UIScreen.main.bounds.width)
-            .navigationBarItems(leading: Text("강점 레벨 선택").modifier(semiBoldTitle3(colorName: .theme.gray5Dark)))
         }
        
         

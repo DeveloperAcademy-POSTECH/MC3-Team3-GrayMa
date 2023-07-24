@@ -17,7 +17,7 @@ struct StrengthModal: View {
     var body: some View {
         ZStack {
             if pagenum == 0 {
-                AddStrengthModal(strengthName: $strengthName, pagenum: $pagenum)
+                AddStrengthModal(pagenum: $pagenum, selectedStrength: $strengthName)
             }
             else if pagenum == 1 {
                 SelectLevelModal(strengthName: $strengthName, pageNum: $pagenum, selectedLevel: $selectedLevel)

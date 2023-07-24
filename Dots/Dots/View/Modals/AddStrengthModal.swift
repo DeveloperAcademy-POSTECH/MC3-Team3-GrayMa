@@ -9,11 +9,12 @@ import SwiftUI
 
 struct AddStrengthModal: View {
     @EnvironmentObject var dotsModel: DotsModel
-    @Binding var strengthName : String
+    @State var strengthName: String = ""
     @Binding var pagenum: Int
     @State var isError: Bool = false
     @State var isKeyboardVisible = false
     @State var tappedNum = 0
+    @Binding var selectedStrength: String
     @Environment(\.presentationMode) var presentation
     
     var body: some View {
@@ -36,20 +37,47 @@ struct AddStrengthModal: View {
                     .foregroundColor(.white)
                     .overlay() {
                         HStack {
-                            Button {
-                                print("검색기능 예정")
-                            } label: {
-                                Image(systemName: "magnifyingglass")
-                                    .foregroundColor(.black)
-                            }
-                            .padding(.leading,14)
-                            
-                            TextField("예) 디자인 시스템", text: $strengthName)
-                                .onChange(of: strengthName) {
-                                    newvalue in if strengthName.count > 20 {
-                                        strengthName = String(strengthName.prefix(20))
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(.black)
+                                .padding(.leading,14)
+                            ZStack {
+                                TextField("예) 디자인 시스템", text: $strengthName)
+                                    .onChange(of: strengthName) {
+                                        newvalue in if strengthName.count > 20 {
+                                            strengthName = String(strengthName.prefix(20))
+                                        }
                                     }
+                                    .onSubmit {
+                                        isKeyboardVisible = false
+                                        selectedStrength = strengthName
+                                        strengthName = " "
+                                    }
+                                    .disabled(!selectedStrength.isEmpty)
+                                
+                                HStack {
+                                    HStack(spacing: 0) {
+                                        Text(selectedStrength)
+                                            .modifier(regularBody(colorName: .theme.text))
+                                            .padding(.trailing, 10)
+                                        Button {
+                                            withAnimation(.easeIn(duration: 0.1)) {
+                                                selectedStrength = ""
+                                                strengthName = ""
+                                            }
+                                        } label: {
+                                            Image(systemName: "x.circle.fill")
+                                                .foregroundColor(.theme.disabled)
+                                        }
+                                    }
+                                    .padding(.horizontal, 18)
+                                    .padding(.vertical, 9)
+                                    .background(Color.theme.secondary)
+                                    .cornerRadius(12, corners: .allCorners)
+                                    .opacity(selectedStrength.isEmpty ? 0 : 1)
+                                    
+                                    Spacer()
                                 }
+                            }
                             
                             Spacer()
                             
@@ -82,6 +110,7 @@ struct AddStrengthModal: View {
                                 HStack {
                                     Button {
                                         _ = dotsModel.addStrength(name: strengthName)
+                                        isKeyboardVisible = false
                                     } label: {
                                         Label("직접 추가하기", systemImage: "plus.circle.fill")
                                             .padding(.top, 18)
@@ -103,7 +132,7 @@ struct AddStrengthModal: View {
                         }
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                     }
-                    .padding(.top,10)
+                    .padding(.top, 10)
                     .frame(height: 200)
                 } else {
                     VStack {
@@ -116,7 +145,7 @@ struct AddStrengthModal: View {
                                     pagenum += 1
                                 }
                             })
-                            .disabled(strengthName.isEmpty)
+                            .disabled(selectedStrength.isEmpty)
                         }
                         .frame(height: 50)
                         .frame(maxWidth: .infinity)
