@@ -47,7 +47,7 @@ struct ContactsSelectListView: View {
             }
             
         }
-        .navigationBarItems(leading: Text("􀆉 인맥관리")
+        .navigationBarItems(leading: Text("\(Image(systemName: "chevron.left")) 인맥관리")
             .foregroundColor(.blue)
             .onTapGesture {presentationMode.wrappedValue.dismiss()},
                             trailing: Text("다음")

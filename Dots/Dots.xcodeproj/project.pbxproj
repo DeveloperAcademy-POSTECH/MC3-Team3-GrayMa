@@ -41,7 +41,6 @@
 		A1349E332A64E81C0006611C /* addContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* addContactsView.swift */; };
 		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
 		A1349E372A6618190006611C /* contactsJobCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsJobCompany.swift */; };
-		A1349E392A6685F70006611C /* contactsMemo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E382A6685F70006611C /* contactsMemo.swift */; };
 		A1349E3C2A6771910006611C /* contactsImageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3B2A6771910006611C /* contactsImageSelect.swift */; };
 		A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3D2A6796100006611C /* contactsUserProfile.swift */; };
 		A1349E412A67DC810006611C /* contactsStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E402A67DC810006611C /* contactsStrength.swift */; };
@@ -91,7 +90,6 @@
 		A1349E322A64E81C0006611C /* addContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addContactsView.swift; sourceTree = "<group>"; };
 		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
 		A1349E362A6618190006611C /* contactsJobCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsJobCompany.swift; sourceTree = "<group>"; };
-		A1349E382A6685F70006611C /* contactsMemo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsMemo.swift; sourceTree = "<group>"; };
 		A1349E3B2A6771910006611C /* contactsImageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsImageSelect.swift; sourceTree = "<group>"; };
 		A1349E3D2A6796100006611C /* contactsUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsUserProfile.swift; sourceTree = "<group>"; };
 		A1349E402A67DC810006611C /* contactsStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsStrength.swift; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 				A1349E322A64E81C0006611C /* addContactsView.swift */,
 				A1349E342A64E9F90006611C /* contactsTextField.swift */,
 				A1349E362A6618190006611C /* contactsJobCompany.swift */,
-				A1349E382A6685F70006611C /* contactsMemo.swift */,
 				A1349E3B2A6771910006611C /* contactsImageSelect.swift */,
 				A1349E3D2A6796100006611C /* contactsUserProfile.swift */,
 				A1349E402A67DC810006611C /* contactsStrength.swift */,
@@ -327,7 +324,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1373F05F2A692A08001A704D /* SwipeItemView.swift in Sources */,
-				A1349E392A6685F70006611C /* contactsMemo.swift in Sources */,
 				136AAC7A2A66E2D500CA3797 /* SelectLevelModal.swift in Sources */,
 				30E33A9A2A6CFEF8009A7905 /* ConnectionNoteModal.swift in Sources */,
 				30D982932A68D07C00E89B37 /* ConnectionProfileModal.swift in Sources */,
@@ -501,12 +497,12 @@
 				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSContactsUsageDescription = "전화쓴다고 허용하라고";
+				INFOPLIST_KEY_NSContactsUsageDescription = "연락처 자동 입력을 위해서 사용자의 연락처에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -531,12 +527,12 @@
 				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSContactsUsageDescription = "전화쓴다고 허용하라고";
+				INFOPLIST_KEY_NSContactsUsageDescription = "연락처 자동 입력을 위해서 사용자의 연락처에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
