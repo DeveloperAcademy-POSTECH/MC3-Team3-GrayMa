@@ -23,7 +23,7 @@ struct SwipeItemView<Content: View, Right: View>: View {
     
     let screenWidth = UIScreen.main.bounds.width
     var anchorWidth: CGFloat { screenWidth / 3}
-    var swipeTreshold: CGFloat { screenWidth / 20 }
+    var swipeThreshold: CGFloat { screenWidth / 20 }
     
     @State var rightPast = false
     
@@ -40,9 +40,9 @@ struct SwipeItemView<Content: View, Right: View>: View {
                     }
                     
                     if anchor < 0 {
-                        rightPast = hoffSet < -anchorWidth + swipeTreshold
+                        rightPast = hoffSet < -anchorWidth + swipeThreshold
                     } else {
-                        rightPast = hoffSet < -swipeTreshold
+                        rightPast = hoffSet < -swipeThreshold
                     }
                 }
             }

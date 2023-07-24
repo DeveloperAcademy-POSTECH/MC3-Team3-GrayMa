@@ -56,7 +56,7 @@ struct ConnectionNoteModal: View {
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
             self.showKeyboardToolbar = false
         }
-        .overlay(KeyboardToolbar(showKeyboardToolbar: $showKeyboardToolbar), alignment: .bottom)
+        .overlay(KeyboardToolbar(showKeyboardToolbar: $showKeyboardToolbar, date: $date), alignment: .bottom)
         .presentationDragIndicator(.visible)
 
     }
