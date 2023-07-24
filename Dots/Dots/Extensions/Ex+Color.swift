@@ -28,19 +28,17 @@ extension Color {
         let alertRed = Color("alertRed")
         
         // Brand
-        let navigation = Color("navigation")
         let primary = Color("primary")
         let secondary = Color("secondary")
-        let stroke = Color("stroke")
+        let disabled = Color("disabled")
         let text = Color("text")
         
         // GrayScale
         let bgMain = Color("bgMain")
         let bgPrimary = Color("bgPrimary")
-        let bgSecondary = Color("bgSecondary")
+        let bgBlank = Color("bgBlank")
         let gray = Color("gray")
         let gray5 = Color("gray5")
         let gray5Dark = Color("gray5Dark")
-        let labelSecondaryDark = Color("labelSecondaryDark")
     }
 }
