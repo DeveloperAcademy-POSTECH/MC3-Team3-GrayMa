@@ -18,13 +18,22 @@ extension Color {
     /// ```
     static let theme = ColorTheme()
     
+    static func colorWithOpacity(color: Color, opacity: Double) -> Color {
+        return color.opacity(opacity)
+    }
+    
     struct ColorTheme {
-        static let alertGreen = Color("alertGreen")
-        static let alertRed = Color("alertRed")
-        static let primary = Color("primaryColor")
-        static let sub = Color("subColor")
-        static let fontBlack = Color("fontBlack")
-        static let fontGray = Color("fontGray")
-        static let fontWhite = Color("fontWhite")
+        let alertGreen = Color("alertGreen")
+        let alertRed = Color("alertRed")
+        let primary = Color("primaryColor")
+        let sub = Color("subColor")
+        let fontBlack = Color("fontBlack")
+        let fontGray = Color("fontGray")
+        let fontWhite = Color("fontWhite")
+        let bgPrimary = Color("bgPrimary")
+        let lightBg = Color("lightBg")
+        let secondaryBg = Color("secondaryBg")
+        let stroke = Color("stroke")
+        let secondaryLabel = Color("secondaryLabel")
     }
 }

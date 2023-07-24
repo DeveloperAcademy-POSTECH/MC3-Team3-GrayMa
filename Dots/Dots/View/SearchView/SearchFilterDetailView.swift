@@ -118,20 +118,23 @@ extension SearchFilterDetailView {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     ForEach(selectedHistoryList, id: \.self) { history in
-                        HStack {
+                        HStack(spacing: 0) {
                             Text(history)
-                                .modifier(regularBody(colorName: .white))
+                                .modifier(regularBody(colorName: .theme.fontWhite))
                                 .padding(.trailing, 10)
                             Button {
-                                deleteSelectedHistory(historyName: history)
+                                withAnimation(.easeIn(duration: 0.1)) {
+                                    deleteSelectedHistory(historyName: history)
+                                }
                             } label: {
                                 Image(systemName: "x.circle.fill")
-                                    .foregroundColor(.secondary)
+                                    .foregroundColor(.theme.secondaryLabel)
+                                    .opacity(0.6)
                             }
                         }
                         .padding(.horizontal, 18)
                         .padding(.vertical, 9)
-                        .background(Color.accentColor)
+                        .background(Color.theme.primary)
                         .cornerRadius(12, corners: .allCorners)
                     }
                 }
