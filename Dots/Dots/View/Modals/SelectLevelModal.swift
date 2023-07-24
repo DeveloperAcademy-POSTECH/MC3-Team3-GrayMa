@@ -52,8 +52,7 @@ struct SelectLevelModal: View {
             .allowsTightening(true)
             .padding(.horizontal,16)
             .frame(width: UIScreen.main.bounds.width)
-            
-            .navigationBarItems(leading: Text("강점 레벨 선택").modifier(semiBoldTitle3(colorName: Fontcolor.fontBlack.colorName)))
+            .navigationBarItems(leading: Text("강점 레벨 선택").modifier(semiBoldTitle3(colorName: .theme.gray5Dark)))
         }
        
         

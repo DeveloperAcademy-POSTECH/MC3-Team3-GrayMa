@@ -45,7 +45,7 @@ struct AddStrengthModal: View {
                                 strengthName = ""
                             } label: {
                                 Text("\(Image(systemName: "x.circle.fill"))")
-                                    .foregroundColor(.gray)
+                                    .foregroundColor(.theme.disabled)
                                     .frame(width: 24,height: 24)
                                     .padding(.trailing,15)
                             }
@@ -63,7 +63,7 @@ struct AddStrengthModal: View {
                             if dotsModel.strength.filter({ $0.strengthName!.contains(strengthName) || strengthName.isEmpty }).isEmpty {
                                 Text("검색 결과가 없습니다. 직접입력해주세요")
                                     .padding(.top,10)
-                                    .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                                    .modifier(regularCallout(colorName: .theme.gray5Dark))
                             } else {
                                 ForEach(dotsModel.strength.filter{ $0.strengthName!.contains(strengthName) || strengthName == "" }, id:\.self) {
                                     filteredStrength in
@@ -80,8 +80,8 @@ struct AddStrengthModal: View {
                 } else {
                     VStack {
                         HStack {
-                            SelectBtn(fontWeight: .regular, content: "이전", textColor: .gray, btnColor: .accentColor, action:{ presentation.wrappedValue.dismiss()})
-                            SelectBtn(fontWeight: .bold, content: "다음", textColor: .white, btnColor: .blue,action: {
+                            SelectBtn(fontWeight: .regular, content: "취소", textColor: .gray, btnColor: .theme.bgBlank, action:{ presentation.wrappedValue.dismiss()})
+                            SelectBtn(fontWeight: .bold, content: "다음", textColor: .white, btnColor: .accentColor, action: {
                                 if dotsModel.addStrength(name: strengthName) == .redunant {
                                     isError = true
                                 } else {

@@ -48,7 +48,7 @@ struct ConnectionProfileModal: View {
                                 Image(systemName: "square.and.pencil")
                                 Text("새로운 기록 작성")
                             }
-                            .modifier(semiBoldBody(colorName: Fontcolor.fontWhite.colorName))
+                            .modifier(semiBoldBody(colorName: .theme.bgPrimary))
                         }
                 }
                 
@@ -105,10 +105,10 @@ struct BasicProfile: View {
                 VStack(alignment: .leading, spacing: 15) {
                     if let name = name, let company = company, let job = job {
                         Text("\(name)")
-                            .modifier(boldTitle1(colorName: Fontcolor.fontBlack.colorName))
+                            .modifier(boldTitle1(colorName: .theme.gray5Dark))
                         HStack {
                             Text("\(company) ﹒ \(job)")
-                                .modifier(regularBody(colorName: Fontcolor.fontGray.colorName))
+                                .modifier(regularBody(colorName: .theme.gray5Dark))
                         }
                     }
                 }
@@ -157,7 +157,7 @@ struct ContactButtons: View {
                         .opacity(pushMessage || noMessageAlert ? 1 : 0)
                         .overlay(
                             Image(systemName: "message")
-                                .modifier(regularTitle1(colorName: pushMessage || noMessageAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: pushMessage || noMessageAlert ? .theme.gray5 : .theme.bgPrimary))
                         )
                 }
                 .confirmationDialog("메시지 보내기", isPresented: $pushMessage) {
@@ -193,7 +193,7 @@ struct ContactButtons: View {
                         .opacity(pushCall || noCallAlert ? 1 : 0)
                         .overlay(
                             Image(systemName: "phone")
-                                .modifier(regularTitle1(colorName: pushCall || noCallAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: pushCall || noCallAlert ? .theme.gray5 : .theme.bgPrimary))
                         )
                 }
                 .confirmationDialog("전화걸기", isPresented: $pushCall) {
@@ -229,7 +229,7 @@ struct ContactButtons: View {
                         .opacity(pushMail || noMailAlert ? 1 : 0)
                         .overlay(
                             Image(systemName: "envelope")
-                                .modifier(regularTitle1(colorName: pushMail || noMailAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: pushMail || noMailAlert ? .theme.gray5 : .theme.bgPrimary))
                         )
                 }
                 .confirmationDialog("이메일 보내기", isPresented: $pushMail) {
@@ -261,7 +261,7 @@ struct ContactButtons: View {
                                 Image("linkedInLogo")
                                     .resizable()
                                     .scaledToFit()
-                                    .colorMultiply(Fontcolor.fontWhite.colorName)
+                                    .colorMultiply(.theme.bgPrimary)
                                     .frame(width: 24)
                             )
                     }
@@ -277,7 +277,7 @@ struct ContactButtons: View {
                                 Image("linkedInLogo")
                                     .resizable()
                                     .scaledToFit()
-                                    .colorMultiply(noLinkAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName)
+                                    .colorMultiply(noLinkAlert ? .theme.gray5 : .theme.bgPrimary)
                                     .frame(width: 24)
                             )
                     }

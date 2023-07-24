@@ -238,37 +238,8 @@ struct contactsStrength: ViewModifier {
             .foregroundColor(colorName)
             .overlay() {
                 content
-                    .modifier(regularCaption1(colorName: Fontcolor.fontBlack.colorName))
+                    .modifier(regularCaption1(colorName: colorName))
             }
 
     }
 }
-
-enum Fontcolor{
-    case fontBlack
-    case fontGray
-    case fontWhite
-    
-    var colorName: Color{
-        switch self{
-        case.fontBlack:
-            return Color("FontBlack")
-        case .fontGray:
-            return Color("FontGray")
-        case .fontWhite:
-            return Color("FontWhite")
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-

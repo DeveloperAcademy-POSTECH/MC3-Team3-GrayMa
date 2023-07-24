@@ -36,7 +36,7 @@ extension Color {
         // GrayScale
         let bgMain = Color("bgMain")
         let bgPrimary = Color("bgPrimary")
-        let bgSecondary = Color("bgSecondary")
+        let bgBlank = Color("bgBlank")
         let gray = Color("gray")
         let gray5 = Color("gray5")
         let gray5Dark = Color("gray5Dark")
