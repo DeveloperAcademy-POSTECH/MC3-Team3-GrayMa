@@ -9,9 +9,11 @@ import SwiftUI
 
 struct ConnectionNoteModal: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var dotsModel: DotsModel
     @State private var date: Date = Date()
     @State private var textFieldContent: String = ""
     @State private var showKeyboardToolbar: Bool = false
+    let connection: NetworkingPersonEntity
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -37,7 +39,7 @@ struct ConnectionNoteModal: View {
                 Spacer()
                 
                 Button {
-//                    dotsModel.addMyNote(date: date, content: textFieldContent, strength: myStrength)
+                    dotsModel.addConnectionNote(date: date, content: textFieldContent, connection: connection)
                     dismiss()
                 } label: {
                     Text("저장")
@@ -58,6 +60,5 @@ struct ConnectionNoteModal: View {
         }
         .overlay(KeyboardToolbar(showKeyboardToolbar: $showKeyboardToolbar, date: $date), alignment: .bottom)
         .presentationDragIndicator(.visible)
-
     }
 }
