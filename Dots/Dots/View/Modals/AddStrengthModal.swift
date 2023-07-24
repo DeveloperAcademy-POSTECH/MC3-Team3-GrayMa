@@ -29,11 +29,11 @@ struct AddStrengthModal: View {
                 // 키보드가 나타났을때에는 ScrollView가 나타남
                 if isKeyboardVisible {
                     ExistStrengthList
+                    
+                    Spacer()
                 } else {
                     Buttons
                 }
-                
-                Spacer()
             }
             // MARK: 키보드가 나타났을때를 감지
             .onAppear {
@@ -127,7 +127,7 @@ extension AddStrengthModal {
                     
                     Spacer()
                     
-                    Text("\(strengthName.count)/20")
+                    Text("\(selectedStrength.isEmpty ? strengthName.count : selectedStrength.count)/20")
                         .modifier(regularCallout(colorName: .theme.gray))
                     
                     Button {
@@ -138,6 +138,7 @@ extension AddStrengthModal {
                             .frame(width: 24,height: 24)
                             .padding(.trailing,15)
                     }
+                    .hideToBool(!selectedStrength.isEmpty)
                 }
             }
     }

@@ -17,6 +17,11 @@ struct StrengthList: View {
                 .modifier(regularCallout(colorName: .theme.gray5Dark))
                 .padding(.leading,44)
             Spacer()
+            
+            Image(systemName: "checkmark")
+                .padding(.trailing, 47)
+                .foregroundColor(.theme.primary)
+                .hideToBool(strengthName != strength)
         }
         .frame(height: 56)
         .background(strengthName == strength ? Color.theme.secondary : Color.theme.bgPrimary)
