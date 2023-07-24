@@ -10,6 +10,7 @@ import Contacts
 
 struct ContactsSelectListView: View {
     @Environment(\.presentationMode) var presentationMode
+    @Binding var modalControl : Bool
     
     @State private var searchText = ""
     
@@ -31,7 +32,7 @@ struct ContactsSelectListView: View {
                             }
                         }.pickerStyle(.inline)
                         //디버깅용
-                        Text("\(selectedName)")
+//                        Text("\(selectedName)")
                     } else {
                         Picker("",selection: $selectedName) {
                             ForEach(contactList.filter{$0.hasPrefix(searchText)}, id: \.self) { item in
@@ -39,7 +40,7 @@ struct ContactsSelectListView: View {
                             }
                         }.pickerStyle(.inline)
                         //디버깅용
-                        Text("\(selectedName)")
+//                        Text("\(selectedName)")
                     }
                     
                 }.listStyle(PlainListStyle())
@@ -51,11 +52,13 @@ struct ContactsSelectListView: View {
             .onTapGesture {presentationMode.wrappedValue.dismiss()},
                             trailing: Text("다음")
             .foregroundColor(.blue)
-            .onTapGesture { navigationActive = true })
+            .onTapGesture {
+                navigationActive = true
+            })
         .onAppear(perform: fetchContacts)
         .fullScreenCover(isPresented: $navigationActive) {
             NavigationView{
-                addContactsView(selectedUserName: selectedName)
+                addContactsView(modalComtrol: $modalControl, selectedUserName: selectedName)
             }
         }
     }
@@ -110,8 +113,8 @@ struct ContactsSelectListView: View {
     }
 }
 
-struct ContactsSelectListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContactsSelectListView()
-    }
-}
+//struct ContactsSelectListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContactsSelectListView()
+//    }
+//}
