@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct CustomDetailList: View {
-    let noteEntity: MyStrengthNoteEntity
+    @State var showNoteViewModal = false
+    @ObservedObject var noteEntity: MyStrengthNoteEntity
     
     var titleText: String {
         guard let content = noteEntity.content else { return "" }
@@ -45,7 +46,9 @@ struct CustomDetailList: View {
     }
     
     var body: some View {
-        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+        Button(action: {
+            self.showNoteViewModal = true
+        }, label: {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
@@ -70,5 +73,10 @@ struct CustomDetailList: View {
                 }
             }
         })
+        
+        // 기존 강점노트 클릭시 나오는 Modal
+        .sheet(isPresented: $showNoteViewModal){
+            StrengthNoteViewModal(id: noteEntity.myStrengthNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
+        }
     }
 }

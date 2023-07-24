@@ -33,6 +33,9 @@
 		3D0B1F282A67882F0012A6F4 /* Ex+DotsModel_Create.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */; };
 		3D0B1F2A2A6A29EE0012A6F4 /* Ex+MyStrengthNoteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F292A6A29EE0012A6F4 /* Ex+MyStrengthNoteEntity.swift */; };
 		3D0B1F2C2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F2B2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift */; };
+		3D0B1F2E2A6BA1770012A6F4 /* SearchFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F2D2A6BA1770012A6F4 /* SearchFilterView.swift */; };
+		3D0B1F312A6BA1B20012A6F4 /* SearchFilterListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F302A6BA1B20012A6F4 /* SearchFilterListRow.swift */; };
+		3D0B1F332A6D71C70012A6F4 /* SearchFilterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F322A6D71C70012A6F4 /* SearchFilterDetailView.swift */; };
 		A1349E332A64E81C0006611C /* addContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* addContactsView.swift */; };
 		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
 		A1349E372A6618190006611C /* contactsJobCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsJobCompany.swift */; };
@@ -41,6 +44,7 @@
 		A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3D2A6796100006611C /* contactsUserProfile.swift */; };
 		A1349E412A67DC810006611C /* contactsStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E402A67DC810006611C /* contactsStrength.swift */; };
 		A192A2492A69742C0071A79C /* ContactsSelectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192A2482A69742C0071A79C /* ContactsSelectListView.swift */; };
+		B4E26B2B2A696AB900C1948F /* StrengthNoteViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E26B2A2A696AB900C1948F /* StrengthNoteViewModal.swift */; };
 		B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* CustomDetailList.swift */; };
 		B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */; };
 		B4E7019D2A68573A007A3876 /* StrengthNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */; };
@@ -77,6 +81,9 @@
 		3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ex+DotsModel_Create.swift"; sourceTree = "<group>"; };
 		3D0B1F292A6A29EE0012A6F4 /* Ex+MyStrengthNoteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+MyStrengthNoteEntity.swift"; sourceTree = "<group>"; };
 		3D0B1F2B2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+NetworkingPersonEntity.swift"; sourceTree = "<group>"; };
+		3D0B1F2D2A6BA1770012A6F4 /* SearchFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterView.swift; sourceTree = "<group>"; };
+		3D0B1F302A6BA1B20012A6F4 /* SearchFilterListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterListRow.swift; sourceTree = "<group>"; };
+		3D0B1F322A6D71C70012A6F4 /* SearchFilterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterDetailView.swift; sourceTree = "<group>"; };
 		A1349E322A64E81C0006611C /* addContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addContactsView.swift; sourceTree = "<group>"; };
 		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
 		A1349E362A6618190006611C /* contactsJobCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsJobCompany.swift; sourceTree = "<group>"; };
@@ -85,6 +92,7 @@
 		A1349E3D2A6796100006611C /* contactsUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsUserProfile.swift; sourceTree = "<group>"; };
 		A1349E402A67DC810006611C /* contactsStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsStrength.swift; sourceTree = "<group>"; };
 		A192A2482A69742C0071A79C /* ContactsSelectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSelectListView.swift; sourceTree = "<group>"; };
+		B4E26B2A2A696AB900C1948F /* StrengthNoteViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthNoteViewModal.swift; sourceTree = "<group>"; };
 		B4E701982A680678007A3876 /* CustomDetailList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailList.swift; sourceTree = "<group>"; };
 		B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitBtn.swift; sourceTree = "<group>"; };
 		B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthNoteModal.swift; sourceTree = "<group>"; };
@@ -116,6 +124,7 @@
 			children = (
 				136AAC792A66E2D500CA3797 /* SelectLevelModal.swift */,
 				B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */,
+				B4E26B2A2A696AB900C1948F /* StrengthNoteViewModal.swift */,
 				136AAC752A66E29600CA3797 /* AddStrengthModal.swift */,
 				30D982922A68D07C00E89B37 /* ConnectionProfileModal.swift */,
 			);
@@ -186,6 +195,7 @@
 		137997842A64C64B008F5F01 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3D0B1F2F2A6BA1930012A6F4 /* SearchView */,
 				136AAC812A66E35300CA3797 /* Modals */,
 				136AAC732A66E25100CA3797 /* MyStrengthView.swift */,
 				B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */,
@@ -213,6 +223,16 @@
 				1373F05E2A692A08001A704D /* SwipeItemView.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		3D0B1F2F2A6BA1930012A6F4 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				3D0B1F2D2A6BA1770012A6F4 /* SearchFilterView.swift */,
+				3D0B1F302A6BA1B20012A6F4 /* SearchFilterListRow.swift */,
+				3D0B1F322A6D71C70012A6F4 /* SearchFilterDetailView.swift */,
+			);
+			path = SearchView;
 			sourceTree = "<group>";
 		};
 		A1349E3A2A67710C0006611C /* ContactView */ = {
@@ -306,6 +326,7 @@
 				30D982932A68D07C00E89B37 /* ConnectionProfileModal.swift in Sources */,
 				3D0B1F2A2A6A29EE0012A6F4 /* Ex+MyStrengthNoteEntity.swift in Sources */,
 				3D0B1F282A67882F0012A6F4 /* Ex+DotsModel_Create.swift in Sources */,
+				B4E26B2B2A696AB900C1948F /* StrengthNoteViewModal.swift in Sources */,
 				1373F05A2A67CD26001A704D /* StrengthList.swift in Sources */,
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
 				A1349E372A6618190006611C /* contactsJobCompany.swift in Sources */,
@@ -323,6 +344,7 @@
 				1373F0632A6959F4001A704D /* RounededCorner.swift in Sources */,
 				136AAC7C2A66E30E00CA3797 /* SelectBtn.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
+				3D0B1F332A6D71C70012A6F4 /* SearchFilterDetailView.swift in Sources */,
 				A1349E332A64E81C0006611C /* addContactsView.swift in Sources */,
 				30D982912A68CFBE00E89B37 /* ConnectionDetailView.swift in Sources */,
 				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
@@ -336,7 +358,9 @@
 				B4E7019D2A68573A007A3876 /* StrengthNoteModal.swift in Sources */,
 				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 				136AAC742A66E25100CA3797 /* MyStrengthView.swift in Sources */,
+				3D0B1F312A6BA1B20012A6F4 /* SearchFilterListRow.swift in Sources */,
 				A1349E412A67DC810006611C /* contactsStrength.swift in Sources */,
+				3D0B1F2E2A6BA1770012A6F4 /* SearchFilterView.swift in Sources */,
 				136AAC7E2A66E32500CA3797 /* CloseBtn.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -466,7 +490,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
-				DEVELOPMENT_TEAM = F5LF3NUCU2;
+				DEVELOPMENT_TEAM = 34K3V5D9X5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSContactsUsageDescription = "전화쓴다고 허용하라고";
@@ -496,7 +520,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
-				DEVELOPMENT_TEAM = F5LF3NUCU2;
+				DEVELOPMENT_TEAM = 34K3V5D9X5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSContactsUsageDescription = "전화쓴다고 허용하라고";

@@ -12,7 +12,8 @@ struct MyStrengthDetailView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var dotsModel: DotsModel
     @State var showLevelModal = false
-    @State var showModal = false
+    @State var showNoteModal = false
+    
     let myStrengthEntity: MyStrengthEntity
     
     var body: some View {
@@ -40,8 +41,9 @@ struct MyStrengthDetailView: View {
                     .padding(.bottom, 14)
                 }
                 
+                // 강점메모 만들기
                 Button(action: {
-                    self.showModal = true
+                    self.showNoteModal = true
                 }, label: {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
@@ -60,7 +62,7 @@ struct MyStrengthDetailView: View {
                 })
                 .padding(.bottom, 10)
                 
-                // MARK: - 현재 강점 디테일 리스트
+                // MARK: - 강점메모 리스트
                 ScrollView {
                     if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
                         ForEach(notes) { note in
@@ -84,21 +86,27 @@ struct MyStrengthDetailView: View {
                     }
                 }
             }
-            .navigationBarItems(leading: backButton, trailing: Button(action: {
-                self.showLevelModal = true
-            }) { Text("레벨 선택") })
-            .navigationBarBackButtonHidden(true)
-            .sheet(isPresented: $showLevelModal){
-                StrengthModal(pagenum: 1)
-                    .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
-            }
-            .sheet(isPresented: $showModal){
-                StrengthNoteModal(myStrength: myStrengthEntity)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(red: 0.95, green: 0.95, blue: 0.97))
+        }
+        .navigationBarItems(leading: backButton, trailing: Button(action: {
+            self.showLevelModal = true
+        }) { Text("레벨 선택") })
+        .navigationBarBackButtonHidden(true)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 0.95, green: 0.95, blue: 0.97))
+        
+        // MARK: - Modal 모음
+        // 레벨 선택시 나오는 Modal
+        .sheet(isPresented: $showLevelModal){
+            StrengthModal(pagenum: 1)
+                .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
+        }
+        
+        // 새로운 강점노트 클릭시 나오는 Modal
+        .sheet(isPresented: $showNoteModal){
+            StrengthNoteModal(myStrength: myStrengthEntity)
         }
     }
+    
     
     // 뒤로 가기 커스텀버튼 구현
     private var backButton: some View {
@@ -110,11 +118,5 @@ struct MyStrengthDetailView: View {
                 Text("내 강점")
             }
         }
-    }
-}
-
-struct MyStrengthDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyStrengthDetailView(myStrengthEntity: MyStrengthEntity())
     }
 }
