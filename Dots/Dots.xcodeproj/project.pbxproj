@@ -195,9 +195,9 @@
 				136AAC822A66E37400CA3797 /* StrengthModal.swift */,
 				137997862A64C661008F5F01 /* MainView.swift */,
 				136AAC882A676E5500CA3797 /* SearchConnectionView.swift */,
+				30D982902A68CFBE00E89B37 /* ConnectionDetailView.swift */,
 				137997852A64C651008F5F01 /* Component */,
 				A1349E3A2A67710C0006611C /* ContactView */,
-				30D982902A68CFBE00E89B37 /* ConnectionDetailView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

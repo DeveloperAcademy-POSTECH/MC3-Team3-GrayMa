@@ -11,6 +11,8 @@ import UIKit
 struct ConnectionProfileModal: View {
     let person: NetworkingPersonEntity
     
+    @State private var showNote = false
+    
     // 데이터 연동 필요 - 메모(NetworkingNoteEntity)
     
     var body: some View {
@@ -35,9 +37,9 @@ struct ConnectionProfileModal: View {
                     ContactButtons(phoneNum: person.contanctNum!, mailAdd: person.email!, linkedinLink: person.linkedIn!)
                         .padding(.trailing, 15)
                 }
-                
+
                 Button {
-                    
+                    showNote.toggle()
                 } label: {
                     RoundedRectangle(cornerRadius: 12)
                         .frame(width: 361, height: 44)
@@ -50,15 +52,39 @@ struct ConnectionProfileModal: View {
                         }
                 }
                 
-                ScrollView {
-                    ConnectionMemoItem(title: "Landing page", meetingDay: "2023년 7월 19일", summary: "우리집 고양이 기여워~~~~")
-                }
+                // MARK: - 인맥 노트 리스트
+//                ScrollView {
+//                    if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
+//                        ForEach(notes) { note in
+//                            CustomDetailList(noteEntity: note)
+//                        }
+//                    } else {
+//                        RoundedRectangle(cornerRadius: 12)
+//                            .foregroundColor(.white)
+//                            .frame(maxWidth: .infinity)
+//                            .frame(height: 62)
+//                            .padding(.horizontal, 16)
+//                            .overlay()
+//                        {
+//                            HStack {
+//                                Text("저장된 기록이 없습니다.")
+//                                    .modifier(regularSubHeadLine(colorName: .gray))
+//                                Spacer()
+//                            }
+//                            .padding(.leading, 45)
+//                        }
+//                    }
+//                }
                 .padding(.top, -10)
                 .scrollIndicators(.hidden)
                 Spacer()
             }
         }
         .ignoresSafeArea()
+        .sheet(isPresented: $showNote) {
+            ConnectionNoteModal()
+                .interactiveDismissDisabled()
+        }
     }
 }
 
@@ -273,36 +299,36 @@ struct ContactButtons: View {
     }
 }
 
-struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
-    let title: String
-    let meetingDay: String
-    let summary: String
-    
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("\(title)")
-                    .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))    // 컬러 변경 필요
-                HStack(spacing: 11) {
-                    Text("\(meetingDay)")
-                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
-                    Text("\(summary)")
-                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
-                }  // 컬러 변경 필요
-            }
-            .padding(.leading, 29)
-            
-            Spacer()
-        }
-        .frame(width: 361, height: 62)
-        .background(.white)
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .overlay(
-            RoundedRectangle(cornerRadius: 12)
-                .strokeBorder(Color.gray, lineWidth: 1)
-        )
-    }
-}
+//struct ConnectionMemoItem: View {   // CustomDetailList로 대체 예정
+//    let title: String
+//    let meetingDay: String
+//    let summary: String
+//
+//    var body: some View {
+//        HStack {
+//            VStack(alignment: .leading, spacing: 8) {
+//                Text("\(title)")
+//                    .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))    // 컬러 변경 필요
+//                HStack(spacing: 11) {
+//                    Text("\(meetingDay)")
+//                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
+//                    Text("\(summary)")
+//                        .modifier(regularSubHeadLine(colorName: Fontcolor.fontGray.colorName))
+//                }  // 컬러 변경 필요
+//            }
+//            .padding(.leading, 29)
+//
+//            Spacer()
+//        }
+//        .frame(width: 361, height: 62)
+//        .background(.white)
+//        .clipShape(RoundedRectangle(cornerRadius: 12))
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 12)
+//                .strokeBorder(Color.gray, lineWidth: 1)
+//        )
+//    }
+//}
 
 //import CoreData
 //
