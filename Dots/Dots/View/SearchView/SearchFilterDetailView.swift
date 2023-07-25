@@ -20,16 +20,21 @@ struct SearchHistoryRowModel: Hashable {
 // MARK: - body
 struct SearchFilterDetailView: View {
     @EnvironmentObject var dotsModel: DotsModel
+    
     @State var searchTextField: String = ""
     @State var selectedHistoryList: String = ""
-    @Binding var isSheetOn: Bool
-    let keyName : String
-    @State private var isKeyboardVisible = false
-    let type: String
     @State var searchHistory: [SearchHistoryRowModel] = []
     @State var selectedOpacityValue: Double = 0.6
+    @State private var isKeyboardVisible = false
     
+    @Binding var isSheetOn: Bool
+    @Binding var companyName: String
+    @Binding var jobName: String
+    @Binding var strengthName: String
     
+    let type: String
+    let keyName : String
+  
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {

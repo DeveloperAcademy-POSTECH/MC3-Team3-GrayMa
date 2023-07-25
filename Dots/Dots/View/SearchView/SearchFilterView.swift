@@ -11,6 +11,9 @@ struct SearchFilterView: View {
     @State var isSheetOn: Bool = false
     @State var type: String = ""
     @State var keyName: String = ""
+    @State var companyName: String = "삼성"
+    @State var jobName: String = "ios 개발"
+    @State var strengthName: String = "재능"
     
     
     var body: some View {
@@ -21,17 +24,18 @@ struct SearchFilterView: View {
                     isSheetOn = true
                     keyName = "recentCompany"
                 } label: {
-                    SearchFilterListRow(type: "회사", imageName: "building.2.fill")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName, type: "회사",   imageName: "building.2.fill")
                 }
                 .padding(.top, 24)
-
+                
                 Button {
                     type = "직무"
                     keyName = "recentJob"
                     isSheetOn = true
                     
                 } label: {
-                    SearchFilterListRow(type: "직무", imageName: "person.text.rectangle.fill")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName,
+                                        type: "직무", imageName: "person.text.rectangle.fill")
                 }
                 
                 Button {
@@ -39,7 +43,7 @@ struct SearchFilterView: View {
                     keyName = "recentStrength"
                     isSheetOn = true
                 } label: {
-                    SearchFilterListRow(type: "강점", imageName: "chart.bar.fill")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName,type: "강점", imageName: "chart.bar.fill")
                 }
                 
                 Spacer()
@@ -59,9 +63,9 @@ struct SearchFilterView: View {
                 }
             }
             .sheet(isPresented: $isSheetOn) {
-                SearchFilterDetailView(isSheetOn: $isSheetOn, keyName: keyName, type: type)
+                SearchFilterDetailView(isSheetOn: $isSheetOn, companyName: $companyName ,jobName: $jobName, strengthName: $strengthName, type: type, keyName: keyName)
             }
-
+            
         }
     }
 }
