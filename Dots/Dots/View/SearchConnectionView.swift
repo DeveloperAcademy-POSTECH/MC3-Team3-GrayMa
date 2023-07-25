@@ -193,13 +193,13 @@ struct SearchConnectionView: View {
                     
                 }
                 .onAppear {
-                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
-                        isKeyboardVisible = true
-                    }
-                    
-                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
-                        Notification in isKeyboardVisible = false
-                    }
+//                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+//                        isKeyboardVisible = true
+//                    }
+//                    
+//                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
+//                        Notification in isKeyboardVisible = false
+//                    }
                     
                 }
                 .onDisappear {

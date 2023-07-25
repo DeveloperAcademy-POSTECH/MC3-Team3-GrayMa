@@ -64,7 +64,7 @@ struct SearchFilterView: View {
                 }
             }
             .sheet(isPresented: $isSheetOn) {
-                SearchFilterDetailView(isSheetOn: $isSheetOn, companyName: $companyName ,jobName: $jobName, strengthName: $strengthName, type: $type, keyName: keyName)
+                SearchFilterDetailView(isSheetOn: $isSheetOn, companyName: $companyName ,jobName: $jobName, strengthName: $strengthName, type: $type, keyName: $keyName)
             }
             
         }

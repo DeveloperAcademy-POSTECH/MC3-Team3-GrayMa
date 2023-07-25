@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SearchHistoryRowModel: Hashable {
     var title: String
@@ -31,7 +32,7 @@ struct SearchFilterDetailView: View {
     @Binding var jobName: String
     @Binding var strengthName: String
     @Binding var type: String
-    let keyName : String
+    @Binding var keyName : String
 
     var body: some View {
         NavigationView {
@@ -181,16 +182,16 @@ extension SearchFilterDetailView {
             selectedHistoryList = ""
         }
         
-        checkArray()
+       // checkArray()
     }
     
-    func checkArray() {
-        if selectedHistoryList.isEmpty {
-            searchTextField = ""
-        } else {
-            searchTextField = " "
-        }
-    }
+//    func checkArray() {
+//        if selectedHistoryList.isEmpty {
+//            searchTextField = ""
+//        } else {
+//            searchTextField = " "
+//        }
+//    }
     
 //    func deleteSelectedHistory(historyName: String) {
 //        guard let selectedIdx = selectedHistoryList.firstIndex(of: historyName) else { return }
