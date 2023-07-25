@@ -15,6 +15,8 @@ struct SearchFilterView: View {
     @State private var jobName: String = ""
     @State private var strengthName: String = ""
     
+    @Binding var isFilterd: Bool
+    
     
     var body: some View {
         NavigationView {
@@ -54,12 +56,14 @@ struct SearchFilterView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("재설정") {
-                        print("초기화 기능인듯?")
+                        companyName = ""
+                        jobName = ""
+                        strengthName = ""
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("적용") {
-                        print("필터 적용")
+                        isFilterd = true
                     }
                 }
             }
@@ -71,8 +75,8 @@ struct SearchFilterView: View {
     }
 }
 
-struct SearchFilterView_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchFilterView()
-    }
-}
+//struct SearchFilterView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchFilterView()
+//    }
+//}
