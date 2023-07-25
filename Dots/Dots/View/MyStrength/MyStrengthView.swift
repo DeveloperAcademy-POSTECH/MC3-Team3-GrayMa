@@ -14,8 +14,8 @@ struct MyStrengthView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                List {
+            VStack(spacing: 8) {
+                ScrollView {
                     if dotsModel.myStrength.isEmpty {
                         RoundedRectangle(cornerRadius: 12)
                             .foregroundColor(.white)
@@ -31,13 +31,14 @@ struct MyStrengthView: View {
                                     Spacer()
                                 }
                             }
+                    } else {
+                        ForEach(dotsModel.myStrength, id: \.self) { strength in
+                            CustomList(entity: strength)
+                                .padding(.horizontal, 16)
+                        }
                     }
-                    
-                    ForEach(dotsModel.myStrength, id: \.self) { strength in
-                        CustomList(entity: strength)
-                            .frame(height: 84)
-                    }                    
                 }
+                .padding(.top, 22)
             }
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -60,6 +61,7 @@ struct MyStrengthView: View {
                 StrengthModal()
                     .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
             }
+            .background(Color.theme.bgMain)
             
         }
         .background(.gray)
