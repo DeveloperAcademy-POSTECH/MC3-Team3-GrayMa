@@ -11,6 +11,7 @@ struct MainView: View {
     
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor(Color.theme.disabled)
+        UITabBar.appearance().backgroundColor = UIColor.white.withAlphaComponent(0.7)
     }
     
     var body: some View {
@@ -19,6 +20,7 @@ struct MainView: View {
                 .tabItem {
                     Image("myStrengthTabIcon_3x")
                         .renderingMode(.template)
+
                     Text("내 강점")
                 }
             
@@ -26,6 +28,7 @@ struct MainView: View {
                 .tabItem {
                     Image("networkingTabIcon_3x")
                         .renderingMode(.template)
+                    
                     Text("인맥 관리")
                 }
         }
