@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CustomDetailList: View {
     @State var showNoteViewModal = false
+    @State private var isError: Bool = false
+    @State private var resetSwipe: Bool = false
     @ObservedObject var noteEntity: MyStrengthNoteEntity
     @EnvironmentObject var dotsModel: DotsModel
     
@@ -68,13 +70,10 @@ struct CustomDetailList: View {
                         Spacer()
                     }
                     .onTapGesture { self.showNoteViewModal = true }
-                    
-                    
                 }, right: {
                     HStack(spacing: 0) {
                         Button(action: {
-                            print("삭제 완")
-                            dotsModel.deleteMyNote(myNote: noteEntity)
+                            isError = true
                         }, label: {
                             Rectangle()
                                 .fill(.red)
@@ -86,8 +85,14 @@ struct CustomDetailList: View {
                                         .foregroundColor(.white)
                                 }
                         })
+                        .alert("이 기록을 삭제하겠습니까?", isPresented: $isError, actions: {
+                            Button("취소", role: .cancel) { resetSwipe = true }
+                            Button("삭제", role: .destructive) { dotsModel.deleteMyNote(myNote: noteEntity) }
+                        }, message: {
+                            Text("이 기록이 삭제됩니다.")
+                        })
                     }
-                }, itemHeight: 62)
+                }, itemHeight: 62, resetSwipe: $resetSwipe)
             }
             .cornerRadius(12, corners: .allCorners)
         
@@ -96,6 +101,9 @@ struct CustomDetailList: View {
                 StrengthNoteViewModal(id: noteEntity.myStrengthNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
                     .interactiveDismissDisabled(true)
                     .presentationDragIndicator(.hidden)
+            }
+            .onTapGesture {
+                resetSwipe = true
             }
     }
 }

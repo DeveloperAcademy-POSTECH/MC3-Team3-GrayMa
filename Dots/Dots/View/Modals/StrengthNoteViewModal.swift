@@ -14,6 +14,7 @@ struct StrengthNoteViewModal: View {
     let id: UUID
     @State var textFieldContent: String
     @State var date: Date
+    @State private var isError: Bool = false
     @State private var showKeyboardToolbar: Bool = false
     
     var dateFormatter: DateFormatter {
@@ -28,11 +29,15 @@ struct StrengthNoteViewModal: View {
             ZStack {
                 HStack {
                     Button(action: {
-                        presentation.wrappedValue.dismiss()
+                        isError = true
                     }) {
                         HStack {
                             Text("취소")
                         }
+                    }
+                    .alert("작성 중인 내용을 저장하지 않고 나가시겠습니까?", isPresented: $isError) {
+                        Button("아니요", role: .cancel) { }
+                        Button("네", role: .destructive) { presentation.wrappedValue.dismiss() }
                     }
                     Spacer()
                     
