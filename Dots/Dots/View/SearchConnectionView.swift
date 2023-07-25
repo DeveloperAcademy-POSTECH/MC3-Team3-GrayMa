@@ -29,9 +29,9 @@ struct SearchConnectionView: View {
     // sheet 컨트롤 변수
     @State var isFilterSheetOn = false
     
-//    init () {
-//        _selectedHistoryList = State(initialValue: loadRecentSearches(keßyName: keyName))
-//    }
+    init () {
+        _selectedHistoryList = State(initialValue: loadRecentSearches(keyName: keyName))
+    }
     var body: some View {
         NavigationStack {
             VStack{
@@ -87,7 +87,7 @@ struct SearchConnectionView: View {
                         .padding(.leading,14)
                         
                         TextField("이름 검색", text: $name, onCommit: {
-//                            saveSearch(name: name, selectedHistoryList: &selectedHistoryList, keyName: "recentSearchName")
+                            saveSearch(name: name, selectedHistoryList: &selectedHistoryList, keyName: "recentSearchName")
                         })
                         
                         Spacer()
@@ -224,6 +224,32 @@ struct SearchConnectionView: View {
         }
     }
 }
+
+
+//MARK: functions
+extension SearchConnectionView {
+    func removeConnection(at offsets: IndexSet) {
+        dotsModel.deleteConnection(offsets: offsets)
+    }
+    
+    // MARK: 유저디폴트 값에 저장 하는 함수
+    func saveSearch(name: String, selectedHistoryList: inout [String], keyName: String) {
+        guard !name.isEmpty else { return }
+        selectedHistoryList.insert(name, at: 0)
+        if selectedHistoryList.count > 5 {
+            selectedHistoryList.removeLast()
+        }
+        UserDefaults.standard.set(selectedHistoryList, forKey: keyName)
+    }
+    // MARK: 유저디폴트 값을 State배열에 대입 하고 불러와주는 함수
+    func loadRecentSearches(keyName: String) -> [String] {
+        if let savedSearches = UserDefaults.standard.array(forKey: keyName) as? [String] {
+            return savedSearches
+        } else {
+            return []
+        }
+    }
+}
 // MARK: Components
 extension SearchConnectionView {
     private var SearchHistory: some View {
@@ -249,6 +275,8 @@ extension SearchConnectionView {
     }
     
 }
+
+
 
 
 //struct SearchConnection_Previews: PreviewProvider {

@@ -14,8 +14,7 @@ struct SearchFilterListRow: View {
     @Binding var jobName: String
     @Binding var strengthName: String
     
-    
-    let type: String
+    var type: String
     let imageName: String
     
     var body: some View {
@@ -46,6 +45,7 @@ struct SearchFilterListRow: View {
                 }
             }
             .onAppear() {
+                print("\(type)타입")
                 Configuretype(type: type)
             }
     }
