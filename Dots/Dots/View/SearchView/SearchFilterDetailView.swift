@@ -117,8 +117,6 @@ extension SearchFilterDetailView {
         ForEach(Array(searchHistory.enumerated()), id: \.element) { index, history in
             Button {
                 withAnimation(.easeIn(duration: 0.1)) {
-                    searchHistory[index].isSelected.toggle()
-                    selectAction(history: searchHistory[index])
                     searchTextField = history.title
                 }
             } label: {
@@ -126,7 +124,7 @@ extension SearchFilterDetailView {
                     Rectangle()
                         .frame(height: 44)
                         .foregroundColor(.theme.secondary)
-                        .opacity(history.isSelected ? 1 : 0)
+                        .opacity(history.title == searchTextField ? 1 : 0)
                     
                     HStack {
                         Text(history.title)
@@ -137,7 +135,7 @@ extension SearchFilterDetailView {
                         
                         Image(systemName: "checkmark")
                             .padding(.trailing, 47)
-                            .opacity(history.isSelected ? 1 : 0)
+                            .opacity(history.title == searchTextField ? 1 : 0)
                     }
                 }
             }
