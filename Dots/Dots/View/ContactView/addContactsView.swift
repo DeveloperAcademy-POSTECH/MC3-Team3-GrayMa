@@ -81,12 +81,12 @@ struct addContactsView: View {
             }
         }
         .navigationBarItems(leading: Text("\(Image(systemName: "chevron.left")) 인맥관리")
-            .foregroundColor(.blue)
+            .foregroundColor(Color("primary"))
             .onTapGesture {
                 presentationMode.wrappedValue.dismiss()},
                             //MARK: CoreDate 연동 버튼
                             trailing: Text("완료")
-                            .foregroundColor(.blue)
+                            .foregroundColor(Color("primary"))
                             .onTapGesture {
                                 userInputToCoreData()
                                 dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)

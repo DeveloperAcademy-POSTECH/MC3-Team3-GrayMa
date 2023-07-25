@@ -17,7 +17,7 @@ struct contactsImageSelect: View {
             if coreDataUserIdx == 0 {
                 Ellipse()
                     .frame(width: 88, height: 88)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("secondary"))
                 Text("\(convertUserName(name: userName))")
             } else {
                 //이미지 선택 디자인
@@ -26,10 +26,11 @@ struct contactsImageSelect: View {
                     .frame(width: 88, height: 88)
             }
             
-            Image("imagePlusBtn")
+            Image(systemName: "plus.circle.fill")
                 .resizable()
                 .frame(width: 24, height: 24)
                 .offset(x: 30, y: 30)
+                .foregroundColor(Color("primary"))
         }
     }
 }

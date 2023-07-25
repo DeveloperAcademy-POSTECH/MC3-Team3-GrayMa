@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct contactsStrengthField: View {
-
+    
     //모달 컨트롤
     @State private var modalVissable = false
     
@@ -16,7 +16,7 @@ struct contactsStrengthField: View {
     @State var inputStrength : Int
     @State var maxStrength = 6
     @State var textColor = Color.black
-    @State var fieldColor = Color.gray
+    @State var fieldColor = Color("bgBlank")
     let errorMessage = ["직무는 필수 조건입니다."]
     
     @Binding var strengthText : String
@@ -28,6 +28,14 @@ struct contactsStrengthField: View {
                 .foregroundColor(textColor)
             
             ZStack {
+                //외각 디자인
+                RoundedRectangle(cornerRadius: 40)
+                //.strokeBorder(Color.gray, lineWidth: 1)
+                    .onTapGesture{ modalVissable = true }
+                    .sheet(isPresented: $modalVissable) { bindingModalView (text: $strengthText)}
+                    .foregroundColor(fieldColor)
+                    .frame(width: 361, height: 56)
+                
                 HStack{
                     //돋보기 보양
                     Image(systemName: "magnifyingglass")
@@ -40,15 +48,8 @@ struct contactsStrengthField: View {
                     Spacer()
                 }
                 .frame(width: 340)
-                
-                //외각 디자인
-                RoundedRectangle(cornerRadius: 40)
-                    .strokeBorder(Color.gray, lineWidth: 1)
-                    .onTapGesture{ modalVissable = true }
-                    .sheet(isPresented: $modalVissable) { bindingModalView (text: $strengthText)}
-                .frame(width: 361, height: 56)
             }
-        
+            
             //모달에서 직무가 하나라도 있는지 리턴 받아야함
             Text("직무는 필수 조건입니다.")
                 .foregroundColor(textColor)
@@ -56,6 +57,7 @@ struct contactsStrengthField: View {
         }
     }
 }
+
 
 
 //struct contactsStrength_Previews: PreviewProvider {
