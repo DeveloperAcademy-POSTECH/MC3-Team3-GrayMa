@@ -56,6 +56,7 @@ struct CustomList: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var isNavigation = false
     @State private var resetSwipe: Bool = false
+    @State private var trashPresented: Bool = false
     
     var entity: MyStrengthEntity
     
@@ -96,7 +97,7 @@ struct CustomList: View {
                             }
                     })
                 }
-            }, itemHeight: 84, resetSwipe: $resetSwipe)
+            }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
         }
     }
 }
