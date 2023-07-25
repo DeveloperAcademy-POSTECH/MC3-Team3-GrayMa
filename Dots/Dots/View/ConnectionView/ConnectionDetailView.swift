@@ -13,6 +13,8 @@ struct ConnectionDetailView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var showNote = false
     @State private var showCommon = false
+    @State private var addStrength = false
+    
     let person: NetworkingPersonEntity
     
     let tempStrenth = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션"]
@@ -39,8 +41,6 @@ struct ConnectionDetailView: View {
                             Text("강점")
                                 .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
 
-//                            Spacer()
-
                             Toggle(isOn: $showCommon) {
                                 Text("공통점")
                                     .modifier(regularCallout(colorName: Color.theme.text))
@@ -49,28 +49,29 @@ struct ConnectionDetailView: View {
                             .toggleStyle(SwitchToggleStyle(tint: Color.theme.primary))
                         }
 
-                        // TODO: 강점 목록 캡슐
-                        HStack {
-                            if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
-                                ForEach(strengthSet, id: \.self) { strength in
-                                    StrengthName(strengthText: strength.strengthName)
+                        // TODO: 강점 목록 캡슐 자동 레이아웃 -> 현재 임시 뷰(Scroll)
+                        ScrollView(.horizontal) {
+                            HStack {
+                                Button {
+                                    addStrength.toggle()
+                                } label: {
+                                    Circle()
+                                        .frame(width: 40)
+                                        .foregroundColor(Color.theme.secondary)
+                                        .overlay{
+                                            Image(systemName: "plus")
+                                                .modifier(regularBody(colorName: Color.theme.text))
+                                        }
                                 }
+                                ForEach(tempStrenth, id: \.self) { strength in
+                                    StrengthName(strengthText: strength)
+                                }
+//                                if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
+//                                    ForEach(strengthSet, id: \.self) { strength in
+//                                        StrengthName(strengthText: strength.strengthName)
+//                                    }
+//                                }
                             }
-                            
-                            Button {
-                                
-                            } label: {
-                                Circle()
-                                    .frame(width: 40)
-                                    .foregroundColor(Color.theme.secondary)
-                                    .overlay{
-                                        Image(systemName: "plus")
-                                            .modifier(regularBody(colorName: Color.theme.text))
-                                    }
-                            }
-
-                            
-                            Spacer()
                         }
                     }
                     
@@ -87,7 +88,7 @@ struct ConnectionDetailView: View {
                                 Image(systemName: "plus")
                                     .foregroundColor(Color.theme.primary)
                                     .font(.system(size: 22))
-                            } 
+                            }
                         }
                         
                         if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
@@ -122,35 +123,39 @@ struct ConnectionDetailView: View {
                 .foregroundColor(Color.theme.secondary)
                 .ignoresSafeArea()
             
-            VStack(spacing: 16) {   // 상단부 개인 정보
-                HStack {    // 기본정보
-                    VStack(alignment: .leading, spacing: 16) {
-                        if let name = person.name, let company = person.company, let job = person.job {
+            if let name = person.name, let company = person.company, let job = person.job {
+                VStack(spacing: 16) {   // 상단부 개인 정보
+                    HStack {    // 기본정보
+                        VStack(alignment: .leading, spacing: 16) {
                             Text("\(name)")
                                 .modifier(boldTitle1(colorName: Color.theme.gray5Dark))
                             HStack {
                                 Text("\(company) ﹒ \(job)")
-                                    .modifier(regularBody(colorName: Color.theme.text))
+
                             }
                         }
+                        Spacer()
                     }
-                    Spacer()
-                }
-                
-                HStack {    // 이미지 및 연락 버튼
-                    Circle()
-                        .frame(width: 88)
-                        .foregroundColor(.gray)     // 색상 변경 필요(disable)
+                    
+                    HStack {    // 이미지 및 연락 버튼
+                        Circle()
+                            .frame(width: 88)
+                            .foregroundColor(Color.theme.disabled)
+                            .overlay{
+                                Text("\(convertUserName(name: name))")
+                                    .modifier(boldLargeTitle(colorName: Color.theme.text))
+                            }
+                        
+                        Spacer()
+                        
+                        ContactButtons(phoneNum: person.contanctNum!, mailAdd: person.email!, linkedinLink: person.linkedIn!)
+                    }
+                    .padding(.top, 16)
                     
                     Spacer()
-                    
-                    ContactButtons(phoneNum: person.contanctNum!, mailAdd: person.email!, linkedinLink: person.linkedIn!)
                 }
-                .padding(.top, 16)
-                
-                Spacer()
+                .padding()
             }
-            .padding()
         }
         
         // MARK: Custom NavigationBar
@@ -163,6 +168,7 @@ struct ConnectionDetailView: View {
             ConnectionNoteModal(connection: person)
                 .interactiveDismissDisabled()
         }
+//        .sheet(isPresented: $addStrength)
     }
     
     private var BackButton: some View {
@@ -174,6 +180,16 @@ struct ConnectionDetailView: View {
                 Text("인맥관리")
             }
         }
+    }
+    
+    func convertUserName(name: String) -> String {
+        var modifiedName = name
+        
+        if !modifiedName.isEmpty {
+            modifiedName.removeFirst()
+        }
+        
+        return modifiedName
     }
 }
 

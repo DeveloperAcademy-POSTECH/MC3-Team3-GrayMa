@@ -1,13 +1,13 @@
 //
-//  AddStrengthModal.swift
+//  ConnectionAddStrength.swift
 //  Dots
 //
-//  Created by 김다빈 on 2023/07/19.
+//  Created by Chaeeun Shin on 2023/07/25.
 //
 
 import SwiftUI
 
-struct AddStrengthModal: View {
+struct ConnectionAddStrength: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var strengthName: String = ""
     @Binding var pagenum: Int
@@ -15,7 +15,7 @@ struct AddStrengthModal: View {
     @State var isKeyboardVisible = false
     @State var tappedNum = 0
     @Binding var selectedStrength: String
-    @Environment(\.presentationMode) var presentation
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
@@ -29,6 +29,7 @@ struct AddStrengthModal: View {
                 // 키보드가 나타났을때에는 ScrollView가 나타남
                 if isKeyboardVisible {
                     ExistStrengthList
+                    
                     Spacer()
                 } else {
                     Buttons
@@ -61,7 +62,7 @@ struct AddStrengthModal: View {
     }
 }
 
-extension AddStrengthModal {
+extension ConnectionAddStrength {
     private var Title: some View {
         HStack {
             Text("강점 추가")
@@ -183,9 +184,9 @@ extension AddStrengthModal {
     private var Buttons: some View {
         VStack {
             HStack {
-                SelectBtn(fontWeight: .regular, content: "취소", textColor: .gray, btnColor: .theme.bgBlank, action:{ presentation.wrappedValue.dismiss()})
+                SelectBtn(fontWeight: .regular, content: "취소", textColor: .gray, btnColor: .theme.bgBlank, action:{ dismiss() })
                 SelectBtn(fontWeight: .bold, content: "다음", textColor: .white, btnColor: .accentColor, action: {
-                    if dotsModel.addStrength(name: selectedStrength) == .redunant {
+                    if dotsModel.addStrength(name: strengthName) == .redunant {
                         isError = true
                     } else {
                         pagenum += 1
