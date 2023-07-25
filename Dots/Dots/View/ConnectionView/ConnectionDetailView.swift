@@ -88,7 +88,7 @@ struct ConnectionDetailView: View {
                                 Image(systemName: "plus")
                                     .foregroundColor(Color.theme.primary)
                                     .font(.system(size: 22))
-                            } 
+                            }
                         }
                         
                         if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
