@@ -1,5 +1,5 @@
 //
-//  SearchFilterView.swift
+//  SearchFilterListRow.swift
 //  Dots
 //
 //  Created by 정승균 on 2023/07/22.
@@ -8,32 +8,43 @@
 import SwiftUI
 
 struct SearchFilterView: View {
-    @State var isSheetOn: Bool = false
-    @State var type: String = ""
+    @State private var isSheetOn: Bool = false
+    @State private var type: String = ""
+    @State private var keyName: String = ""
+    @State private var companyName: String = ""
+    @State private var jobName: String = ""
+    @State private var strengthName: String = ""
+    
     
     var body: some View {
         NavigationView {
             VStack(spacing: 12) {
                 Button {
                     type = "회사"
+                    print(type)
                     isSheetOn = true
+                    keyName = "recentCompany"
                 } label: {
-                    SearchFilterListRow(type: "회사")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName, type: "회사",   imageName: "building.2.fill")
                 }
                 .padding(.top, 24)
-
+                
                 Button {
                     type = "직무"
+                    keyName = "recentJob"
                     isSheetOn = true
+                    
                 } label: {
-                    SearchFilterListRow(type: "직무")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName,
+                                        type: "직무", imageName: "person.text.rectangle.fill")
                 }
                 
                 Button {
                     type = "강점"
+                    keyName = "recentStrength"
                     isSheetOn = true
                 } label: {
-                    SearchFilterListRow(type: "강점")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName,type: "강점", imageName: "chart.bar.fill")
                 }
                 
                 Spacer()
@@ -53,9 +64,9 @@ struct SearchFilterView: View {
                 }
             }
             .sheet(isPresented: $isSheetOn) {
-                SearchFilterDetailView(isSheetOn: $isSheetOn, type: type)
+                SearchFilterDetailView(isSheetOn: $isSheetOn, companyName: $companyName ,jobName: $jobName, strengthName: $strengthName, type: $type, keyName: $keyName)
             }
-
+            
         }
     }
 }

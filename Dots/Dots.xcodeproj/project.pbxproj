@@ -547,7 +547,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
-				DEVELOPMENT_TEAM = FJ72KV3U2A;
+				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSContactsUsageDescription = "연락처 자동 입력을 위해서 사용자의 연락처에 접근합니다.";

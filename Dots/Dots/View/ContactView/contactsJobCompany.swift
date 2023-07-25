@@ -11,7 +11,7 @@ struct contactsJobCompany: View {
     
     //textField가 기본적으로 가져야할 옵션 컨트롤
     @State var inputCondition : String
-    
+    @State var keynameCondition : String = ""
     //선택된 회사 혹은 직무를 표시
     @Binding var text : String
     
@@ -36,7 +36,7 @@ struct contactsJobCompany: View {
                     //.strokeBorder(Color.gray, lineWidth: 1)
                     .onTapGesture{ modalVissable = true }
                     .sheet(isPresented: $modalVissable) {
-                        SearchFilterDetailView(isSheetOn: $modalVissable, type: inputCondition)
+                        SearchFilterDetailView(isSheetOn: $modalVissable, companyName:.constant("삼성"), jobName:.constant("개발자"), strengthName:.constant("개발"), type: $inputCondition, keyName: $keynameCondition)
                     }
                     .foregroundColor(fieldColor)
                 .frame(width: 361, height: 56)
@@ -70,6 +70,16 @@ struct contactsJobCompany: View {
             Text("\(errorMessage[0])")
                 .foregroundColor(textColor)
                 .opacity(inputError ? 1 : 0)
+        }
+        .onAppear {
+            switch inputCondition {
+            case "회사":
+                return keynameCondition = "recentCompany"
+            case "직무 *":
+                return keynameCondition = "recentjob"
+            default:
+                return keynameCondition = ""
+            }
         }
     }
 }
