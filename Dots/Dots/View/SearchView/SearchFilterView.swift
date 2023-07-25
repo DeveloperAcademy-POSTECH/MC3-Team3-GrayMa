@@ -1,5 +1,5 @@
 //
-//  SearchFilterView.swift
+//  SearchFilterListRow.swift
 //  Dots
 //
 //  Created by 정승균 on 2023/07/22.
@@ -10,6 +10,11 @@ import SwiftUI
 struct SearchFilterView: View {
     @State var isSheetOn: Bool = false
     @State var type: String = ""
+    @State var keyName: String = ""
+    @State var companyName: String = "삼성"
+    @State var jobName: String = "ios 개발"
+    @State var strengthName: String = "재능"
+    
     
     var body: some View {
         NavigationView {
@@ -17,23 +22,28 @@ struct SearchFilterView: View {
                 Button {
                     type = "회사"
                     isSheetOn = true
+                    keyName = "recentCompany"
                 } label: {
-                    SearchFilterListRow(type: "회사")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName, type: "회사",   imageName: "building.2.fill")
                 }
                 .padding(.top, 24)
-
+                
                 Button {
                     type = "직무"
+                    keyName = "recentJob"
                     isSheetOn = true
+                    
                 } label: {
-                    SearchFilterListRow(type: "직무")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName,
+                                        type: "직무", imageName: "person.text.rectangle.fill")
                 }
                 
                 Button {
                     type = "강점"
+                    keyName = "recentStrength"
                     isSheetOn = true
                 } label: {
-                    SearchFilterListRow(type: "강점")
+                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName,type: "강점", imageName: "chart.bar.fill")
                 }
                 
                 Spacer()
@@ -53,9 +63,9 @@ struct SearchFilterView: View {
                 }
             }
             .sheet(isPresented: $isSheetOn) {
-                SearchFilterDetailView(isSheetOn: $isSheetOn, type: type)
+                SearchFilterDetailView(isSheetOn: $isSheetOn, companyName: $companyName ,jobName: $jobName, strengthName: $strengthName, type: type, keyName: keyName)
             }
-
+            
         }
     }
 }
