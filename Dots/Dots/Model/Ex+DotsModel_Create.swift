@@ -103,10 +103,29 @@ extension DotsModel {
         save()
     }
     
+    func addConnectionNote(date: Date, content: String, connection: NetworkingPersonEntity) {
+        let newConnectionNote = NetworkingNoteEntity(context: manager.context)
+        
+        newConnectionNote.networkingNoteID = UUID()
+        newConnectionNote.date = date
+        newConnectionNote.content = content
+        newConnectionNote.relatedPerson = connection
+        
+        save()
+    }
+    
     func updateMyNote(id: UUID, date: Date, content: String) {
         guard let noteIndex = myNotes.firstIndex(where: { $0.myStrengthNoteID == id }) else { return }
         myNotes[noteIndex].date = date
         myNotes[noteIndex].content = content
+        
+        save()
+    }
+    
+    func updateConnectionNote(id: UUID, date: Date, content: String) {
+        guard let noteIndex = networkingNotes.firstIndex(where: { $0.networkingNoteID == id }) else { return }
+        networkingNotes[noteIndex].date = date
+        networkingNotes[noteIndex].content = content
         
         save()
     }

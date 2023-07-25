@@ -9,9 +9,12 @@ import SwiftUI
 
 struct ConnectionNoteModal: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject var dotsModel: DotsModel
     @State private var date: Date = Date()
     @State private var textFieldContent: String = ""
     @State private var showKeyboardToolbar: Bool = false
+    @State private var pushCancel = false
+    let connection: NetworkingPersonEntity
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -24,20 +27,24 @@ struct ConnectionNoteModal: View {
         VStack {
             HStack {
                 Button {
-                    dismiss()
+                    pushCancel.toggle()
                 } label: {
                     Text("취소")
+                }
+                .alert("작성 중인 내용을 저장하지 않고 나가시겠습니까?", isPresented: $pushCancel) {
+                    Button("아니요", role: .cancel) { }
+                    Button("네", role: .destructive) { dismiss() }
                 }
                 
                 Spacer()
                 
                 Text("\(date, formatter: dateFormatter)")
-                    .font(.headline)
+                    .modifier(semiBoldBody(colorName: Color.theme.gray5Dark))
                 
                 Spacer()
                 
                 Button {
-//                    dotsModel.addMyNote(date: date, content: textFieldContent, strength: myStrength)
+                    dotsModel.addConnectionNote(date: date, content: textFieldContent, connection: connection)
                     dismiss()
                 } label: {
                     Text("저장")
@@ -58,6 +65,5 @@ struct ConnectionNoteModal: View {
         }
         .overlay(KeyboardToolbar(showKeyboardToolbar: $showKeyboardToolbar, date: $date), alignment: .bottom)
         .presentationDragIndicator(.visible)
-
     }
 }

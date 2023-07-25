@@ -11,11 +11,15 @@ struct SwipeItemView<Content: View, Right: View>: View {
     var content: () -> Content
     var right: () -> Right
     var itemHeight: CGFloat
+    @Binding var resetSwipe: Bool
+    @Binding var trashPresented: Bool
     
-    init(content: @escaping () -> Content, right: @escaping () -> Right, itemHeight: CGFloat) {
+    init(content: @escaping () -> Content, right: @escaping () -> Right, itemHeight: CGFloat, resetSwipe: Binding<Bool>, trashPresented: Binding<Bool>) {
         self.content = content
         self.right = right
         self.itemHeight = itemHeight
+        self._resetSwipe = resetSwipe
+        self._trashPresented = trashPresented
     }
     
     @State var hoffSet: CGFloat = 0
@@ -50,13 +54,12 @@ struct SwipeItemView<Content: View, Right: View>: View {
                 withAnimation {
                     if rightPast {
                         anchor = -anchorWidth
+                        trashPresented = true
                     } else {
                         anchor = 0
+                        trashPresented = false
                     }
-                    hoffSet = anchor
-        
-                }
-                
+                    hoffSet = anchor}
             }
     }
     
@@ -77,7 +80,15 @@ struct SwipeItemView<Content: View, Right: View>: View {
             .frame(maxHeight: 84)
             .contentShape(Rectangle())
             .gesture(drag)
-            
+            .onChange(of: resetSwipe) { newValue in
+                if newValue {
+                    withAnimation {
+                        anchor = 0
+                        hoffSet = 0
+                        resetSwipe = false
+                    }
+                }
+            }
         }
     }
 }
