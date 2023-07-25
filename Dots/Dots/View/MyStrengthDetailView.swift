@@ -11,18 +11,20 @@ struct MyStrengthDetailView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var dotsModel: DotsModel
-    @State var showLevelModal = false
-    @State var showNoteModal = false
+    @State private var showLevelModal = false
+    @State private var showNoteModal = false
+    @State var selectedLevel: Int
     
     let myStrengthEntity: MyStrengthEntity
+    let images = StrengthLevelImage.allCases
     
     var body: some View {
         VStack {
             HStack {
-                Image(StrengthLevelImage.allCases[Int(myStrengthEntity.strengthLevel)].rawValue)
+                Image(images[Int(myStrengthEntity.strengthLevel)].rawValue)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 36, height: 36)
+                    .frame(height: images[Int(myStrengthEntity.strengthLevel)].sizeSmall)
                 Text(myStrengthEntity.ownStrength?.strengthName ?? "")
                     .modifier(boldLargeTitle(colorName: .theme.gray5Dark))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -38,7 +40,7 @@ struct MyStrengthDetailView: View {
                     }
                 }
                 .padding(.leading, 16)
-                .padding(.bottom, 14)
+                .padding(.bottom, 10)
             }
             
             // 강점메모 만들기
@@ -59,6 +61,7 @@ struct MyStrengthDetailView: View {
                 }
                 .frame(height: 44)
                 .padding(.horizontal, 16)
+                .padding(.vertical, 10)
             })
             
             // MARK: - 강점메모 리스트
@@ -99,8 +102,11 @@ struct MyStrengthDetailView: View {
         // MARK: - Modal 모음
         // 레벨 선택시 나오는 Modal
         .sheet(isPresented: $showLevelModal){
-            StrengthModal(pagenum: 1)
-                .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
+            ChangeLevelModal(selectedLevel: $selectedLevel, strengthName: myStrengthEntity.ownStrength?.strengthName ?? "")
+                .presentationDetents([.height(UIScreen.main.bounds.height * 0.35)])
+                .onAppear {
+                    self.selectedLevel = Int(self.myStrengthEntity.strengthLevel)
+                }
         }
         
         // 새로운 강점노트 클릭시 나오는 Modal
