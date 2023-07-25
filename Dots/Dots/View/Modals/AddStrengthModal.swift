@@ -95,7 +95,7 @@ extension AddStrengthModal {
                             .onSubmit {
                                 isKeyboardVisible = false
                                 selectedStrength = strengthName
-//                                strengthName = " "
+                                strengthName = " "
                             }
                             .disabled(!selectedStrength.isEmpty)
                         
@@ -185,7 +185,7 @@ extension AddStrengthModal {
             HStack {
                 SelectBtn(fontWeight: .regular, content: "취소", textColor: .gray, btnColor: .theme.bgBlank, action:{ presentation.wrappedValue.dismiss()})
                 SelectBtn(fontWeight: .bold, content: "다음", textColor: .white, btnColor: .accentColor, action: {
-                    if dotsModel.addStrength(name: strengthName) == .redunant {
+                    if dotsModel.addStrength(name: selectedStrength) == .redunant {
                         isError = true
                     } else {
                         pagenum += 1
