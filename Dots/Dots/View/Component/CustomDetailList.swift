@@ -11,6 +11,7 @@ struct CustomDetailList: View {
     @State var showNoteViewModal = false
     @State private var isError: Bool = false
     @State private var resetSwipe: Bool = false
+    @State private var trashPresented: Bool = false
     @ObservedObject var noteEntity: MyStrengthNoteEntity
     @EnvironmentObject var dotsModel: DotsModel
     
@@ -92,7 +93,7 @@ struct CustomDetailList: View {
                             Text("이 기록이 삭제됩니다.")
                         })
                     }
-                }, itemHeight: 62, resetSwipe: $resetSwipe)
+                }, itemHeight: 62, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
             }
             .cornerRadius(12, corners: .allCorners)
         
