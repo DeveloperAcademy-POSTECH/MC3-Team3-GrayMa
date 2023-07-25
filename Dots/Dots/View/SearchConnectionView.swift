@@ -11,6 +11,7 @@ import Contacts
 struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var name: String = ""
+    @State private var resetSwipe: Bool = false
     
     //actionsheet 컨트롤 변수
     @State var actionSheetvisible = false
@@ -149,7 +150,7 @@ struct SearchConnectionView: View {
                                             }
                                     })
                                 }
-                            }, itemHeight: 84)
+                            }, itemHeight: 84, resetSwipe: $resetSwipe)
                         }
                         .cornerRadius(12, corners: .allCorners)
                 }

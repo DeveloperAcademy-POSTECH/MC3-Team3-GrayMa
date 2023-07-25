@@ -24,10 +24,11 @@ struct MyStrengthDetailView: View {
                     .scaledToFit()
                     .frame(width: 36, height: 36)
                 Text(myStrengthEntity.ownStrength?.strengthName ?? "")
-                    .modifier(boldLargeTitle(colorName: .black))
+                    .modifier(boldLargeTitle(colorName: .theme.gray5Dark))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(.leading, 16.8)
+            .padding(.top, 5)
             
             // MARK: -  같은 강점 사람들 리스트
             ScrollView(.horizontal) {
@@ -51,6 +52,7 @@ struct MyStrengthDetailView: View {
                             Image(systemName: "square.and.pencil")
                                 .foregroundColor(.white)
                             Text("새로운 기록 작성")
+                                .modifier(semiBoldBody(colorName: .theme.bgPrimary))
                         }
                         .modifier(semiBoldBody(colorName: .white))
                     }
@@ -92,7 +94,7 @@ struct MyStrengthDetailView: View {
         }) { Text("레벨 선택") })
         .navigationBarBackButtonHidden(true)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(red: 0.95, green: 0.95, blue: 0.97))
+        .background(Color.theme.bgMain)
         
         // MARK: - Modal 모음
         // 레벨 선택시 나오는 Modal
@@ -104,6 +106,8 @@ struct MyStrengthDetailView: View {
         // 새로운 강점노트 클릭시 나오는 Modal
         .sheet(isPresented: $showNoteModal){
             StrengthNoteModal(myStrength: myStrengthEntity)
+                .interactiveDismissDisabled(true)
+                .presentationDragIndicator(.hidden)
         }
     }
     

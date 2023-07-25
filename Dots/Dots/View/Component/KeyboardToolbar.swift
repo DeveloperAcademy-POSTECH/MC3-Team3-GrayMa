@@ -17,7 +17,7 @@ struct KeyboardToolbar: View {
             if showKeyboardToolbar {
                 VStack {
                     if showingDatePicker {
-                        DatePicker("Select a date", selection: $date, displayedComponents: .date)
+                        DatePicker("날짜 선택", selection: $date, in: ...Date.now , displayedComponents: .date)
                             .datePickerStyle(.graphical)
                             .background(Color.white)
                             .onChange(of: date) { _ in

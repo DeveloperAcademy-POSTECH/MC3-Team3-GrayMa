@@ -14,6 +14,8 @@ struct StrengthNoteModal: View {
     @State private var textFieldContent: String = ""
     @State private var date: Date = Date()
     @State private var showKeyboardToolbar: Bool = false
+    @State private var isError: Bool = false
+    
     let myStrength: MyStrengthEntity
     
     var dateFormatter: DateFormatter {
@@ -28,12 +30,15 @@ struct StrengthNoteModal: View {
             ZStack {
                 HStack {
                     Button(action: {
-                        presentation.wrappedValue.dismiss()
+                        isError = true
                     }) {
                         HStack {
-                            Image(systemName: "chevron.backward")
-                            Text("목록")
+                            Text("취소")
                         }
+                    }
+                    .alert("작성 중인 내용을 저장하지 않고 나가시겠습니까?", isPresented: $isError) {
+                        Button("아니요", role: .cancel) { }
+                        Button("네", role: .destructive) { presentation.wrappedValue.dismiss() }
                     }
                     Spacer()
                     
@@ -46,7 +51,7 @@ struct StrengthNoteModal: View {
                     }
                 }
                 Text("\(date, formatter: dateFormatter)")
-                    .font(.headline)
+                    .modifier(semiBoldBody(colorName: .theme.gray5Dark))
             }
             .frame(height: 40, alignment: .top)
             
@@ -58,7 +63,6 @@ struct StrengthNoteModal: View {
                 if textFieldContent.isEmpty && !isTextEditorFocused {
                     Text(placeholder)
                         .modifier(regularCallout(colorName: .theme.gray))
-                        .foregroundColor(.gray)
                         .padding(.leading, 5)
                         .padding(.top, 8)
                         .onTapGesture {
@@ -70,6 +74,7 @@ struct StrengthNoteModal: View {
         }
         .padding()
         .padding(.top, 10)
+        
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
             self.showKeyboardToolbar = true
         }
