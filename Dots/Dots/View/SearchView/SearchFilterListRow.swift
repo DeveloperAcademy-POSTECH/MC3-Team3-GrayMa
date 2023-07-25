@@ -13,7 +13,7 @@ struct SearchFilterListRow: View {
     @Binding var companyName: String
     @Binding var jobName: String
     @Binding var strengthName: String
-    
+    @Binding var isSheetOn: Bool
     var type: String
     let imageName: String
     
@@ -32,7 +32,7 @@ struct SearchFilterListRow: View {
                         .padding(.leading, 20)
                     Text(type)
                         .modifier(regularSubHeadLine(colorName: .theme.gray5Dark))
-                        Spacer()
+                    Spacer()
                     if !accentName.isEmpty{
                         AccentText
                             .padding(.trailing, 15.5)
@@ -42,11 +42,13 @@ struct SearchFilterListRow: View {
                             .modifier(regularSubHeadLine(colorName: .theme.gray5))
                             .padding(.trailing, 30)
                     }
+                    
                 }
-            }
-            .onAppear() {
-                print("\(type)타입")
-                Configuretype(type: type)
+                .onChange(of: !isSheetOn) { newValue in
+                    if newValue {
+                        Configuretype(type: type)
+                    }
+                }
             }
     }
 }
