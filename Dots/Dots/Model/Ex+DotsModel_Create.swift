@@ -59,6 +59,20 @@ extension DotsModel {
             entity.strengthName == name
         }
     }
+
+    func changeLevel(strengthLevel: Int16, strengthName: String) {
+        guard let myStrength = findMyStrengthFromName(strengthName) else { return }
+        
+        myStrength.strengthLevel = strengthLevel
+        
+        save()
+    }
+    
+    func findMyStrengthFromName(_ name: String) -> MyStrengthEntity? {
+        return myStrength.first { entity in
+            entity.ownStrength?.strengthName == name
+        }
+    }
     
     func checkRedundantVaildation(_ name: String) -> RedundantCheck {
         if myStrength.contains(where: { entity in

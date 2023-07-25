@@ -40,16 +40,8 @@ enum StrengthLevelImage: String, CaseIterable {
     case moderateDot
     case strongDot
     
-    var size: CGFloat {
-        switch self {
-        case .weakDot:
-            return 36
-        case .moderateDot:
-            return 58
-        case .strongDot:
-            return 76
-        }
-    }
+    var size: CGFloat { return 76 }
+    var sizeSmall: CGFloat { return 36 }
 }
 
 struct CustomList: View {
@@ -58,6 +50,7 @@ struct CustomList: View {
     @State private var resetSwipe: Bool = false
     @State private var trashPresented: Bool = false
     
+    let images = StrengthLevelImage.allCases
     var entity: MyStrengthEntity
     
     var body: some View {
@@ -65,13 +58,13 @@ struct CustomList: View {
             SwipeItemView(content: {
                 HStack {
                     NavigationLink {
-                        MyStrengthDetailView(myStrengthEntity: entity)
-                    }label: {
+                        MyStrengthDetailView(selectedLevel: Int(entity.strengthLevel), myStrengthEntity: entity)
+                    } label: {
                         HStack(alignment: .center){
-                            Image(StrengthLevelImage.allCases[Int(entity.strengthLevel)].rawValue)
+                            Image(images[Int(entity.strengthLevel)].rawValue)
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 36,height: 36)
+                                .frame(height: images[Int(entity.strengthLevel)].sizeSmall)
                                 .padding(.leading,22)
                             Text(entity.ownStrength?.strengthName ?? "이름")
                                 .font(.system(size: 17,weight: .semibold))
