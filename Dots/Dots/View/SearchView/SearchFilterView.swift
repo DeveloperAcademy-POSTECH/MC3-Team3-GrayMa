@@ -19,7 +19,7 @@ struct SearchFilterView: View {
                 Button {
                     type = "회사"
                     isSheetOn = true
-                    keyName = ""
+                    keyName = "recentCompany"
                 } label: {
                     SearchFilterListRow(type: "회사")
                 }
@@ -27,7 +27,7 @@ struct SearchFilterView: View {
 
                 Button {
                     type = "직무"
-                    keyName = ""
+                    keyName = "recentJob"
                     isSheetOn = true
                     
                 } label: {
@@ -36,7 +36,7 @@ struct SearchFilterView: View {
                 
                 Button {
                     type = "강점"
-                    keyName = ""
+                    keyName = "recentStrength"
                     isSheetOn = true
                 } label: {
                     SearchFilterListRow(type: "강점")
@@ -59,7 +59,7 @@ struct SearchFilterView: View {
                 }
             }
             .sheet(isPresented: $isSheetOn) {
-                SearchFilterDetailView(isSheetOn: $isSheetOn, type: type)
+                SearchFilterDetailView(isSheetOn: $isSheetOn, keyName: $keyName, type: type)
             }
 
         }

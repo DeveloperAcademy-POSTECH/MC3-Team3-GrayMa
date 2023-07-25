@@ -10,31 +10,43 @@ import SwiftUI
 struct SearchHistoryRowModel: Hashable {
     var title: String
     var isSelected: Bool
+    
+    init(title: String, isSelected: Bool) {
+        self.title = title
+        self.isSelected = isSelected
+    }
 }
 
 // MARK: - body
 struct SearchFilterDetailView: View {
+    @EnvironmentObject var dotsModel: DotsModel
     @State var searchTextField: String = ""
-    @State private var selectedHistoryList: [String] = []
+    @State var selectedHistoryList: [String] = []
     @Binding var isSheetOn: Bool
-    @Binding var
+    @Binding var keyName : String
     @State private var isKeyboardVisible = false
     let type: String
-    
-    @State var searchHistory: [SearchHistoryRowModel] = [
-        .init(title: "토스트", isSelected: false),
-        .init(title: "토스", isSelected: false),
-        .init(title: "네이버", isSelected: false),
-        .init(title: "LG", isSelected: false),
-        .init(title: "우아한 형제들", isSelected: false)
-    ]
+    @State var searchHistory: [SearchHistoryRowModel] = []
     @State var selectedOpacityValue: Double = 0.6
+    
     
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 SearchBar
-                SearchHistory
+                SelectedBadges
+                if  (searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
+                    if let name = person.name {
+                        return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
+                    } else {
+                        return false
+                    }
+                }.isEmpty) {
+                    SearchHistory
+                }
+                else {
+                    //MARK: 리스트 예정
+                }
                 
                 Spacer()
             }
@@ -62,6 +74,8 @@ struct SearchFilterDetailView: View {
                     Notification in isKeyboardVisible = false
                 }
                 
+                searchHistory = loadRecentSearches(keyName: keyName)
+                
             }
             .onDisappear {
                 NotificationCenter.default.removeObserver(self)
@@ -72,6 +86,7 @@ struct SearchFilterDetailView: View {
 
 // MARK: - Components
 extension SearchFilterDetailView {
+    
     private var SearchBar: some View {
         RoundedRectangle(cornerRadius: 40)
             .stroke(Color.gray, lineWidth: 0.5)
@@ -86,10 +101,10 @@ extension SearchFilterDetailView {
                         .padding(.trailing, 11)
                         .padding(.leading, 14)
                     VStack {
-                        TextField("\(type) 검색", text: $searchTextField) {
-                            SearchConnectionView.
-                        }
-                        SelectedBadges
+                        TextField("\(type) 검색", text: $searchTextField, onCommit: {
+                            saveSearch(name: searchTextField, selectedHistoryList: &selectedHistoryList, keyName: keyName)
+                            selectedHistoryList.append(searchTextField)
+                        })
                     }
                     
                     Spacer()
@@ -130,41 +145,50 @@ extension SearchFilterDetailView {
     }
     
     private var SelectedBadges: some View {
-        HStack {
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    ForEach(selectedHistoryList, id: \.self) { history in
-                        HStack(spacing: 0) {
-                            Text(history)
-                                .modifier(regularBody(colorName: .theme.fontWhite))
-                                .padding(.trailing, 10)
-                            Button {
-                                withAnimation(.easeIn(duration: 0.1)) {
-                                    deleteSelectedHistory(historyName: history)
-                                }
-                            } label: {
-                                Image(systemName: "x.circle.fill")
-                                    .foregroundColor(.theme.secondaryLabel)
-                                    .opacity(0.6)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(selectedHistoryList, id: \.self) { history in
+                    HStack(spacing: 0) {
+                        Text(history)
+                            .modifier(regularBody(colorName: .theme.fontWhite))
+                            .padding(.trailing, 10)
+                        Button {
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                deleteSelectedHistory(historyName: history)
                             }
+                        } label: {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundColor(.theme.secondaryLabel)
+                                .opacity(0.6)
                         }
-                        .padding(.horizontal, 18)
-                        .padding(.vertical, 9)
-                        .background(Color.theme.primary)
-                        .cornerRadius(12, corners: .allCorners)
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.vertical, 9)
+                    .background(Color.theme.primary)
+                    .cornerRadius(12, corners: .allCorners)
                 }
             }
         }
     }
     
-    private var LastSearch: some View {
-        VStack {
-            ScrollView {
-                ForEach
-            }
-        }
-    }
+    //    private var RecentSearch: some View {
+    //        ScrollView {
+    //            ForEach(selectedHistoryList, id: \.self) { history in
+    //                VStack(alignment: .leading, spacing: 24) {
+    //                    Button {
+    //                        searchTextField = history
+    //                    } label: {
+    //                        Text(history)
+    //                    }
+    //                    .border(.black)
+    //                    .padding(.leading, 33)
+    //                    .padding(.leading,33)
+    //
+    //                }
+    //            }
+    //
+    //        }
+    //    }
 }
 
 // MARK: - Function
@@ -195,18 +219,40 @@ extension SearchFilterDetailView {
     func deleteSelectedHistory(historyName: String) {
         guard let selectedIdx = selectedHistoryList.firstIndex(of: historyName) else { return }
         guard let historyIdx = searchHistory.firstIndex(where: { $0.title == historyName }) else { return }
-                
+        
         selectedHistoryList.remove(at: selectedIdx)
         searchHistory[historyIdx].isSelected = false
     }
     
+    // MARK: 유저디폴트 값에 저장 하는 함수
+    func saveSearch(name: String, selectedHistoryList: inout [String], keyName: String) {
+        guard !name.isEmpty else { return }
+        
+        let newHistory = SearchHistoryRowModel(title: searchTextField, isSelected: false)
+        searchHistory.append(newHistory)
+        if searchHistory.count > 5 {
+            searchHistory.removeFirst()
+        }
+        UserDefaults.standard.set(searchHistory.map {$0.title}, forKey: keyName)
+    }
+    // MARK: 유저디폴트 값을 State배열에 대입 하고 불러와주는 함수
+    func loadRecentSearches(keyName: String) -> [SearchHistoryRowModel] {
+        if let savedSearches = UserDefaults.standard.array(forKey: keyName) as? [String] {
+            return savedSearches.map { SearchHistoryRowModel(title: $0, isSelected: false) }
+        } else {
+            return []
+        }
+    }
 
-
-//struct SearchFilterDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchFilterDetailView(isSheetOn: .constant(true), type: "회사")
-//    }
-//}
-
-
+    
+    
+    
+    
+    //struct SearchFilterDetailView_Previews: PreviewProvider {
+    //    static var previews: some View {
+    //        SearchFilterDetailView(isSheetOn: .constant(true), type: "회사")
+    //    }
+    //}
+    
+    
 }

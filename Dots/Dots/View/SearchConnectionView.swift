@@ -13,7 +13,7 @@ struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
     private let keyName: String = "recentSearchName"
     @State private var name: String = ""
-    @State private var selectedHistoryList: [String] = loadRecentSearches(keyName: "recentSearchName")
+    @State private var selectedHistoryList: [String] = []
     @State private var recentNameKey: String = ""
     @State private var isKeyboardVisible = false
     
@@ -27,6 +27,9 @@ struct SearchConnectionView: View {
     // sheet 컨트롤 변수
     @State var isFilterSheetOn = false
     
+    init () {
+        _selectedHistoryList = State(initialValue: loadRecentSearches(keyName: keyName))
+    }
     var body: some View {
         NavigationStack {
             VStack{
@@ -81,7 +84,7 @@ struct SearchConnectionView: View {
                         }
                         .padding(.leading,14)
                         
-                        TextField("이름 검색", text: $name,onCommit: {
+                        TextField("이름 검색", text: $name, onCommit: {
                             saveSearch(name: name, selectedHistoryList: &selectedHistoryList, keyName: "recentSearchName")
                         })
                         
