@@ -58,14 +58,12 @@ struct ConnectionNoteList: View {
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(titleText)
-                                .modifier(semiBoldTitle3(colorName: .black))
+                                .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
                             HStack {
-                                Group {
-                                    Text(dateText)
-                                    Text(subtitleText)
-                                }
-                                .modifier(regularSubHeadLine(colorName: .gray))
+                                Text(dateText)
+                                Text(subtitleText)
                             }
+                            .modifier(regularSubHeadLine(colorName: Color.theme.gray))
                         }
                         .padding(.leading, 25)
                         Spacer()
@@ -75,7 +73,7 @@ struct ConnectionNoteList: View {
         
         // 기존 강점노트 클릭시 나오는 Modal
         .sheet(isPresented: $showNoteViewModal){
-            ConnectionNoteViewModal(id: noteEntity.networkingNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
+            ConnectionNoteViewModal(id: noteEntity.networkingNoteID!, date: noteEntity.date!, textFieldContent: noteEntity.content ?? "")
         }
     }
 }

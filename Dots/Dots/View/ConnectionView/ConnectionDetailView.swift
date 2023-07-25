@@ -15,10 +15,15 @@ struct ConnectionDetailView: View {
     @State private var showCommon = false
     let person: NetworkingPersonEntity
     
-    
     let tempStrenth = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션"]
     
-    // 데이터 연동 필요 - 강점(StrengthEntity)
+    init(person: NetworkingPersonEntity) {
+        self.person = person
+        
+        // 네비게이션바를 투명하게 - 스크롤시에도 색상 유지
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage()
+    }
     
     var body: some View {
         ZStack {
@@ -34,7 +39,7 @@ struct ConnectionDetailView: View {
                             Text("강점")
                                 .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
 
-                            Spacer()
+//                            Spacer()
 
                             Toggle(isOn: $showCommon) {
                                 Text("공통점")
@@ -48,9 +53,23 @@ struct ConnectionDetailView: View {
                         HStack {
                             if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
                                 ForEach(strengthSet, id: \.self) { strength in
-                                    StrenthName(strenthText: strength.strengthName)
+                                    StrengthName(strengthText: strength.strengthName)
                                 }
                             }
+                            
+                            Button {
+                                
+                            } label: {
+                                Circle()
+                                    .frame(width: 40)
+                                    .foregroundColor(Color.theme.secondary)
+                                    .overlay{
+                                        Image(systemName: "plus")
+                                            .modifier(regularBody(colorName: Color.theme.text))
+                                    }
+                            }
+
+                            
                             Spacer()
                         }
                     }
@@ -81,31 +100,29 @@ struct ConnectionDetailView: View {
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 62)
                                 .padding(.horizontal, 16)
-                                .overlay()
-                            {
-                                HStack {
-                                    Text("저장된 기록이 없습니다.")
-                                        .modifier(regularBody(colorName: Color.theme.gray))
-                                    Spacer()
-                                }
-                                .padding(.leading, 45)
-                            }
+                                .overlay(
+                                    HStack {
+                                        Text("저장된 기록이 없습니다.")
+                                            .modifier(regularBody(colorName: Color.theme.gray))
+                                        Spacer()
+                                    }
+                                    .padding(.leading, 45)
+                                
+                                )
                         }
                         Spacer()
-                        
                     }
                     .padding(.top, 62)
                 }
-                
+                .padding()
             }
             .scrollIndicators(.never)
-            .padding()
             
             BackgroundCircle()
                 .foregroundColor(Color.theme.secondary)
                 .ignoresSafeArea()
             
-            VStack(spacing: 16) {
+            VStack(spacing: 16) {   // 상단부 개인 정보
                 HStack {    // 기본정보
                     VStack(alignment: .leading, spacing: 16) {
                         if let name = person.name, let company = person.company, let job = person.job {
@@ -139,7 +156,7 @@ struct ConnectionDetailView: View {
         // MARK: Custom NavigationBar
         .navigationBarBackButtonHidden()
         .navigationBarItems(leading: BackButton)
-        
+
         // TODO: 인맥 편집 화면 연결 필요(인맥 등록뷰와 동일)
         .navigationBarItems(trailing: Button(action: {}, label: {Text("편집")}))
         .sheet(isPresented: $showNote) {
@@ -160,11 +177,11 @@ struct ConnectionDetailView: View {
     }
 }
 
-struct StrenthName: View {
-    let strenthText: String?
+struct StrengthName: View {
+    let strengthText: String?
     
     var body: some View {
-        Text(strenthText ?? "")
+        Text(strengthText ?? "")
             .modifier(regularCallout(colorName: Color.theme.text))
             .padding(9)
             .padding(.horizontal, 9.5)
