@@ -39,8 +39,23 @@ struct MyStrengthView: View {
                     }                    
                 }
             }
-            .navigationBarItems(leading: HStack { Text("강점").font(.system(size: 24)) })
-            .navigationBarItems(trailing: HStack { Button(action: { self.showModal = true }) { Image(systemName: "plus").foregroundColor(.black) } })
+            .toolbar(content: {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Text("내 강점")
+                        .modifier(boldTitle1(colorName: .theme.gray5Dark))
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { self.showModal = true }) {
+                        Image(systemName: "plus")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 22)
+                            .foregroundColor(.theme.gray5Dark)
+                            
+                        
+                    }
+                }
+            })
             .sheet(isPresented: $showModal){
                 StrengthModal()
                     .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])

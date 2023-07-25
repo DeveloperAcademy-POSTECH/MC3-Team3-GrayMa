@@ -14,12 +14,17 @@ struct StrengthList: View {
     var body: some View {
         HStack {
             Text(strength)
-                .modifier(regularCallout(colorName: Fontcolor.fontBlack.colorName))
+                .modifier(regularCallout(colorName: .theme.gray5Dark))
                 .padding(.leading,44)
             Spacer()
+            
+            Image(systemName: "checkmark")
+                .padding(.trailing, 47)
+                .foregroundColor(.theme.primary)
+                .hideToBool(strengthName != strength)
         }
         .frame(height: 56)
-        .background(strengthName == strength ? .gray : .white)
+        .background(strengthName == strength ? Color.theme.secondary : Color.theme.bgPrimary)
         .frame(maxWidth: .infinity)
         .onTapGesture {
             strengthName = strength

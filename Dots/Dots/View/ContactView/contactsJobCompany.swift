@@ -21,7 +21,7 @@ struct contactsJobCompany: View {
     //input error 컨트롤
     @State var inputError = false
     @State var textColor = Color.black
-    @State var fieldColor = Color.gray
+    @State var fieldColor = Color("bgBlank")
     let errorMessage = ["직무는 필수 조건입니다."]
     
     var body: some View {
@@ -31,7 +31,18 @@ struct contactsJobCompany: View {
                 .foregroundColor(textColor)
             
             ZStack {
+                //외각 디자인
+                RoundedRectangle(cornerRadius: 40)
+                    //.strokeBorder(Color.gray, lineWidth: 1)
+                    .onTapGesture{ modalVissable = true }
+                    .sheet(isPresented: $modalVissable) {
+                        SearchFilterDetailView(isSheetOn: $modalVissable, type: inputCondition)
+                    }
+                    .foregroundColor(fieldColor)
+                .frame(width: 361, height: 56)
+                
                 HStack{
+                  
                     //돋보기 보양
                     Image(systemName: "magnifyingglass")
                         //.resizable()
@@ -41,15 +52,18 @@ struct contactsJobCompany: View {
                     Text("\(text)")
                     
                     Spacer()
+                    
+                    if !text.isEmpty {
+                        Image(systemName: "checkmark.circle.fill")
+                            .resizable()
+                            .foregroundColor(Color("AlertGreen"))
+                            .frame(width: 24, height: 24)
+                            .onAppear{
+                                fieldColor = Color("primary")
+                            }
+                    }
                 }
                 .frame(width: 340)
-                
-                //외각 디자인
-                RoundedRectangle(cornerRadius: 40)
-                    .strokeBorder(Color.gray, lineWidth: 1)
-                    .onTapGesture{ modalVissable = true }
-                    .sheet(isPresented: $modalVissable) { bindingModalView(text: $text)}
-                .frame(width: 361, height: 56)
             }
             
             //모달에서 직무가 하나라도 있는지 리턴 받아야함
@@ -70,6 +84,7 @@ struct bindingModalView: View {
         VStack {
             Text("임시 모달뷰")
             TextField("", text: $text)
+                .frame(height: 50)
                 .border(.blue)
             Button("Close") {
                 presentationMode.wrappedValue.dismiss()
@@ -82,6 +97,6 @@ struct bindingModalView: View {
 
 //struct contactsModalText_Previews: PreviewProvider {
 //    static var previews: some View {
-//        contactsJobCompany(inputCondition: "회사", text: "놉")
+//        contactsJobCompany(inputCondition: "회사", text: self)
 //    }
 //}

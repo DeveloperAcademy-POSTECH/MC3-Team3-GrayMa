@@ -5,11 +5,11 @@
       "scale" : "1x"
     },
     {
-      "filename" : "plus.circle.fill@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "strengthLevel2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
