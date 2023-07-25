@@ -21,20 +21,18 @@ struct SearchHistoryRowModel: Hashable {
 struct SearchFilterDetailView: View {
     @EnvironmentObject var dotsModel: DotsModel
     
-    @State var searchTextField: String = ""
-    @State var selectedHistoryList: String = ""
-    @State var searchHistory: [SearchHistoryRowModel] = []
-    @State var selectedOpacityValue: Double = 0.6
-    @State private var isKeyboardVisible = false
+    @State private var searchTextField: String = ""
+    @State private var selectedHistoryList: String = ""
+    @State private var searchHistory: [SearchHistoryRowModel] = []
+    @State private var selectedOpacityValue: Double = 0.6
     
     @Binding var isSheetOn: Bool
     @Binding var companyName: String
     @Binding var jobName: String
     @Binding var strengthName: String
-    
-    let type: String
+    @Binding var type: String
     let keyName : String
-  
+
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
@@ -65,24 +63,19 @@ struct SearchFilterDetailView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("완료") {
                         isSheetOn = false
+                        knowFilter()
+                        print("\(type) 타입")
+                        print("\(companyName) 회사이름")
+                        print("\(jobName)  직무이름")
+                        print("\(strengthName) 강점이름" )
                         print("완료 ㄱㄱ")
                     }
                 }
             }
             .onAppear {
-                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
-                    isKeyboardVisible = true
-                }
-                
-                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
-                    Notification in isKeyboardVisible = false
-                }
-                
+
                 searchHistory = loadRecentSearches(keyName: keyName)
                 
-            }
-            .onDisappear {
-                NotificationCenter.default.removeObserver(self)
             }
         }
     }
@@ -125,6 +118,7 @@ extension SearchFilterDetailView {
                 withAnimation(.easeIn(duration: 0.1)) {
                     searchHistory[index].isSelected.toggle()
                     selectAction(history: searchHistory[index])
+                    searchTextField = history.title
                 }
             } label: {
                 ZStack {
@@ -245,6 +239,22 @@ extension SearchFilterDetailView {
                 return false
             }
         }.isEmpty) {
+        }
+    }
+    
+    func knowFilter() {
+        switch type {
+        case "회사":
+            companyName = searchTextField
+            break
+        case "직무":
+            jobName = searchTextField
+            break
+        case "강점":
+            strengthName = searchTextField
+            break
+        default:
+            break
         }
     }
     

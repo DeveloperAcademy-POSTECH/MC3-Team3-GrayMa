@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct SearchFilterView: View {
-    @State var isSheetOn: Bool = false
-    @State var type: String = ""
-    @State var keyName: String = ""
-    @State var companyName: String = "삼성"
-    @State var jobName: String = "ios 개발"
-    @State var strengthName: String = "재능"
+    @State private var isSheetOn: Bool = false
+    @State private var type: String = ""
+    @State private var keyName: String = ""
+    @State private var companyName: String = ""
+    @State private var jobName: String = ""
+    @State private var strengthName: String = ""
     
     
     var body: some View {
@@ -21,6 +21,7 @@ struct SearchFilterView: View {
             VStack(spacing: 12) {
                 Button {
                     type = "회사"
+                    print(type)
                     isSheetOn = true
                     keyName = "recentCompany"
                 } label: {
@@ -63,7 +64,7 @@ struct SearchFilterView: View {
                 }
             }
             .sheet(isPresented: $isSheetOn) {
-                SearchFilterDetailView(isSheetOn: $isSheetOn, companyName: $companyName ,jobName: $jobName, strengthName: $strengthName, type: type, keyName: keyName)
+                SearchFilterDetailView(isSheetOn: $isSheetOn, companyName: $companyName ,jobName: $jobName, strengthName: $strengthName, type: $type, keyName: keyName)
             }
             
         }

@@ -36,7 +36,7 @@ struct contactsJobCompany: View {
                     //.strokeBorder(Color.gray, lineWidth: 1)
                     .onTapGesture{ modalVissable = true }
                     .sheet(isPresented: $modalVissable) {
-                        SearchFilterDetailView(isSheetOn: $modalVissable, companyName:.constant("삼성"), jobName:.constant("개발자"), strengthName:.constant("개발"), type: inputCondition, keyName: keynameCondition)
+                        SearchFilterDetailView(isSheetOn: $modalVissable, companyName:.constant("삼성"), jobName:.constant("개발자"), strengthName:.constant("개발"), type: $inputCondition, keyName: keynameCondition)
                     }
                     .foregroundColor(fieldColor)
                 .frame(width: 361, height: 56)
