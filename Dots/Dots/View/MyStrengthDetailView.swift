@@ -77,16 +77,18 @@ struct MyStrengthDetailView: View {
                 } else {
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .overlay()
-                    {
-                        HStack {
-                            Text("저장된 기록이 없습니다.")
-                                .modifier(regularSubHeadLine(colorName: .gray))
-                            Spacer()
+                        .frame(height: 62)
+                        .overlay() {
+                            HStack {
+                                Text("저장된 기록이 없습니다.")
+                                    .modifier(regularSubHeadLine(colorName: .gray))
+                                Spacer()
+                            }
+                            .padding(.leading, 29)
                         }
-                    }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                 }
             }
             .padding(.horizontal, 16)
