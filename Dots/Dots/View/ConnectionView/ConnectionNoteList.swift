@@ -54,7 +54,6 @@ struct ConnectionNoteList: View {
                 .foregroundColor(.white)
                 .frame(maxWidth: .infinity)
                 .frame(height: 62)
-                .padding(.horizontal, 16)
                 .overlay(
                     HStack {
                         VStack(alignment: .leading, spacing: 4) {
@@ -68,7 +67,7 @@ struct ConnectionNoteList: View {
                                 .modifier(regularSubHeadLine(colorName: .gray))
                             }
                         }
-                        .padding(.leading, 45)
+                        .padding(.leading, 25)
                         Spacer()
                     }
                 )

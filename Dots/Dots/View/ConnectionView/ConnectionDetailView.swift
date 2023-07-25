@@ -12,79 +12,134 @@ struct ConnectionDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var dotsModel: DotsModel
     @State private var showNote = false
+    @State private var showCommon = false
     let person: NetworkingPersonEntity
+    
+    
+    let tempStrenth = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션"]
     
     // 데이터 연동 필요 - 강점(StrengthEntity)
     
     var body: some View {
         ZStack {
-            Color.yellow  // 이미지 대체 자리
-            VStack(spacing: 25) {
-                BasicProfile(name: person.name, company: person.company, job: person.job)
-                HStack {
-                    ZStack {
-                        Image("profileImageBackground")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 105)
-                        
-                        Image("user_default_profile \(person.profileImageIndex)")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 88)
+            Color.theme.bgMain
+            
+            ScrollView {
+                VStack {
+                    Spacer()
+                        .frame(height: 280)
+                    
+                    VStack {    // 강점 목록 및 비교
+                        HStack {
+                            Text("강점")
+                                .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
+
+                            Spacer()
+
+                            Toggle(isOn: $showCommon) {
+                                Text("공통점")
+                                    .modifier(regularCallout(colorName: Color.theme.text))
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
+                            .toggleStyle(SwitchToggleStyle(tint: Color.theme.primary))
+                        }
+
+                        // TODO: 강점 목록 캡슐
+                        HStack {
+                            if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
+                                ForEach(strengthSet, id: \.self) { strength in
+                                    StrenthName(strenthText: strength.strengthName)
+                                }
+                            }
+                            Spacer()
+                        }
                     }
+                    
+                    VStack {
+                        HStack {
+                            Text("상대 기록")
+                                .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
+
+                            Spacer()
+                            
+                            Button {
+                                showNote.toggle()
+                            } label: {
+                                Image(systemName: "plus")
+                                    .foregroundColor(Color.theme.primary)
+                                    .font(.system(size: 22))
+                            } 
+                        }
+                        
+                        if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
+                            ForEach(notes) { note in
+                                ConnectionNoteList(noteEntity: note)
+                            }
+                        } else {
+                            RoundedRectangle(cornerRadius: 12)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 62)
+                                .padding(.horizontal, 16)
+                                .overlay()
+                            {
+                                HStack {
+                                    Text("저장된 기록이 없습니다.")
+                                        .modifier(regularBody(colorName: Color.theme.gray))
+                                    Spacer()
+                                }
+                                .padding(.leading, 45)
+                            }
+                        }
+                        Spacer()
+                        
+                    }
+                    .padding(.top, 62)
+                }
+                
+            }
+            .scrollIndicators(.never)
+            .padding()
+            
+            BackgroundCircle()
+                .foregroundColor(Color.theme.secondary)
+                .ignoresSafeArea()
+            
+            VStack(spacing: 16) {
+                HStack {    // 기본정보
+                    VStack(alignment: .leading, spacing: 16) {
+                        if let name = person.name, let company = person.company, let job = person.job {
+                            Text("\(name)")
+                                .modifier(boldTitle1(colorName: Color.theme.gray5Dark))
+                            HStack {
+                                Text("\(company) ﹒ \(job)")
+                                    .modifier(regularBody(colorName: Color.theme.text))
+                            }
+                        }
+                    }
+                    Spacer()
+                }
+                
+                HStack {    // 이미지 및 연락 버튼
+                    Circle()
+                        .frame(width: 88)
+                        .foregroundColor(.gray)     // 색상 변경 필요(disable)
+                    
                     Spacer()
                     
                     ContactButtons(phoneNum: person.contanctNum!, mailAdd: person.email!, linkedinLink: person.linkedIn!)
-                        .padding(.trailing, 15)
                 }
-
-                Button {
-                    showNote.toggle()
-                } label: {
-                    RoundedRectangle(cornerRadius: 12)
-                        .frame(height: 44)
-                        .padding(.horizontal)
-                        .overlay{
-                            HStack {
-                                Image(systemName: "square.and.pencil")
-                                Text("새로운 기록 작성")
-                            }
-                            .modifier(semiBoldBody(colorName: Fontcolor.fontWhite.colorName))
-                        }
-                }
+                .padding(.top, 16)
                 
-                // MARK: - 인맥 노트 리스트
-                ScrollView {
-                    if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
-                        ForEach(notes) { note in
-                            ConnectionNoteList(noteEntity: note)
-                        }
-                    } else {
-                        RoundedRectangle(cornerRadius: 12)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 62)
-                            .padding(.horizontal, 16)
-                            .overlay()
-                        {
-                            HStack {
-                                Text("저장된 기록이 없습니다.")
-                                    .modifier(regularSubHeadLine(colorName: .gray))
-                                Spacer()
-                            }
-                            .padding(.leading, 45)
-                        }
-                    }
-                }
-                .padding(.top, -10)
-                .scrollIndicators(.hidden)
                 Spacer()
             }
+            .padding()
         }
+        
         // MARK: Custom NavigationBar
         .navigationBarBackButtonHidden()
         .navigationBarItems(leading: BackButton)
+        
         // TODO: 인맥 편집 화면 연결 필요(인맥 등록뷰와 동일)
         .navigationBarItems(trailing: Button(action: {}, label: {Text("편집")}))
         .sheet(isPresented: $showNote) {
@@ -92,6 +147,7 @@ struct ConnectionDetailView: View {
                 .interactiveDismissDisabled()
         }
     }
+    
     private var BackButton: some View {
         Button {
             dismiss()
@@ -104,52 +160,19 @@ struct ConnectionDetailView: View {
     }
 }
 
-struct BasicProfile: View {
-    let name: String?
-    let company: String?
-    let job: String?
-    
-    var body: some View {
-        VStack {
-            Capsule()
-                .foregroundColor(.gray)     // 추후 색깔 변경 필요
-                .frame(width: 36, height: 5)
-                .padding(.top, 5)
-            
-            HStack {
-                VStack(alignment: .leading, spacing: 15) {
-                    if let name = name, let company = company, let job = job {
-                        Text("\(name)")
-                            .modifier(boldTitle1(colorName: Fontcolor.fontBlack.colorName))
-                        HStack {
-                            Text("\(company) ﹒ \(job)")
-                                .modifier(regularBody(colorName: Fontcolor.fontGray.colorName))
-                        }
-                    }
-                }
-                .padding(.leading, 17)
-                .padding(.top, 26)
-                
-                Spacer()
-            }
-        }
-    }
-}
-
-
 struct StrenthName: View {
     let strenthText: String?
     
     var body: some View {
         Text(strenthText ?? "")
-            .padding(10)
-            .padding(.leading, 8)
-            .padding(.trailing, 8)
-            .background(.white.opacity(0.5))
-            .clipShape(RoundedRectangle(cornerRadius: 40))
+            .modifier(regularCallout(colorName: Color.theme.text))
+            .padding(9)
+            .padding(.horizontal, 9.5)
+            .background(Color.theme.secondary)
+            .clipShape(RoundedRectangle(cornerRadius: 50))
             .overlay(
-                RoundedRectangle(cornerRadius: 40)
-                    .strokeBorder(Color.gray, lineWidth: 1)
+                RoundedRectangle(cornerRadius: 50)
+                    .strokeBorder(Color.theme.secondary, lineWidth: 1)
             )
             .fixedSize()
     }
@@ -187,11 +210,10 @@ struct ContactButtons: View {
                 } label: {
                     Circle()
                         .frame(width: 58)
-                        .foregroundColor(.white)
-                        .opacity(pushMessage || noMessageAlert ? 1 : 0)
+                        .opacity(0)
                         .overlay(
                             Image(systemName: "message")
-                                .modifier(regularTitle1(colorName: pushMessage || noMessageAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: Color.theme.bgPrimary))
                         )
                 }
                 .confirmationDialog("메시지 보내기", isPresented: $pushMessage) {
@@ -223,11 +245,10 @@ struct ContactButtons: View {
                 } label: {
                     Circle()
                         .frame(width: 58)
-                        .foregroundColor(.white)
-                        .opacity(pushCall || noCallAlert ? 1 : 0)
+                        .opacity(0)
                         .overlay(
                             Image(systemName: "phone")
-                                .modifier(regularTitle1(colorName: pushCall || noCallAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: Color.theme.bgPrimary))
                         )
                 }
                 .confirmationDialog("전화걸기", isPresented: $pushCall) {
@@ -259,11 +280,10 @@ struct ContactButtons: View {
                 } label: {
                     Circle()
                         .frame(width: 58)
-                        .foregroundColor(.white)
-                        .opacity(pushMail || noMailAlert ? 1 : 0)
+                        .opacity(0)
                         .overlay(
                             Image(systemName: "envelope")
-                                .modifier(regularTitle1(colorName: pushMail || noMailAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName))
+                                .modifier(regularTitle1(colorName: Color.theme.bgPrimary))
                         )
                 }
                 .confirmationDialog("이메일 보내기", isPresented: $pushMail) {
@@ -295,7 +315,7 @@ struct ContactButtons: View {
                                 Image("linkedInLogo")
                                     .resizable()
                                     .scaledToFit()
-                                    .colorMultiply(Fontcolor.fontWhite.colorName)
+                                    .colorMultiply(Color.theme.bgPrimary)
                                     .frame(width: 24)
                             )
                     }
@@ -305,13 +325,12 @@ struct ContactButtons: View {
                     } label: {
                         Circle()
                             .frame(width: 58)
-                            .foregroundColor(.white)
-                            .opacity(noLinkAlert ? 1 : 0)
+                            .opacity(0)
                             .overlay(
                                 Image("linkedInLogo")
                                     .resizable()
                                     .scaledToFit()
-                                    .colorMultiply(noLinkAlert ? Fontcolor.fontGray.colorName : Fontcolor.fontWhite.colorName)
+                                    .colorMultiply(Color.theme.bgPrimary)
                                     .frame(width: 24)
                             )
                     }
@@ -330,5 +349,19 @@ struct ContactButtons: View {
     private func copyToClipboard(text: String) {
         let pasteboard = UIPasteboard.general
         pasteboard.string = text
+    }
+}
+
+struct BackgroundCircle: Shape {
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: 0, y: 0))
+        path.addLine(to: CGPoint(x: 0, y: 317))
+        path.addQuadCurve(to: CGPoint(x: UIScreen.main.bounds.width, y: 317), control: CGPoint(x: UIScreen.main.bounds.width / 2, y: 360))
+        path.addLine(to: CGPoint(x: UIScreen.main.bounds.width, y: 0))
+        path.closeSubpath()
+        
+        return path
     }
 }
