@@ -44,6 +44,9 @@ struct addContactsView: View {
     //유저 이미지 모달 컨트롤
     @State private var userImgModal = false
     
+    //연락처 저장 완료 alret
+    @State private var addAlert = false
+    
     @State var strengthCount = 7
     var body: some View {
         NavigationView{
@@ -79,6 +82,15 @@ struct addContactsView: View {
                     Text("\(coreDataUserStrength)")
                 }
             }
+            .alert(isPresented: $addAlert) {
+                Alert(title: Text("알림"),
+                      message: Text("인맥이 추가되었습니다."),
+                      dismissButton: .default(Text("확인"), action: {
+                    // 모달을 닫습니다.
+                    presentationMode.wrappedValue.dismiss()
+                    modalComtrol = false
+                }))
+            }
         }
         .navigationBarItems(leading: Text("\(Image(systemName: "chevron.left")) 인맥관리")
             .foregroundColor(Color("primary"))
@@ -90,8 +102,10 @@ struct addContactsView: View {
                             .onTapGesture {
                                 userInputToCoreData()
                                 dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
-                                presentationMode.wrappedValue.dismiss()
-                                modalComtrol = false
+                                //인맥 추가 알림 띄움
+                                addAlert = true
+                               
+                                
                             })
         
         .onAppear{
