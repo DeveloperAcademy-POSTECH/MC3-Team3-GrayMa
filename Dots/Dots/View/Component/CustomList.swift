@@ -11,17 +11,6 @@ enum StrengthLevelImage: String, CaseIterable {
     case moderateDot
     case strongDot
     
-    var size: CGFloat {
-        switch self {
-        case .weakDot:
-            return 36
-        case .moderateDot:
-            return 58
-        case .strongDot:
-            return 76
-        }
-    }
-    
     var ballSize: CGFloat {
         switch self {
         case .weakDot:
@@ -32,12 +21,18 @@ enum StrengthLevelImage: String, CaseIterable {
             return 120
         }
     }
+    var size: CGFloat { return 76 }
+    var sizeSmall: CGFloat { return 36 }
 }
 
 struct CustomList: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var isNavigation = false
     @State var isDeleteAlert: Bool = false
+    @State private var resetSwipe: Bool = false
+    @State private var trashPresented: Bool = false
+    
+    let images = StrengthLevelImage.allCases
     var entity: MyStrengthEntity
     
     var body: some View {
@@ -50,7 +45,7 @@ struct CustomList: View {
                 SwipeItemView(content: {
                     HStack {
                         NavigationLink {
-                            MyStrengthDetailView(myStrengthEntity: entity)
+                            MyStrengthDetailView(selectedLevel: Int(entity.strengthLevel), myStrengthEntity: entity)
                         }label: {
                             HStack(alignment: .center){
                                 Image(StrengthLevelImage.allCases[Int(entity.strengthLevel)].rawValue)
@@ -75,6 +70,7 @@ struct CustomList: View {
                                 
                                 Spacer()
                             }
+
                         }
                         
                     }
@@ -94,7 +90,7 @@ struct CustomList: View {
                                 }
                         })
                     }
-                }, itemHeight: 84)
+                }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
             }
             .cornerRadius(12, corners: .allCorners)
             .alert("이 강점을 삭제하겠습니까?", isPresented: $isDeleteAlert) {
@@ -102,7 +98,6 @@ struct CustomList: View {
                     Button("취소") {
                         isDeleteAlert = false
                     }
-                    
                     Button("삭제") {
                         isDeleteAlert = false
                         dotsModel.deleteMyStrength(myStrength: entity)
@@ -112,6 +107,5 @@ struct CustomList: View {
             } message: {
                 Text("강점과 강점 기록들이 모두 삭제됩니다.")
             }
-
     }
 }

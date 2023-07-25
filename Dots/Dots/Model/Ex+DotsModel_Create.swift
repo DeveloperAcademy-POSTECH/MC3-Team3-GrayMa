@@ -59,6 +59,20 @@ extension DotsModel {
             entity.strengthName == name
         }
     }
+
+    func changeLevel(strengthLevel: Int16, strengthName: String) {
+        guard let myStrength = findMyStrengthFromName(strengthName) else { return }
+        
+        myStrength.strengthLevel = strengthLevel
+        
+        save()
+    }
+    
+    func findMyStrengthFromName(_ name: String) -> MyStrengthEntity? {
+        return myStrength.first { entity in
+            entity.ownStrength?.strengthName == name
+        }
+    }
     
     func checkRedundantVaildation(_ name: String) -> RedundantCheck {
         if myStrength.contains(where: { entity in
@@ -87,7 +101,7 @@ extension DotsModel {
         newNetworking.linkedIn = snsUrl
         
         // 동적으로 수정
-//        newNetworking.addToStrengthSet([strength[0], strength[1]])
+        //newNetworking.addToStrengthSet([strength[0], strength[1]])
         
         save()
     }
@@ -103,10 +117,29 @@ extension DotsModel {
         save()
     }
     
+    func addConnectionNote(date: Date, content: String, connection: NetworkingPersonEntity) {
+        let newConnectionNote = NetworkingNoteEntity(context: manager.context)
+        
+        newConnectionNote.networkingNoteID = UUID()
+        newConnectionNote.date = date
+        newConnectionNote.content = content
+        newConnectionNote.relatedPerson = connection
+        
+        save()
+    }
+    
     func updateMyNote(id: UUID, date: Date, content: String) {
         guard let noteIndex = myNotes.firstIndex(where: { $0.myStrengthNoteID == id }) else { return }
         myNotes[noteIndex].date = date
         myNotes[noteIndex].content = content
+        
+        save()
+    }
+    
+    func updateConnectionNote(id: UUID, date: Date, content: String) {
+        guard let noteIndex = networkingNotes.firstIndex(where: { $0.networkingNoteID == id }) else { return }
+        networkingNotes[noteIndex].date = date
+        networkingNotes[noteIndex].content = content
         
         save()
     }

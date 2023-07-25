@@ -11,23 +11,26 @@ struct MyStrengthDetailView: View {
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var dotsModel: DotsModel
-    @State var showLevelModal = false
-    @State var showNoteModal = false
+    @State private var showLevelModal = false
+    @State private var showNoteModal = false
+    @State var selectedLevel: Int
     
     let myStrengthEntity: MyStrengthEntity
+    let images = StrengthLevelImage.allCases
     
     var body: some View {
         VStack {
             HStack {
-                Image(StrengthLevelImage.allCases[Int(myStrengthEntity.strengthLevel)].rawValue)
+                Image(images[Int(myStrengthEntity.strengthLevel)].rawValue)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 36, height: 36)
+                    .frame(height: images[Int(myStrengthEntity.strengthLevel)].sizeSmall)
                 Text(myStrengthEntity.ownStrength?.strengthName ?? "")
-                    .modifier(boldLargeTitle(colorName: .black))
+                    .modifier(boldLargeTitle(colorName: .theme.gray5Dark))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding(.leading, 16.8)
+            .padding(.top, 5)
             
             // MARK: -  같은 강점 사람들 리스트
             ScrollView(.horizontal) {
@@ -37,7 +40,7 @@ struct MyStrengthDetailView: View {
                     }
                 }
                 .padding(.leading, 16)
-                .padding(.bottom, 14)
+                .padding(.bottom, 10)
             }
             
             // 강점메모 만들기
@@ -51,12 +54,14 @@ struct MyStrengthDetailView: View {
                             Image(systemName: "square.and.pencil")
                                 .foregroundColor(.white)
                             Text("새로운 기록 작성")
+                                .modifier(semiBoldBody(colorName: .theme.bgPrimary))
                         }
                         .modifier(semiBoldBody(colorName: .white))
                     }
                 }
                 .frame(height: 44)
                 .padding(.horizontal, 16)
+                .padding(.vertical, 10)
             })
             
             // MARK: - 강점메모 리스트
@@ -72,16 +77,18 @@ struct MyStrengthDetailView: View {
                 } else {
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        .overlay()
-                    {
-                        HStack {
-                            Text("저장된 기록이 없습니다.")
-                                .modifier(regularSubHeadLine(colorName: .gray))
-                            Spacer()
+                        .frame(height: 62)
+                        .overlay() {
+                            HStack {
+                                Text("저장된 기록이 없습니다.")
+                                    .modifier(regularSubHeadLine(colorName: .gray))
+                                Spacer()
+                            }
+                            .padding(.leading, 29)
                         }
-                    }
+                        .listRowBackground(Color.clear)
+                        .listRowSeparator(.hidden)
+                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                 }
             }
             .padding(.horizontal, 16)
@@ -92,18 +99,23 @@ struct MyStrengthDetailView: View {
         }) { Text("레벨 선택") })
         .navigationBarBackButtonHidden(true)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color(red: 0.95, green: 0.95, blue: 0.97))
+        .background(Color.theme.bgMain)
         
         // MARK: - Modal 모음
         // 레벨 선택시 나오는 Modal
         .sheet(isPresented: $showLevelModal){
-            StrengthModal(pagenum: 1)
-                .presentationDetents([.height(UIScreen.main.bounds.height * 0.25)])
+            ChangeLevelModal(selectedLevel: $selectedLevel, strengthName: myStrengthEntity.ownStrength?.strengthName ?? "")
+                .presentationDetents([.height(UIScreen.main.bounds.height * 0.35)])
+                .onAppear {
+                    self.selectedLevel = Int(self.myStrengthEntity.strengthLevel)
+                }
         }
         
         // 새로운 강점노트 클릭시 나오는 Modal
         .sheet(isPresented: $showNoteModal){
             StrengthNoteModal(myStrength: myStrengthEntity)
+                .interactiveDismissDisabled(true)
+                .presentationDragIndicator(.hidden)
         }
     }
     

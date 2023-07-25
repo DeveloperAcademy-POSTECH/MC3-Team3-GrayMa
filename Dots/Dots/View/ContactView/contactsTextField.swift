@@ -26,7 +26,7 @@ struct contactsTextField: View {
     //input error 컨트롤
     @State var inputError = false
     @State var textColor = Color.black
-    @State var fieldColor = Color.gray
+    @State var fieldColor = Color("bgBlank")
     let errorMessage = ["이름은 2~4자리로 작성해주세요.", "번호는 11자리만 가능합니다.", "이메일은 @, .com을 포함해주세요.", "SNS링크는 정확하게"]
     
     //input의 종류에 따른 문자열 비교에 사용
@@ -44,8 +44,9 @@ struct contactsTextField: View {
             ZStack {
                 //외각 디자인
                 RoundedRectangle(cornerRadius: 40)
-                    .strokeBorder(fieldColor, lineWidth: 1)
-                .frame(width: 361, height: 56)
+                    //.strokeBorder(fieldColor, lineWidth: 1)
+                    .frame(width: 361, height: 56)
+                    .foregroundColor(fieldColor)
                 
                 HStack{
                     
@@ -82,6 +83,7 @@ struct contactsTextField: View {
                                 .foregroundColor(.gray)
                                 .frame(width: 24, height: 24)
                         }
+                        .onAppear{fieldColor = Color("secondary")}
                         
                     //입력이 끝나고 return을 받으면 값이 참인지 판단합니다.
                     }else if !text.isEmpty && !selected{
@@ -90,11 +92,11 @@ struct contactsTextField: View {
                             compareTextCount(textMin: 1, textMax: 4, compareText: text)
                                 .onAppear{
                                     if !compareTextCountReturn(textMin: 1, textMax: 4, compareText: text){
-                                        fieldColor = Color.red
-                                        textColor = Color.red
+                                        fieldColor = Color("AlertBG")
+                                        textColor = Color("primary")
                                         inputError = true
                                     }else {
-                                        fieldColor = Color.gray
+                                        fieldColor = Color("bgBlank")
                                         textColor = Color.black
                                         inputError = false
                                     }}
@@ -103,12 +105,12 @@ struct contactsTextField: View {
                                 .onAppear{
                                     if !(text.count < 11) {
                                         text = convertPhoneNum(text)
-                                        fieldColor = Color.gray
+                                        fieldColor = Color("bgBlank")
                                         textColor = Color.black
                                         inputError = false
                                     }else {
-                                        fieldColor = Color.red
-                                        textColor = Color.red
+                                        fieldColor = Color("AlertBG")
+                                        textColor = Color("primary")
                                         inputError = true
                                     }}
                                 
@@ -144,12 +146,12 @@ struct compareTextCount : View {
         if textMin < Int(compareText.count) && Int(compareText.count) < textMax{
             Image(systemName: "checkmark.circle.fill")
                 .resizable()
-                .foregroundColor(.green)
+                .foregroundColor(Color("AlertGreen"))
                 .frame(width: 24, height: 24)
         } else {
             Image(systemName: "exclamationmark.circle.fill")
                 .resizable()
-                .foregroundColor(.red)
+                .foregroundColor(Color("primary"))
                 .frame(width: 24, height: 24)
         }
     }

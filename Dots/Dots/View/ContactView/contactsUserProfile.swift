@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-struct contactsUserProfile: View {
-
-    //유저 프로필 정보
-    @State var userName : String
-    @Binding var CoreDatauserProfileIdx : Int
-    
-    var body: some View {
-        profileIamgeSelect(CoreDataUserIdx: $CoreDatauserProfileIdx, userName: userName)
-    }
-}
-
 struct profileIamgeSelect : View{
     
     @Binding var CoreDataUserIdx : Int
@@ -30,8 +19,8 @@ struct profileIamgeSelect : View{
                     //이미지 선택 디자인
                     Ellipse()
                         .frame(width: 88, height: 88)
-                        .foregroundColor(.gray)
-                    
+                        .foregroundColor(Color("secondary"))
+                   
                     Text("\(convertUserName(name: userName))")
                 }else {
                     Image("user_default_profile \(CoreDataUserIdx)")
@@ -39,7 +28,8 @@ struct profileIamgeSelect : View{
                         .frame(width: 88, height: 88)
                 }
             }
-            
+            Spacer()
+                .frame(height: 20)
             //디버깅
             //Text("\(index)")
             

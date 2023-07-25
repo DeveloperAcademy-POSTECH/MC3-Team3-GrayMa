@@ -17,7 +17,7 @@ struct contactsImageSelect: View {
             if coreDataUserIdx == 0 {
                 Ellipse()
                     .frame(width: 88, height: 88)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color("secondary"))
                 Text("\(convertUserName(name: userName))")
             } else {
                 //이미지 선택 디자인
@@ -26,10 +26,11 @@ struct contactsImageSelect: View {
                     .frame(width: 88, height: 88)
             }
             
-            Image("imagePlusBtn")
+            Image(systemName: "plus.circle.fill")
                 .resizable()
                 .frame(width: 24, height: 24)
                 .offset(x: 30, y: 30)
+                .foregroundColor(Color("primary"))
         }
     }
 }
@@ -58,13 +59,13 @@ struct ProfileImageModal: View {
             Spacer()
                 .frame(height: 32)
             
-            contactsUserProfile(userName: userName, CoreDatauserProfileIdx: $userImageIdx)
+            profileIamgeSelect(CoreDataUserIdx: $userImageIdx, userName: userName)
             
             HStack{
-                SelectBtn(fontWeight: .regular, content: "취소", textColor: .black, btnColor: .gray, action: {presentationMode.wrappedValue.dismiss()})
+                SelectBtn(fontWeight: .regular, content: "취소", textColor: .black, btnColor: Color("bgBlank"), action: {presentationMode.wrappedValue.dismiss()})
                 Spacer()
                 // 데이터 베이스 연결시에는 데이터 베이스 저장을 해야하는 버튼
-                SelectBtn(fontWeight: .bold, content: "완료", textColor: .white, btnColor: .blue, action: {
+                SelectBtn(fontWeight: .bold, content: "완료", textColor: .white, btnColor: Color("primary"), action: {
                     print("완료")
                     //MARK: coreDate 업데이트
                     presentationMode.wrappedValue.dismiss()

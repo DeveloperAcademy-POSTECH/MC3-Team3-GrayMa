@@ -76,7 +76,7 @@ struct MyStrengthView: View {
             })
             .sheet(isPresented: $showModal){
                 StrengthModal()
-                    .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
+                    .presentationDetents([.height(UIScreen.main.bounds.height * 0.35)])
             }
             .background(Color.theme.bgMain)
             
