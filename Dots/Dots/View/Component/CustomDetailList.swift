@@ -70,7 +70,7 @@ struct CustomDetailList: View {
                         .padding(.leading, 29)
                         Spacer()
                     }
-                    .onTapGesture { self.showNoteViewModal = true }
+                    //                    .onTapGesture { self.showNoteViewModal = true }
                 }, right: {
                     HStack(spacing: 0) {
                         Button(action: {
@@ -104,7 +104,12 @@ struct CustomDetailList: View {
                     .presentationDragIndicator(.hidden)
             }
             .onTapGesture {
-                resetSwipe = true
+                if trashPresented {
+                    trashPresented = false
+                    resetSwipe = true
+                } else {
+                    self.showNoteViewModal = true
+                }
             }
     }
 }
