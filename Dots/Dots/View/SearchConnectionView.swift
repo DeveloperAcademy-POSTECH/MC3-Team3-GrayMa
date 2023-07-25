@@ -124,33 +124,7 @@ struct SearchConnectionView: View {
                 }
             }.isEmpty) {
                 // 검색 결과가 없을때 최근 검색 표시
-                ScrollView {
-                    ForEach(selectedHistoryList, id: \.self) { history in
-                        VStack(alignment: .leading, spacing: 24) {
-                            Button(action: {
-                                if let person = dotsModel.networkingPeople.first(where: { $0.name == history }) {
-                                    NavigationLink(destination: ConnectionDetailView(person: person)) {
-                                        Text(history)
-                                            .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))
-                                    }
-                                } else {
-                                    // 일치하지 않는 경우에는 아무 동작도 하지 않음
-                                }
-                                
-                                // 버튼을 누를 때, name 값 변경
-                                name = history
-                            }) {
-                                Text(history)
-                                    .modifier(semiBoldCallout(colorName: Fontcolor.fontBlack.colorName))
-                            }
-                            .border(.black)
-                            .padding(.leading, 33)
-                            .padding(.leading,33)
-                            
-                        }
-                    }
-                    
-                }
+              SearchHistory
             }else {
                 ScrollView {
                     ForEach(dotsModel.networkingPeople.filter {
@@ -268,6 +242,28 @@ extension SearchConnectionView {
             return savedSearches
         } else {
             return []
+        }
+    }
+    
+    private var SearchHistory: some View {
+        ForEach(Array(selectedHistoryList.enumerated()), id: \.element) { index, history in
+            Button {
+                withAnimation(.easeIn(duration: 0.1)) {
+                    name = history
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .frame(height: 44)
+                    HStack {
+                        Text(history)
+                            .modifier(semiBoldCallout(colorName: .black))
+                            .padding(.leading, 33)
+                        Spacer()
+                    }
+                }
+            }
+            .foregroundColor(.clear)
         }
     }
 

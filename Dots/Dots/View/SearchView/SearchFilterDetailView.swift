@@ -21,9 +21,9 @@ struct SearchHistoryRowModel: Hashable {
 struct SearchFilterDetailView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var searchTextField: String = ""
-    @State var selectedHistoryList: [String] = []
+    @State var selectedHistoryList: String = ""
     @Binding var isSheetOn: Bool
-    @Binding var keyName : String
+    let keyName : String
     @State private var isKeyboardVisible = false
     let type: String
     @State var searchHistory: [SearchHistoryRowModel] = []
@@ -34,9 +34,8 @@ struct SearchFilterDetailView: View {
         NavigationView {
             VStack(spacing: 0) {
                 SearchBar
-                SelectedBadges
                 if  (searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
-                    if let name = person.name {
+                    if let name = person.job {
                         return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
                     } else {
                         return false
@@ -102,7 +101,7 @@ extension SearchFilterDetailView {
                         .padding(.leading, 14)
                     VStack {
                         TextField("\(type) 검색", text: $searchTextField, onCommit: {
-                            saveSearch(name: searchTextField, selectedHistoryList: &selectedHistoryList, keyName: keyName)
+                            saveSearch(name: searchTextField, keyName: keyName)
                             selectedHistoryList.append(searchTextField)
                         })
                     }
@@ -143,52 +142,6 @@ extension SearchFilterDetailView {
             }
         }
     }
-    
-    private var SelectedBadges: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
-                ForEach(selectedHistoryList, id: \.self) { history in
-                    HStack(spacing: 0) {
-                        Text(history)
-                            .modifier(regularBody(colorName: .theme.fontWhite))
-                            .padding(.trailing, 10)
-                        Button {
-                            withAnimation(.easeIn(duration: 0.1)) {
-                                deleteSelectedHistory(historyName: history)
-                            }
-                        } label: {
-                            Image(systemName: "x.circle.fill")
-                                .foregroundColor(.theme.secondaryLabel)
-                                .opacity(0.6)
-                        }
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 9)
-                    .background(Color.theme.primary)
-                    .cornerRadius(12, corners: .allCorners)
-                }
-            }
-        }
-    }
-    
-    //    private var RecentSearch: some View {
-    //        ScrollView {
-    //            ForEach(selectedHistoryList, id: \.self) { history in
-    //                VStack(alignment: .leading, spacing: 24) {
-    //                    Button {
-    //                        searchTextField = history
-    //                    } label: {
-    //                        Text(history)
-    //                    }
-    //                    .border(.black)
-    //                    .padding(.leading, 33)
-    //                    .padding(.leading,33)
-    //
-    //                }
-    //            }
-    //
-    //        }
-    //    }
 }
 
 // MARK: - Function
@@ -199,10 +152,9 @@ extension SearchFilterDetailView {
     
     func selectAction(history: SearchHistoryRowModel) {
         if history.isSelected {
-            selectedHistoryList.append(history.title)
+            selectedHistoryList = history.title
         } else {
-            guard let idx = selectedHistoryList.firstIndex(of: history.title) else { return }
-            selectedHistoryList.remove(at: idx)
+            selectedHistoryList = ""
         }
         
         checkArray()
@@ -216,16 +168,16 @@ extension SearchFilterDetailView {
         }
     }
     
-    func deleteSelectedHistory(historyName: String) {
-        guard let selectedIdx = selectedHistoryList.firstIndex(of: historyName) else { return }
-        guard let historyIdx = searchHistory.firstIndex(where: { $0.title == historyName }) else { return }
-        
-        selectedHistoryList.remove(at: selectedIdx)
-        searchHistory[historyIdx].isSelected = false
-    }
-    
+//    func deleteSelectedHistory(historyName: String) {
+//        guard let selectedIdx = selectedHistoryList.firstIndex(of: historyName) else { return }
+//        guard let historyIdx = searchHistory.firstIndex(where: { $0.title == historyName }) else { return }
+//
+//        selectedHistoryList.remove(at: selectedIdx)
+//        searchHistory[historyIdx].isSelected = false
+//    }
+//
     // MARK: 유저디폴트 값에 저장 하는 함수
-    func saveSearch(name: String, selectedHistoryList: inout [String], keyName: String) {
+    func saveSearch(name: String, keyName: String) {
         guard !name.isEmpty else { return }
         
         let newHistory = SearchHistoryRowModel(title: searchTextField, isSelected: false)
@@ -243,16 +195,39 @@ extension SearchFilterDetailView {
             return []
         }
     }
-
     
+    func filterJob() {
+        if  (searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
+            if let name = person.company {
+                return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
+            } else {
+                return false
+            }
+        }.isEmpty) {
+        }
+    }
     
+    func filterCompany() {
+        if  (searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
+            if let name = person.company {
+                return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
+            } else {
+                return false
+            }
+        }.isEmpty) {
+        }
+    }
     
-    
-    //struct SearchFilterDetailView_Previews: PreviewProvider {
-    //    static var previews: some View {
-    //        SearchFilterDetailView(isSheetOn: .constant(true), type: "회사")
-    //    }
-    //}
-    
-    
+//    func filterStrength() {
+//        if  (searchTextField.isEmpty || dotsModel.strength.filter { person in
+//            if let name = strengt {
+//                return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
+//            } else {
+//                return false
+//            }
+//        }.isEmpty) {
+//        }
+//
+//    }
 }
+

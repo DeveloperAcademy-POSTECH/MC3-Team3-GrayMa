@@ -21,7 +21,7 @@ struct SearchFilterView: View {
                     isSheetOn = true
                     keyName = "recentCompany"
                 } label: {
-                    SearchFilterListRow(type: "회사")
+                    SearchFilterListRow(type: "회사", imageName: "building.2.fill")
                 }
                 .padding(.top, 24)
 
@@ -31,7 +31,7 @@ struct SearchFilterView: View {
                     isSheetOn = true
                     
                 } label: {
-                    SearchFilterListRow(type: "직무")
+                    SearchFilterListRow(type: "직무", imageName: "person.text.rectangle.fill")
                 }
                 
                 Button {
@@ -39,7 +39,7 @@ struct SearchFilterView: View {
                     keyName = "recentStrength"
                     isSheetOn = true
                 } label: {
-                    SearchFilterListRow(type: "강점")
+                    SearchFilterListRow(type: "강점", imageName: "chart.bar.fill")
                 }
                 
                 Spacer()
@@ -59,7 +59,7 @@ struct SearchFilterView: View {
                 }
             }
             .sheet(isPresented: $isSheetOn) {
-                SearchFilterDetailView(isSheetOn: $isSheetOn, keyName: $keyName, type: type)
+                SearchFilterDetailView(isSheetOn: $isSheetOn, keyName: keyName, type: type)
             }
 
         }

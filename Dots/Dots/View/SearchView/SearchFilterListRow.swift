@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchFilterListRow: View {
     let type: String
-    
+    let imageName: String
     var body: some View {
         RoundedRectangle(cornerRadius: 40)
             .stroke(Color.gray, lineWidth: 0.5)
@@ -18,7 +18,7 @@ struct SearchFilterListRow: View {
             .frame(height: 56)
             .overlay {
                 HStack {
-                    Image(systemName: "house.fill")
+                    Image(systemName: imageName)
                         .scaledToFit()
                         .frame(width: 29)
                         .padding(.trailing, 14)
@@ -26,7 +26,6 @@ struct SearchFilterListRow: View {
                     Text(type)
                         .modifier(regularSubHeadLine(colorName: .theme.fontBlack))
                     Spacer()
-                    
                     Text("모두")
                         .modifier(regularSubHeadLine(colorName: .theme.fontGray))
                         .padding(.trailing, 30)
@@ -35,9 +34,9 @@ struct SearchFilterListRow: View {
     }
 }
 
-struct SearchFilterListRow_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchFilterListRow(type: "회사")
-            .previewLayout(.sizeThatFits)
-    }
-}
+//struct SearchFilterListRow_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SearchFilterListRow(type: "회사")
+//            .previewLayout(.sizeThatFits)
+//    }
+//}
