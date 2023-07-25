@@ -44,6 +44,8 @@ struct addContactsView: View {
     //유저 이미지 모달 컨트롤
     @State private var userImgModal = false
     
+    @State private var someThingWrongAlert = false
+    
     //연락처 저장 완료 alret
     @State private var addAlert = false
     
@@ -82,15 +84,20 @@ struct addContactsView: View {
                     Text("\(coreDataUserStrength)")
                 }
             }
-            .alert(isPresented: $addAlert) {
-                Alert(title: Text("알림"),
-                      message: Text("인맥이 추가되었습니다."),
-                      dismissButton: .default(Text("확인"), action: {
-                    // 모달을 닫습니다.
-                    presentationMode.wrappedValue.dismiss()
-                    modalComtrol = false
-                }))
-            }
+            
+        }.alert(isPresented: $addAlert) {
+            Alert(title: Text("알림"),
+                  message: Text("인맥이 추가되었습니다."),
+                  dismissButton: .default(Text("확인"), action: {
+                // 모달을 닫습니다.
+                presentationMode.wrappedValue.dismiss()
+                modalComtrol = false
+            }))
+        }
+        .alert(isPresented: $someThingWrongAlert){
+            Alert(title: Text("입력 오류"),
+                  message: Text("필수 항목이 모두 입력되지 않았습니다."), dismissButton: .cancel(Text("확인")))
+            
         }
         .navigationBarItems(leading: Text("\(Image(systemName: "chevron.left")) 인맥관리")
             .foregroundColor(Color("primary"))
@@ -98,15 +105,19 @@ struct addContactsView: View {
                 presentationMode.wrappedValue.dismiss()},
                             //MARK: CoreDate 연동 버튼
                             trailing: Text("완료")
-                            .foregroundColor(Color("primary"))
-                            .onTapGesture {
-                                userInputToCoreData()
-                                dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
-                                //인맥 추가 알림 띄움
-                                addAlert = true
-                               
-                                
-                            })
+            .foregroundColor(Color("primary"))
+            .onTapGesture {
+                //필수조건이 모두 만족하였는지 확인
+                if (!userDetailInput[0].isEmpty && !coreDataUserStrength.isEmpty){ //&& !userModalInput[1].isEmpty
+                    userInputToCoreData()
+                    dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
+                    //인맥 추가 알림 띄움
+                    addAlert = true
+                }else {
+                    someThingWrongAlert = true
+                    print("눌렀다고")
+                }
+            })
         
         .onAppear{
             if !(selectedUserName?.isEmpty ?? true){
