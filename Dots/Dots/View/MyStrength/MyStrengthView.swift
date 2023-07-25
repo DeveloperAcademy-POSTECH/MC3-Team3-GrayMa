@@ -22,6 +22,8 @@ struct MyStrengthView: View {
                             .scaledToFit()
                             .padding(.horizontal, 50)
                             .frame(maxWidth: .infinity)
+                    } else {
+                        MetaballAnimation(myStrength: dotsModel.myStrength)
                     }
                 }
                 .padding(.top, 16)

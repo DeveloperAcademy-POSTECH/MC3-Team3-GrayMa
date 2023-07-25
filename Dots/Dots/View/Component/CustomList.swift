@@ -21,6 +21,17 @@ enum StrengthLevelImage: String, CaseIterable {
             return 76
         }
     }
+    
+    var ballSize: CGFloat {
+        switch self {
+        case .weakDot:
+            return 100
+        case .moderateDot:
+            return 110
+        case .strongDot:
+            return 120
+        }
+    }
 }
 
 struct CustomList: View {
@@ -49,7 +60,7 @@ struct CustomList: View {
                                     .padding(.leading,22)
                                 
                                 Text(entity.ownStrength?.strengthName ?? "이름")
-                                    .font(.system(size: 17,weight: .semibold))
+                                    .modifier(semiBoldSubHeadLine(colorName: .theme.gray5Dark))
                                     .padding(.leading, 12)
                                     .padding(.trailing, 17)
                                 
