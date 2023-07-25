@@ -26,6 +26,7 @@ enum StrengthLevelImage: String, CaseIterable {
 struct CustomList: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var isNavigation = false
+    @State var isDeleteAlert: Bool = false
     var entity: MyStrengthEntity
     
     var body: some View {
@@ -69,8 +70,7 @@ struct CustomList: View {
                 }, right: {
                     HStack(spacing: 0) {
                         Button(action: {
-                            print("삭제 완")
-                            dotsModel.deleteMyStrength(myStrength: entity)
+                            isDeleteAlert = true
                         }, label: {
                             Rectangle()
                                 .fill(.red)
@@ -86,5 +86,21 @@ struct CustomList: View {
                 }, itemHeight: 84)
             }
             .cornerRadius(12, corners: .allCorners)
+            .alert("이 강점을 삭제하겠습니까?", isPresented: $isDeleteAlert) {
+                HStack {
+                    Button("취소") {
+                        isDeleteAlert = false
+                    }
+                    
+                    Button("삭제") {
+                        isDeleteAlert = false
+                        dotsModel.deleteMyStrength(myStrength: entity)
+                    }
+                    .foregroundColor(.theme.alertRed)
+                }
+            } message: {
+                Text("강점과 강점 기록들이 모두 삭제됩니다.")
+            }
+
     }
 }

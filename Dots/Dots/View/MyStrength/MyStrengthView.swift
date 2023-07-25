@@ -18,19 +18,21 @@ struct MyStrengthView: View {
                 ScrollView {
                     if dotsModel.myStrength.isEmpty {
                         RoundedRectangle(cornerRadius: 12)
-                            .foregroundColor(.white)
+                            .stroke(Color.theme.disabled, lineWidth: 1.5)
+                            .foregroundColor(.theme.bgPrimary)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 62)
-                            .padding(.horizontal,16)
-                            .overlay(){
-                                HStack(alignment: .center){
+                            .frame(height: 84)
+                            .overlay() {
+                                HStack {
                                     Text("저장된 강점이 없습니다.")
-                                        .font(.system(size: 17,weight: .regular))
-                                        .foregroundColor(.gray)
-                                        .padding(.leading,22)
+                                        .modifier(regularBody(colorName: .theme.gray))
+                                        .padding(.leading, 29)
+                                    
                                     Spacer()
                                 }
                             }
+                            .padding(.horizontal, 16)
+                        
                     } else {
                         ForEach(dotsModel.myStrength, id: \.self) { strength in
                             CustomList(entity: strength)
