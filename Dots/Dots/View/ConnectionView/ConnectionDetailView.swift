@@ -13,6 +13,8 @@ struct ConnectionDetailView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var showNote = false
     @State private var showCommon = false
+    @State private var addStrength = false
+    
     let person: NetworkingPersonEntity
     
     let tempStrenth = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션"]
@@ -39,8 +41,6 @@ struct ConnectionDetailView: View {
                             Text("강점")
                                 .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
 
-//                            Spacer()
-
                             Toggle(isOn: $showCommon) {
                                 Text("공통점")
                                     .modifier(regularCallout(colorName: Color.theme.text))
@@ -51,24 +51,26 @@ struct ConnectionDetailView: View {
 
                         // TODO: 강점 목록 캡슐 자동 레이아웃 -> 현재 임시 뷰(Scroll)
                         ScrollView(.horizontal) {
-                            Button {
-                                
-                            } label: {
-                                Circle()
-                                    .frame(width: 40)
-                                    .foregroundColor(Color.theme.secondary)
-                                    .overlay{
-                                        Image(systemName: "plus")
-                                            .modifier(regularBody(colorName: Color.theme.text))
-                                    }
-                            }
-                            
                             HStack {
-                                if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
-                                    ForEach(strengthSet, id: \.self) { strength in
-                                        StrengthName(strengthText: strength.strengthName)
-                                    }
+                                Button {
+                                    addStrength.toggle()
+                                } label: {
+                                    Circle()
+                                        .frame(width: 40)
+                                        .foregroundColor(Color.theme.secondary)
+                                        .overlay{
+                                            Image(systemName: "plus")
+                                                .modifier(regularBody(colorName: Color.theme.text))
+                                        }
                                 }
+                                ForEach(tempStrenth, id: \.self) { strength in
+                                    StrengthName(strengthText: strength)
+                                }
+//                                if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
+//                                    ForEach(strengthSet, id: \.self) { strength in
+//                                        StrengthName(strengthText: strength.strengthName)
+//                                    }
+//                                }
                             }
                         }
                     }
@@ -166,6 +168,7 @@ struct ConnectionDetailView: View {
             ConnectionNoteModal(connection: person)
                 .interactiveDismissDisabled()
         }
+//        .sheet(isPresented: $addStrength)
     }
     
     private var BackButton: some View {
