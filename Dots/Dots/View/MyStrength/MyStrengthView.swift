@@ -15,10 +15,23 @@ struct MyStrengthView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 8) {
+                Group {
+                    if dotsModel.myStrength.isEmpty {
+                        Image("myStrengthVisual_none")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.horizontal, 50)
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .padding(.top, 16)
+                .padding(.bottom, 21)
+                
+                
                 ScrollView {
                     if dotsModel.myStrength.isEmpty {
                         RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.theme.disabled, lineWidth: 1.5)
+                            .stroke(Color.theme.gray5, lineWidth: 1.5)
                             .foregroundColor(.theme.bgPrimary)
                             .frame(maxWidth: .infinity)
                             .frame(height: 84)
@@ -40,8 +53,8 @@ struct MyStrengthView: View {
                         }
                     }
                 }
-                .padding(.top, 22)
             }
+            .background(Color.theme.bgMain)
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Text("내 강점")
