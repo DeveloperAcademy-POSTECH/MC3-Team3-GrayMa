@@ -40,6 +40,7 @@
 		3D0B1F312A6BA1B20012A6F4 /* SearchFilterListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F302A6BA1B20012A6F4 /* SearchFilterListRow.swift */; };
 		3D0B1F332A6D71C70012A6F4 /* SearchFilterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F322A6D71C70012A6F4 /* SearchFilterDetailView.swift */; };
 		3D0B1F372A6E113C0012A6F4 /* Ex+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F362A6E113C0012A6F4 /* Ex+Color.swift */; };
+		3D0B1F392A6ED76D0012A6F4 /* Ex+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B1F382A6ED76D0012A6F4 /* Ex+View.swift */; };
 		A1349E332A64E81C0006611C /* addContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* addContactsView.swift */; };
 		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
 		A1349E372A6618190006611C /* contactsJobCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsJobCompany.swift */; };
@@ -91,6 +92,7 @@
 		3D0B1F302A6BA1B20012A6F4 /* SearchFilterListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterListRow.swift; sourceTree = "<group>"; };
 		3D0B1F322A6D71C70012A6F4 /* SearchFilterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterDetailView.swift; sourceTree = "<group>"; };
 		3D0B1F362A6E113C0012A6F4 /* Ex+Color.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Ex+Color.swift"; sourceTree = "<group>"; };
+		3D0B1F382A6ED76D0012A6F4 /* Ex+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ex+View.swift"; sourceTree = "<group>"; };
 		A1349E322A64E81C0006611C /* addContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addContactsView.swift; sourceTree = "<group>"; };
 		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
 		A1349E362A6618190006611C /* contactsJobCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsJobCompany.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				3D0B1F2B2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift */,
 				307D76B32A6E574600847DA8 /* PopGesture.swift */,
                 3D0B1F362A6E113C0012A6F4 /* Ex+Color.swift */,
+				3D0B1F382A6ED76D0012A6F4 /* Ex+View.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -378,6 +381,7 @@
 				136AAC742A66E25100CA3797 /* MyStrengthView.swift in Sources */,
 				307D76B62A6E604E00847DA8 /* ConnectionNoteViewModal.swift in Sources */,
 				3D0B1F312A6BA1B20012A6F4 /* SearchFilterListRow.swift in Sources */,
+				3D0B1F392A6ED76D0012A6F4 /* Ex+View.swift in Sources */,
 				3D0B1F372A6E113C0012A6F4 /* Ex+Color.swift in Sources */,
 				A1349E412A67DC810006611C /* contactsStrength.swift in Sources */,
 				3D0B1F2E2A6BA1770012A6F4 /* SearchFilterView.swift in Sources */,

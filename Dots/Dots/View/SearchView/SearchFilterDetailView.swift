@@ -129,7 +129,7 @@ extension SearchFilterDetailView {
                                 }
                             } label: {
                                 Image(systemName: "x.circle.fill")
-                                    .foregroundColor(.theme.stroke)
+                                    .foregroundColor(.theme.disabled)
                             }
                         }
                         .padding(.horizontal, 18)

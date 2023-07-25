@@ -12,6 +12,10 @@ struct DotsApp: App {
 //    let persistenceController = PersistenceController.shared
     @StateObject var dotsModel: DotsModel = DotsModel()
     
+    init() {
+        UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemBlue
+    }
+    
     var body: some Scene {
         WindowGroup {
             MainView()

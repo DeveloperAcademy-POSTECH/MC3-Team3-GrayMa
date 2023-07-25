@@ -39,15 +39,28 @@ enum StrengthLevelImage: String, CaseIterable {
     case weakDot
     case moderateDot
     case strongDot
+    
+    var size: CGFloat {
+        switch self {
+        case .weakDot:
+            return 36
+        case .moderateDot:
+            return 58
+        case .strongDot:
+            return 76
+        }
+    }
 }
 
 struct CustomList: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var isNavigation = false
+    @State private var resetSwipe: Bool = false
+    
     var entity: MyStrengthEntity
     
     var body: some View {
-        HStack{
+        HStack {
             SwipeItemView(content: {
                 HStack {
                     NavigationLink {
@@ -65,11 +78,7 @@ struct CustomList: View {
                             Spacer()
                         }
                     }
-                    
                 }
-                
-                
-                
             }, right: {
                 HStack(spacing: 0) {
                     Button(action: {
@@ -87,9 +96,7 @@ struct CustomList: View {
                             }
                     })
                 }
-            }, itemHeight: 84)
-            
+            }, itemHeight: 84, resetSwipe: $resetSwipe)
         }
-        
     }
 }
