@@ -39,6 +39,7 @@ struct addContactsView: View {
     @State var coreDataUserPhone = ""
     @State var coreDataUserEmail = ""
     @State var coreDataUserSNS = ""
+    //MARK: 추후에 Arr 형식으로 전환되어야함
     @State var coreDataUserStrength = ""
     
     //유저 이미지 모달 컨트롤
@@ -111,7 +112,8 @@ struct addContactsView: View {
                 //필수조건이 모두 만족하였는지 확인
 //                if (!userDetailInput[0].isEmpty && !coreDataUserStrength.isEmpty){ //&& !userModalInput[1].isEmpty
                     userInputToCoreData()
-                    dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS)
+                //MARK: 균규니 코어 연동 부분 해당뷰에서 coreDataUserStrength를 변수로 가짐
+                    dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS /*,userStrength: coreDataUserStrength)*/)
                     //인맥 추가 알림 띄움
                     addAlert = true
                // }

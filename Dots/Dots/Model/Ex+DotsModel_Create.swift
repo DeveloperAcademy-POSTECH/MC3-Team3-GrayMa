@@ -87,7 +87,7 @@ extension DotsModel {
         newNetworking.linkedIn = snsUrl
         
         // 동적으로 수정
-//        newNetworking.addToStrengthSet([strength[0], strength[1]])
+        //newNetworking.addToStrengthSet([strength[0], strength[1]])
         
         save()
     }
