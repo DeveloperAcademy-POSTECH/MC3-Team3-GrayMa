@@ -21,6 +21,8 @@ struct CustomConnectionList: View {
             }
             
             Spacer()
+            
+            NavigatorIcon
         }
         .frame(height: 53)
     }
@@ -58,6 +60,14 @@ extension CustomConnectionList {
                 }
             }
         }
+    }
+    
+    private var NavigatorIcon: some View {
+        Image(systemName: "chevron.right")
+            .resizable()
+            .scaledToFit()
+            .foregroundColor(.theme.text)
+            .frame(height: 20)
     }
 }
 
