@@ -93,8 +93,8 @@ extension AddStrengthModal {
                                 }
                             }
                             .onSubmit {
-                                isKeyboardVisible = false
                                 selectedStrength = strengthName
+                                isKeyboardVisible = false
                                 strengthName = " "
                             }
                             .disabled(!selectedStrength.isEmpty)
@@ -145,7 +145,7 @@ extension AddStrengthModal {
                 if dotsModel.strength.filter({ $0.strengthName!.contains(strengthName) || strengthName.isEmpty }).isEmpty {
                     HStack {
                         Button {
-                            _ = dotsModel.addStrength(name: strengthName)
+                            selectedStrength = strengthName
                             isKeyboardVisible = false
                         } label: {
                             Label("직접 추가하기", systemImage: "plus.circle.fill")
