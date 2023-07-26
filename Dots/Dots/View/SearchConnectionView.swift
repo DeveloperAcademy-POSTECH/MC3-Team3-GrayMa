@@ -35,6 +35,9 @@ struct SearchConnectionView: View {
     @Binding var jobName: String
     @Binding var strengthName: String
     
+    // 검색 경고창 변수
+    @State var isDeleteAlertOn = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -209,7 +212,7 @@ extension SearchConnectionView {
                                 HStack(spacing: 0) {
                                     Button(action: {
                                         print("삭제 완")
-                                        dotsModel.deleteConnection(person: person)
+                                        isDeleteAlertOn = true
                                     }, label: {
                                         Rectangle()
                                             .fill(.red)
@@ -229,6 +232,20 @@ extension SearchConnectionView {
                                 .stroke(Color.theme.gray5, lineWidth: 2)
                         })
                         .cornerRadius(12, corners: .allCorners)
+                        .alert("인맥을 삭제하겠습니까?", isPresented: $isDeleteAlertOn, actions: {
+                            Button("취소", role: .cancel) {
+                                isDeleteAlertOn = false
+                            }
+                            
+                            Button("삭제", role: .destructive) {
+                                withAnimation {
+                                    dotsModel.deleteConnection(person: person)
+                                }
+                                isDeleteAlertOn = false
+                            }
+                        }, message: {
+                            Text("이 사람과 관련된 모든 정보가 삭제됩니다.")
+                        })
                 }
                 .padding(.horizontal, 16)
                 
@@ -265,7 +282,7 @@ extension SearchConnectionView {
                         HStack(spacing: 0) {
                             Button(action: {
                                 print("삭제 완")
-                                dotsModel.deleteConnection(person: person)
+                                isDeleteAlertOn = true
                             }, label: {
                                 Rectangle()
                                     .fill(.red)
@@ -285,6 +302,21 @@ extension SearchConnectionView {
                         .stroke(Color.theme.gray5, lineWidth: 2)
                 })
                 .cornerRadius(12, corners: .allCorners)
+                .alert("인맥을 삭제하겠습니까?", isPresented: $isDeleteAlertOn, actions: {
+                    Button("취소", role: .cancel) {
+                        isDeleteAlertOn = false
+                    }
+                    
+                    Button("삭제", role: .destructive) {
+                        withAnimation {
+                            dotsModel.deleteConnection(person: person)
+                        }
+                        isDeleteAlertOn = false
+                    }
+                    .foregroundColor(.theme.alertRed)
+                }, message: {
+                    Text("이 사람과 관련된 모든 정보가 삭제됩니다.")
+                })
         }
         .padding(.horizontal, 16)
     }
