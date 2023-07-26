@@ -141,6 +141,17 @@ struct semiBoldCallout: ViewModifier{
     }
 }
 
+struct boldCallout: ViewModifier{
+    var colorName: Color
+    
+    func body(content: Content) -> some View {
+        content
+            .font(.system(size: 16))
+            .fontWeight(.bold)
+            .foregroundColor(colorName)
+    }
+}
+
 struct regularSubHeadLine: ViewModifier{
     var colorName: Color
     
@@ -230,15 +241,16 @@ struct semiBoldCaption2: ViewModifier{
 }
 
 struct contactsStrength: ViewModifier {
-    var colorName: Color
+    var backgroundColor: Color
+    var textColor: Color
     
     func body(content: Content) -> some View {
         RoundedRectangle(cornerRadius: 4)
             .frame(width: 64,height: 24)
-            .foregroundColor(colorName)
+            .foregroundColor(backgroundColor)
             .overlay() {
                 content
-                    .modifier(regularCaption1(colorName: colorName))
+                    .modifier(regularCaption1(colorName: textColor))
             }
 
     }

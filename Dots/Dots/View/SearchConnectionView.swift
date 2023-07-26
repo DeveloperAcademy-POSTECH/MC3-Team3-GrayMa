@@ -35,211 +35,318 @@ struct SearchConnectionView: View {
     @Binding var jobName: String
     @Binding var strengthName: String
     
+    // 검색 경고창 변수
+    @State var isDeleteAlertOn = false
+    
     var body: some View {
         NavigationStack {
-            VStack{
-                HStack {
-                    Spacer()
-                    NavigationLink(destination: EmptyView()) {
-                        Image(systemName: "plus")
-                            .frame(width: 30,height: 34)
-                            .foregroundColor(.black)
-                            .onTapGesture {
-                                actionSheetvisible = true
-                                //dotsModel.addExampleNetworkingPeople()
-                            }
+            VStack {
+                SearchBar
+                    .actionSheet(isPresented: $actionSheetvisible){
+                        AddContactActionSheet
                     }
-                }
-                .padding(.trailing,20)
-            }
-            .actionSheet(isPresented: $actionSheetvisible){
-                ActionSheet(
-                    title: Text("인맥추가"),
-                    buttons: [
-                        .default(Text("연락처에서 가져오기")) {
-                            // Option 1 선택 시 실행할 동작
-                            //MARK: 연락처 연동 필요
-                            //navigationActive = true
-                            contactsSelectListVisible = true
-                        },
-                        .default(Text("새로 입력하기")) {
-                            // Option 2 선택 시 실행할 동작
-                            navigationActive = true
-                        },
-                        .cancel(Text("취소")) {
-                            // 취소 버튼 선택 시 실행할 동작
-                            print("취소")
-                        }
-                    ]
-                )
-            }
-            
-            RoundedRectangle(cornerRadius: 40)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .shadow(radius: 2)
-                .foregroundColor(.white)
-                .overlay() {
-                    HStack {
-                        Button {
-                            print("검색기능 예정")
-                        } label: {
-                            Image(systemName: "magnifyingglass")
-                                .foregroundColor(.black)
-                        }
-                        .padding(.leading,14)
-                        
-                        TextField("이름 검색", text: $name, onCommit: {
-                            saveSearch(name: name, selectedHistoryList: &selectedHistoryList, keyName: "recentSearchName")
-                        })
-                        
-                        Spacer()
-                        if(name.count >= 1) {
-                            Button {
-                                name = ""
-                            } label: {
-                                Text("\(Image(systemName: "x.circle.fill"))")
-                                    .foregroundColor(.gray)
-                                    .frame(width: 24,height: 24)
-                                    .padding(.trailing,5)
-                            }
-                        }
-                        Button {
-                            isFilterSheetOn = true
-                        } label: {
-                            Circle()
-                                .strokeBorder(Color.gray,lineWidth: 1.5)
-                                .frame(width: 36,height: 36)
-                                .foregroundColor(.white)
-                                .overlay(){
-                                    Image(systemName: "slider.vertical.3")
-                                        .foregroundColor(.black)
-                                }
-                        }
-                        .padding(.trailing,9)
-                    }
-                }
-                .padding(.horizontal,16)
-            if isFilterd {
-                FilteredPerson
-                
-            }
-            else {
-                if  isKeyboardVisible && (name.isEmpty || dotsModel.networkingPeople.filter { person in
-                    if let name = person.name {
-                        return name.range(of: self.name) != nil || self.name.isEmpty
-                    } else {
-                        return false
-                    }
-                }.isEmpty) {
-                    // 검색 결과가 없을때 최근 검색 표시
-                    SearchHistory
-                }else {
-                    ScrollView {
-                        ForEach(dotsModel.networkingPeople.filter {
-                            if let name = $0.name {
-                                print(name)
-                                if name.range(of: self.name) != nil || self.name.isEmpty {
-                                    return true
-                                } else {
-                                    return false
-                                }
-                            } else {
-                                return false
-                            }
-                        }) { person in
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.gray, lineWidth: 0.5)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 84)
-                                .overlay() {
-                                    SwipeItemView(content: {
-                                        NavigationLink {
-                                            ConnectionDetailView(person: person)
-                                        } label: {
-                                            CustomConnectionList(entity: person)
-                                            
-                                        }
-                                    }, right: {
-                                        HStack(spacing: 0) {
-                                            Button(action: {
-                                                print("삭제 완")
-                                                dotsModel.deleteConnection(person: person)
-                                            }, label: {
-                                                Rectangle()
-                                                    .fill(.red)
-                                                    .cornerRadius(12, corners: .topRight)
-                                                    .cornerRadius(12, corners: .bottomRight)
-                                                    .overlay(){
-                                                        Image(systemName: "trash.fill")
-                                                            .font(.system(size: 17))
-                                                            .foregroundColor(.white)
-                                                    }
-                                            })
-                                        }
-                                    }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
-                                }
-                                .cornerRadius(12, corners: .allCorners)
-                        }
-                        .padding(.horizontal, 16)
-                    }
-                    
                     .sheet(isPresented: $isFilterSheetOn, content: {
                         SearchFilterView(isFilterd: $isFilterd)
                     })
-                    .fullScreenCover(isPresented: $contactsSelectListVisible){
-                        NavigationView{
-                            ContactsSelectListView(modalControl: $contactsSelectListVisible)
+                
+                if isFilterd {
+                    FilteredPerson
+                }
+                else {
+                    if  isKeyboardVisible && (name.isEmpty || dotsModel.networkingPeople.filter { person in
+                        if let name = person.name {
+                            return name.range(of: self.name) != nil || self.name.isEmpty
+                        } else {
+                            return false
                         }
-                    }
-                    .fullScreenCover(isPresented: $navigationActive) {
-                        NavigationView{
-                            addContactsView(modalComtrol: $navigationActive)
+                    }.isEmpty) {
+                        // 검색 결과가 없을때 최근 검색 표시
+                        SearchHistory
+                    } else {
+                        ScrollView {
+                            SearchResultContacts
                         }
-                        
-                    }
-                    .onAppear {
-                        //                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
-                        //                        isKeyboardVisible = true
-                        //                    }
-                        //
-                        //                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
-                        //                        Notification in isKeyboardVisible = false
-                        //                    }
-                        
-                        selectedHistoryList = loadRecentSearches(keyName: keyName)
-                        
-                    }
-                    .onDisappear {
-                        NotificationCenter.default.removeObserver(self)
                     }
                 }
             }
-            
+            .background(Color.theme.bgPrimary)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        actionSheetvisible = true
+                    } label: {
+                        Image(systemName: "plus")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 22)
+                            .foregroundColor(.theme.gray5Dark)
+                    }
+
+                }
+            }
+            .fullScreenCover(isPresented: $contactsSelectListVisible){
+                NavigationView{
+                    ContactsSelectListView(modalControl: $contactsSelectListVisible)
+                }
+            }
+            .fullScreenCover(isPresented: $navigationActive) {
+                NavigationView{
+                    addContactsView(modalComtrol: $navigationActive)
+                }
+            }
+            .onAppear {
+                //                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                //                        isKeyboardVisible = true
+                //                    }
+                //
+                //                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
+                //                        Notification in isKeyboardVisible = false
+                //                    }
+                
+                selectedHistoryList = loadRecentSearches(keyName: keyName)
+                
+            }
+            .onDisappear {
+                NotificationCenter.default.removeObserver(self)
+            }
+        }
+    }
+}
+
+
+// MARK: - Components
+extension SearchConnectionView {
+    private var SearchBar: some View {
+        RoundedRectangle(cornerRadius: 40)
+            .stroke(Color.theme.gray5, lineWidth: 1)
+            .frame(maxWidth: .infinity)
+            .frame(height: 56)
+            .overlay() {
+                HStack {
+                    Button {
+                        print("검색기능 예정")
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                            .foregroundColor(.black)
+                    }
+                    .padding(.leading,14)
+                    
+                    TextField("이름 검색", text: $name, onCommit: {
+                        saveSearch(name: name, selectedHistoryList: &selectedHistoryList, keyName: "recentSearchName")
+                    })
+                    
+                    Spacer()
+                    if(name.count >= 1) {
+                        Button {
+                            name = ""
+                        } label: {
+                            Text("\(Image(systemName: "x.circle.fill"))")
+                                .foregroundColor(.theme.disabled)
+                                .frame(width: 24,height: 24)
+                                .padding(.trailing,5)
+                        }
+                    }
+                    
+                    Button {
+                        isFilterSheetOn = true
+                    } label: {
+                        Circle()
+                            .strokeBorder(Color.theme.gray5,lineWidth: 1.5)
+                            .frame(width: 36,height: 36)
+                            .foregroundColor(.white)
+                            .overlay(){
+                                Image(systemName: "slider.vertical.3")
+                                    .foregroundColor(.black)
+                            }
+                    }
+                    .padding(.trailing,9)
+                }
+            }
+            .padding(.horizontal,16)
+    }
+    
+    private var SearchHistory: some View {
+        ForEach(Array(selectedHistoryList.enumerated()), id: \.element) { index, history in
+            Button {
+                withAnimation(.easeIn(duration: 0.1)) {
+                    name = history
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .frame(height: 44)
+                    HStack {
+                        Text(history)
+                            .modifier(semiBoldCallout(colorName: .black))
+                            .padding(.leading, 33)
+                        Spacer()
+                    }
+                }
+            }
+            .foregroundColor(.clear)
         }
     }
     
-    func fetchContacts() {
-        let store = CNContactStore()
-        let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
-        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
-        
-        do {
-            try store.enumerateContacts(with: request) { contact, stop in
-                let name = contact.familyName + contact.givenName
-                print("\(name)")
+    private var FilteredPerson: some View {
+        ScrollView {
+            if FilteredList.isEmpty {
+                RoundedRectangle(cornerRadius: 12)
+                    .overlay {
+                        Text("검색 결과가 없습니다.")
+                    }
+            } else {
+                ForEach(FilteredList, id: \.self)
+                { person in
+                    RoundedRectangle(cornerRadius: 12)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 84)
+                        .overlay() {
+                            SwipeItemView(content: {
+                                NavigationLink {
+                                    ConnectionDetailView(person: person)
+                                } label: {
+                                    CustomConnectionList(entity: person)
+                                    
+                                }
+                            }, right: {
+                                HStack(spacing: 0) {
+                                    Button(action: {
+                                        print("삭제 완")
+                                        isDeleteAlertOn = true
+                                    }, label: {
+                                        Rectangle()
+                                            .fill(.red)
+                                            .cornerRadius(12, corners: .topRight)
+                                            .cornerRadius(12, corners: .bottomRight)
+                                            .overlay(){
+                                                Image(systemName: "trash.fill")
+                                                    .font(.system(size: 17))
+                                                    .foregroundColor(.white)
+                                            }
+                                    })
+                                }
+                            }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
+                        }
+                        .overlay(content: {
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.theme.gray5, lineWidth: 2)
+                        })
+                        .cornerRadius(12, corners: .allCorners)
+                        .alert("인맥을 삭제하겠습니까?", isPresented: $isDeleteAlertOn, actions: {
+                            Button("취소", role: .cancel) {
+                                isDeleteAlertOn = false
+                            }
+                            
+                            Button("삭제", role: .destructive) {
+                                withAnimation {
+                                    dotsModel.deleteConnection(person: person)
+                                }
+                                isDeleteAlertOn = false
+                            }
+                        }, message: {
+                            Text("이 사람과 관련된 모든 정보가 삭제됩니다.")
+                        })
+                }
+                .padding(.horizontal, 16)
+                
             }
-        } catch {
-            print("Error fetching contacts: \(error)")
         }
+    }
+    
+    private var SearchResultContacts: some View {
+        ForEach(dotsModel.networkingPeople.filter {
+            if let name = $0.name {
+                print(name)
+                if name.range(of: self.name) != nil || self.name.isEmpty {
+                    return true
+                } else {
+                    return false
+                }
+            } else {
+                return false
+            }
+        }) { person in
+            RoundedRectangle(cornerRadius: 12)
+                .foregroundColor(.theme.bgPrimary)
+                .frame(maxWidth: .infinity)
+                .frame(height: 84)
+                .overlay() {
+                    SwipeItemView(content: {
+                        NavigationLink {
+                            ConnectionDetailView(person: person)
+                        } label: {
+                            CustomConnectionList(entity: person)
+                            
+                        }
+                    }, right: {
+                        HStack(spacing: 0) {
+                            Button(action: {
+                                print("삭제 완")
+                                isDeleteAlertOn = true
+                            }, label: {
+                                Rectangle()
+                                    .fill(.red)
+                                    .cornerRadius(12, corners: .topRight)
+                                    .cornerRadius(12, corners: .bottomRight)
+                                    .overlay(){
+                                        Image(systemName: "trash.fill")
+                                            .font(.system(size: 17))
+                                            .foregroundColor(.white)
+                                    }
+                            })
+                        }
+                    }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
+                }
+                .overlay(content: {
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.theme.gray5, lineWidth: 2)
+                })
+                .cornerRadius(12, corners: .allCorners)
+                .alert("인맥을 삭제하겠습니까?", isPresented: $isDeleteAlertOn, actions: {
+                    Button("취소", role: .cancel) {
+                        isDeleteAlertOn = false
+                    }
+                    
+                    Button("삭제", role: .destructive) {
+                        withAnimation {
+                            dotsModel.deleteConnection(person: person)
+                        }
+                        isDeleteAlertOn = false
+                    }
+                    .foregroundColor(.theme.alertRed)
+                }, message: {
+                    Text("이 사람과 관련된 모든 정보가 삭제됩니다.")
+                })
+        }
+        .padding(.horizontal, 16)
+    }
+    
+    private var AddContactActionSheet: ActionSheet {
+        ActionSheet(
+            title: Text("인맥추가"),
+            buttons: [
+                .default(Text("연락처에서 가져오기")) {
+                    // Option 1 선택 시 실행할 동작
+                    //MARK: 연락처 연동 필요
+                    //navigationActive = true
+                    contactsSelectListVisible = true
+                },
+                .default(Text("새로 입력하기")) {
+                    // Option 2 선택 시 실행할 동작
+                    navigationActive = true
+                },
+                .cancel(Text("취소")) {
+                    // 취소 버튼 선택 시 실행할 동작
+                    print("취소")
+                }
+            ]
+        )
     }
 }
 
 
 //MARK: functions
 extension SearchConnectionView {
-    
     private var FilteredList: [NetworkingPersonEntity] {
         return dotsModel.networkingPeople.filter { person in
             let hasJob = person.job?.contains(jobName) ?? false
@@ -277,88 +384,19 @@ extension SearchConnectionView {
             return []
         }
     }
-}
-// MARK: Components
-extension SearchConnectionView {
-    private var SearchHistory: some View {
-        ForEach(Array(selectedHistoryList.enumerated()), id: \.element) { index, history in
-            Button {
-                withAnimation(.easeIn(duration: 0.1)) {
-                    name = history
-                }
-            } label: {
-                ZStack {
-                    Rectangle()
-                        .frame(height: 44)
-                    HStack {
-                        Text(history)
-                            .modifier(semiBoldCallout(colorName: .black))
-                            .padding(.leading, 33)
-                        Spacer()
-                    }
-                }
+    
+    func fetchContacts() {
+        let store = CNContactStore()
+        let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
+        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+        
+        do {
+            try store.enumerateContacts(with: request) { contact, stop in
+                let name = contact.familyName + contact.givenName
+                print("\(name)")
             }
-            .foregroundColor(.clear)
+        } catch {
+            print("Error fetching contacts: \(error)")
         }
     }
-    
-    private var FilteredPerson: some View {
-        ScrollView {
-            if FilteredList.isEmpty {
-                RoundedRectangle(cornerRadius: 12)
-                    .overlay {
-                        Text("검색 결과가 없습니다.")
-                    }
-            } else {
-                ForEach(FilteredList, id: \.self)
-                { person in
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray, lineWidth: 0.5)
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 84)
-                        .overlay() {
-                            SwipeItemView(content: {
-                                NavigationLink {
-                                    ConnectionDetailView(person: person)
-                                } label: {
-                                    CustomConnectionList(entity: person)
-                                    
-                                }
-                            }, right: {
-                                HStack(spacing: 0) {
-                                    Button(action: {
-                                        print("삭제 완")
-                                        dotsModel.deleteConnection(person: person)
-                                    }, label: {
-                                        Rectangle()
-                                            .fill(.red)
-                                            .cornerRadius(12, corners: .topRight)
-                                            .cornerRadius(12, corners: .bottomRight)
-                                            .overlay(){
-                                                Image(systemName: "trash.fill")
-                                                    .font(.system(size: 17))
-                                                    .foregroundColor(.white)
-                                            }
-                                    })
-                                }
-                            }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
-                        }
-                        .cornerRadius(12, corners: .allCorners)
-                }
-                .padding(.horizontal, 16)
-                
-            }
-        }
-    }
-    
 }
-
-
-
-
-//struct SearchConnection_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchConnectionView()
-//    }
-//}
