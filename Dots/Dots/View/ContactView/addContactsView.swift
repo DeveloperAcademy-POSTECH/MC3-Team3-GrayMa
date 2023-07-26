@@ -27,7 +27,7 @@ struct addContactsView: View {
     
     //유저 입력 결과 넣을 Arr
     @State private var userDetailInput = ["","","",""]
-    @State private var userModalInput = ["",""]
+    @State private var userModalInput = ["삼성","개발자"]
     
     //MARK:CoreDate 연동 변수
     @State var coreDataUSerProfileImgIdx = 0
