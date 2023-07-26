@@ -164,9 +164,11 @@ extension AddStrengthModal {
                             )
                         }
                     }
+                    .padding(.horizontal,5)
                 }
                 
             }
+            .padding(.top,5)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .padding(.top, 10)
