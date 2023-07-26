@@ -72,8 +72,10 @@ struct CustomList: View {
                             }
 
                         }
-                        
+                  
                     }
+
+           
                 }, right: {
                     HStack(spacing: 0) {
                         Button(action: {
@@ -95,14 +97,13 @@ struct CustomList: View {
             .cornerRadius(12, corners: .allCorners)
             .alert("이 강점을 삭제하겠습니까?", isPresented: $isDeleteAlert) {
                 HStack {
-                    Button("취소") {
+                    Button("취소",role: .cancel) {
                         isDeleteAlert = false
                     }
-                    Button("삭제") {
+                    Button("삭제",role: .destructive) {
                         isDeleteAlert = false
                         dotsModel.deleteMyStrength(myStrength: entity)
                     }
-                    .foregroundColor(.theme.alertRed)
                 }
             } message: {
                 Text("강점과 강점 기록들이 모두 삭제됩니다.")
