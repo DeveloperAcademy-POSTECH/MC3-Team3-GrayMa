@@ -128,16 +128,8 @@ extension AddStrengthModal {
                     
                     Text("\(selectedStrength.isEmpty ? strengthName.count : selectedStrength.count)/20")
                         .modifier(regularCallout(colorName: .theme.gray))
-                    
-                    Button {
-                        strengthName = ""
-                    } label: {
-                        Text("\(Image(systemName: "x.circle.fill"))")
-                            .foregroundColor(.theme.disabled)
-                            .frame(width: 24,height: 24)
-                            .padding(.trailing,15)
-                    }
-                    .hideToBool(!selectedStrength.isEmpty)
+                        .padding(.trailing,21)
+
                 }
             }
     }
