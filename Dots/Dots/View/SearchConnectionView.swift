@@ -108,23 +108,10 @@ struct SearchConnectionView: View {
             }
         }
     }
-    
-    func fetchContacts() {
-        let store = CNContactStore()
-        let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
-        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
-        
-        do {
-            try store.enumerateContacts(with: request) { contact, stop in
-                let name = contact.familyName + contact.givenName
-                print("\(name)")
-            }
-        } catch {
-            print("Error fetching contacts: \(error)")
-        }
-    }
 }
 
+
+// MARK: - Components
 extension SearchConnectionView {
     private var SearchBar: some View {
         RoundedRectangle(cornerRadius: 40)
@@ -208,8 +195,6 @@ extension SearchConnectionView {
                 ForEach(FilteredList, id: \.self)
                 { person in
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray, lineWidth: 0.5)
-                        .foregroundColor(.white)
                         .frame(maxWidth: .infinity)
                         .frame(height: 84)
                         .overlay() {
@@ -239,6 +224,10 @@ extension SearchConnectionView {
                                 }
                             }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
                         }
+                        .overlay(content: {
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.theme.gray5, lineWidth: 2)
+                        })
                         .cornerRadius(12, corners: .allCorners)
                 }
                 .padding(.horizontal, 16)
@@ -363,19 +352,19 @@ extension SearchConnectionView {
             return []
         }
     }
-}
-
-// MARK: Components
-extension SearchConnectionView {
-
     
+    func fetchContacts() {
+        let store = CNContactStore()
+        let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
+        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+        
+        do {
+            try store.enumerateContacts(with: request) { contact, stop in
+                let name = contact.familyName + contact.givenName
+                print("\(name)")
+            }
+        } catch {
+            print("Error fetching contacts: \(error)")
+        }
+    }
 }
-
-
-
-
-//struct SearchConnection_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SearchConnectionView()
-//    }
-//}
