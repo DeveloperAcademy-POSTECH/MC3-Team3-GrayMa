@@ -11,32 +11,52 @@ struct CustomConnectionList: View {
     let entity: NetworkingPersonEntity
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Text(entity.name ?? "이름")
-                    .modifier(semiBoldCallout(colorName: .theme.gray5Dark))
-                if let company = entity.company {
-                    Text(company + "・" + entity.job!)
-                        .modifier(regularCallout(colorName: .theme.gray5Dark))
-                        .padding(.leading,16)
-                } else {
-                    Text(entity.job ?? "직업")
-                        .modifier(regularCallout(colorName: .theme.gray5Dark))
-                        .padding(.leading,16)
-                }
-                Spacer()
+        HStack(spacing: 18) {
+            ProfileImage
+                
+            VStack(alignment: .leading, spacing: 8) {
+                DefaultUserInfo
+                
+                StrengthSet
             }
-            .padding(.leading,16)
             
-            HStack {
-                if let strengthList = entity.strengthSet?.allObjects as? [StrengthEntity] {
-                    ForEach(strengthList) { strength in
-                        Text(strength.strengthName ?? "스트렝쓰")
-                            .modifier(contactsStrength(colorName: .theme.secondary))
-                    }
+            Spacer()
+        }
+        .frame(height: 53)
+    }
+}
+
+extension CustomConnectionList {
+    private var ProfileImage: some View {
+        Image("user_default_profile \(entity.profileImageIndex == 0 ? 1 : entity.profileImageIndex)")
+            .resizable()
+            .scaledToFit()
+    }
+    
+    private var DefaultUserInfo: some View {
+        HStack {
+            Text(entity.name ?? "이름")
+                .modifier(boldCallout(colorName: .theme.gray5Dark))
+            if let company = entity.company {
+                Text(company + "・" + entity.job!)
+                    .modifier(regularCallout(colorName: .theme.gray5Dark))
+                    .padding(.leading,16)
+            } else {
+                Text(entity.job ?? "직업")
+                    .modifier(regularCallout(colorName: .theme.gray5Dark))
+                    .padding(.leading,16)
+            }
+        }
+    }
+    
+    private var StrengthSet: some View {
+        HStack(spacing: 8) {
+            if let strengthList = entity.strengthSet?.allObjects as? [StrengthEntity] {
+                ForEach(strengthList) { strength in
+                    Text(strength.strengthName ?? "스트렝쓰")
+                        .modifier(contactsStrength(backgroundColor: .theme.secondary, textColor: .theme.text))
                 }
             }
-            .padding(.leading,16)
         }
     }
 }
