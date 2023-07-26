@@ -160,7 +160,8 @@ extension AddStrengthModal {
                     VStack(spacing: 0) {
                         ForEach(dotsModel.strength.filter{ $0.strengthName!.contains(strengthName) || strengthName == "" }, id:\.self) {
                             filteredStrength in
-                            StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName)
+                            StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName, isKeyboardVisible: $isKeyboardVisible, selectedStrength: $selectedStrength
+                            )
                         }
                     }
                 }
