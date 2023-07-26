@@ -14,47 +14,51 @@ struct MyStrengthView: View {
     
     var body: some View {
         NavigationStack {
-            VStack(spacing: 8) {
-                Group {
-                    if dotsModel.myStrength.isEmpty {
-                        Image("myStrengthVisual_none")
-                            .resizable()
-                            .scaledToFit()
-                            .padding(.horizontal, 50)
-                            .frame(maxWidth: .infinity)
-                    } else {
-                        MetaballAnimation(myStrength: dotsModel.myStrength)
+            ScrollView{
+                VStack(spacing: 8) {
+                    Group {
+                        if dotsModel.myStrength.isEmpty {
+                            Image("myStrengthVisual_none")
+                                .resizable()
+                                .scaledToFit()
+                                .padding(.horizontal, 50)
+                                .frame(maxWidth: .infinity)
+                        } else {
+                            MetaballAnimation(myStrength: dotsModel.myStrength)
+                                .frame(height: UIScreen.main.bounds.height/3)
+                        }
                     }
-                }
-                .padding(.top, 16)
-                .padding(.bottom, 21)
-                
-                
-                ScrollView {
-                    if dotsModel.myStrength.isEmpty {
-                        RoundedRectangle(cornerRadius: 12)
-                            .stroke(Color.theme.gray5, lineWidth: 1.5)
-                            .foregroundColor(.theme.bgPrimary)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 84)
-                            .overlay() {
-                                HStack {
-                                    Text("저장된 강점이 없습니다.")
-                                        .modifier(regularBody(colorName: .theme.gray))
-                                        .padding(.leading, 29)
-                                    
-                                    Spacer()
+                    .padding(.top, 16)
+                    .padding(.bottom, 21)
+                    
+                    
+                    ScrollView {
+                        if dotsModel.myStrength.isEmpty {
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.theme.gray5, lineWidth: 1.5)
+                                .foregroundColor(.theme.bgPrimary)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 84)
+                                .overlay() {
+                                    HStack {
+                                        Text("저장된 강점이 없습니다.")
+                                            .modifier(regularBody(colorName: .theme.gray))
+                                            .padding(.leading, 29)
+                                        
+                                        Spacer()
+                                    }
                                 }
-                            }
-                            .padding(.horizontal, 16)
-                        
-                    } else {
-                        ForEach(dotsModel.myStrength, id: \.self) { strength in
-                            CustomList(entity: strength)
                                 .padding(.horizontal, 16)
+                            
+                        } else {
+                            ForEach(dotsModel.myStrength, id: \.self) { strength in
+                                CustomList(entity: strength)
+                                    .padding(.horizontal, 16)
+                            }
                         }
                     }
                 }
+                
             }
             .background(Color.theme.bgMain)
             .toolbar(content: {
