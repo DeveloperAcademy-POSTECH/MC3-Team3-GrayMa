@@ -14,10 +14,13 @@ struct ConnectionDetailView: View {
     @State private var showNote = false
     @State private var showCommon = false
     @State private var addStrength = false
+    @State private var strengthName : String = ""
     
     let person: NetworkingPersonEntity
     
-    let tempStrenth = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션"]
+    // 임시 데이터
+    let tempStrength = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션"]
+    let myStrength = ["User Test"]
     
     init(person: NetworkingPersonEntity) {
         self.person = person
@@ -63,9 +66,13 @@ struct ConnectionDetailView: View {
                                                 .modifier(regularBody(colorName: Color.theme.text))
                                         }
                                 }
-                                ForEach(tempStrenth, id: \.self) { strength in
-                                    StrengthName(strengthText: strength)
+                                ForEach(tempStrength, id: \.self) { strength in
+                                    let isCommon = myStrength.contains(strength)
+                                    StrengthName(showCommon: $showCommon ,strengthText: strength, isCommon: isCommon)
                                 }
+//                                ForEach(dotsModel.myStrength, id: \.self) { strength in
+//                                    StrengthName(strengthText: strength.ownStrength!)
+//                                }
 //                                if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
 //                                    ForEach(strengthSet, id: \.self) { strength in
 //                                        StrengthName(strengthText: strength.strengthName)
@@ -100,7 +107,6 @@ struct ConnectionDetailView: View {
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 62)
-                                .padding(.horizontal, 16)
                                 .overlay(
                                     HStack {
                                         Text("저장된 기록이 없습니다.")
@@ -108,7 +114,6 @@ struct ConnectionDetailView: View {
                                         Spacer()
                                     }
                                     .padding(.leading, 45)
-                                
                                 )
                         }
                         Spacer()
@@ -131,7 +136,6 @@ struct ConnectionDetailView: View {
                                 .modifier(boldTitle1(colorName: Color.theme.gray5Dark))
                             HStack {
                                 Text("\(company) ﹒ \(job)")
-
                             }
                         }
                         Spacer()
@@ -168,7 +172,10 @@ struct ConnectionDetailView: View {
             ConnectionNoteModal(connection: person)
                 .interactiveDismissDisabled()
         }
-//        .sheet(isPresented: $addStrength)
+        .sheet(isPresented: $addStrength) {
+            ConnectionAddStrength(selectedStrength: $strengthName)
+                .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
+        }
     }
     
     private var BackButton: some View {
@@ -194,20 +201,38 @@ struct ConnectionDetailView: View {
 }
 
 struct StrengthName: View {
-    let strengthText: String?
+    @Binding var showCommon: Bool
     
+    let strengthText: String?
+    let isCommon: Bool
+
     var body: some View {
-        Text(strengthText ?? "")
-            .modifier(regularCallout(colorName: Color.theme.text))
-            .padding(9)
-            .padding(.horizontal, 9.5)
-            .background(Color.theme.secondary)
-            .clipShape(RoundedRectangle(cornerRadius: 50))
-            .overlay(
-                RoundedRectangle(cornerRadius: 50)
-                    .strokeBorder(Color.theme.secondary, lineWidth: 1)
-            )
-            .fixedSize()
+        if showCommon {
+            Text(strengthText ?? "")
+                .modifier(regularCallout(colorName: isCommon ? Color.theme.bgPrimary : Color.theme.text))
+                .padding(9)
+                .padding(.horizontal, 9.5)
+                .background(isCommon ? Color.theme.primary : Color.theme.secondary)
+                .clipShape(RoundedRectangle(cornerRadius: 50))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 50)
+                        .strokeBorder(isCommon ? Color.theme.primary : Color.theme.secondary, lineWidth: 1)
+                )
+                .fixedSize()
+        } else {
+            Text(strengthText ?? "")
+                .modifier(regularCallout(colorName: Color.theme.text))
+                .padding(9)
+                .padding(.horizontal, 9.5)
+                .background(Color.theme.secondary)
+                .clipShape(RoundedRectangle(cornerRadius: 50))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 50)
+                        .strokeBorder(Color.theme.secondary, lineWidth: 1)
+                )
+                .fixedSize()
+
+        }
     }
 }
 

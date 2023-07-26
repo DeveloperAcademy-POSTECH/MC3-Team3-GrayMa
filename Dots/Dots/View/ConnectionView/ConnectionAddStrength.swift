@@ -8,14 +8,12 @@
 import SwiftUI
 
 struct ConnectionAddStrength: View {
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var dotsModel: DotsModel
     @State var strengthName: String = ""
-    @Binding var pagenum: Int
     @State var isError: Bool = false
     @State var isKeyboardVisible = false
-    @State var tappedNum = 0
     @Binding var selectedStrength: String
-    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         NavigationView {
@@ -56,7 +54,7 @@ struct ConnectionAddStrength: View {
                     isError = false
                 }
             } message: {
-                Text("이미 나의 강점에 추가된 강점이거나, 존재하는 강점입니다.")
+                Text("이미 추가된 강점입니다.")
             }
         }
     }
@@ -185,12 +183,13 @@ extension ConnectionAddStrength {
         VStack {
             HStack {
                 SelectBtn(fontWeight: .regular, content: "취소", textColor: .gray, btnColor: .theme.bgBlank, action:{ dismiss() })
-                SelectBtn(fontWeight: .bold, content: "다음", textColor: .white, btnColor: .accentColor, action: {
+                SelectBtn(fontWeight: .bold, content: "추가", textColor: .white, btnColor: .accentColor, action: {
                     if dotsModel.addStrength(name: strengthName) == .redunant {
                         isError = true
-                    } else {
-                        pagenum += 1
                     }
+                    // TODO: 강점 저장 함수 필요
+//                    dotsModel.addMyStrength(strengthLevel: Int16(selectedLevel), strengthName: strengthName)
+                    dismiss()
                 })
                 .disabled(selectedStrength.isEmpty)
             }
