@@ -192,7 +192,7 @@ struct SearchConnectionView: View {
                         ContactsSelectListView(modalControl: $contactsSelectListVisible)
                     }
                     .fullScreenCover(isPresented: $navigationActive) {
-                        addContactsView(modalComtrol: $navigationActive)
+                        AddContactsView(modalComtrol: $navigationActive)
                     }
                     .onAppear {
                         //                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in

@@ -8,7 +8,7 @@
 import SwiftUI
 import Contacts
 
-struct addContactsView: View {
+struct AddContactsView: View {
     //다른 뷰에서 닫기 컨트롤을 위한 변수
     @Environment(\.presentationMode) var presentationMode
     @Binding var modalComtrol : Bool
@@ -50,7 +50,7 @@ struct addContactsView: View {
                 HStack{
                     Text("\(Image(systemName: "chevron.left")) 인맥관리")
                         .font(.system(size: 22))
-                        .foregroundColor(Color("primary"))
+                        .foregroundColor(Color.theme.primary)
                         .onTapGesture {presentationMode.wrappedValue.dismiss()}
                     
                     Spacer()
@@ -58,7 +58,7 @@ struct addContactsView: View {
                     
                     Text("완료")
                         .font(.system(size: 22))
-                        .foregroundColor(Color("primary"))
+                        .foregroundColor(Color.theme.primary)
                     
                         .onTapGesture {
                             //MARK: 균규니 코어 연동 부분 해당뷰에서 coreDataUserStrength를 변수로 가짐

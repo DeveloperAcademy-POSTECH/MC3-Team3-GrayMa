@@ -25,11 +25,11 @@ struct ContactsSelectListView: View {
             VStack{
                 HStack{
                     Text("\(Image(systemName: "chevron.left")) 인맥관리")
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color.theme.primary)
                         .onTapGesture {presentationMode.wrappedValue.dismiss()}
                     Spacer()
                     Text("다음")
-                        .foregroundColor(.blue)
+                        .foregroundColor(Color.theme.primary)
                         .onTapGesture {
                             navigationActive = true
                         }
@@ -62,7 +62,7 @@ struct ContactsSelectListView: View {
         }
         .onAppear(perform: fetchContacts)
         .fullScreenCover(isPresented: $navigationActive) {
-            addContactsView(modalComtrol: $modalControl, selectedUserName: selectedName)
+            AddContactsView(modalComtrol: $modalControl, selectedUserName: selectedName)
         }
     }
     
