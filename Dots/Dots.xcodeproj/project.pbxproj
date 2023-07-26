@@ -391,7 +391,6 @@
 				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
 				A1349E3C2A6771910006611C /* contactsImageSelect.swift in Sources */,
 				3D0B1F3E2A7019A80012A6F4 /* StrengthVisualization.swift in Sources */,
-				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 				B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */,
 				3D0B1F3C2A6FD8950012A6F4 /* MetaballAnimation.swift in Sources */,
 				A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */,
