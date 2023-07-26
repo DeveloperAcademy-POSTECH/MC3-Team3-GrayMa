@@ -33,24 +33,20 @@ struct SearchFilterDetailView: View {
     @Binding var strengthName: String
     @Binding var type: String
     @Binding var keyName : String
-
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
                 SearchBar
-                if  (searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
-                    if let name = person.job {
-                        return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
-                    } else {
-                        return false
-                    }
-                }.isEmpty) {
-                    SearchHistory
+                if type == "회사" {
+                    ExistCompanyList
                 }
-                else {
-                    //MARK: 리스트 예정
+                else if type == "강점" {
+                    ExistStrengthList
                 }
-                
+                else if type == "직무" {
+                    ExistJobList
+                }
                 Spacer()
             }
             .toolbar {
@@ -74,7 +70,7 @@ struct SearchFilterDetailView: View {
                 }
             }
             .onAppear {
-
+                
                 searchHistory = loadRecentSearches(keyName: keyName)
                 
             }
@@ -117,8 +113,6 @@ extension SearchFilterDetailView {
         ForEach(Array(searchHistory.enumerated()), id: \.element) { index, history in
             Button {
                 withAnimation(.easeIn(duration: 0.1)) {
-                    searchHistory[index].isSelected.toggle()
-                    selectAction(history: searchHistory[index])
                     searchTextField = history.title
                 }
             } label: {
@@ -126,7 +120,7 @@ extension SearchFilterDetailView {
                     Rectangle()
                         .frame(height: 44)
                         .foregroundColor(.theme.secondary)
-                        .opacity(history.isSelected ? 1 : 0)
+                        .opacity(history.title == searchTextField ? 1 : 0)
                     
                     HStack {
                         Text(history.title)
@@ -137,13 +131,152 @@ extension SearchFilterDetailView {
                         
                         Image(systemName: "checkmark")
                             .padding(.trailing, 47)
-                            .opacity(history.isSelected ? 1 : 0)
+                            .opacity(history.title == searchTextField ? 1 : 0)
                     }
                 }
             }
         }
     }
     
+    private var ExistStrengthList: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                if searchTextField.isEmpty || dotsModel.strength.filter { strength in
+                    if let name = strength.strengthName {
+                        return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
+                    } else {
+                        return false
+                    }
+                }.isEmpty {
+                    SearchHistory
+                } else {
+                    ForEach(dotsModel.strength.filter { strength in
+                        if let name = strength.strengthName {
+                            return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
+                        } else {
+                            return false
+                        }
+                    }, id: \.self) { filteredStrength in
+                        Button {
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                searchTextField = filteredStrength.strengthName ?? ""
+                            }
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(height: 44)
+                                    .foregroundColor(.theme.secondary)
+                                    .opacity(filteredStrength.strengthName == searchTextField ? 1 : 0)
+                                
+                                HStack {
+                                    Text(filteredStrength.strengthName ?? "")
+                                        .modifier(semiBoldCallout(colorName: .black))
+                                        .padding(.leading, 33)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "checkmark")
+                                        .padding(.trailing, 47)
+                                        .opacity(filteredStrength.strengthName == searchTextField ? 1 : 0)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private var ExistCompanyList: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                if searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
+                    if let name = person.company {
+                        return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
+                    } else {
+                        return false
+                    }
+                }.isEmpty {
+                    SearchHistory
+                } else {
+                    ForEach(dotsModel.networkingPeople.filter { person in
+                        if let name = person.company {
+                            return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
+                        } else {
+                            return false
+                        }
+                    }, id: \.self) { filteredCompany in
+                        Button {
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                searchTextField = filteredCompany.company ?? ""
+                            }
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(height: 44)
+                                    .foregroundColor(.theme.secondary)
+                                    .opacity(filteredCompany.company == searchTextField ? 1 : 0)
+                                
+                                HStack {
+                                    Text(filteredCompany.company ?? "")
+                                        .modifier(semiBoldCallout(colorName: .black))
+                                        .padding(.leading, 33)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "checkmark")
+                                        .padding(.trailing, 47)
+                                        .opacity(filteredCompany.company == searchTextField ? 1 : 0)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private var ExistJobList: some View {
+        ScrollView {
+            if dotsModel.networkingPeople.filter({ $0.job?.contains(searchTextField) ?? false || searchTextField.isEmpty }).isEmpty {
+                // Show the search history list if the filtered results are empty
+                SearchHistory
+            } else {
+                // Show the list of filtered jobs
+                VStack() {
+                    ForEach(dotsModel.networkingPeople.filter { $0.job?.contains(searchTextField) ?? false || searchTextField.isEmpty }, id: \.self) { filteredJob in
+                        Button {
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                searchTextField = filteredJob.job ?? ""
+                            }
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(height: 44)
+                                    .foregroundColor(.theme.secondary)
+                                    .opacity(jobName == filteredJob.job ? 1 : 0)
+                                
+                                HStack {
+                                    Text(filteredJob.job ?? "")
+                                        .modifier(semiBoldCallout(colorName: .black))
+                                        .padding(.leading, 33)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "checkmark")
+                                        .padding(.trailing, 47)
+                                        .opacity(jobName == filteredJob.job ? 1 : 0)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 //    private var SelectedBadges: some View {
 //        HStack {
 //            ScrollView(.horizontal, showsIndicators: false) {
@@ -171,7 +304,7 @@ extension SearchFilterDetailView {
 //            }
 //        }
 //    }
-}
+
 
 // MARK: - Function
 extension SearchFilterDetailView {
@@ -182,25 +315,25 @@ extension SearchFilterDetailView {
             selectedHistoryList = ""
         }
         
-       // checkArray()
+        // checkArray()
     }
     
-//    func checkArray() {
-//        if selectedHistoryList.isEmpty {
-//            searchTextField = ""
-//        } else {
-//            searchTextField = " "
-//        }
-//    }
+    //    func checkArray() {
+    //        if selectedHistoryList.isEmpty {
+    //            searchTextField = ""
+    //        } else {
+    //            searchTextField = " "
+    //        }
+    //    }
     
-//    func deleteSelectedHistory(historyName: String) {
-//        guard let selectedIdx = selectedHistoryList.firstIndex(of: historyName) else { return }
-//        guard let historyIdx = searchHistory.firstIndex(where: { $0.title == historyName }) else { return }
-//
-//        selectedHistoryList.remove(at: selectedIdx)
-//        searchHistory[historyIdx].isSelected = false
-//    }
-//
+    //    func deleteSelectedHistory(historyName: String) {
+    //        guard let selectedIdx = selectedHistoryList.firstIndex(of: historyName) else { return }
+    //        guard let historyIdx = searchHistory.firstIndex(where: { $0.title == historyName }) else { return }
+    //
+    //        selectedHistoryList.remove(at: selectedIdx)
+    //        searchHistory[historyIdx].isSelected = false
+    //    }
+    //
     // MARK: 유저디폴트 값에 저장 하는 함수
     func saveSearch(name: String, keyName: String) {
         guard !name.isEmpty else { return }
@@ -259,16 +392,16 @@ extension SearchFilterDetailView {
         }
     }
     
-//    func filterStrength() {
-//        if  (searchTextField.isEmpty || dotsModel.strength.filter { person in
-//            if let name = strengt {
-//                return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
-//            } else {
-//                return false
-//            }
-//        }.isEmpty) {
-//        }
-//
-//    }
+    //    func filterStrength() {
+    //        if  (searchTextField.isEmpty || dotsModel.strength.filter { person in
+    //            if let name = strengt {
+    //                return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
+    //            } else {
+    //                return false
+    //            }
+    //        }.isEmpty) {
+    //        }
+    //
+    //    }
 }
 
