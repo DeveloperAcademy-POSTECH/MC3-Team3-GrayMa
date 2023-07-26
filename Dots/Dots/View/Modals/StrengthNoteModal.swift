@@ -6,6 +6,7 @@
 //
 // 새로운 노트 작성
 import SwiftUI
+import RichTextKit
 
 struct StrengthNoteModal: View {
     @Environment(\.presentationMode) var presentation
@@ -15,6 +16,9 @@ struct StrengthNoteModal: View {
     @State private var date: Date = Date()
     @State private var showKeyboardToolbar: Bool = false
     @State private var isError: Bool = false
+    @State private var text = NSAttributedString(string: "어떤 것을 배웠나요? 자유롭게 기록해주세요.")
+    @StateObject var context = RichTextContext()
+    
     
     let myStrength: MyStrengthEntity
     
@@ -55,22 +59,21 @@ struct StrengthNoteModal: View {
             }
             .frame(height: 40, alignment: .top)
             
-            let placeholder: String = "어떤 것을 배웠나요? 자유롭게 기록해주세요."
-            ZStack(alignment: .topLeading) {
-                TextEditor(text: $textFieldContent)
-                    .modifier(regularCallout(colorName: .theme.gray5Dark))
-                    .focused($isTextEditorFocused)
-                if textFieldContent.isEmpty && !isTextEditorFocused {
-                    Text(placeholder)
-                        .modifier(regularCallout(colorName: .theme.gray))
-                        .padding(.leading, 5)
-                        .padding(.top, 8)
-                        .onTapGesture {
-                            isTextEditorFocused = true
-                        }
-                }
-            }
-            Spacer()
+            //            let placeholder: String = "어떤 것을 배웠나요? 자유롭게 기록해주세요."
+            //                TextEditor(text: $textFieldContent)
+            //                    .modifier(regularCallout(colorName: .theme.gray5Dark))
+            //                    .focused($isTextEditorFocused)
+            //                if textFieldContent.isEmpty && !isTextEditorFocused {
+            //                    Text(placeholder)
+            //                        .modifier(regularCallout(colorName: .theme.gray))
+            //                        .padding(.leading, 5)
+            //                        .padding(.top, 8)
+            //                        .onTapGesture {
+            //                            isTextEditorFocused = true
+            //                        }
+            //                }
+            editor
+            toolbar
         }
         .padding()
         .padding(.top, 10)
@@ -83,5 +86,21 @@ struct StrengthNoteModal: View {
         }
         .overlay(KeyboardToolbar(showKeyboardToolbar: $showKeyboardToolbar, date: $date), alignment: .bottom)
         .presentationDragIndicator(.visible)
+    }
+}
+
+private extension StrengthNoteModal {
+    
+    var editor: some View {
+        RichTextEditor(text: $text, context: context) { _ in }
+//        RichTextEditor.standardRichTextFontSize = 16
+    }
+    
+    var toolbar: some View {
+        RichTextKeyboardToolbar(context: context,
+                                leadingActions: [.incrementFontSize, .decrementFontSize, .increaseIndent, .decreaseIndent],
+                                trailingActions: [.dismissKeyboard],
+                                leadingButtons: {},
+                                trailingButtons: {})
     }
 }

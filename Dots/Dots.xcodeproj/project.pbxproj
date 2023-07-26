@@ -52,6 +52,7 @@
 		A192A2492A69742C0071A79C /* ContactsSelectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192A2482A69742C0071A79C /* ContactsSelectListView.swift */; };
 		B42D94D32A6FDD0D008F555D /* ChangeLevelModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42D94D22A6FDD0D008F555D /* ChangeLevelModal.swift */; };
 		B4A146AD2A7039660087267A /* DotsDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */; };
+		B4A146B22A7102C20087267A /* RichTextKit in Frameworks */ = {isa = PBXBuildFile; productRef = B4A146B12A7102C20087267A /* RichTextKit */; };
 		B4E26B2B2A696AB900C1948F /* StrengthNoteViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E26B2A2A696AB900C1948F /* StrengthNoteViewModal.swift */; };
 		B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* CustomDetailList.swift */; };
 		B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */; };
@@ -121,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4A146B22A7102C20087267A /* RichTextKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +308,9 @@
 			dependencies = (
 			);
 			name = Dots;
+			packageProductDependencies = (
+				B4A146B12A7102C20087267A /* RichTextKit */,
+			);
 			productName = Dots;
 			productReference = 1379976C2A64C5AA008F5F01 /* Dots.app */;
 			productType = "com.apple.product-type.application";
@@ -334,6 +339,9 @@
 				Base,
 			);
 			mainGroup = 137997632A64C5AA008F5F01;
+			packageReferences = (
+				B4A146B02A7102C20087267A /* XCRemoteSwiftPackageReference "RichTextKit" */,
+			);
 			productRefGroup = 1379976D2A64C5AA008F5F01 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -391,7 +399,6 @@
 				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
 				A1349E3C2A6771910006611C /* contactsImageSelect.swift in Sources */,
 				3D0B1F3E2A7019A80012A6F4 /* StrengthVisualization.swift in Sources */,
-				1379977C2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld in Sources */,
 				B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */,
 				3D0B1F3C2A6FD8950012A6F4 /* MetaballAnimation.swift in Sources */,
 				A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */,
@@ -611,6 +618,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B4A146B02A7102C20087267A /* XCRemoteSwiftPackageReference "RichTextKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielsaidi/RichTextKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B4A146B12A7102C20087267A /* RichTextKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B4A146B02A7102C20087267A /* XCRemoteSwiftPackageReference "RichTextKit" */;
+			productName = RichTextKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */ = {
