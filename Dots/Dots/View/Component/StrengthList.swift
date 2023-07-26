@@ -10,6 +10,8 @@ import SwiftUI
 struct StrengthList: View {
     var strength: String
     @Binding var strengthName : String
+    @Binding var isKeyboardVisible: Bool
+    @Binding var selectedStrength: String
     @State var isChecked: Bool = false
     var body: some View {
         HStack {
@@ -28,12 +30,14 @@ struct StrengthList: View {
         .frame(maxWidth: .infinity)
         .onTapGesture {
             strengthName = strength
+            selectedStrength = strengthName
+            isKeyboardVisible.toggle()
         }
     }
 }
 
-struct StrengthList_Previews: PreviewProvider {
-    static var previews: some View {
-        StrengthList(strength: "SwiftUI", strengthName: .constant("SwiftUI"))
-    }
-}
+//struct StrengthList_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StrengthList(strength: "SwiftUI", strengthName: .constant("SwiftUI"))
+//    }
+//}
