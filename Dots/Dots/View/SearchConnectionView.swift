@@ -115,10 +115,9 @@ struct SearchConnectionView: View {
 extension SearchConnectionView {
     private var SearchBar: some View {
         RoundedRectangle(cornerRadius: 40)
+            .stroke(Color.theme.gray5, lineWidth: 1)
             .frame(maxWidth: .infinity)
             .frame(height: 56)
-            .shadow(radius: 2)
-            .foregroundColor(.white)
             .overlay() {
                 HStack {
                     Button {
@@ -139,16 +138,17 @@ extension SearchConnectionView {
                             name = ""
                         } label: {
                             Text("\(Image(systemName: "x.circle.fill"))")
-                                .foregroundColor(.gray)
+                                .foregroundColor(.theme.disabled)
                                 .frame(width: 24,height: 24)
                                 .padding(.trailing,5)
                         }
                     }
+                    
                     Button {
                         isFilterSheetOn = true
                     } label: {
                         Circle()
-                            .strokeBorder(Color.gray,lineWidth: 1.5)
+                            .strokeBorder(Color.theme.gray5,lineWidth: 1.5)
                             .frame(width: 36,height: 36)
                             .foregroundColor(.white)
                             .overlay(){
