@@ -18,7 +18,7 @@ struct MainView: View {
         TabView{
             MyStrengthView()
                 .tabItem {
-                    Image("myStrengthTabIcon_3x")
+                    Image("myStrengthTabIcon")
                         .renderingMode(.template)
 
                     Text("내 강점")
@@ -26,7 +26,7 @@ struct MainView: View {
             
             SearchConnectionView(companyName:.constant("삼성"), jobName:.constant("개발자") , strengthName: .constant("개발"))
                 .tabItem {
-                    Image("networkingTabIcon_3x")
+                    Image("networkingTabIcon")
                         .renderingMode(.template)
                     
                     Text("인맥 관리")

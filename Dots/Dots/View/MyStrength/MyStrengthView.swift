@@ -14,31 +14,49 @@ struct MyStrengthView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                List {
+            VStack(spacing: 8) {
+                Group {
+                    if dotsModel.myStrength.isEmpty {
+                        Image("myStrengthVisual_none")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.horizontal, 50)
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        MetaballAnimation(myStrength: dotsModel.myStrength)
+                    }
+                }
+                .padding(.top, 16)
+                .padding(.bottom, 21)
+                
+                
+                ScrollView {
                     if dotsModel.myStrength.isEmpty {
                         RoundedRectangle(cornerRadius: 12)
-                            .foregroundColor(.white)
+                            .stroke(Color.theme.gray5, lineWidth: 1.5)
+                            .foregroundColor(.theme.bgPrimary)
                             .frame(maxWidth: .infinity)
-                            .frame(height: 62)
-                            .padding(.horizontal,16)
-                            .overlay(){
-                                HStack(alignment: .center){
+                            .frame(height: 84)
+                            .overlay() {
+                                HStack {
                                     Text("저장된 강점이 없습니다.")
-                                        .font(.system(size: 17,weight: .regular))
-                                        .foregroundColor(.gray)
-                                        .padding(.leading,22)
+                                        .modifier(regularBody(colorName: .theme.gray))
+                                        .padding(.leading, 29)
+                                    
                                     Spacer()
                                 }
                             }
+                            .padding(.horizontal, 16)
+                        
+                    } else {
+                        ForEach(dotsModel.myStrength, id: \.self) { strength in
+                            CustomList(entity: strength)
+                                .padding(.horizontal, 16)
+                        }
                     }
-                    
-                    ForEach(dotsModel.myStrength, id: \.self) { strength in
-                        CustomList(entity: strength)
-                            .frame(height: 84)
-                    }                    
                 }
             }
+            .background(Color.theme.bgMain)
             .toolbar(content: {
                 ToolbarItem(placement: .navigationBarLeading) {
                     Text("내 강점")
@@ -60,6 +78,7 @@ struct MyStrengthView: View {
                 StrengthModal()
                     .presentationDetents([.height(UIScreen.main.bounds.height * 0.35)])
             }
+            .background(Color.theme.bgMain)
             
         }
         .background(.gray)
