@@ -52,7 +52,6 @@ struct ConnectionNoteList: View {
         } label: {
             RoundedRectangle(cornerRadius: 12)
                 .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
                 .frame(height: 62)
                 .overlay(
                     HStack {

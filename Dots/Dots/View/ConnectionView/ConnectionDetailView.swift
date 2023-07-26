@@ -107,7 +107,6 @@ struct ConnectionDetailView: View {
                                 .foregroundColor(.white)
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 62)
-                                .padding(.horizontal, 16)
                                 .overlay(
                                     HStack {
                                         Text("저장된 기록이 없습니다.")
@@ -115,7 +114,6 @@ struct ConnectionDetailView: View {
                                         Spacer()
                                     }
                                     .padding(.leading, 45)
-                                
                                 )
                         }
                         Spacer()
