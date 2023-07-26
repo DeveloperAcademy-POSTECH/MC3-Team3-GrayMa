@@ -37,8 +37,8 @@ struct MetaballAnimation: View {
 //                                      endPoint: UnitPoint(x: 0.16, y: 0.09)))
 //                .mask {
                     Canvas { context, size in
-                        context.addFilter(.alphaThreshold(min: 0.5, color: .theme.secondary))
-                        context.addFilter(.blur(radius: 30))
+//                        context.addFilter(.alphaThreshold(min: 0.5, color: .theme.secondary))
+//                        context.addFilter(.blur(radius: 10))
                         context.drawLayer { ctx in
                             for index in 0...myStrength.count - 1 {
                                 if let resolvedView = context.resolveSymbol(id: index) {
@@ -70,23 +70,28 @@ struct MetaballAnimation: View {
     @ViewBuilder
     func Name(offset: CGSize, name: String?) -> some View {
         Text(name ?? "이거")
-            .modifier(regularSubHeadLine(colorName: .black))
+            .modifier(regularSubHeadLine(colorName: Color.theme.bgPrimary))
             .offset(offset)
+            .frame(maxWidth: 100)
+            .lineLimit(/*@START_MENU_TOKEN@*/2/*@END_MENU_TOKEN@*/)
             .animation(.easeInOut(duration: 4), value: offset)
+            .multilineTextAlignment(.center)
     }
     
     @ViewBuilder
     func ClubbedRoundedRectangle(offset: CGSize, ballLevel: StrengthLevelImage) -> some View {
-        RoundedRectangle(cornerRadius: 30, style: .continuous)
+        Circle()
             .fill(.linearGradient(stops: [
                                     Gradient.Stop(color: Color(red: 0.87, green: 0.29, blue: 0.28), location: 0.00),
                                     Gradient.Stop(color: Color(red: 0.96, green: 0.93, blue: 0.86), location: 1.00),
                                 ],
                                                       startPoint: UnitPoint(x: 1.06, y: 0.94),
                                                       endPoint: UnitPoint(x: 0.16, y: 0.09)))
-            .frame(width: ballLevel.ballSize, height: ballLevel.ballSize)
+            .frame(width: ballLevel.ballSize * 1.4, height: ballLevel.ballSize * 1.4)
             .offset(offset)
             .animation(.easeInOut(duration: 4), value: offset)
+            .blur(radius: 10)
+            .opacity(0.9)
     }
     
     @ViewBuilder
