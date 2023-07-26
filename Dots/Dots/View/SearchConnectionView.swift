@@ -66,7 +66,7 @@ struct SearchConnectionView: View {
                     }
                 }
             }
-            .background(Color.theme.bgMain)
+            .background(Color.theme.bgPrimary)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -261,8 +261,7 @@ extension SearchConnectionView {
             }
         }) { person in
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray, lineWidth: 0.5)
-                .foregroundColor(.white)
+                .foregroundColor(.theme.bgPrimary)
                 .frame(maxWidth: .infinity)
                 .frame(height: 84)
                 .overlay() {
@@ -292,6 +291,10 @@ extension SearchConnectionView {
                         }
                     }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
                 }
+                .overlay(content: {
+                    RoundedRectangle(cornerRadius: 12)
+                        .stroke(Color.theme.gray5, lineWidth: 2)
+                })
                 .cornerRadius(12, corners: .allCorners)
         }
         .padding(.horizontal, 16)

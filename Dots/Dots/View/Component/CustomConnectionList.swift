@@ -11,20 +11,26 @@ struct CustomConnectionList: View {
     let entity: NetworkingPersonEntity
     
     var body: some View {
-        HStack(spacing: 18) {
-            ProfileImage
+        Group {
+            HStack(spacing: 18) {
+                ProfileImage
+                    .padding(.leading, 16)
+                    
+                VStack(alignment: .leading, spacing: 8) {
+                    DefaultUserInfo
+                    
+                    StrengthSet
+                }
                 
-            VStack(alignment: .leading, spacing: 8) {
-                DefaultUserInfo
+                Spacer()
                 
-                StrengthSet
+                NavigatorIcon
+                    .padding(.trailing, 14)
             }
-            
-            Spacer()
-            
-            NavigatorIcon
+            .frame(height: 53)
         }
-        .frame(height: 53)
+        .frame(maxHeight: .infinity)
+        .background(Color.theme.bgPrimary)
     }
 }
 
