@@ -72,8 +72,10 @@ struct CustomList: View {
                             }
 
                         }
-                        
+                  
                     }
+
+           
                 }, right: {
                     HStack(spacing: 0) {
                         Button(action: {
