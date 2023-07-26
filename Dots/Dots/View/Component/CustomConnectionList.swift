@@ -58,5 +58,6 @@ struct CustomConnectionList_Previews: PreviewProvider {
         newEntity.linkedIn = "linkedin.com/lol"
         
         return CustomConnectionList(entity: newEntity)
+            .previewLayout(.sizeThatFits)
     }
 }

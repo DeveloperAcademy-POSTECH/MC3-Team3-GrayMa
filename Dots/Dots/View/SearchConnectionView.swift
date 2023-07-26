@@ -66,8 +66,9 @@ struct SearchConnectionView: View {
                     }
                 }
             }
+            .background(Color.theme.bgMain)
             .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
+                ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         actionSheetvisible = true
                     } label: {
