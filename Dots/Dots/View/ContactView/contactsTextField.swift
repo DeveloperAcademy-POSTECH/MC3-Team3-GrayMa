@@ -25,7 +25,7 @@ struct contactsTextField: View {
     
     //input error 컨트롤
     @State var inputError = false
-    @State var textColor = Color.black
+    @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
     let errorMessage = ["이름은 2~4자리로 작성해주세요.", "번호는 11자리만 가능합니다.", "이메일은 @, .com을 포함해주세요.", "SNS링크는 정확하게"]
     
@@ -97,7 +97,7 @@ struct contactsTextField: View {
                                         inputError = true
                                     }else {
                                         fieldColor = Color("bgBlank")
-                                        textColor = Color.black
+                                        textColor = Color.theme.gray5Dark
                                         inputError = false
                                     }}
                         case 1: //Phone
@@ -106,7 +106,7 @@ struct contactsTextField: View {
                                     if !(text.count < 11) {
                                         text = convertPhoneNum(text)
                                         fieldColor = Color("bgBlank")
-                                        textColor = Color.black
+                                        textColor = Color.theme.gray5Dark
                                         inputError = false
                                     }else {
                                         fieldColor = Color("AlertBG")
@@ -146,7 +146,7 @@ struct compareTextCount : View {
         if textMin < Int(compareText.count) && Int(compareText.count) < textMax{
             Image(systemName: "checkmark.circle.fill")
                 .resizable()
-                .foregroundColor(Color("AlertGreen"))
+                .foregroundColor(Color("alertGreen"))
                 .frame(width: 24, height: 24)
         } else {
             Image(systemName: "exclamationmark.circle.fill")

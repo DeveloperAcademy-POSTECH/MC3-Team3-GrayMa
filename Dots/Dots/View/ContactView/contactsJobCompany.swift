@@ -20,7 +20,7 @@ struct contactsJobCompany: View {
     
     //input error 컨트롤
     @State var inputError = false
-    @State var textColor = Color.black
+    @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
     let errorMessage = ["직무는 필수 조건입니다."]
     
