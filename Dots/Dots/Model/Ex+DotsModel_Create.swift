@@ -128,6 +128,23 @@ extension DotsModel {
         save()
     }
     
+    func updateNetworking(id: UUID, profileImgIdx: Int, name: String, company: String, job: String, phoneNum: String, email: String, snsUrl: String, strengthList: [StrengthEntity] = []) {
+        guard let personIndex = networkingPeople.firstIndex(where: { $0.peopleID == id }) else { return }
+        
+        networkingPeople[personIndex].profileImageIndex = Int16(profileImgIdx)
+        networkingPeople[personIndex].name = name
+        networkingPeople[personIndex].company = company
+        networkingPeople[personIndex].contanctNum = phoneNum
+        networkingPeople[personIndex].email = email
+        networkingPeople[personIndex].job = job
+        networkingPeople[personIndex].linkedIn = snsUrl
+        
+        // 동적으로 수정
+//        newNetworking.addToStrengthSet(NSSet(array: strengthList))
+        
+        save()
+    }
+    
     func updateMyNote(id: UUID, date: Date, content: String) {
         guard let noteIndex = myNotes.firstIndex(where: { $0.myStrengthNoteID == id }) else { return }
         myNotes[noteIndex].date = date
