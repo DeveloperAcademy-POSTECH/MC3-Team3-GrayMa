@@ -88,7 +88,7 @@ extension DotsModel {
         }
     }
     
-    func addNetworking(profileImgIdx: Int, name: String, company: String, job: String, phoneNum: String, email: String, snsUrl: String, strengthList: [StrengthEntity]) {
+    func addNetworking(profileImgIdx: Int, name: String, company: String, job: String, phoneNum: String, email: String, snsUrl: String, strengthList: [StrengthEntity] = []) {
         let newNetworking = NetworkingPersonEntity(context: manager.context)
         
         newNetworking.peopleID = UUID()
