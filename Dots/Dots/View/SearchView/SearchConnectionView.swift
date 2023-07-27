@@ -51,7 +51,7 @@ struct SearchConnectionView: View {
                     FilteredPerson
                 }
                 else {
-                    if  isKeyboardVisible && (name.isEmpty || dotsModel.networkingPeople.filter { person in
+                    if isKeyboardVisible && (name.isEmpty || dotsModel.networkingPeople.filter { person in
                         if let name = person.name {
                             return name.range(of: self.name) != nil || self.name.isEmpty
                         } else {
@@ -97,10 +97,14 @@ struct SearchConnectionView: View {
                 //                        Notification in isKeyboardVisible = false
                 //                    }
                 
+                // 뷰 갱신을 위한 name 값 수정
+                name = ""
                 selectedHistoryList = loadRecentSearches(keyName: keyName)
                 
             }
             .onDisappear {
+                // 뷰 갱신을 위한 name 값 수정
+                name = " "
                 NotificationCenter.default.removeObserver(self)
             }
         }
@@ -200,55 +204,7 @@ extension SearchConnectionView {
             } else {
                 ForEach(FilteredList, id: \.self)
                 { person in
-                    RoundedRectangle(cornerRadius: 12)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 84)
-                        .overlay() {
-                            SwipeItemView(content: {
-                                NavigationLink {
-                                    ConnectionDetailView(person: person)
-                                } label: {
-                                    CustomConnectionList(entity: person)
-                                    
-                                }
-                            }, right: {
-                                HStack(spacing: 0) {
-                                    Button(action: {
-                                        print("삭제 완")
-                                        isDeleteAlertOn = true
-                                    }, label: {
-                                        Rectangle()
-                                            .fill(.red)
-                                            .cornerRadius(12, corners: .topRight)
-                                            .cornerRadius(12, corners: .bottomRight)
-                                            .overlay(){
-                                                Image(systemName: "trash.fill")
-                                                    .font(.system(size: 17))
-                                                    .foregroundColor(.white)
-                                            }
-                                    })
-                                }
-                            }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
-                        }
-                        .overlay(content: {
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.theme.gray5, lineWidth: 2)
-                        })
-                        .cornerRadius(12, corners: .allCorners)
-                        .alert("인맥을 삭제하겠습니까?", isPresented: $isDeleteAlertOn, actions: {
-                            Button("취소", role: .cancel) {
-                                isDeleteAlertOn = false
-                            }
-                            
-                            Button("삭제", role: .destructive) {
-                                withAnimation {
-                                    dotsModel.deleteConnection(person: person)
-                                }
-                                isDeleteAlertOn = false
-                            }
-                        }, message: {
-                            Text("이 사람과 관련된 모든 정보가 삭제됩니다.")
-                        })
+                    ContactsListRow(person: person)
                 }
                 .padding(.horizontal, 16)
                 
@@ -269,57 +225,7 @@ extension SearchConnectionView {
                 return false
             }
         }) { person in
-            RoundedRectangle(cornerRadius: 12)
-                .foregroundColor(.theme.bgPrimary)
-                .frame(maxWidth: .infinity)
-                .frame(height: 84)
-                .overlay() {
-                    SwipeItemView(content: {
-                        NavigationLink {
-                            ConnectionDetailView(person: person)
-                        } label: {
-                            CustomConnectionList(entity: person)
-                            
-                        }
-                    }, right: {
-                        HStack(spacing: 0) {
-                            Button(action: {
-                                print("삭제 완")
-                                isDeleteAlertOn = true
-                            }, label: {
-                                Rectangle()
-                                    .fill(.red)
-                                    .cornerRadius(12, corners: .topRight)
-                                    .cornerRadius(12, corners: .bottomRight)
-                                    .overlay(){
-                                        Image(systemName: "trash.fill")
-                                            .font(.system(size: 17))
-                                            .foregroundColor(.white)
-                                    }
-                            })
-                        }
-                    }, itemHeight: 84, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
-                }
-                .overlay(content: {
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.theme.gray5, lineWidth: 2)
-                })
-                .cornerRadius(12, corners: .allCorners)
-                .alert("인맥을 삭제하겠습니까?", isPresented: $isDeleteAlertOn, actions: {
-                    Button("취소", role: .cancel) {
-                        isDeleteAlertOn = false
-                    }
-                    
-                    Button("삭제", role: .destructive) {
-                        withAnimation {
-                            dotsModel.deleteConnection(person: person)
-                        }
-                        isDeleteAlertOn = false
-                    }
-                    .foregroundColor(.theme.alertRed)
-                }, message: {
-                    Text("이 사람과 관련된 모든 정보가 삭제됩니다.")
-                })
+            ContactsListRow(person: person)
         }
         .padding(.horizontal, 16)
     }
