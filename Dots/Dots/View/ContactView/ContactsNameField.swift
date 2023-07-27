@@ -79,10 +79,11 @@ struct ContactsNameField: View {
                 }
                 .frame(width: 340)
             }
-            Text("\(errorMessage)")
-                .foregroundColor(textColor)
-                .opacity(inputError ? 1 : 0)
-
+            if inputError {
+                Text("\(errorMessage)")
+                    .foregroundColor(textColor)
+                  
+            }
         }
     }
     
