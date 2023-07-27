@@ -175,12 +175,12 @@ extension jobModalView {
     
     private var ExistJobList: some View {
         ScrollView {
+            VStack() {
             if dotsModel.networkingPeople.filter({ $0.job?.contains(searchTextField) ?? false || searchTextField.isEmpty }).isEmpty {
                 // Show the search history list if the filtered results are empty
                 SearchHistory
             } else {
                 // Show the list of filtered jobs
-                VStack() {
                     ForEach(dotsModel.networkingPeople.filter { $0.job?.contains(searchTextField) ?? false || searchTextField.isEmpty }, id: \.self) { filteredJob in
                         Button {
                             withAnimation(.easeIn(duration: 0.1)) {
