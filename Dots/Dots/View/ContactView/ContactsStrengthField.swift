@@ -15,7 +15,7 @@ struct ContactsStrengthField: View {
     @State var UserInputStrength = ""
     
     //Field 컨트롤 옵션
-    @State var selected = false
+    @State var modalControl = false
     
     
     //input error 핸들링
@@ -35,6 +35,10 @@ struct ContactsStrengthField: View {
                 RoundedRectangle(cornerRadius: 40)
                     .foregroundColor(fieldColor)
                     .frame(width: 361, height: 56)
+                    .onTapGesture { modalControl = true }
+                    .sheet(isPresented: $modalControl){
+                        // jobModalView(searchTextField: $UserInputJob)
+                    }
                 
                 HStack{
                     
@@ -44,21 +48,9 @@ struct ContactsStrengthField: View {
                     
                     Text("\(UserInputStrength)")
                     
-                    TextField("", text: $UserInputStrength)
-                        .onTapGesture {
-                            selected = true
-                        }
-        
-                    //return 눌렸을때
-                        .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)) { _ in
-                            selected = false
-                            UserInputStrengthArr.append(UserInputStrength)
-                        }
-                        .frame(width: 280)
-                    
                     Spacer()
                     
-                    if !UserInputStrength.isEmpty {
+                    if !UserInputStrengthArr.isEmpty {
                         Image(systemName: "checkmark.circle.fill")
                             .resizable()
                             .foregroundColor(Color("AlertGreen"))
@@ -70,7 +62,6 @@ struct ContactsStrengthField: View {
                 }
                 .frame(width: 340)
             }
-            
             //모달에서 직무가 하나라도 있는지 리턴 받아야함
             Text("\(errorMessage)")
                 .foregroundColor(textColor)
@@ -79,3 +70,48 @@ struct ContactsStrengthField: View {
     }
 }
 
+//강점 모달뷰
+ struct strengthModalView: View {
+    @Environment(\.presentationMode) var presentationMode
+     @EnvironmentObject var dotsModel: DotsModel
+    
+    @Binding  var searchTextField : String
+    @State private var selectedHistoryList: String = ""
+    @State private var searchHistory: [SearchHistoryRowModel] = []
+    
+    var body: some View {
+        NavigationView{
+            VStack(spacing: 0) {
+//                SearchBar
+//                ExistJobList
+                Spacer()
+            }
+            
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("취소") {
+                        presentationMode.wrappedValue.dismiss()
+                        print("취소 ㄱㄱ")
+                    }
+                }
+                
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("완료") {
+                        presentationMode.wrappedValue.dismiss()
+                        //knowFilter()
+                        //                        print("\(type) 타입")
+                        //                        print("\(companyName) 회사이름")
+                        //                        print("\(jobName)  직무이름")
+                        //                        print("\(strengthName) 강점이름" )
+                        print("완료 ㄱㄱ")
+                    }
+                }
+            }
+            .onAppear {
+                
+//                searchHistory = loadRecentSearches(keyName: "recentjob")
+                
+            }
+        }
+    }
+}
