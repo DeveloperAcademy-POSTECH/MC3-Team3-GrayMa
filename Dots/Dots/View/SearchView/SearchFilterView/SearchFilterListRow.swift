@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct SearchFilterListRow: View {
-    @State var accentName: String = ""
-    
-    @Binding var companyName: String
-    @Binding var jobName: String
-    @Binding var strengthName: String
+    @EnvironmentObject var filterModel : FilterModel
+    @Binding var accentName: String 
     @Binding var isSheetOn: Bool
     var type: String
     let imageName: String
@@ -59,7 +56,10 @@ extension SearchFilterListRow {
             Text(accentName)
             Spacer()
             CloseBtn(btncolor: .gray) {
-                accentName = ""
+                RemoveFilter(type: type)
+                print("\(filterModel.$companyName) 회사 필터")
+                print("\(filterModel.$companyName) 직무 필터")
+                print("\(filterModel.$companyName) 강점 필터")
             }
             
         }
@@ -84,17 +84,55 @@ extension SearchFilterListRow {
     private func Configuretype(type: String) {
         switch type {
         case "회사":
-            return accentName = companyName
+            return accentName = filterModel.companyName
         case "직무":
-            return accentName = jobName
+            return accentName = filterModel.jobName
         case "강점":
-            return accentName = strengthName
+            return accentName = filterModel.strengthName
         default:
             accentName = ""
             break
         }
     }
     
+    private func RemoveFilter(type: String) {
+        switch type {
+        case "회사":
+            accentName = ""
+            filterModel.companyName = ""
+        case "직무":
+            accentName = ""
+            filterModel.jobName = ""
+        case "강점":
+            accentName = ""
+            filterModel.strengthName = ""
+        default:
+            accentName = ""
+            break
+        }
+        
+    }
+    
+}
+    //MARK: Modifier
+
+extension SearchFilterListRow {
+    struct highLighted: ViewModifier {
+        
+        func body(content: Content) -> some View {
+            content
+                .padding(10)
+                .padding(.horizontal,8)
+                .background(.white.opacity(0.5))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(Color.theme.secondary)
+                )
+                .fixedSize()
+        }
+        
+    }
 }
 
 //struct SearchFilterListRow_Previews: PreviewProvider {

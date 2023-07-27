@@ -24,7 +24,7 @@ struct MainView: View {
                     Text("내 강점")
                 }
             
-            SearchConnectionView(companyName:.constant("삼성"), jobName:.constant("개발자") , strengthName: .constant("개발"))
+            SearchConnectionView()
                 .tabItem {
                     Image("networkingTabIcon")
                         .renderingMode(.template)
