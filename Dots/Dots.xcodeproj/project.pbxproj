@@ -64,6 +64,7 @@
 		A1EDAD432A7133F3002B6BC0 /* ContactsSNSField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EDAD422A7133F3002B6BC0 /* ContactsSNSField.swift */; };
 		A1EDAD452A715D7A002B6BC0 /* ContactsStrengthField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EDAD442A715D7A002B6BC0 /* ContactsStrengthField.swift */; };
 		B42D94D32A6FDD0D008F555D /* ChangeLevelModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42D94D22A6FDD0D008F555D /* ChangeLevelModal.swift */; };
+		B4717A652A72CA0000153B9E /* KRDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4717A642A72CA0000153B9E /* KRDate.swift */; };
 		B4A146AD2A7039660087267A /* DotsDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */; };
 		B4E26B2B2A696AB900C1948F /* StrengthNoteViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E26B2A2A696AB900C1948F /* StrengthNoteViewModal.swift */; };
 		B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* CustomDetailList.swift */; };
@@ -133,6 +134,7 @@
 		A1EDAD422A7133F3002B6BC0 /* ContactsSNSField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSNSField.swift; sourceTree = "<group>"; };
 		A1EDAD442A715D7A002B6BC0 /* ContactsStrengthField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsStrengthField.swift; sourceTree = "<group>"; };
 		B42D94D22A6FDD0D008F555D /* ChangeLevelModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLevelModal.swift; sourceTree = "<group>"; };
+		B4717A642A72CA0000153B9E /* KRDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KRDate.swift; sourceTree = "<group>"; };
 		B4E26B2A2A696AB900C1948F /* StrengthNoteViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthNoteViewModal.swift; sourceTree = "<group>"; };
 		B4E701982A680678007A3876 /* CustomDetailList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailList.swift; sourceTree = "<group>"; };
 		B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitBtn.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				3D0B1F232A654BD20012A6F4 /* DotsModel.swift */,
 				3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */,
 				3DA321E12A71F487005E70D0 /* StrengthLevelImage.swift */,
+				B4717A642A72CA0000153B9E /* KRDate.swift */,
 				3DA321E32A71F591005E70D0 /* CoreData */,
 				137997782A64C5AC008F5F01 /* Persistence.swift */,
 				1379977D2A64C5AC008F5F01 /* Info.plist */,
@@ -457,6 +460,7 @@
 				1373F05A2A67CD26001A704D /* StrengthList.swift in Sources */,
 				137997792A64C5AC008F5F01 /* Persistence.swift in Sources */,
 				A1349E372A6618190006611C /* contactsJobCompany.swift in Sources */,
+				B4717A652A72CA0000153B9E /* KRDate.swift in Sources */,
 				136AAC832A66E37400CA3797 /* StrengthModal.swift in Sources */,
 				136AAC762A66E29600CA3797 /* AddStrengthModal.swift in Sources */,
 				136AAC892A676E5500CA3797 /* SearchConnectionView.swift in Sources */,
