@@ -15,7 +15,6 @@ struct StrengthNoteViewModal: View {
     @State var textFieldContent: String
     @State var date: Date
     @State private var isError: Bool = false
-    @State private var showKeyboardToolbar: Bool = false
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -73,14 +72,6 @@ struct StrengthNoteViewModal: View {
         }
         .padding()
         .padding(.top, 10)
-        
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-            self.showKeyboardToolbar = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-            self.showKeyboardToolbar = false
-        }
-        .overlay(KeyboardToolbar(showKeyboardToolbar: $showKeyboardToolbar, date: $date), alignment: .bottom)
         .presentationDragIndicator(.visible)
     }
 }
