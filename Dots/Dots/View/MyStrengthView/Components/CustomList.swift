@@ -6,25 +6,6 @@
 
 import SwiftUI
 
-enum StrengthLevelImage: String, CaseIterable {
-    case weakDot
-    case moderateDot
-    case strongDot
-    
-    var ballSize: CGFloat {
-        switch self {
-        case .weakDot:
-            return 100
-        case .moderateDot:
-            return 110
-        case .strongDot:
-            return 120
-        }
-    }
-    var size: CGFloat { return 76 }
-    var sizeSmall: CGFloat { return 36 }
-}
-
 struct CustomList: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var isNavigation = false
