@@ -36,7 +36,7 @@ struct ContactsPhoneField: View {
                     Spacer()
                         .frame(width: 19,height: 20)
                     
-                    TextField("", text: $UserInputPhone)
+                    TextField("010-0000-0000", text: $UserInputPhone)
                         .keyboardType(UIKeyboardType.numberPad)
                         .onChange(of: UserInputPhone){ _ in
                             if  removeHyphens(from: UserInputPhone).count == 11 {
