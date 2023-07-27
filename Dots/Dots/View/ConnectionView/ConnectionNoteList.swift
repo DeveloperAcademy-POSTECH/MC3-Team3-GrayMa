@@ -6,8 +6,6 @@
 //
 
 
-// My StrenthList
-
 import SwiftUI
 
 struct ConnectionNoteList: View {
@@ -74,7 +72,6 @@ struct ConnectionNoteList: View {
                         .padding(.leading, 29)
                         Spacer()
                     }
-                    //                    .onTapGesture { self.showNoteViewModal = true }
                 }, right: {
                     HStack(spacing: 0) {
                         Button(action: {
