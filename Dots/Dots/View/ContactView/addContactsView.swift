@@ -94,9 +94,9 @@ struct AddContactsView: View {
                         
                         ContactsPhoneField(UserInputPhone: $coreDataUserPhone, fieldFocus: fieldFocus)
                         
-                        ContactsEmailField(UserInputEmail: $coreDataUserEmail)
+                        ContactsEmailField(UserInputEmail: $coreDataUserEmail, fieldFocus: fieldFocus)
                         
-                        ContactsSNSField(UserInputSNS: $coreDataUserSNS)
+                        ContactsSNSField(UserInputSNS: $coreDataUserSNS, fieldFocus: fieldFocus)
                         
                         ContactsStrengthField(UserInputStrengthArr: $coreDataUserStrength)
                         
