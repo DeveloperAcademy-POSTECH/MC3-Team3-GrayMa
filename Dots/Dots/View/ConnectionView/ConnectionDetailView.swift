@@ -20,8 +20,7 @@ struct ConnectionDetailView: View {
     let person: NetworkingPersonEntity
     
     // 임시 데이터
-    let tempStrength = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션", "이것저것", "테스트", "굿보이", "스마트 가이", "Swift 천재", "UI/UX", "사람들은 여기에 몇 자까지 쓸 것인가"]
-    let myStrength = ["User Test"]
+    let tempStrength = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션", "이것저것", "테스트", "스마트 가이", "Swift 천재", "UI/UX", "사람들은 여기에 몇 자까지 쓸 것인가"]
     
     init(person: NetworkingPersonEntity) {
         self.person = person
@@ -55,17 +54,20 @@ struct ConnectionDetailView: View {
                             }
 
                             WrappingHStack(alignment: .leading) {
+                                let myStrength = dotsModel.myStrength.map({ $0.ownStrength!.strengthName })
+                                
+                                // 임시 데이터 확인용
                                 ForEach(tempStrength, id: \.self) { strength in
                                     let isCommon = myStrength.contains(strength)
                                     StrengthName(showCommon: $showCommon ,strengthText: strength, isCommon: isCommon)
                                 }
                                 
-//                                ForEach(dotsModel.myStrength, id: \.self) { strength in
-//                                    StrengthName(strengthText: strength.ownStrength!)
-//                                }
+                                // 실제 DB 연결된 내용
 //                                if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
 //                                    ForEach(strengthSet, id: \.self) { strength in
-//                                        StrengthName(strengthText: strength.strengthName)
+//                                        let isCommon = myStrength.contains(strength.strengthName ?? "")
+//
+//                                        StrengthName(showCommon: $showCommon, strengthText: strength.strengthName, isCommon: isCommon)
 //                                    }
 //                                }
                                 
