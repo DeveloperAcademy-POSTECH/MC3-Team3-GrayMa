@@ -43,6 +43,31 @@ extension DotsModel {
         }
     }
     
+    // 인맥 강점 추가용 - 텍스트 중복 검사 후 db 추가
+    func addConnectionStrengthName(person: NetworkingPersonEntity, name: String) -> CreateStatus {
+        let checkedValue = checkRedundantVaildationForConnection(person: person, name: name)
+        
+        switch checkedValue {
+        case .exist:
+            print("이미 존재하는 거라 안만들어도 됨.")
+            
+            return .ok
+        case .redunant:
+            print("중복임")
+            
+            return .redunant
+        case .new:
+            let newStrength = StrengthEntity(context: manager.context)
+            newStrength.strengthName = name
+            newStrength.strengthColor = "red"
+            
+            save()
+            
+            return .ok
+        }
+    }
+    
+    
     func addMyStrength(strengthLevel: Int16, strengthName: String) {
         let newMyStrength = MyStrengthEntity(context: manager.context)
         guard let strength = findStrengthFromName(strengthName) else { return }
@@ -51,6 +76,22 @@ extension DotsModel {
         newMyStrength.strengthLevel = strengthLevel
         newMyStrength.ownStrength = strength
         
+        save()
+    }
+    
+    // 실제 해당 인맥에 강점을 추가하는 함수
+    func addConnectionStrength(id: UUID, strengthNameList: [String] = []) {
+        guard let personIndex = networkingPeople.firstIndex(where: { $0.peopleID == id }) else { return }
+        
+        var strengthList: [StrengthEntity] = []
+        
+        for name in strengthNameList {
+            guard let strength = findStrengthFromName(name) else { return }
+            strengthList.append(strength)
+        }
+        
+        networkingPeople[personIndex].addToStrengthSet(NSSet(array: strengthList))
+
         save()
     }
     
@@ -77,6 +118,22 @@ extension DotsModel {
     func checkRedundantVaildation(_ name: String) -> RedundantCheck {
         if myStrength.contains(where: { entity in
             entity.ownStrength?.strengthName == name
+        }) {
+            return .redunant
+        } else if strength.contains(where: { entity in
+            entity.strengthName == name
+        }) {
+            return .exist
+        } else {
+            return .new
+        }
+    }
+    
+    func checkRedundantVaildationForConnection(person: NetworkingPersonEntity, name: String) -> RedundantCheck {
+        let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] ?? []
+        
+        if strengthSet.contains(where: { entity in
+            entity.strengthName == name
         }) {
             return .redunant
         } else if strength.contains(where: { entity in
@@ -201,6 +258,8 @@ extension DotsModel {
         
         save()
     }
+    
+//    func deleteConnectionStrength(strength entity: )
     
     func deleteMyNote(myNote entity: MyStrengthNoteEntity) {
         let targetEntity = myNotes.first {

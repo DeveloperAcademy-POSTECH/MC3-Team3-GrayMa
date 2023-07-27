@@ -26,7 +26,7 @@
 		137997772A64C5AC008F5F01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 137997762A64C5AC008F5F01 /* Preview Assets.xcassets */; };
 		137997792A64C5AC008F5F01 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997782A64C5AC008F5F01 /* Persistence.swift */; };
 		137997872A64C661008F5F01 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 137997862A64C661008F5F01 /* MainView.swift */; };
-		300A8AE12A6FE5B4005FAB3E /* ConnectionAddStrength.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A8AE02A6FE5B4005FAB3E /* ConnectionAddStrength.swift */; };
+		300A8AE12A6FE5B4005FAB3E /* ConnectionAddStrengthModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A8AE02A6FE5B4005FAB3E /* ConnectionAddStrengthModal.swift */; };
 		300A8AED2A720A60005FAB3E /* ConnectionProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A8AEC2A720A60005FAB3E /* ConnectionProfileEditView.swift */; };
 		300A8AF12A726F34005FAB3E /* WrappingHStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300A8AF02A726F34005FAB3E /* WrappingHStack.swift */; };
 		307D76B42A6E574600847DA8 /* PopGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307D76B32A6E574600847DA8 /* PopGesture.swift */; };
@@ -95,7 +95,7 @@
 		1379977B2A64C5AC008F5F01 /* Dots.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Dots.xcdatamodel; sourceTree = "<group>"; };
 		1379977D2A64C5AC008F5F01 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		137997862A64C661008F5F01 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		300A8AE02A6FE5B4005FAB3E /* ConnectionAddStrength.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionAddStrength.swift; sourceTree = "<group>"; };
+		300A8AE02A6FE5B4005FAB3E /* ConnectionAddStrengthModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionAddStrengthModal.swift; sourceTree = "<group>"; };
 		300A8AEC2A720A60005FAB3E /* ConnectionProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionProfileEditView.swift; sourceTree = "<group>"; };
 		300A8AF02A726F34005FAB3E /* WrappingHStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrappingHStack.swift; sourceTree = "<group>"; };
 		307D76B32A6E574600847DA8 /* PopGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopGesture.swift; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 				30E33A992A6CFEF8009A7905 /* ConnectionNoteModal.swift */,
 				307D76B52A6E604E00847DA8 /* ConnectionNoteViewModal.swift */,
 				30E33A9D2A6E1A50009A7905 /* ConnectionNoteList.swift */,
-				300A8AE02A6FE5B4005FAB3E /* ConnectionAddStrength.swift */,
+				300A8AE02A6FE5B4005FAB3E /* ConnectionAddStrengthModal.swift */,
 				300A8AEC2A720A60005FAB3E /* ConnectionProfileEditView.swift */,
 				300A8AF02A726F34005FAB3E /* WrappingHStack.swift */,
 			);
@@ -476,7 +476,7 @@
 				A1EDAD392A713049002B6BC0 /* ContactsNameField.swift in Sources */,
 				A1EDAD412A7133A8002B6BC0 /* ContactsEmailField.swift in Sources */,
 				3D0B1F332A6D71C70012A6F4 /* SearchFilterDetailView.swift in Sources */,
-				300A8AE12A6FE5B4005FAB3E /* ConnectionAddStrength.swift in Sources */,
+				300A8AE12A6FE5B4005FAB3E /* ConnectionAddStrengthModal.swift in Sources */,
 				300A8AED2A720A60005FAB3E /* ConnectionProfileEditView.swift in Sources */,
 				A1349E332A64E81C0006611C /* AddContactsView.swift in Sources */,
 				30D982912A68CFBE00E89B37 /* ConnectionDetailView.swift in Sources */,
