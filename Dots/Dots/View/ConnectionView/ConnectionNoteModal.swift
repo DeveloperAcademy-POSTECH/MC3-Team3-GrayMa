@@ -12,7 +12,6 @@ struct ConnectionNoteModal: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var date: Date = Date()
     @State private var textFieldContent: String = ""
-    @State private var showKeyboardToolbar: Bool = false
     @State private var pushCancel = false
     let connection: NetworkingPersonEntity
     
@@ -57,13 +56,6 @@ struct ConnectionNoteModal: View {
             Spacer()
         }
         .padding()
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-            self.showKeyboardToolbar = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-            self.showKeyboardToolbar = false
-        }
-        .overlay(KeyboardToolbar(showKeyboardToolbar: $showKeyboardToolbar, date: $date), alignment: .bottom)
         .presentationDragIndicator(.visible)
     }
 }

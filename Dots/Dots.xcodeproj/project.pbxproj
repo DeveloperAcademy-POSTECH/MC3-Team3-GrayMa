@@ -64,7 +64,6 @@
 		B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* CustomDetailList.swift */; };
 		B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */; };
 		B4E7019D2A68573A007A3876 /* StrengthNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */; };
-		B4E701A12A68611D007A3876 /* KeyboardToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701A02A68611D007A3876 /* KeyboardToolbar.swift */; };
 		B4EB47212A6774430073E514 /* MyStrengthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */; };
 /* End PBXBuildFile section */
 
@@ -128,7 +127,6 @@
 		B4E701982A680678007A3876 /* CustomDetailList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailList.swift; sourceTree = "<group>"; };
 		B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitBtn.swift; sourceTree = "<group>"; };
 		B4E7019C2A68573A007A3876 /* StrengthNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthNoteModal.swift; sourceTree = "<group>"; };
-		B4E701A02A68611D007A3876 /* KeyboardToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardToolbar.swift; sourceTree = "<group>"; };
 		B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStrengthDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -295,7 +293,6 @@
 		3DA321E02A71F37E005E70D0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B4E701A02A68611D007A3876 /* KeyboardToolbar.swift */,
 				B4E701982A680678007A3876 /* CustomDetailList.swift */,
 				B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */,
 				B42D94D22A6FDD0D008F555D /* ChangeLevelModal.swift */,
@@ -474,7 +471,6 @@
 				A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */,
 				136AAC722A66D5F200CA3797 /* TextModifier.swift in Sources */,
 				3D0B1F2C2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift in Sources */,
-				B4E701A12A68611D007A3876 /* KeyboardToolbar.swift in Sources */,
 				B4E7019D2A68573A007A3876 /* StrengthNoteModal.swift in Sources */,
 				A1EDAD3D2A7132DE002B6BC0 /* ContactsJobField.swift in Sources */,
 				30E33A9E2A6E1A50009A7905 /* ConnectionNoteList.swift in Sources */,

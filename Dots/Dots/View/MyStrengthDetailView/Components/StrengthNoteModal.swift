@@ -13,7 +13,6 @@ struct StrengthNoteModal: View {
     @FocusState private var isTextEditorFocused: Bool
     @State private var textFieldContent: String = ""
     @State private var date: Date = Date()
-    @State private var showKeyboardToolbar: Bool = false
     @State private var isError: Bool = false
     
     let myStrength: MyStrengthEntity
@@ -74,14 +73,6 @@ struct StrengthNoteModal: View {
         }
         .padding()
         .padding(.top, 10)
-        
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-            self.showKeyboardToolbar = true
-        }
-        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-            self.showKeyboardToolbar = false
-        }
-        .overlay(KeyboardToolbar(showKeyboardToolbar: $showKeyboardToolbar, date: $date), alignment: .bottom)
         .presentationDragIndicator(.visible)
     }
 }
