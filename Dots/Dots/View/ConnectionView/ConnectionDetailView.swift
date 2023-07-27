@@ -15,7 +15,7 @@ struct ConnectionDetailView: View {
     @State private var showCommon = false
     @State private var addStrength = false
     @State private var editProfile = false
-    @State private var strengthName : String = ""
+//    @State private var strengthName : String = ""
     
     let person: NetworkingPersonEntity
     
@@ -54,22 +54,22 @@ struct ConnectionDetailView: View {
                             }
 
                             WrappingHStack(alignment: .leading) {
-                                let myStrength = dotsModel.myStrength.map({ $0.ownStrength!.strengthName })
+                                let myStrength = dotsModel.myStrength.map{ $0.ownStrength!.strengthName }
                                 
                                 // 임시 데이터 확인용
-                                ForEach(tempStrength, id: \.self) { strength in
-                                    let isCommon = myStrength.contains(strength)
-                                    StrengthName(showCommon: $showCommon ,strengthText: strength, isCommon: isCommon)
-                                }
+//                                ForEach(tempStrength, id: \.self) { strength in
+//                                    let isCommon = myStrength.contains(strength)
+//                                    StrengthName(showCommon: $showCommon ,strengthText: strength, isCommon: isCommon)
+//                                }
                                 
                                 // 실제 DB 연결된 내용
-//                                if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
-//                                    ForEach(strengthSet, id: \.self) { strength in
-//                                        let isCommon = myStrength.contains(strength.strengthName ?? "")
-//
-//                                        StrengthName(showCommon: $showCommon, strengthText: strength.strengthName, isCommon: isCommon)
-//                                    }
-//                                }
+                                if let strengthSet = person.strengthSet?.allObjects as? [StrengthEntity] {
+                                    ForEach(strengthSet, id: \.self) { strength in
+                                        let isCommon = myStrength.contains(strength.strengthName ?? "")
+
+                                        StrengthName(showCommon: $showCommon, strengthText: strength.strengthName, isCommon: isCommon)
+                                    }
+                                }
                                 
                                 Button {
                                     addStrength.toggle()
@@ -182,7 +182,7 @@ struct ConnectionDetailView: View {
                 .presentationDragIndicator(.hidden)
         }
         .sheet(isPresented: $addStrength) {
-            ConnectionAddStrengthModal(selectedStrength: $strengthName)
+            ConnectionAddStrengthModal(person: person)
                 .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
         }
 //        .sheet(isPresented: $editProfile) {

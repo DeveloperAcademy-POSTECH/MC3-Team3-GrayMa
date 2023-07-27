@@ -10,53 +10,55 @@ import SwiftUI
 struct ConnectionAddStrengthModal: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var dotsModel: DotsModel
-    @State var strengthName: String = ""
-    @State var isError: Bool = false
-    @State var isKeyboardVisible = false
-    @Binding var selectedStrength: String
+    @State private var strengthName: String = ""
+    @State private var isError: Bool = false
+    @State private var isKeyboardVisible = false
+    @State private var tappedNum = 0
+    @State private var selectedStrength: String = ""
+    
+    let person: NetworkingPersonEntity
     
     var body: some View {
-        NavigationView {
-            VStack(alignment: .center, spacing: 0) {
-                Title
-                
-                SearchBar
-                
+//        NavigationView {
+        VStack(alignment: .center, spacing: 0) {
+            Title
+            
+            SearchBar
+            
+            Spacer()
+            
+            // 키보드가 나타났을때에는 ScrollView가 나타남
+            if isKeyboardVisible {
+                ExistStrengthList
                 Spacer()
-                
-                // 키보드가 나타났을때에는 ScrollView가 나타남
-                if isKeyboardVisible {
-                    ExistStrengthList
-                    
-                    Spacer()
-                } else {
-                    Buttons
-                }
-            }
-            // MARK: 키보드가 나타났을때를 감지
-            .onAppear {
-                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
-                    isKeyboardVisible = true
-                }
-                
-                NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
-                    Notification in isKeyboardVisible = false
-                }
-            }
-            .onDisappear {
-                NotificationCenter.default.removeObserver(self)
-            }
-            .allowsTightening(true)
-            .padding(.horizontal,16)
-            .frame(width: UIScreen.main.bounds.width)
-            .alert("중복에러", isPresented: $isError) {
-                Button("확인") {
-                    isError = false
-                }
-            } message: {
-                Text("이미 추가된 강점입니다.")
+            } else {
+                Buttons
             }
         }
+        // MARK: 키보드가 나타났을때를 감지
+        .onAppear {
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
+                isKeyboardVisible = true
+            }
+            
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification, object: nil, queue: .main) {
+                Notification in isKeyboardVisible = false
+            }
+        }
+        .onDisappear {
+            NotificationCenter.default.removeObserver(self)
+        }
+        .allowsTightening(true)
+        .padding(.horizontal,16)
+        .frame(width: UIScreen.main.bounds.width)
+        .alert("중복에러", isPresented: $isError) {
+            Button("확인") {
+                isError = false
+            }
+        } message: {
+            Text("이미 추가된 강점입니다.")
+        }
+//        }
     }
 }
 
@@ -92,8 +94,8 @@ extension ConnectionAddStrengthModal {
                                 }
                             }
                             .onSubmit {
-                                isKeyboardVisible = false
                                 selectedStrength = strengthName
+                                isKeyboardVisible = false
                                 strengthName = " "
                             }
                             .disabled(!selectedStrength.isEmpty)
@@ -127,16 +129,8 @@ extension ConnectionAddStrengthModal {
                     
                     Text("\(selectedStrength.isEmpty ? strengthName.count : selectedStrength.count)/20")
                         .modifier(regularCallout(colorName: .theme.gray))
-                    
-                    Button {
-                        strengthName = ""
-                    } label: {
-                        Text("\(Image(systemName: "x.circle.fill"))")
-                            .foregroundColor(.theme.disabled)
-                            .frame(width: 24,height: 24)
-                            .padding(.trailing,15)
-                    }
-                    .hideToBool(!selectedStrength.isEmpty)
+                        .padding(.trailing,21)
+
                 }
             }
     }
@@ -152,7 +146,7 @@ extension ConnectionAddStrengthModal {
                 if dotsModel.strength.filter({ $0.strengthName!.contains(strengthName) || strengthName.isEmpty }).isEmpty {
                     HStack {
                         Button {
-                            _ = dotsModel.addStrength(name: strengthName)
+                            selectedStrength = strengthName
                             isKeyboardVisible = false
                         } label: {
                             Label("직접 추가하기", systemImage: "plus.circle.fill")
@@ -167,12 +161,15 @@ extension ConnectionAddStrengthModal {
                     VStack(spacing: 0) {
                         ForEach(dotsModel.strength.filter{ $0.strengthName!.contains(strengthName) || strengthName == "" }, id:\.self) {
                             filteredStrength in
-//                            StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName)
+                            StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName, isKeyboardVisible: $isKeyboardVisible, selectedStrength: $selectedStrength
+                            )
                         }
                     }
+                    .padding(.horizontal,5)
                 }
                 
             }
+            .padding(.top,5)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .padding(.top, 10)
@@ -183,13 +180,14 @@ extension ConnectionAddStrengthModal {
         VStack {
             HStack {
                 SelectBtn(fontWeight: .regular, content: "취소", textColor: .gray, btnColor: .theme.bgBlank, action:{ dismiss() })
-                SelectBtn(fontWeight: .bold, content: "추가", textColor: .white, btnColor: .accentColor, action: {
-                    if dotsModel.addStrength(name: strengthName) == .redunant {
+                SelectBtn(fontWeight: .bold, content: "저장", textColor: .white, btnColor: .accentColor, action: {
+                    if dotsModel.addConnectionStrengthName(person: person, name: selectedStrength) == .redunant {
                         isError = true
                     }
-                    // TODO: 강점 저장 함수 필요
-//                    dotsModel.addMyStrength(strengthLevel: Int16(selectedLevel), strengthName: strengthName)
-                    dismiss()
+                    else {
+                        dotsModel.addConnectionStrength(id: person.peopleID!, strengthNameList: [selectedStrength])
+                        dismiss()
+                    }
                 })
                 .disabled(selectedStrength.isEmpty)
             }
