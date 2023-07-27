@@ -171,10 +171,11 @@ struct ConnectionDetailView: View {
         .navigationBarItems(leading: BackButton)
 
         // TODO: 인맥 편집 화면 연결 필요(인맥 등록뷰와 동일)
-        .navigationBarItems(trailing: Button(action: {editProfile.toggle()}, label: {Text("편집")}))
+        .navigationBarItems(trailing: Button(action: { editProfile.toggle() }, label: { Text("편집") }))
         .sheet(isPresented: $showNote) {
             ConnectionNoteModal(connection: person)
                 .interactiveDismissDisabled()
+                .presentationDragIndicator(.hidden)
         }
         .sheet(isPresented: $addStrength) {
             ConnectionAddStrength(selectedStrength: $strengthName)

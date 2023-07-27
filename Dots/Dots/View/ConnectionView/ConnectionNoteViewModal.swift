@@ -14,7 +14,7 @@ struct ConnectionNoteViewModal: View {
     let id: UUID
     @State var date: Date
     @State var textFieldContent: String
-    @State private var pushCancel = false
+    @State private var isError = false
     
 
     var dateFormatter: DateFormatter {
@@ -26,55 +26,42 @@ struct ConnectionNoteViewModal: View {
     
     var body: some View {
         VStack {
-            HStack {
-                if isTextEditorFocused {
-                    Button {
-                        pushCancel.toggle()
-                    } label: {
-                        Text("취소")
+            ZStack {
+                HStack {
+                    Button(action: {
+                        isError = true
+                    }) {
+                        HStack {
+                            Text("취소")
+                        }
                     }
-                    .alert("수정 중인 내용을 저장하지 않고 나가시겠습니까?", isPresented: $pushCancel) {
+                    .alert("작성 중인 내용을 저장하지 않고 나가시겠습니까?", isPresented: $isError) {
                         Button("아니요", role: .cancel) { }
                         Button("네", role: .destructive) { dismiss() }
                     }
-                } else {
-                    Text("취소")
-                        .opacity(0)
-                }
-                
-                Spacer()
-                
-                Text("\(date, formatter: dateFormatter)")
-                    .modifier(semiBoldBody(colorName: Color.theme.gray5Dark))
-                
-                Spacer()
-                
-                if isTextEditorFocused {
-                    Button {
-                        dotsModel.updateConnectionNote(id: id, date: date, content: textFieldContent)
+                    Spacer()
+                    
+                    Button(action: {
+                        // 수정 기능
+                        dotsModel.updateMyNote(id: id, date: date, content: textFieldContent)
                         dismiss()
-                    } label: {
+                    }) {
                         Text("저장")
                     }
-                } else {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Text("확인")
-                    }
                 }
+                Text("\(date, formatter: dateFormatter)")
+                    .modifier(semiBoldBody(colorName: .theme.gray5Dark))
             }
-            .frame(height: 44)
+            .frame(height: 40, alignment: .top)
             
-            let placeholder: String = "상대에 대해 남기고 싶은 점을 자유롭게 기록해주세요."
+            let placeholder: String = "어떤 것을 배웠나요? 자유롭게 기록해주세요."
             ZStack(alignment: .topLeading) {
                 TextEditor(text: $textFieldContent)
-                    .modifier(regularCallout(colorName: Color.theme.gray5Dark))
+                    .modifier(regularCallout(colorName: .theme.gray5Dark))
                     .focused($isTextEditorFocused)
                 if textFieldContent.isEmpty && !isTextEditorFocused {
                     Text(placeholder)
-                        .modifier(regularCallout(colorName: Color.theme.gray))
-                        .foregroundColor(.gray)
+                        .modifier(regularCallout(colorName: .theme.gray))
                         .padding(.leading, 5)
                         .padding(.top, 8)
                         .onTapGesture {
@@ -85,6 +72,7 @@ struct ConnectionNoteViewModal: View {
             Spacer()
         }
         .padding()
+        .padding(.top, 10)
         .presentationDragIndicator(.visible)
     }
 }
