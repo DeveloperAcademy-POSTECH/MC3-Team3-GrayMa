@@ -20,6 +20,7 @@ struct SearchHistoryRowModel: Hashable {
 
 // MARK: - body
 struct SearchFilterDetailView: View {
+    @EnvironmentObject var filterModel : FilterModel
     @EnvironmentObject var dotsModel: DotsModel
     
     @State private var searchTextField: String = ""
@@ -28,11 +29,26 @@ struct SearchFilterDetailView: View {
     @State private var selectedOpacityValue: Double = 0.6
     
     @Binding var isSheetOn: Bool
-    @Binding var companyName: String
-    @Binding var jobName: String
-    @Binding var strengthName: String
     @Binding var type: String
     @Binding var keyName : String
+    
+    private var uniqueJobs: [String] {
+        let uniqueJobSet = Set(dotsModel.networkingPeople.compactMap { $0.job })
+        return Array(uniqueJobSet)
+    }
+    
+    private var uniqueCompanies: [String] {
+        // Use Set to get unique company names and convert it back to an array
+        let uniqueCompanySet = Set(dotsModel.networkingPeople.compactMap { $0.company })
+        return Array(uniqueCompanySet)
+    }
+    
+    private var uniqueStrengths: [String] {
+        // Use Set to get unique strength names and convert it back to an array
+        let uniqueStrengthSet = Set(dotsModel.strength.compactMap { $0.strengthName })
+        return Array(uniqueStrengthSet)
+    }
+
     
     var body: some View {
         NavigationView {
@@ -62,9 +78,9 @@ struct SearchFilterDetailView: View {
                         isSheetOn = false
                         knowFilter()
                         print("\(type) 타입")
-                        print("\(companyName) 회사이름")
-                        print("\(jobName)  직무이름")
-                        print("\(strengthName) 강점이름" )
+                        print("\(filterModel.companyName) 회사이름")
+                        print("\(filterModel.jobName)  직무이름")
+                        print("\(filterModel.strengthName) 강점이름" )
                         print("완료 ㄱㄱ")
                     }
                 }
@@ -141,35 +157,23 @@ extension SearchFilterDetailView {
     private var ExistStrengthList: some View {
         ScrollView {
             VStack(spacing: 0) {
-                if searchTextField.isEmpty || dotsModel.strength.filter { strength in
-                    if let name = strength.strengthName {
-                        return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
-                    } else {
-                        return false
-                    }
-                }.isEmpty {
+                if searchTextField.isEmpty || uniqueStrengths.filter({ $0.range(of: searchTextField, options: .caseInsensitive) != nil }).isEmpty {
                     SearchHistory
                 } else {
-                    ForEach(dotsModel.strength.filter { strength in
-                        if let name = strength.strengthName {
-                            return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
-                        } else {
-                            return false
-                        }
-                    }, id: \.self) { filteredStrength in
+                    ForEach(uniqueStrengths.filter { $0.range(of: searchTextField, options: .caseInsensitive) != nil }, id: \.self) { strength in
                         Button {
                             withAnimation(.easeIn(duration: 0.1)) {
-                                searchTextField = filteredStrength.strengthName ?? ""
+                                searchTextField = strength
                             }
                         } label: {
                             ZStack {
                                 Rectangle()
                                     .frame(height: 44)
                                     .foregroundColor(.theme.secondary)
-                                    .opacity(filteredStrength.strengthName == searchTextField ? 1 : 0)
+                                    .opacity(strength == searchTextField ? 1 : 0)
                                 
                                 HStack {
-                                    Text(filteredStrength.strengthName ?? "")
+                                    Text(strength)
                                         .modifier(semiBoldCallout(colorName: .black))
                                         .padding(.leading, 33)
                                     
@@ -177,7 +181,7 @@ extension SearchFilterDetailView {
                                     
                                     Image(systemName: "checkmark")
                                         .padding(.trailing, 47)
-                                        .opacity(filteredStrength.strengthName == searchTextField ? 1 : 0)
+                                        .opacity(strength == searchTextField ? 1 : 0)
                                 }
                             }
                         }
@@ -188,37 +192,26 @@ extension SearchFilterDetailView {
     }
     
     private var ExistCompanyList: some View {
+        
         ScrollView {
             VStack(spacing: 0) {
-                if searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
-                    if let name = person.company {
-                        return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
-                    } else {
-                        return false
-                    }
-                }.isEmpty {
+                if searchTextField.isEmpty || uniqueCompanies.filter({ $0.range(of: searchTextField, options: .caseInsensitive) != nil }).isEmpty {
                     SearchHistory
                 } else {
-                    ForEach(dotsModel.networkingPeople.filter { person in
-                        if let name = person.company {
-                            return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
-                        } else {
-                            return false
-                        }
-                    }, id: \.self) { filteredCompany in
+                    ForEach(uniqueCompanies.filter { $0.range(of: searchTextField, options: .caseInsensitive) != nil }, id: \.self) { company in
                         Button {
                             withAnimation(.easeIn(duration: 0.1)) {
-                                searchTextField = filteredCompany.company ?? ""
+                                searchTextField = company
                             }
                         } label: {
                             ZStack {
                                 Rectangle()
                                     .frame(height: 44)
                                     .foregroundColor(.theme.secondary)
-                                    .opacity(filteredCompany.company == searchTextField ? 1 : 0)
+                                    .opacity(company == searchTextField ? 1 : 0)
                                 
                                 HStack {
-                                    Text(filteredCompany.company ?? "")
+                                    Text(company)
                                         .modifier(semiBoldCallout(colorName: .black))
                                         .padding(.leading, 33)
                                     
@@ -226,7 +219,7 @@ extension SearchFilterDetailView {
                                     
                                     Image(systemName: "checkmark")
                                         .padding(.trailing, 47)
-                                        .opacity(filteredCompany.company == searchTextField ? 1 : 0)
+                                        .opacity(company == searchTextField ? 1 : 0)
                                 }
                             }
                         }
@@ -236,37 +229,38 @@ extension SearchFilterDetailView {
         }
     }
     
-    private var ExistJobList: some View {
-        ScrollView {
-            if dotsModel.networkingPeople.filter({ $0.job?.contains(searchTextField) ?? false || searchTextField.isEmpty }).isEmpty {
-                // Show the search history list if the filtered results are empty
-                SearchHistory
-            } else {
-                // Show the list of filtered jobs
-                VStack() {
-                    ForEach(dotsModel.networkingPeople.filter { $0.job?.contains(searchTextField) ?? false || searchTextField.isEmpty }, id: \.self) { filteredJob in
-                        Button {
-                            withAnimation(.easeIn(duration: 0.1)) {
-                                searchTextField = filteredJob.job ?? ""
-                            }
-                        } label: {
-                            ZStack {
-                                Rectangle()
-                                    .frame(height: 44)
-                                    .foregroundColor(.theme.secondary)
-                                    .opacity(jobName == filteredJob.job ? 1 : 0)
+
+private var ExistJobList: some View {
+    
+    ScrollView {
+        if uniqueJobs.isEmpty {
+            // Show the search history list if the filtered results are empty
+            SearchHistory
+        } else {
+            // Show the list of unique jobs
+            VStack {
+                ForEach(uniqueJobs.filter { $0.contains(searchTextField) || searchTextField.isEmpty }, id: \.self) { job in
+                    Button {
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            searchTextField = job
+                        }
+                    } label: {
+                        ZStack {
+                            Rectangle()
+                                .frame(height: 44)
+                                .foregroundColor(.theme.secondary)
+                                .opacity(filterModel.jobName == job ? 1 : 0)
+                            
+                            HStack {
+                                Text(job)
+                                    .modifier(semiBoldCallout(colorName: .black))
+                                    .padding(.leading, 33)
                                 
-                                HStack {
-                                    Text(filteredJob.job ?? "")
-                                        .modifier(semiBoldCallout(colorName: .black))
-                                        .padding(.leading, 33)
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: "checkmark")
-                                        .padding(.trailing, 47)
-                                        .opacity(jobName == filteredJob.job ? 1 : 0)
-                                }
+                                Spacer()
+                                
+                                Image(systemName: "checkmark")
+                                    .padding(.trailing, 47)
+                                    .opacity(filterModel.jobName == job ? 1 : 0)
                             }
                         }
                     }
@@ -274,6 +268,7 @@ extension SearchFilterDetailView {
             }
         }
     }
+}
 }
 
 
@@ -379,13 +374,13 @@ extension SearchFilterDetailView {
     func knowFilter() {
         switch type {
         case "회사":
-            companyName = searchTextField
+            filterModel.companyName = searchTextField
             break
         case "직무":
-            jobName = searchTextField
+            filterModel.jobName = searchTextField
             break
         case "강점":
-            strengthName = searchTextField
+            filterModel.strengthName = searchTextField
             break
         default:
             break

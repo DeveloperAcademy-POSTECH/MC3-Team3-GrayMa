@@ -17,6 +17,7 @@
 		136AAC832A66E37400CA3797 /* StrengthModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136AAC822A66E37400CA3797 /* StrengthModal.swift */; };
 		136AAC892A676E5500CA3797 /* SearchConnectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136AAC882A676E5500CA3797 /* SearchConnectionView.swift */; };
 		136AAC8B2A676FEF00CA3797 /* CustomConnectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136AAC8A2A676FEF00CA3797 /* CustomConnectionList.swift */; };
+		136AE40D2A720657009A6F9D /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136AE40C2A720656009A6F9D /* FilterModel.swift */; };
 		1373F05A2A67CD26001A704D /* StrengthList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373F0592A67CD26001A704D /* StrengthList.swift */; };
 		1373F05F2A692A08001A704D /* SwipeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373F05E2A692A08001A704D /* SwipeItemView.swift */; };
 		1373F0632A6959F4001A704D /* RounededCorner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1373F0622A6959F4001A704D /* RounededCorner.swift */; };
@@ -78,6 +79,7 @@
 		136AAC822A66E37400CA3797 /* StrengthModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthModal.swift; sourceTree = "<group>"; };
 		136AAC882A676E5500CA3797 /* SearchConnectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchConnectionView.swift; sourceTree = "<group>"; };
 		136AAC8A2A676FEF00CA3797 /* CustomConnectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomConnectionList.swift; sourceTree = "<group>"; };
+		136AE40C2A720656009A6F9D /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
 		1373F0592A67CD26001A704D /* StrengthList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthList.swift; sourceTree = "<group>"; };
 		1373F05E2A692A08001A704D /* SwipeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeItemView.swift; sourceTree = "<group>"; };
 		1373F0622A6959F4001A704D /* RounededCorner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RounededCorner.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 		137997832A64C647008F5F01 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				136AE40C2A720656009A6F9D /* FilterModel.swift */,
 				3D0B1F232A654BD20012A6F4 /* DotsModel.swift */,
 				3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */,
 				3DA321E12A71F487005E70D0 /* StrengthLevelImage.swift */,
@@ -483,6 +486,7 @@
 				3D0B1F372A6E113C0012A6F4 /* Ex+Color.swift in Sources */,
 				B42D94D32A6FDD0D008F555D /* ChangeLevelModal.swift in Sources */,
 				A1349E412A67DC810006611C /* contactsStrength.swift in Sources */,
+				136AE40D2A720657009A6F9D /* FilterModel.swift in Sources */,
 				3D0B1F2E2A6BA1770012A6F4 /* SearchFilterView.swift in Sources */,
 				136AAC7E2A66E32500CA3797 /* CloseBtn.swift in Sources */,
 			);
@@ -612,7 +616,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = F5LF3NUCU2;
+				DEVELOPMENT_TEAM = 34K3V5D9X5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSContactsUsageDescription = "연락처 자동 입력을 위해서 사용자의 연락처에 접근합니다.";
@@ -642,7 +646,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
-				DEVELOPMENT_TEAM = F5LF3NUCU2;
+				DEVELOPMENT_TEAM = 34K3V5D9X5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSContactsUsageDescription = "연락처 자동 입력을 위해서 사용자의 연락처에 접근합니다.";
