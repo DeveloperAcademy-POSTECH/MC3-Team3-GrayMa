@@ -88,7 +88,7 @@ extension DotsModel {
         }
     }
     
-    func addNetworking(profileImgIdx: Int, name: String, company: String, job: String, phoneNum: String, email: String, snsUrl: String) {
+    func addNetworking(profileImgIdx: Int, name: String, company: String, job: String, phoneNum: String, email: String, snsUrl: String, strengthList: [StrengthEntity]) {
         let newNetworking = NetworkingPersonEntity(context: manager.context)
         
         newNetworking.peopleID = UUID()
@@ -101,7 +101,7 @@ extension DotsModel {
         newNetworking.linkedIn = snsUrl
         
         // 동적으로 수정
-        //newNetworking.addToStrengthSet([strength[0], strength[1]])
+        newNetworking.addToStrengthSet(NSSet(array: strengthList))
         
         save()
     }

@@ -93,8 +93,8 @@ extension AddStrengthModal {
                                 }
                             }
                             .onSubmit {
-                                isKeyboardVisible = false
                                 selectedStrength = strengthName
+                                isKeyboardVisible = false
                                 strengthName = " "
                             }
                             .disabled(!selectedStrength.isEmpty)
@@ -128,16 +128,8 @@ extension AddStrengthModal {
                     
                     Text("\(selectedStrength.isEmpty ? strengthName.count : selectedStrength.count)/20")
                         .modifier(regularCallout(colorName: .theme.gray))
-                    
-                    Button {
-                        strengthName = ""
-                    } label: {
-                        Text("\(Image(systemName: "x.circle.fill"))")
-                            .foregroundColor(.theme.disabled)
-                            .frame(width: 24,height: 24)
-                            .padding(.trailing,15)
-                    }
-                    .hideToBool(!selectedStrength.isEmpty)
+                        .padding(.trailing,21)
+
                 }
             }
     }
@@ -153,7 +145,7 @@ extension AddStrengthModal {
                 if dotsModel.strength.filter({ $0.strengthName!.contains(strengthName) || strengthName.isEmpty }).isEmpty {
                     HStack {
                         Button {
-                            _ = dotsModel.addStrength(name: strengthName)
+                            selectedStrength = strengthName
                             isKeyboardVisible = false
                         } label: {
                             Label("직접 추가하기", systemImage: "plus.circle.fill")
@@ -168,12 +160,15 @@ extension AddStrengthModal {
                     VStack(spacing: 0) {
                         ForEach(dotsModel.strength.filter{ $0.strengthName!.contains(strengthName) || strengthName == "" }, id:\.self) {
                             filteredStrength in
-                            StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName)
+                            StrengthList(strength: filteredStrength.strengthName!, strengthName: $strengthName, isKeyboardVisible: $isKeyboardVisible, selectedStrength: $selectedStrength
+                            )
                         }
                     }
+                    .padding(.horizontal,5)
                 }
                 
             }
+            .padding(.top,5)
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .padding(.top, 10)

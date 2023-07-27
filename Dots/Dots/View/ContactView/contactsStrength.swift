@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct contactsStrengthField: View {
-    
+    @EnvironmentObject var dotsModel: DotsModel
     //모달 컨트롤
     @State private var modalVissable = false
     
     //input error 컨트롤
     @State var inputStrength : Int
     @State var maxStrength = 6
-    @State var textColor = Color.black
+    @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
     let errorMessage = ["직무는 필수 조건입니다."]
     
@@ -32,7 +32,9 @@ struct contactsStrengthField: View {
                 RoundedRectangle(cornerRadius: 40)
                 //.strokeBorder(Color.gray, lineWidth: 1)
                     .onTapGesture{ modalVissable = true }
-                    .sheet(isPresented: $modalVissable) { bindingModalView (text: $strengthText)}
+                    .sheet(isPresented: $modalVissable) {
+                        bindingModalView (text: $strengthText)
+                    }
                     .foregroundColor(fieldColor)
                     .frame(width: 361, height: 56)
                 

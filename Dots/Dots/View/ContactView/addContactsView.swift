@@ -31,7 +31,10 @@ struct AddContactsView: View {
     @State var coreDataUserSNS = ""
     
     //MARK: 추후에 Arr 형식으로 전환되어야함
-    @State var coreDataUserStrength : [String] = []
+
+    @State var coreDataUserStrength = ""
+    @State var selectedUserStrength: [StrengthEntity] = []
+
     
     //유저 이미지 모달 컨트롤
     @State private var userImgModal = false
@@ -116,7 +119,6 @@ struct AddContactsView: View {
                 modalComtrol = false
             }))
         }
-        
         .onAppear{
             if !(selectedUserName?.isEmpty ?? true){
                 let selectedUser = fetchContact(name: selectedUserName ?? "")

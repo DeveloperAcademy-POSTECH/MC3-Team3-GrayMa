@@ -67,9 +67,10 @@ struct SwipeItemView<Content: View, Right: View>: View {
         GeometryReader { geo in
             HStack() {
                 content()
-                    .frame(width: geo.size.width + 20)
+                    .frame(width: geo.size.width)
                     .contentShape(Rectangle())
-                    .buttonStyle(.plain)
+                    .buttonStyle(.borderless)
+                    .highPriorityGesture(drag)
                 right()
                     .frame(width: anchorWidth)
                     .zIndex(1)
@@ -89,6 +90,7 @@ struct SwipeItemView<Content: View, Right: View>: View {
                     }
                 }
             }
+            .highPriorityGesture(drag)
         }
     }
 }
