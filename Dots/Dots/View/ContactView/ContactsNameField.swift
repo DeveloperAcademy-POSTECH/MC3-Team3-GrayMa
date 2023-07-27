@@ -36,7 +36,7 @@ struct ContactsNameField: View {
                     Spacer()
                         .frame(width: 19,height: 20)
                     
-                    TextField("", text: $UserInputName)
+                    TextField("이름", text: $UserInputName)
                         
                         .onTapGesture { fieldFocus = true }
                         //return 눌렸을때
