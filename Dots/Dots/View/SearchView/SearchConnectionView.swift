@@ -146,6 +146,8 @@ extension SearchConnectionView {
                     
                     Button {
                         isFilterSheetOn = true
+                        print("\(filterModel.companyName)회사")
+
                     } label: {
                         Circle()
                             .strokeBorder(Color.theme.gray5,lineWidth: 1.5)

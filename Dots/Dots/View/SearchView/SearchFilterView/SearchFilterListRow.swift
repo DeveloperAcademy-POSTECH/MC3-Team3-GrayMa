@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchFilterListRow: View {
     @EnvironmentObject var filterModel : FilterModel
-    @State var accentName: String = ""
+    @Binding var accentName: String 
     @Binding var isSheetOn: Bool
     var type: String
     let imageName: String
@@ -58,8 +58,8 @@ extension SearchFilterListRow {
             CloseBtn(btncolor: .gray) {
                 RemoveFilter(type: type)
                 print("\(filterModel.$companyName) 회사 필터")
-                print("\(filterModel.jobName) 직무 필터")
-                print("\(filterModel.strengthName) 강점필터 필터")
+                print("\(filterModel.$companyName) 직무 필터")
+                print("\(filterModel.$companyName) 강점 필터")
             }
             
         }
@@ -113,6 +113,26 @@ extension SearchFilterListRow {
         
     }
     
+}
+    //MARK: Modifier
+
+extension SearchFilterListRow {
+    struct highLighted: ViewModifier {
+        
+        func body(content: Content) -> some View {
+            content
+                .padding(10)
+                .padding(.horizontal,8)
+                .background(.white.opacity(0.5))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 12)
+                        .foregroundColor(Color.theme.secondary)
+                )
+                .fixedSize()
+        }
+        
+    }
 }
 
 //struct SearchFilterListRow_Previews: PreviewProvider {
