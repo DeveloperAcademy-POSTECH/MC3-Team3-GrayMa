@@ -14,6 +14,7 @@ struct ConnectionDetailView: View {
     @State private var showNote = false
     @State private var showCommon = false
     @State private var addStrength = false
+    @State private var editProfile = false
     @State private var strengthName : String = ""
     
     let person: NetworkingPersonEntity
@@ -170,7 +171,7 @@ struct ConnectionDetailView: View {
         .navigationBarItems(leading: BackButton)
 
         // TODO: 인맥 편집 화면 연결 필요(인맥 등록뷰와 동일)
-        .navigationBarItems(trailing: Button(action: {}, label: {Text("편집")}))
+        .navigationBarItems(trailing: Button(action: {editProfile.toggle()}, label: {Text("편집")}))
         .sheet(isPresented: $showNote) {
             ConnectionNoteModal(connection: person)
                 .interactiveDismissDisabled()
@@ -178,6 +179,9 @@ struct ConnectionDetailView: View {
         .sheet(isPresented: $addStrength) {
             ConnectionAddStrength(selectedStrength: $strengthName)
                 .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
+        }
+        .sheet(isPresented: $editProfile) {
+            ConnectionProfileEditView(person: person)
         }
     }
     
