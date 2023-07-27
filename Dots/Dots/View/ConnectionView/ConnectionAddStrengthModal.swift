@@ -10,20 +10,51 @@ import SwiftUI
 struct ConnectionAddStrengthModal: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var dotsModel: DotsModel
-    @State private var strengthName: String = ""
-    @State private var isError: Bool = false
+    @State private var strengthName = ""
+    @State private var isError = false
     @State private var isKeyboardVisible = false
     @State private var tappedNum = 0
     @State private var selectedStrength: String = ""
+    @State private var selectedStrengthList: [String] = []
     
     let person: NetworkingPersonEntity
     
     var body: some View {
-//        NavigationView {
         VStack(alignment: .center, spacing: 0) {
             Title
             
             SearchBar
+            
+            Spacer()
+            
+            // 선택된 강점들이 보일 자리
+            // TODO: selectedStrengthList View
+            
+            WrappingHStack(alignment: .leading) {
+                ForEach(selectedStrengthList, id: \.self) { strength in
+                    HStack(spacing: 0) {
+                        Text(strength)
+                            .modifier(regularBody(colorName: .theme.text))
+                            .padding(.trailing, 10)
+                        Button {
+                            // 리스트에서 해당 강점만 삭제되도록..
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                selectedStrength = ""
+                                strengthName = ""
+                            }
+                        } label: {
+                            Image(systemName: "x.circle.fill")
+                                .foregroundColor(.theme.disabled)
+                        }
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 9)
+                    .background(Color.theme.secondary)
+                    .cornerRadius(12, corners: .allCorners)
+                    .opacity(selectedStrength.isEmpty ? 0 : 1)
+
+                }
+            }
             
             Spacer()
             
@@ -58,7 +89,6 @@ struct ConnectionAddStrengthModal: View {
         } message: {
             Text("이미 추가된 강점입니다.")
         }
-//        }
     }
 }
 
@@ -94,35 +124,12 @@ extension ConnectionAddStrengthModal {
                                 }
                             }
                             .onSubmit {
+                                selectedStrengthList.append(strengthName)
                                 selectedStrength = strengthName
                                 isKeyboardVisible = false
-                                strengthName = " "
+                                strengthName = ""
+                                print(selectedStrengthList)
                             }
-                            .disabled(!selectedStrength.isEmpty)
-                        
-                        HStack {
-                            HStack(spacing: 0) {
-                                Text(selectedStrength)
-                                    .modifier(regularBody(colorName: .theme.text))
-                                    .padding(.trailing, 10)
-                                Button {
-                                    withAnimation(.easeIn(duration: 0.1)) {
-                                        selectedStrength = ""
-                                        strengthName = ""
-                                    }
-                                } label: {
-                                    Image(systemName: "x.circle.fill")
-                                        .foregroundColor(.theme.disabled)
-                                }
-                            }
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 9)
-                            .background(Color.theme.secondary)
-                            .cornerRadius(12, corners: .allCorners)
-                            .opacity(selectedStrength.isEmpty ? 0 : 1)
-                            
-                            Spacer()
-                        }
                     }
                     
                     Spacer()
