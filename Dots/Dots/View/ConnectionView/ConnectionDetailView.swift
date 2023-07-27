@@ -14,12 +14,13 @@ struct ConnectionDetailView: View {
     @State private var showNote = false
     @State private var showCommon = false
     @State private var addStrength = false
+    @State private var editProfile = false
     @State private var strengthName : String = ""
     
     let person: NetworkingPersonEntity
     
     // 임시 데이터
-    let tempStrength = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션"]
+    let tempStrength = ["논리적 사고", "User Test", "SwiftUI", "커뮤니케이션", "이것저것", "테스트", "굿보이", "스마트 가이", "Swift 천재", "UI/UX", "사람들은 여기에 몇 자까지 쓸 것인가"]
     let myStrength = ["User Test"]
     
     init(person: NetworkingPersonEntity) {
@@ -31,45 +32,34 @@ struct ConnectionDetailView: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.theme.bgMain
-            
-            ScrollView {
-                VStack {
-                    Spacer()
-                        .frame(height: 280)
-                    
-                    VStack {    // 강점 목록 및 비교
-                        HStack {
-                            Text("강점")
-                                .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
-
-                            Toggle(isOn: $showCommon) {
-                                Text("공통점")
-                                    .modifier(regularCallout(colorName: Color.theme.text))
-                                    .frame(maxWidth: .infinity, alignment: .trailing)
-                            }
-                            .toggleStyle(SwitchToggleStyle(tint: Color.theme.primary))
-                        }
-
-                        // TODO: 강점 목록 캡슐 자동 레이아웃 -> 현재 임시 뷰(Scroll)
-                        ScrollView(.horizontal) {
+        NavigationStack {
+            ZStack {
+                Color.theme.bgMain
+                
+                ScrollView {
+                    VStack {
+                        Spacer()
+                            .frame(height: 280)
+                        
+                        VStack {    // 강점 목록 및 비교
                             HStack {
-                                Button {
-                                    addStrength.toggle()
-                                } label: {
-                                    Circle()
-                                        .frame(width: 40)
-                                        .foregroundColor(Color.theme.secondary)
-                                        .overlay{
-                                            Image(systemName: "plus")
-                                                .modifier(regularBody(colorName: Color.theme.text))
-                                        }
+                                Text("강점")
+                                    .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
+
+                                Toggle(isOn: $showCommon) {
+                                    Text("공통점")
+                                        .modifier(regularCallout(colorName: Color.theme.text))
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
                                 }
+                                .toggleStyle(SwitchToggleStyle(tint: Color.theme.primary))
+                            }
+
+                            WrappingHStack(alignment: .leading) {
                                 ForEach(tempStrength, id: \.self) { strength in
                                     let isCommon = myStrength.contains(strength)
                                     StrengthName(showCommon: $showCommon ,strengthText: strength, isCommon: isCommon)
                                 }
+                                
 //                                ForEach(dotsModel.myStrength, id: \.self) { strength in
 //                                    StrengthName(strengthText: strength.ownStrength!)
 //                                }
@@ -78,88 +68,102 @@ struct ConnectionDetailView: View {
 //                                        StrengthName(strengthText: strength.strengthName)
 //                                    }
 //                                }
+                                
+                                Button {
+                                    addStrength.toggle()
+                                } label: {
+                                    Circle()
+                                        .frame(width: 40)
+                                        .foregroundColor(Color.theme.secondary)
+                                        .overlay {
+                                            Image(systemName: "plus")
+                                                .modifier(regularBody(colorName: Color.theme.text))
+                                        }
+                                }
                             }
                         }
-                    }
-                    
-                    VStack {
-                        HStack {
-                            Text("상대 기록")
-                                .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
+                        
+                        VStack {    // 노트 추가 및 목록
+                            HStack {
+                                Text("상대 기록")
+                                    .modifier(semiBoldTitle3(colorName: Color.theme.gray5Dark))
 
+                                Spacer()
+                                
+                                Button {
+                                    showNote.toggle()
+                                } label: {
+                                    Image(systemName: "plus")
+                                        .foregroundColor(Color.theme.primary)
+                                        .font(.system(size: 22))
+                                }
+                            }
+                            
+                            if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
+                                ForEach(notes) { note in
+                                    ConnectionNoteList(noteEntity: note)
+                                }
+                            } else {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .foregroundColor(.white)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 62)
+                                    .overlay(
+                                        HStack {
+                                            Text("저장된 기록이 없습니다.")
+                                                .modifier(regularBody(colorName: Color.theme.gray))
+                                            Spacer()
+                                        }
+                                        .padding(.leading, 45)
+                                    )
+                            }
+                            Spacer()
+                        }
+                        .padding(.top, 62)
+                    }
+                    .padding()
+                }
+                .scrollIndicators(.never)
+                
+                BackgroundCircle()
+                    .foregroundColor(Color.theme.secondary)
+                    .ignoresSafeArea()
+                
+                if let name = person.name, let company = person.company, let job = person.job {
+                    VStack(spacing: 16) {   // 상단부 개인 정보
+                        HStack {    // 기본정보
+                            VStack(alignment: .leading, spacing: 16) {
+                                Text("\(name)")
+                                    .modifier(boldTitle1(colorName: Color.theme.gray5Dark))
+                                HStack {
+                                    Text("\(company) ﹒ \(job)")
+                                        .modifier(regularBody(colorName: Color.theme.text))
+                                }
+                            }
+                            Spacer()
+                        }
+                        
+                        HStack {    // 이미지 및 연락 버튼
+                            Circle()
+                                .frame(width: 88)
+                                .foregroundColor(Color.theme.disabled)
+                                .overlay{
+                                    Text("\(convertUserName(name: name))")
+                                        .modifier(boldLargeTitle(colorName: Color.theme.text))
+                                }
+                            
                             Spacer()
                             
-                            Button {
-                                showNote.toggle()
-                            } label: {
-                                Image(systemName: "plus")
-                                    .foregroundColor(Color.theme.primary)
-                                    .font(.system(size: 22))
+                            if let phoneNum = person.contanctNum, let mailAdd = person.email, let link = person.linkedIn {
+                                ContactButtons(phoneNum: phoneNum, mailAdd: mailAdd, linkedinLink: link)
                             }
                         }
+                        .padding(.top, 16)
                         
-                        if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
-                            ForEach(notes) { note in
-                                ConnectionNoteList(noteEntity: note)
-                            }
-                        } else {
-                            RoundedRectangle(cornerRadius: 12)
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 62)
-                                .overlay(
-                                    HStack {
-                                        Text("저장된 기록이 없습니다.")
-                                            .modifier(regularBody(colorName: Color.theme.gray))
-                                        Spacer()
-                                    }
-                                    .padding(.leading, 45)
-                                )
-                        }
                         Spacer()
                     }
-                    .padding(.top, 62)
+                    .padding()
                 }
-                .padding()
-            }
-            .scrollIndicators(.never)
-            
-            BackgroundCircle()
-                .foregroundColor(Color.theme.secondary)
-                .ignoresSafeArea()
-            
-            if let name = person.name, let company = person.company, let job = person.job {
-                VStack(spacing: 16) {   // 상단부 개인 정보
-                    HStack {    // 기본정보
-                        VStack(alignment: .leading, spacing: 16) {
-                            Text("\(name)")
-                                .modifier(boldTitle1(colorName: Color.theme.gray5Dark))
-                            HStack {
-                                Text("\(company) ﹒ \(job)")
-                                    .modifier(regularBody(colorName: Color.theme.text))
-                            }
-                        }
-                        Spacer()
-                    }
-                    
-                    HStack {    // 이미지 및 연락 버튼
-                        Circle()
-                            .frame(width: 88)
-                            .foregroundColor(Color.theme.disabled)
-                            .overlay{
-                                Text("\(convertUserName(name: name))")
-                                    .modifier(boldLargeTitle(colorName: Color.theme.text))
-                            }
-                        
-                        Spacer()
-                        
-                        ContactButtons(phoneNum: person.contanctNum!, mailAdd: person.email!, linkedinLink: person.linkedIn!)
-                    }
-                    .padding(.top, 16)
-                    
-                    Spacer()
-                }
-                .padding()
             }
         }
         
@@ -168,15 +172,20 @@ struct ConnectionDetailView: View {
         .navigationBarItems(leading: BackButton)
 
         // TODO: 인맥 편집 화면 연결 필요(인맥 등록뷰와 동일)
-        .navigationBarItems(trailing: Button(action: {}, label: {Text("편집")}))
+//        .navigationBarItems(trailing: Button(action: { editProfile.toggle() }, label: { Text("편집") }))
+        .navigationBarItems(trailing: NavigationLink(destination: ConnectionProfileEditView(person: person), label: { Text("편집") }))
         .sheet(isPresented: $showNote) {
             ConnectionNoteModal(connection: person)
                 .interactiveDismissDisabled()
+                .presentationDragIndicator(.hidden)
         }
         .sheet(isPresented: $addStrength) {
             ConnectionAddStrength(selectedStrength: $strengthName)
                 .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
         }
+//        .sheet(isPresented: $editProfile) {
+//            ConnectionProfileEditView(person: person)
+//        }
     }
     
     private var BackButton: some View {
