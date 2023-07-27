@@ -32,7 +32,7 @@ struct AddContactsView: View {
     
     //MARK: 추후에 Arr 형식으로 전환되어야함
 
-    @State var coreDataUserStrength = ""
+    @State var coreDataUserStrength: [String] = []
     @State var selectedUserStrength: [StrengthEntity] = []
 
     
