@@ -196,4 +196,16 @@ extension DotsModel {
         
         save()
     }
+    
+    func deleteConnectionNote(note entity: NetworkingNoteEntity) {
+        let targetEntity = networkingNotes.first {
+            $0.networkingNoteID == entity.networkingNoteID
+        }
+        
+        guard let targetEntity = targetEntity else { return }
+        
+        manager.context.delete(targetEntity)
+        
+        save()
+    }
 }
