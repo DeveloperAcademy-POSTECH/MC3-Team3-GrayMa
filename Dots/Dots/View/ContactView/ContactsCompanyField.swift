@@ -34,7 +34,7 @@ struct ContactsCompanyField: View {
                     .frame(width: 361, height: 56)
                     .onTapGesture { modalControl = true }
                     .sheet(isPresented: $modalControl){
-                        jobModalView(searchTextField: $UserInputCompany)
+                        CompanyModalView(searchTextField: $UserInputCompany)
                     }
                 
                 HStack{
@@ -70,7 +70,7 @@ struct ContactsCompanyField: View {
 
 
     //직업 모달뷰
-     struct jobModalView: View {
+     struct CompanyModalView: View {
         @Environment(\.presentationMode) var presentationMode
          @EnvironmentObject var dotsModel: DotsModel
         
@@ -115,7 +115,7 @@ struct ContactsCompanyField: View {
         }
     }
     
-    extension jobModalView {
+    extension CompanyModalView {
         private var SearchBar: some View {
             RoundedRectangle(cornerRadius: 40)
                 .stroke(Color.gray, lineWidth: 0.5)
@@ -224,7 +224,7 @@ struct ContactsCompanyField: View {
         
     }
     
-extension jobModalView {
+extension CompanyModalView {
     
     func saveSearch(name: String, keyName: String) {
         guard !name.isEmpty else { return }
