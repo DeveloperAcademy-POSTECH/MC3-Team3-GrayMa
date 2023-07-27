@@ -48,7 +48,7 @@ struct SearchFilterDetailView: View {
         let uniqueStrengthSet = Set(dotsModel.strength.compactMap { $0.strengthName })
         return Array(uniqueStrengthSet)
     }
-
+    
     
     var body: some View {
         NavigationView {
@@ -229,38 +229,38 @@ extension SearchFilterDetailView {
         }
     }
     
-
-private var ExistJobList: some View {
     
-    ScrollView {
-        if uniqueJobs.isEmpty {
-            // Show the search history list if the filtered results are empty
-            SearchHistory
-        } else {
-            // Show the list of unique jobs
-            VStack {
-                ForEach(uniqueJobs.filter { $0.contains(searchTextField) || searchTextField.isEmpty }, id: \.self) { job in
-                    Button {
-                        withAnimation(.easeIn(duration: 0.1)) {
-                            searchTextField = job
-                        }
-                    } label: {
-                        ZStack {
-                            Rectangle()
-                                .frame(height: 44)
-                                .foregroundColor(.theme.secondary)
-                                .opacity(filterModel.jobName == job ? 1 : 0)
-                            
-                            HStack {
-                                Text(job)
-                                    .modifier(semiBoldCallout(colorName: .black))
-                                    .padding(.leading, 33)
-                                
-                                Spacer()
-                                
-                                Image(systemName: "checkmark")
-                                    .padding(.trailing, 47)
+    private var ExistJobList: some View {
+        
+        ScrollView {
+            if searchTextField.isEmpty || uniqueJobs.filter({ $0.range(of: searchTextField, options: .caseInsensitive) != nil}).isEmpty {
+                SearchHistory
+            } else {
+                // Show the list of unique jobs
+                VStack {
+                    ForEach(uniqueJobs.filter { $0.contains(searchTextField) || searchTextField.isEmpty }, id: \.self) { job in
+                        Button {
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                searchTextField = job
+                            }
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(height: 44)
+                                    .foregroundColor(.theme.secondary)
                                     .opacity(filterModel.jobName == job ? 1 : 0)
+                                
+                                HStack {
+                                    Text(job)
+                                        .modifier(semiBoldCallout(colorName: .black))
+                                        .padding(.leading, 33)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "checkmark")
+                                        .padding(.trailing, 47)
+                                        .opacity(filterModel.jobName == job ? 1 : 0)
+                                }
                             }
                         }
                     }
@@ -268,7 +268,6 @@ private var ExistJobList: some View {
             }
         }
     }
-}
 }
 
 
