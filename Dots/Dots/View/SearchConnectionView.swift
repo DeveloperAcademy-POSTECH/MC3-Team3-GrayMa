@@ -48,7 +48,7 @@ struct SearchConnectionView: View {
                     .sheet(isPresented: $isFilterSheetOn, content: {
                         SearchFilterView(isFilterd: $isFilterd)
                     })
-                
+  
                 if isFilterd {
                     FilteredPerson
                 }
@@ -85,14 +85,10 @@ struct SearchConnectionView: View {
                 }
             }
             .fullScreenCover(isPresented: $contactsSelectListVisible){
-                NavigationView{
                     ContactsSelectListView(modalControl: $contactsSelectListVisible)
-                }
             }
             .fullScreenCover(isPresented: $navigationActive) {
-                NavigationView{
                     addContactsView(modalComtrol: $navigationActive)
-                }
             }
             .onAppear {
                 //                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
