@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ConnectionAddStrength: View {
+struct ConnectionAddStrengthModal: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject var dotsModel: DotsModel
     @State var strengthName: String = ""
@@ -60,7 +60,7 @@ struct ConnectionAddStrength: View {
     }
 }
 
-extension ConnectionAddStrength {
+extension ConnectionAddStrengthModal {
     private var Title: some View {
         HStack {
             Text("강점 추가")

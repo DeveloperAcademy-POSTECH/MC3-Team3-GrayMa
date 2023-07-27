@@ -182,7 +182,7 @@ struct ConnectionDetailView: View {
                 .presentationDragIndicator(.hidden)
         }
         .sheet(isPresented: $addStrength) {
-            ConnectionAddStrength(selectedStrength: $strengthName)
+            ConnectionAddStrengthModal(selectedStrength: $strengthName)
                 .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
         }
 //        .sheet(isPresented: $editProfile) {
