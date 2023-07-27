@@ -11,11 +11,10 @@ struct ContactsCompanyField: View {
     
     //CompanyField가 가져야할 변수
     @Binding var UserInputCompany : String
-
-    //Field 컨트롤 옵션
-    @State var selected = false
-
-
+    
+    //모달 컨트롤 변수
+    @State var modalControl = false
+    
     //input error 핸들링
     @State var inputError = false
     @State var textColor = Color.black
@@ -33,6 +32,10 @@ struct ContactsCompanyField: View {
                 RoundedRectangle(cornerRadius: 40)
                     .foregroundColor(fieldColor)
                     .frame(width: 361, height: 56)
+                    .onTapGesture { modalControl = true }
+                    .sheet(isPresented: $modalControl){
+                        jobModalView(searchTextField: $UserInputCompany)
+                    }
                 
                 HStack{
                     
@@ -41,14 +44,6 @@ struct ContactsCompanyField: View {
                         .foregroundColor(.black)
                     
                     Text("\(UserInputCompany)")
-                    
-                    TextField("", text: $UserInputCompany)
-                        .onTapGesture { selected = true }
-                        //return 눌렸을때
-                        .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)) { _ in
-                            selected = false
-                        }
-                        .frame(width: 280)
                     
                     Spacer()
                     
@@ -73,3 +68,192 @@ struct ContactsCompanyField: View {
     }
 }
 
+
+    //직업 모달뷰
+     struct jobModalView: View {
+        @Environment(\.presentationMode) var presentationMode
+         @EnvironmentObject var dotsModel: DotsModel
+        
+        @Binding  var searchTextField : String
+        @State private var selectedHistoryList: String = ""
+        @State private var searchHistory: [SearchHistoryRowModel] = []
+        
+        var body: some View {
+            NavigationView{
+                VStack(spacing: 0) {
+                    SearchBar
+                    ExistCompanyList
+                    Spacer()
+                }
+                
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("취소") {
+                            presentationMode.wrappedValue.dismiss()
+                            print("취소 ㄱㄱ")
+                        }
+                    }
+                    
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button("완료") {
+                            presentationMode.wrappedValue.dismiss()
+                            //knowFilter()
+                            //                        print("\(type) 타입")
+                            //                        print("\(companyName) 회사이름")
+                            //                        print("\(jobName)  직무이름")
+                            //                        print("\(strengthName) 강점이름" )
+                            print("완료 ㄱㄱ")
+                        }
+                    }
+                }
+                .onAppear {
+                    
+                    searchHistory = loadRecentSearches(keyName: "recentCompany")
+                    
+                }
+            }
+        }
+    }
+    
+    extension jobModalView {
+        private var SearchBar: some View {
+            RoundedRectangle(cornerRadius: 40)
+                .stroke(Color.gray, lineWidth: 0.5)
+                .foregroundColor(.white)
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
+                .overlay {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                            .scaledToFit()
+                            .frame(width: 29)
+                            .padding(.trailing, 11)
+                            .padding(.leading, 14)
+                        VStack {
+                            TextField("회사 검색", text: $searchTextField, onCommit: {
+                                saveSearch(name: searchTextField, keyName: "recentCompany")
+                                selectedHistoryList.append(searchTextField)
+                            })
+                        }
+                        
+                        Spacer()
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 24)
+                .padding(.bottom, 32)
+        }
+        
+        private var ExistCompanyList: some View {
+            ScrollView {
+                VStack(spacing: 0) {
+                    if searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
+                        if let name = person.company {
+                            return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
+                        } else {
+                            return false
+                        }
+                    }.isEmpty {
+                        SearchHistory
+                    } else {
+                        ForEach(dotsModel.networkingPeople.filter { person in
+                            if let name = person.company {
+                                return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
+                            } else {
+                                return false
+                            }
+                        }, id: \.self) { filteredCompany in
+                            Button {
+                                withAnimation(.easeIn(duration: 0.1)) {
+                                    searchTextField = filteredCompany.company ?? ""
+                                }
+                            } label: {
+                                ZStack {
+                                    Rectangle()
+                                        .frame(height: 44)
+                                        .foregroundColor(.theme.secondary)
+                                        .opacity(filteredCompany.company == searchTextField ? 1 : 0)
+                                    
+                                    HStack {
+                                        Text(filteredCompany.company ?? "")
+                                            .modifier(semiBoldCallout(colorName: .black))
+                                            .padding(.leading, 33)
+                                        
+                                        Spacer()
+                                        
+                                        Image(systemName: "checkmark")
+                                            .padding(.trailing, 47)
+                                            .opacity(filteredCompany.company == searchTextField ? 1 : 0)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        private var SearchHistory: some View {
+            ForEach(Array(searchHistory.enumerated()), id: \.element) { index, history in
+                Button {
+                    withAnimation(.easeIn(duration: 0.1)) {
+                        searchTextField = history.title
+                    }
+                } label: {
+                    ZStack {
+                        Rectangle()
+                            .frame(height: 44)
+                            .foregroundColor(.theme.secondary)
+                            .opacity(history.title == searchTextField ? 1 : 0)
+                        
+                        HStack {
+                            Text(history.title)
+                                .modifier(semiBoldCallout(colorName: .black))
+                                .padding(.leading, 33)
+                            
+                            Spacer()
+                            
+                            Image(systemName: "checkmark")
+                                .padding(.trailing, 47)
+                                .opacity(history.title == searchTextField ? 1 : 0)
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+extension jobModalView {
+    
+    func saveSearch(name: String, keyName: String) {
+        guard !name.isEmpty else { return }
+        
+        let newHistory = SearchHistoryRowModel(title: searchTextField, isSelected: false)
+        searchHistory.append(newHistory)
+        if searchHistory.count > 5 {
+            searchHistory.removeFirst()
+        }
+        UserDefaults.standard.set(searchHistory.map {$0.title}, forKey: keyName)
+    }
+    
+    // MARK: 유저디폴트 값을 State배열에 대입 하고 불러와주는 함수
+    func loadRecentSearches(keyName: String) -> [SearchHistoryRowModel] {
+        if let savedSearches = UserDefaults.standard.array(forKey: keyName) as? [String] {
+            return savedSearches.map { SearchHistoryRowModel(title: $0, isSelected: false) }
+        } else {
+            return []
+        }
+    }
+    
+    func filterJob() {
+        if  (searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
+            if let name = person.company {
+                return name.range(of: self.searchTextField) != nil || self.searchTextField.isEmpty
+            } else {
+                return false
+            }
+        }.isEmpty) {
+        }
+    }
+}
