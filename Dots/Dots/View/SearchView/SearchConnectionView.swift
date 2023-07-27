@@ -51,7 +51,7 @@ struct SearchConnectionView: View {
                     FilteredPerson
                 }
                 else {
-                    if  isKeyboardVisible && (name.isEmpty || dotsModel.networkingPeople.filter { person in
+                    if isKeyboardVisible && (name.isEmpty || dotsModel.networkingPeople.filter { person in
                         if let name = person.name {
                             return name.range(of: self.name) != nil || self.name.isEmpty
                         } else {
@@ -97,10 +97,14 @@ struct SearchConnectionView: View {
                 //                        Notification in isKeyboardVisible = false
                 //                    }
                 
+                // 뷰 갱신을 위한 name 값 수정
+                name = ""
                 selectedHistoryList = loadRecentSearches(keyName: keyName)
                 
             }
             .onDisappear {
+                // 뷰 갱신을 위한 name 값 수정
+                name = " "
                 NotificationCenter.default.removeObserver(self)
             }
         }

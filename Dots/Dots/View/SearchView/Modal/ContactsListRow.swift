@@ -64,7 +64,6 @@ struct ContactsListRow: View {
                     }
                     isDeleteAlertOn = false
                 }
-                .foregroundColor(.theme.alertRed)
             }, message: {
                 Text("\(person.name ?? "")와(과) 관련된 모든 정보가 삭제됩니다.")
             })

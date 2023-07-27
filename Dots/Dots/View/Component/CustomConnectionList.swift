@@ -76,24 +76,3 @@ extension CustomConnectionList {
             .frame(height: 20)
     }
 }
-
-import CoreData
-
-struct CustomConnectionList_Previews: PreviewProvider {
-    static var previews: some View {
-        let context = NSPersistentContainer(name: "DotsDataContainer").viewContext
-        //Test data
-        let newEntity = NetworkingPersonEntity(context: context)
-        newEntity.peopleID = UUID()
-        newEntity.profileImageIndex = Int16(2)
-        newEntity.name = "김철수"
-        newEntity.company = "apple"
-        newEntity.contanctNum = "010-1111-2222"
-        newEntity.email = "kkkk@mail.com"
-        newEntity.job = "Dev"
-        newEntity.linkedIn = "linkedin.com/lol"
-        
-        return CustomConnectionList(entity: newEntity)
-            .previewLayout(.sizeThatFits)
-    }
-}
