@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct SearchFilterView: View {
+    @EnvironmentObject var filterModel : FilterModel
     @State private var isSheetOn: Bool = false
     @State private var type: String = ""
-    @State private var keyName: String = ""
-    @State private var companyName: String = ""
-    @State private var jobName: String = ""
-    @State private var strengthName: String = ""
+    @State var keyName: String = ""
     
     @Binding var isFilterd: Bool
+    @Binding var isFilterSheetOn: Bool
     
     
     var body: some View {
@@ -27,7 +26,7 @@ struct SearchFilterView: View {
                     isSheetOn = true
                     keyName = "recentCompany"
                 } label: {
-                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName, isSheetOn: $isSheetOn, type: "회사",   imageName: "building.2.fill")
+                    SearchFilterListRow(isSheetOn: $isSheetOn, type: "회사", imageName: "building.2.fill")
                 }
                 .padding(.top, 24)
                 
@@ -37,8 +36,7 @@ struct SearchFilterView: View {
                     isSheetOn = true
                     
                 } label: {
-                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName,
-                                        isSheetOn: $isSheetOn, type: "직무", imageName: "person.text.rectangle.fill")
+                    SearchFilterListRow(isSheetOn: $isSheetOn, type: "직무", imageName: "person.text.rectangle.fill")
                 }
                 
                 Button {
@@ -46,7 +44,7 @@ struct SearchFilterView: View {
                     keyName = "recentStrength"
                     isSheetOn = true
                 } label: {
-                    SearchFilterListRow(companyName: $companyName, jobName: $jobName, strengthName: $strengthName,isSheetOn: $isSheetOn, type: "강점", imageName: "chart.bar.fill")
+                    SearchFilterListRow(isSheetOn: $isSheetOn, type: "강점", imageName: "chart.bar.fill")
                 }
                 
                 Spacer()
@@ -56,19 +54,21 @@ struct SearchFilterView: View {
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("재설정") {
-                        companyName = ""
-                        jobName = ""
-                        strengthName = ""
+                        isFilterd = false
+                        filterModel.companyName = ""
+                        filterModel.jobName = ""
+                        filterModel.strengthName = ""
                     }
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("적용") {
                         isFilterd = true
+                        isFilterSheetOn = false
                     }
                 }
             }
             .sheet(isPresented: $isSheetOn) {
-                SearchFilterDetailView(isSheetOn: $isSheetOn, companyName: $companyName ,jobName: $jobName, strengthName: $strengthName, type: $type, keyName: $keyName)
+                SearchFilterDetailView(isSheetOn: $isSheetOn, type: $type, keyName: $keyName)
             }
             
         }

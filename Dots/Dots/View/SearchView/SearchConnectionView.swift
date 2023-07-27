@@ -11,6 +11,7 @@ import Contacts
 
 struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
+    @EnvironmentObject var filterModel: FilterModel
     private let keyName: String = "recentSearchName"
     @State private var name: String = ""
     @State private var selectedHistoryList: [String] = []
@@ -31,9 +32,6 @@ struct SearchConnectionView: View {
     
     //필터를 통해 검색이 가능하게 해주는 변수
     @State var isFilterd: Bool = false
-    @Binding var companyName: String
-    @Binding var jobName: String
-    @Binding var strengthName: String
     
     // 검색 경고창 변수
     @State var isDeleteAlertOn = false
@@ -46,7 +44,7 @@ struct SearchConnectionView: View {
                         AddContactActionSheet
                     }
                     .sheet(isPresented: $isFilterSheetOn, content: {
-                        SearchFilterView(isFilterd: $isFilterd)
+                        SearchFilterView(isFilterd: $isFilterd, isFilterSheetOn: $isFilterSheetOn)
                     })
   
                 if isFilterd {
@@ -60,7 +58,7 @@ struct SearchConnectionView: View {
                             return false
                         }
                     }.isEmpty) {
-                        // 검색 결과가 없을때 최근 검색 표시
+                        // 검색 결과가 없을때 최근 검색 표시ㅇ
                         SearchHistory
                     } else {
                         ScrollView {
@@ -130,6 +128,9 @@ extension SearchConnectionView {
                     TextField("이름 검색", text: $name, onCommit: {
                         saveSearch(name: name, selectedHistoryList: &selectedHistoryList, keyName: "recentSearchName")
                     })
+                    .onTapGesture {
+                        isFilterd = false
+                    }
                     
                     Spacer()
                     if(name.count >= 1) {
@@ -187,8 +188,12 @@ extension SearchConnectionView {
         ScrollView {
             if FilteredList.isEmpty {
                 RoundedRectangle(cornerRadius: 12)
-                    .overlay {
+                    .foregroundColor(Color.clear)
+                    .padding(.top,16)
+                    .overlay(alignment: .leading) {
                         Text("검색 결과가 없습니다.")
+                            .modifier(regularCallout(colorName: .theme.gray))
+                            .padding(.leading,33)
                     }
             } else {
                 ForEach(FilteredList, id: \.self)
@@ -345,14 +350,14 @@ extension SearchConnectionView {
 extension SearchConnectionView {
     private var FilteredList: [NetworkingPersonEntity] {
         return dotsModel.networkingPeople.filter { person in
-            let hasJob = person.job?.contains(jobName) ?? false
+            let hasJob = person.job?.contains(filterModel.jobName) ?? false
             let hasStrength = person.strengthSet?.allObjects.contains { (strengthObject: Any) -> Bool in
                 if let strength = strengthObject as? StrengthEntity {
-                    return strength.strengthName?.contains(strengthName) ?? false
+                    return strength.strengthName?.contains(filterModel.strengthName) ?? false
                 }
                 return false
             } ?? false
-            let hasCompany = person.company?.contains(companyName) ?? false
+            let hasCompany = person.company?.contains(filterModel.companyName) ?? false
             
             return hasJob || hasStrength || hasCompany
         }

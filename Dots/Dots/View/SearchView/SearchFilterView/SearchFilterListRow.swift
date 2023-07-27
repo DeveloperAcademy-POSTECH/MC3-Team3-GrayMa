@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct SearchFilterListRow: View {
+    @EnvironmentObject var filterModel : FilterModel
     @State var accentName: String = ""
-    
-    @Binding var companyName: String
-    @Binding var jobName: String
-    @Binding var strengthName: String
     @Binding var isSheetOn: Bool
     var type: String
     let imageName: String
@@ -59,7 +56,10 @@ extension SearchFilterListRow {
             Text(accentName)
             Spacer()
             CloseBtn(btncolor: .gray) {
-                accentName = ""
+                RemoveFilter(type: type)
+                print("\(filterModel.$companyName) 회사 필터")
+                print("\(filterModel.jobName) 직무 필터")
+                print("\(filterModel.strengthName) 강점필터 필터")
             }
             
         }
@@ -84,15 +84,33 @@ extension SearchFilterListRow {
     private func Configuretype(type: String) {
         switch type {
         case "회사":
-            return accentName = companyName
+            return accentName = filterModel.companyName
         case "직무":
-            return accentName = jobName
+            return accentName = filterModel.jobName
         case "강점":
-            return accentName = strengthName
+            return accentName = filterModel.strengthName
         default:
             accentName = ""
             break
         }
+    }
+    
+    private func RemoveFilter(type: String) {
+        switch type {
+        case "회사":
+            accentName = ""
+            filterModel.companyName = ""
+        case "직무":
+            accentName = ""
+            filterModel.jobName = ""
+        case "강점":
+            accentName = ""
+            filterModel.strengthName = ""
+        default:
+            accentName = ""
+            break
+        }
+        
     }
     
 }

@@ -11,7 +11,7 @@ import SwiftUI
 struct DotsApp: App {
 //    let persistenceController = PersistenceController.shared
     @StateObject var dotsModel: DotsModel = DotsModel()
-    
+    let filterModel = FilterModel(companyName: "", jobName: "", strengthName: "")
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemBlue
     }
@@ -20,6 +20,7 @@ struct DotsApp: App {
         WindowGroup {
             MainView()
                 .environmentObject(dotsModel)
+                .environmentObject(filterModel)
         }
     }
 }
