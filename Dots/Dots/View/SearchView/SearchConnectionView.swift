@@ -350,18 +350,34 @@ extension SearchConnectionView {
 extension SearchConnectionView {
     private var FilteredList: [NetworkingPersonEntity] {
         return dotsModel.networkingPeople.filter { person in
-            let hasJob = person.job?.contains(filterModel.jobName) ?? false
-            let hasStrength = person.strengthSet?.allObjects.contains { (strengthObject: Any) -> Bool in
+            // Check if the filterModel has a valid job filter
+            let hasJobFilter = !filterModel.jobName.isEmpty
+            
+            // Check if the filterModel has a valid strength filter
+            let hasStrengthFilter = !filterModel.strengthName.isEmpty
+            
+            // Check if the filterModel has a valid company filter
+            let hasCompanyFilter = !filterModel.companyName.isEmpty
+            
+            // Check if the person's job matches the filterModel's job filter
+            let hasJob = !hasJobFilter || (person.job?.contains(filterModel.jobName) ?? false)
+            
+            // Check if the person's strengths match the filterModel's strength filter
+            let hasStrength = !hasStrengthFilter || person.strengthSet?.contains { (strengthObject: Any) -> Bool in
                 if let strength = strengthObject as? StrengthEntity {
                     return strength.strengthName?.contains(filterModel.strengthName) ?? false
                 }
                 return false
             } ?? false
-            let hasCompany = person.company?.contains(filterModel.companyName) ?? false
             
-            return hasJob || hasStrength || hasCompany
+            // Check if the person's company matches the filterModel's company filter
+            let hasCompany = !hasCompanyFilter || (person.company?.contains(filterModel.companyName) ?? false)
+            
+            // Return true only if all filters match or if no filters are applied
+            return hasJob && hasStrength && hasCompany
         }
     }
+
     
     
     func removeConnection(at offsets: IndexSet) {
