@@ -136,6 +136,7 @@ struct ConnectionDetailView: View {
                                 .modifier(boldTitle1(colorName: Color.theme.gray5Dark))
                             HStack {
                                 Text("\(company) ﹒ \(job)")
+                                    .modifier(regularBody(colorName: Color.theme.text))
                             }
                         }
                         Spacer()
