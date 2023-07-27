@@ -86,13 +86,13 @@ struct AddContactsView: View {
                     
                     VStack (alignment: .leading){
                         
-                        ContactsNameField(UserInputName: $coreDataUserName, fieldFocus: $fieldFocus)
+                        ContactsNameField(UserInputName: $coreDataUserName, fieldFocus: fieldFocus)
                         
                         ContactsCompanyField(UserInputCompany: $coreaDataUserCompany)
                         
                         ContactsJobField(UserInputJob: $coreDataUserJob)
                         
-                        ContactsPhoneField(UserInputPhone: $coreDataUserPhone)
+                        ContactsPhoneField(UserInputPhone: $coreDataUserPhone, fieldFocus: fieldFocus)
                         
                         ContactsEmailField(UserInputEmail: $coreDataUserEmail)
                         

@@ -11,7 +11,7 @@ struct ContactsNameField: View {
     
     //NameField가 가져야할 변수
     @Binding var UserInputName : String
-    @Binding var fieldFocus : Bool
+    @State var fieldFocus : Bool
     
     //input error 핸들링
     @State var inputError = false
