@@ -31,10 +31,11 @@ struct AddContactsView: View {
     @State var coreDataUserSNS = ""
     
     //MARK: 추후에 Arr 형식으로 전환되어야함
-
     @State var coreDataUserStrength: [String] = []
     @State var selectedUserStrength: [StrengthEntity] = []
 
+    
+    @State var fieldFocus = false
     
     //유저 이미지 모달 컨트롤
     @State private var userImgModal = false
@@ -85,17 +86,17 @@ struct AddContactsView: View {
                     
                     VStack (alignment: .leading){
                         
-                        ContactsNameField(UserInputName: $coreDataUserName)
+                        ContactsNameField(UserInputName: $coreDataUserName, fieldFocus: fieldFocus)
                         
                         ContactsCompanyField(UserInputCompany: $coreaDataUserCompany)
                         
                         ContactsJobField(UserInputJob: $coreDataUserJob)
                         
-                        ContactsPhoneField(UserInputPhone: $coreDataUserPhone)
+                        ContactsPhoneField(UserInputPhone: $coreDataUserPhone, fieldFocus: fieldFocus)
                         
-                        ContactsEmailField(UserInputEmail: $coreDataUserEmail)
+                        ContactsEmailField(UserInputEmail: $coreDataUserEmail, fieldFocus: fieldFocus)
                         
-                        ContactsSNSField(UserInputSNS: $coreDataUserSNS)
+                        ContactsSNSField(UserInputSNS: $coreDataUserSNS, fieldFocus: fieldFocus)
                         
                         ContactsStrengthField(UserInputStrengthArr: $coreDataUserStrength)
                         

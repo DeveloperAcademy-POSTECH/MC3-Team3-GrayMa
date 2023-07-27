@@ -11,9 +11,7 @@ struct ContactsEmailField: View {
     
     //EmailField가 가져야할 변수
     @Binding var UserInputEmail : String
-    
-    //textField 컨트롤 옵션
-    @State var selected = false
+    @State var fieldFocus : Bool
     
     //input error 핸들링
     @State var inputError = false
@@ -40,17 +38,17 @@ struct ContactsEmailField: View {
                     
                     TextField("", text: $UserInputEmail)
                         
-                        .onTapGesture { selected = true }
+                        .onTapGesture { fieldFocus = true }
                         //return 눌렸을때
                         .onReceive(NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)) { _ in
-                            selected = false
+                            fieldFocus = false
                         }
                         .frame(width: 280)
                     
                     Spacer()
                     
                     //text의 값이 없을 경우 X버튼이 나오지 않습니다.
-                    if !UserInputEmail.isEmpty && selected{
+                    if !UserInputEmail.isEmpty && fieldFocus{
                         Button {
                             print("X push")
                             //버튼을 누르면 Text를 초기화합니다.
@@ -64,17 +62,40 @@ struct ContactsEmailField: View {
                         .onAppear{fieldColor = Color("secondary")}
                         
                     //입력이 끝나고 return을 받으면 값이 참인지 판단합니다.
-                    }else if !UserInputEmail.isEmpty && !selected{
-                       
+                    }else if !UserInputEmail.isEmpty && !fieldFocus{
+                        compareEmail(compareText: UserInputEmail)
                     }
                     
                 }
                 .frame(width: 340)
             }
-            Text("\(errorMessage)")
-                .foregroundColor(textColor)
-                .opacity(inputError ? 1 : 0)
+            if inputError {
+                Text("\(errorMessage)")
+                    .foregroundColor(textColor)
+                
+            }
+        }
+    }
+    
+    //email의 형식이 올바른지 확인
+    private struct compareEmail : View {
+        
+        let emailCondition : Character = "@"
+        let emailCondition2 = ".com"
+        @State var compareText : String
 
+        var body: some View {
+            if compareText.contains(emailCondition) && compareText.suffix(4) == emailCondition2{
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .foregroundColor(.green)
+                    .frame(width: 24, height: 24)
+            }else{
+                Image(systemName: "exclamationmark.circle.fill")
+                    .resizable()
+                    .foregroundColor(.red)
+                    .frame(width: 24, height: 24)
+            }
         }
     }
 }
