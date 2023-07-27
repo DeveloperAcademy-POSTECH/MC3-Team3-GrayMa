@@ -153,7 +153,9 @@ struct ConnectionDetailView: View {
                         
                         Spacer()
                         
-                        ContactButtons(phoneNum: person.contanctNum!, mailAdd: person.email!, linkedinLink: person.linkedIn!)
+                        if let phoneNum = person.contanctNum, let mailAdd = person.email, let link = person.linkedIn {
+                            ContactButtons(phoneNum: phoneNum, mailAdd: mailAdd, linkedinLink: link)
+                        }
                     }
                     .padding(.top, 16)
                     
