@@ -236,7 +236,6 @@ extension SearchFilterDetailView {
             if searchTextField.isEmpty || uniqueJobs.filter({ $0.range(of: searchTextField, options: .caseInsensitive) != nil}).isEmpty {
                 SearchHistory
             } else {
-                // Show the list of unique jobs
                 VStack {
                     ForEach(uniqueJobs.filter { $0.contains(searchTextField) || searchTextField.isEmpty }, id: \.self) { job in
                         Button {

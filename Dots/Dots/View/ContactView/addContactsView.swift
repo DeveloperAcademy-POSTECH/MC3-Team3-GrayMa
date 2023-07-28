@@ -53,24 +53,30 @@ struct AddContactsView: View {
                 // 상단 메뉴바
                 HStack{
                     Text("\(Image(systemName: "chevron.left")) 인맥관리")
-                        .font(.system(size: 22))
+                        .font(.system(size: 17))
                         .foregroundColor(Color.theme.primary)
                         .onTapGesture {presentationMode.wrappedValue.dismiss()}
                     
                     Spacer()
-                        .frame(width: 248)
+                        .frame(width: 240)
                     
                     Text("완료")
-                        .font(.system(size: 22))
+                        .font(.system(size: 17))
                         .foregroundColor(Color.theme.primary)
                     
                         .onTapGesture {
-                            //MARK: 균규니 코어 연동 부분 해당뷰에서 coreDataUserStrength를 변수로 가짐
-                            dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS /*, userStrength: coreDataUserStrength*/)
-                            //인맥 추가 알림 띄움
-                            addAlert = true
+                            if (coreDataUserName != "" && coreDataUserJob != "" && !coreDataUserStrength.isEmpty){
+                                //MARK: 균규니 코어 연동 부분 해당뷰에서 coreDataUserStrength를 변수로 가짐
+                                dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS /*, userStrength: coreDataUserStrength*/)
+                                //인맥 추가 알림 띄움
+                                addAlert = true
+                            }else
+                            {
+                                someThingWrongAlert = true
+                            }
                         }
                 }
+                .padding(8)
                 
                 ScrollView(showsIndicators: false){
                     //이미지 추가
@@ -111,13 +117,21 @@ struct AddContactsView: View {
         }
         .navigationBarHidden(true)
         
-        .alert(isPresented: $addAlert) {
+//        .alert(isPresented: $addAlert) {
+//            Alert(title: Text("알림"),
+//                  message: Text("인맥이 추가되었습니다."),
+//                  dismissButton: .default(Text("확인"), action: {
+//                // 모달을 닫습니다.
+//                presentationMode.wrappedValue.dismiss()
+//                modalComtrol = false
+//            }))
+//        }
+        
+        .alert(isPresented: $someThingWrongAlert){
             Alert(title: Text("알림"),
-                  message: Text("인맥이 추가되었습니다."),
+                  message: Text("필수 조건이 입력되지 않았습니다."),
                   dismissButton: .default(Text("확인"), action: {
-                // 모달을 닫습니다.
-                presentationMode.wrappedValue.dismiss()
-                modalComtrol = false
+                someThingWrongAlert.toggle()
             }))
         }
         .onAppear{

@@ -12,6 +12,7 @@ import Contacts
 struct SearchConnectionView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @EnvironmentObject var filterModel: FilterModel
+    @Environment(\.presentationMode) var presentationMode
     private let keyName: String = "recentSearchName"
     @State private var name: String = ""
     @State private var selectedHistoryList: [String] = []
@@ -35,6 +36,8 @@ struct SearchConnectionView: View {
     
     // 검색 경고창 변수
     @State var isDeleteAlertOn = false
+    
+    @State private var addAlert = false
     
     var body: some View {
         NavigationStack {
@@ -82,12 +85,13 @@ struct SearchConnectionView: View {
 
                 }
             }
-            .fullScreenCover(isPresented: $contactsSelectListVisible){
+            .fullScreenCover(isPresented: $contactsSelectListVisible, onDismiss: {addAlert = true}){
                     ContactsSelectListView(modalControl: $contactsSelectListVisible)
             }
-            .fullScreenCover(isPresented: $navigationActive) {
+            .fullScreenCover(isPresented: $navigationActive, onDismiss: {addAlert = true}) {
                     AddContactsView(modalComtrol: $navigationActive)
             }
+          
             .onAppear {
                 //                    NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillShowNotification, object: nil, queue: .main) { notification in
                 //                        isKeyboardVisible = true
@@ -107,6 +111,13 @@ struct SearchConnectionView: View {
                 name = " "
                 NotificationCenter.default.removeObserver(self)
             }
+        }
+        .alert(isPresented: $addAlert) {
+            Alert(title: Text("알림"),
+                  message: Text("인맥이 추가되었습니다."),
+                  dismissButton: .default(Text("확인"), action: {
+                presentationMode.wrappedValue.dismiss()
+            }))
         }
     }
 }
