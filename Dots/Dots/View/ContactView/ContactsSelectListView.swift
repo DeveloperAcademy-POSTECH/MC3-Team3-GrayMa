@@ -27,15 +27,19 @@ struct ContactsSelectListView: View {
             VStack{
                 HStack{
                     Text("\(Image(systemName: "chevron.left")) 인맥관리")
+                        .font(.system(size: 17))
                         .foregroundColor(Color.theme.primary)
                         .onTapGesture {presentationMode.wrappedValue.dismiss()}
+                    
                     Spacer()
+                        .frame(width: 240)
+                    
                     Text("다음")
                         .foregroundColor(Color.theme.primary)
                         .onTapGesture {
                             navigationActive = true
                         }
-                }
+                }.padding(8)
                 
                 SearchBar(text: $searchText)
                 
