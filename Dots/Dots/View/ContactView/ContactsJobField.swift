@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ContactsJobField: View {
-    
     //JobField가 가져야할 변수
     @Binding var UserInputJob : String
     
@@ -77,6 +76,12 @@ struct ContactsJobField: View {
     @State private var selectedHistoryList: String = ""
     @State private var searchHistory: [SearchHistoryRowModel] = []
     
+     // 직업을 set으로 불러와 중복을 제거해주는 기능
+     private var uniqueJobs: [String] {
+         let uniqueJobSet = Set(dotsModel.networkingPeople.compactMap { $0.job })
+         return Array(uniqueJobSet)
+     }
+     
     var body: some View {
         NavigationView{
             VStack(spacing: 0) {
@@ -176,25 +181,24 @@ extension jobModalView {
     private var ExistJobList: some View {
         ScrollView {
             VStack() {
-            if dotsModel.networkingPeople.filter({ $0.job?.contains(searchTextField) ?? false || searchTextField.isEmpty }).isEmpty {
-                // Show the search history list if the filtered results are empty
-                SearchHistory
+                if searchTextField.isEmpty || uniqueJobs.filter({ $0.range(of: searchTextField, options: .caseInsensitive) != nil}).isEmpty {
+                    SearchHistory
             } else {
                 // Show the list of filtered jobs
-                    ForEach(dotsModel.networkingPeople.filter { $0.job?.contains(searchTextField) ?? false || searchTextField.isEmpty }, id: \.self) { filteredJob in
+                    ForEach(uniqueJobs.filter { $0.contains(searchTextField) || searchTextField.isEmpty }, id: \.self) { filteredJob in
                         Button {
                             withAnimation(.easeIn(duration: 0.1)) {
-                                searchTextField = filteredJob.job ?? ""
+                                searchTextField = filteredJob
                             }
                         } label: {
                             ZStack {
                                 Rectangle()
                                     .frame(height: 44)
                                     .foregroundColor(.theme.secondary)
-                                    .opacity(filteredJob.job == searchTextField ? 1 : 0)
+                                    .opacity(filteredJob == searchTextField ? 1 : 0)
                                 
                                 HStack {
-                                    Text(filteredJob.job ?? "")
+                                    Text(filteredJob )
                                         .modifier(semiBoldCallout(colorName: .black))
                                         .padding(.leading, 33)
                                     
@@ -202,7 +206,7 @@ extension jobModalView {
                                     
                                     Image(systemName: "checkmark")
                                         .padding(.trailing, 47)
-                                        .opacity(filteredJob.job == searchTextField ? 1 : 0)
+                                        .opacity(filteredJob == searchTextField ? 1 : 0)
                                 }
                             }
                         }
