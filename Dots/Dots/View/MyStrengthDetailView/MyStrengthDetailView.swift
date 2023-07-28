@@ -67,8 +67,10 @@ struct MyStrengthDetailView: View {
             
             // MARK: - 강점메모 리스트
             ScrollView {
-                if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
-                    ForEach(notes) { note in
+                if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity],
+                   !notes.isEmpty {
+                    let sortedNotes = notes.sorted(by: { $0.date! > $1.date! })
+                    ForEach(sortedNotes) { note in
                         CustomDetailList(noteEntity: note)
                             .frame(height: 62)
                     }
