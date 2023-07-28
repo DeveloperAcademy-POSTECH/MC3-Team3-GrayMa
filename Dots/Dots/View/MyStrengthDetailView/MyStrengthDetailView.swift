@@ -69,7 +69,7 @@ struct MyStrengthDetailView: View {
             ScrollView {
                 if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
                     ForEach(notes) { note in
-                        CustomDetailList(noteEntity: note)
+                        StrengthNoteList(noteEntity: note)
                     }
                 } else {
                     RoundedRectangle(cornerRadius: 12)

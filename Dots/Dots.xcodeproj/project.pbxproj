@@ -66,7 +66,7 @@
 		B496369C2A73568300C7F59F /* CreateNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B496369B2A73568300C7F59F /* CreateNoteModal.swift */; };
 		B496369E2A73569E00C7F59F /* OpenNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B496369D2A73569E00C7F59F /* OpenNoteModal.swift */; };
 		B4A146AD2A7039660087267A /* DotsDataContainer.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1379977A2A64C5AC008F5F01 /* DotsDataContainer.xcdatamodeld */; };
-		B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* CustomDetailList.swift */; };
+		B4E701992A680678007A3876 /* StrengthNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E701982A680678007A3876 /* StrengthNoteList.swift */; };
 		B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */; };
 		B4EB47212A6774430073E514 /* MyStrengthDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */; };
 /* End PBXBuildFile section */
@@ -133,7 +133,7 @@
 		B4717A642A72CA0000153B9E /* KRDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KRDate.swift; sourceTree = "<group>"; };
 		B496369B2A73568300C7F59F /* CreateNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteModal.swift; sourceTree = "<group>"; };
 		B496369D2A73569E00C7F59F /* OpenNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNoteModal.swift; sourceTree = "<group>"; };
-		B4E701982A680678007A3876 /* CustomDetailList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDetailList.swift; sourceTree = "<group>"; };
+		B4E701982A680678007A3876 /* StrengthNoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrengthNoteList.swift; sourceTree = "<group>"; };
 		B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitBtn.swift; sourceTree = "<group>"; };
 		B4EB47202A6774430073E514 /* MyStrengthDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyStrengthDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -305,7 +305,7 @@
 		3DA321E02A71F37E005E70D0 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				B4E701982A680678007A3876 /* CustomDetailList.swift */,
+				B4E701982A680678007A3876 /* StrengthNoteList.swift */,
 				B4E7019A2A681C7F007A3876 /* PortraitBtn.swift */,
 				B42D94D22A6FDD0D008F555D /* ChangeLevelModal.swift */,
 			);
@@ -462,7 +462,7 @@
 				3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */,
 				B4EB47212A6774430073E514 /* MyStrengthDetailView.swift in Sources */,
 				3DA321E22A71F487005E70D0 /* StrengthLevelImage.swift in Sources */,
-				B4E701992A680678007A3876 /* CustomDetailList.swift in Sources */,
+				B4E701992A680678007A3876 /* StrengthNoteList.swift in Sources */,
 				137997872A64C661008F5F01 /* MainView.swift in Sources */,
 				136AAC802A66E33800CA3797 /* CustomList.swift in Sources */,
 				136AAC8B2A676FEF00CA3797 /* CustomConnectionList.swift in Sources */,

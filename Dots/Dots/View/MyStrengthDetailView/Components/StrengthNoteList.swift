@@ -1,5 +1,5 @@
 //
-//  CustomDetailList.swift
+//  StrengthNoteList.swift
 //  Dots
 //
 //  Created by Jae Ho Yoon on 7/19/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomDetailList: View {
+struct StrengthNoteList: View {
     @EnvironmentObject var dotsModel: DotsModel
     @ObservedObject var noteEntity: MyStrengthNoteEntity
     
@@ -89,7 +89,7 @@ struct CustomDetailList: View {
                         }
                         .alert("이 기록을 삭제하겠습니까?", isPresented: $isError, actions: {
                             Button("취소", role: .cancel) { resetSwipe = true }
-                            Button("삭제", role: .destructive) { dotsModel.deleteMyNote(myNote: noteEntity) }
+                            Button("삭제", role: .destructive) { dotsModel.deleteNote(entity: noteEntity) }
                         }, message: {
                             Text("이 기록이 삭제됩니다.")
                         })
@@ -97,6 +97,7 @@ struct CustomDetailList: View {
                 }, itemHeight: 62, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
             }
             .cornerRadius(12, corners: .allCorners)
+            .frame(height: 62)
         
         // 기존 강점노트 클릭시 나오는 Modal
             .sheet(isPresented: $showNoteViewModal){
