@@ -29,6 +29,7 @@ struct SearchFilterView: View {
                 } label: {
                     SearchFilterListRow(accentName: .constant(filterModel.companyName), isSheetOn: $isSheetOn, type: "회사", imageName: "building.2.fill")
                 }
+                .buttonStyle(.borderless)
                 .padding(.top, 24)
                 
                 Button {
@@ -39,6 +40,7 @@ struct SearchFilterView: View {
                 } label: {
                     SearchFilterListRow(accentName: .constant(filterModel.jobName), isSheetOn: $isSheetOn, type: "직무", imageName: "person.text.rectangle.fill")
                 }
+                .buttonStyle(.borderless)
                 
                 Button {
                     type = "강점"
@@ -47,6 +49,7 @@ struct SearchFilterView: View {
                 } label: {
                     SearchFilterListRow(accentName: .constant(filterModel.strengthName), isSheetOn: $isSheetOn, type: "강점", imageName: "chart.bar.fill")
                 }
+                .buttonStyle(.borderless)
                 
                 Spacer()
             }
