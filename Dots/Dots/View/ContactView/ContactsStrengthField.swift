@@ -27,7 +27,7 @@ struct ContactsStrengthField: View {
     var body: some View {
         VStack (alignment: .leading) {
             
-            Text("강점")
+            Text("강점 *")
                 .foregroundColor(textColor)
             
             ZStack {
