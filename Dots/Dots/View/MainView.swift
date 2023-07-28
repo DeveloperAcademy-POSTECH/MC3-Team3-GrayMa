@@ -11,7 +11,7 @@ struct MainView: View {
     
     init() {
         UITabBar.appearance().unselectedItemTintColor = UIColor(Color.theme.disabled)
-        UITabBar.appearance().backgroundColor = UIColor.white.withAlphaComponent(0.7)
+        UITabBar.appearance().backgroundColor = UIColor.white.withAlphaComponent(1.0)
     }
     
     var body: some View {

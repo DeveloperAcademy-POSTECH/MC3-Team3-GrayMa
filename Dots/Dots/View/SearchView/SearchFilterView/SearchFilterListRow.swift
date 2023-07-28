@@ -63,13 +63,14 @@ extension SearchFilterListRow {
             }
             
         }
+        .buttonStyle(.borderless)
         .padding(10)
         .padding(.horizontal,8)
-        .background(.white.opacity(0.5))
+        .background(Color.theme.secondary)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
             RoundedRectangle(cornerRadius: 12)
-                .foregroundColor(.yellow.opacity(0.5))
+                .strokeBorder(Color.theme.secondary, lineWidth: 1)
         )
         .fixedSize()
     }
@@ -114,26 +115,7 @@ extension SearchFilterListRow {
     }
     
 }
-    //MARK: Modifier
 
-extension SearchFilterListRow {
-    struct highLighted: ViewModifier {
-        
-        func body(content: Content) -> some View {
-            content
-                .padding(10)
-                .padding(.horizontal,8)
-                .background(.white.opacity(0.5))
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .foregroundColor(Color.theme.secondary)
-                )
-                .fixedSize()
-        }
-        
-    }
-}
 
 //struct SearchFilterListRow_Previews: PreviewProvider {
 //    static var previews: some View {

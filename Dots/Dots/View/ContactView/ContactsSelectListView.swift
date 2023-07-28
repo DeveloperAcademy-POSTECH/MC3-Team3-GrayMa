@@ -19,21 +19,27 @@ struct ContactsSelectListView: View {
     
     @State private var navigationActive = false
     
+    @State private var addAlert = false
+    
     var body: some View {
         NavigationView{
             
             VStack{
                 HStack{
                     Text("\(Image(systemName: "chevron.left")) 인맥관리")
+                        .font(.system(size: 17))
                         .foregroundColor(Color.theme.primary)
                         .onTapGesture {presentationMode.wrappedValue.dismiss()}
+                    
                     Spacer()
+                        .frame(width: 240)
+                    
                     Text("다음")
                         .foregroundColor(Color.theme.primary)
                         .onTapGesture {
                             navigationActive = true
                         }
-                }
+                }.padding(8)
                 
                 SearchBar(text: $searchText)
                 
@@ -61,7 +67,7 @@ struct ContactsSelectListView: View {
             
         }
         .onAppear(perform: fetchContacts)
-        .fullScreenCover(isPresented: $navigationActive) {
+        .fullScreenCover(isPresented: $navigationActive, onDismiss: {presentationMode.wrappedValue.dismiss()}) {
             AddContactsView(modalComtrol: $modalControl, selectedUserName: selectedName)
         }
     }

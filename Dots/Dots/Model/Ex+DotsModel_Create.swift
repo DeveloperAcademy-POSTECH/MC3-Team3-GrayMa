@@ -172,6 +172,7 @@ extension DotsModel {
         newMyNote.relatedStrength = strength
         
         save()
+        print(myNotes)
     }
     
     func addConnectionNote(date: Date, content: String, connection: NetworkingPersonEntity) {
