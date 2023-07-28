@@ -17,7 +17,7 @@ struct ContactsCompanyField: View {
     
     //input error 핸들링
     @State var inputError = false
-    @State var textColor = Color.black
+    @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
     let errorMessage = "회사 적어"
     

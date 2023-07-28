@@ -15,14 +15,14 @@ struct ContactsNameField: View {
     
     //input error 핸들링
     @State var inputError = false
-    @State var textColor = Color.black
+    @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
     let errorMessage = "이름은 3자리로 작성해주세요."
     
     var body: some View {
         VStack (alignment: .leading) {
             
-            Text("이름")
+            Text("이름 *")
                 .foregroundColor(textColor)
             
             ZStack {
@@ -36,7 +36,7 @@ struct ContactsNameField: View {
                     Spacer()
                         .frame(width: 19,height: 20)
                     
-                    TextField("이름 *", text: $UserInputName)
+                    TextField("이름", text: $UserInputName)
                         
                         .onTapGesture { fieldFocus = true }
                         //return 눌렸을때
@@ -70,7 +70,7 @@ struct ContactsNameField: View {
                                     textColor = Color.theme.primary
                                     inputError = true
                                 }else {
-                                    fieldColor = Color.theme.bgBlank
+                                    fieldColor = Color.theme.gray
                                     textColor = Color.theme.gray5Dark
                                     inputError = false
                                 }}

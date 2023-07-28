@@ -15,7 +15,7 @@ struct ContactsSNSField: View {
     
     //input error 핸들링
     @State var inputError = false
-    @State var textColor = Color.black
+    @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
     let errorMessage = "링크드인 주소"
     
