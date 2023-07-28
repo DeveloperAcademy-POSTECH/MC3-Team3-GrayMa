@@ -67,16 +67,11 @@ struct MyStrengthDetailView: View {
             
             // MARK: - 강점메모 리스트
             ScrollView {
-                if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity],
-                   !notes.isEmpty {
+                if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
                     let sortedNotes = notes.sorted(by: { $0.date! > $1.date! })
                     ForEach(sortedNotes) { note in
-                        CustomDetailList(noteEntity: note)
-                            .frame(height: 62)
+                        StrengthNoteList(noteEntity: note)
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                 } else {
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundColor(.white)
@@ -89,13 +84,9 @@ struct MyStrengthDetailView: View {
                             }
                             .padding(.leading, 29)
                         }
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                 }
             }
             .padding(.horizontal, 16)
-            .listStyle(PlainListStyle())
         }
         .navigationBarItems(leading: backButton, trailing: Button(action: {
             self.showLevelModal = true
@@ -116,7 +107,7 @@ struct MyStrengthDetailView: View {
         
         // 새로운 강점노트 클릭시 나오는 Modal
         .sheet(isPresented: $showNoteModal){
-            StrengthNoteModal(myStrength: myStrengthEntity)
+            CreateNoteModal(entity: myStrengthEntity, placeholder: "어떤 것을 배웠나요? 자유롭게 기록해주세요.")
         }
     }
     

@@ -1,13 +1,13 @@
 //
-//  StrengthNoteModal.swift
+//  CreateNoteModal.swift
 //  Dots
 //
-//  Created by Jae Ho Yoon on 7/20/23.
+//  Created by Jae Ho Yoon on 7/28/23.
 //
-// 새로운 노트 작성
+
 import SwiftUI
 
-struct StrengthNoteModal: View, KRDate {
+struct CreateNoteModal: View, KRDate {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var dotsModel: DotsModel
     @FocusState private var isTextEditorFocused: Bool
@@ -17,8 +17,8 @@ struct StrengthNoteModal: View, KRDate {
     @State private var dragDisabled: Bool = false
     @State private var dragIndicator: Visibility = .visible
     
-    let myStrength: MyStrengthEntity
-    let placeholder = "어떤 것을 배웠나요? 자유롭게 기록해주세요."
+    let entity: NSObject
+    let placeholder: String
     
     var body: some View {
         VStack {
@@ -36,7 +36,7 @@ struct StrengthNoteModal: View, KRDate {
     }
 }
 
-extension StrengthNoteModal {
+extension CreateNoteModal {
     private var noteModalTopBar: some View {
         ZStack {
             HStack {
@@ -51,7 +51,7 @@ extension StrengthNoteModal {
                 } label: {
                     Text("취소")
                 }
-                .alert("작성 중인 내용을 저장하지 않고 나가시겠습니까?", isPresented: $isError) {
+                .alert("작성 중인 내용을\n저장하지 않고 나가시겠습니까?", isPresented: $isError) {
                     Button("아니요", role: .cancel) { }
                     Button("네", role: .destructive) { presentation.wrappedValue.dismiss() }
                 }
@@ -64,7 +64,7 @@ extension StrengthNoteModal {
                     if textFieldContent.isEmpty {
                         presentation.wrappedValue.dismiss()
                     } else {
-                        dotsModel.addMyNote(date: date, content: textFieldContent, strength: myStrength)
+                        dotsModel.addNote(date: date, content: textFieldContent, entity: entity)
                         presentation.wrappedValue.dismiss()
                     }
                 } label: {
@@ -85,7 +85,7 @@ extension StrengthNoteModal {
     }
 }
 
-extension StrengthNoteModal {
+extension CreateNoteModal {
     private var textEditor: some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $textFieldContent)
@@ -106,7 +106,7 @@ extension StrengthNoteModal {
     }
 }
 
-extension StrengthNoteModal {
+extension CreateNoteModal {
     func viewMode() {
         dragDisabled = false
         dragIndicator = .visible

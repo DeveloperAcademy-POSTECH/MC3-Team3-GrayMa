@@ -163,29 +163,6 @@ extension DotsModel {
         save()
     }
     
-    func addMyNote(date: Date, content: String, strength: MyStrengthEntity) {
-        let newMyNote = MyStrengthNoteEntity(context: manager.context)
-        
-        newMyNote.myStrengthNoteID = UUID()
-        newMyNote.date = date
-        newMyNote.content = content
-        newMyNote.relatedStrength = strength
-        
-        save()
-        print(myNotes)
-    }
-    
-    func addConnectionNote(date: Date, content: String, connection: NetworkingPersonEntity) {
-        let newConnectionNote = NetworkingNoteEntity(context: manager.context)
-        
-        newConnectionNote.networkingNoteID = UUID()
-        newConnectionNote.date = date
-        newConnectionNote.content = content
-        newConnectionNote.relatedPerson = connection
-        
-        save()
-    }
-    
     func updateNetworking(id: UUID, profileImgIdx: Int, name: String, company: String, job: String, phoneNum: String, email: String, snsUrl: String, strengthList: [StrengthEntity] = []) {
         guard let personIndex = networkingPeople.firstIndex(where: { $0.peopleID == id }) else { return }
         
@@ -203,22 +180,49 @@ extension DotsModel {
         save()
     }
     
-    func updateMyNote(id: UUID, date: Date, content: String) {
-        guard let noteIndex = myNotes.firstIndex(where: { $0.myStrengthNoteID == id }) else { return }
-        myNotes[noteIndex].date = date
-        myNotes[noteIndex].content = content
+    func addNote(date: Date, content: String, entity: NSObject) {
+        switch entity {
+        case is MyStrengthEntity:
+            let note = MyStrengthNoteEntity(context: manager.context)
+            
+            note.myStrengthNoteID = UUID()
+            note.date = date
+            note.content = content
+            note.relatedStrength = (entity as! MyStrengthEntity)
+            
+        case is NetworkingPersonEntity:
+            let note = NetworkingNoteEntity(context: manager.context)
+            
+            note.networkingNoteID = UUID()
+            note.date = date
+            note.content = content
+            note.relatedPerson = (entity as! NetworkingPersonEntity)
+            
+        default:
+            fatalError("Unable to addNote \(entity)")
+        }
         
         save()
     }
     
-    func updateConnectionNote(id: UUID, date: Date, content: String) {
-        guard let noteIndex = networkingNotes.firstIndex(where: { $0.networkingNoteID == id }) else { return }
-        networkingNotes[noteIndex].date = date
-        networkingNotes[noteIndex].content = content
-        
+    func updateNote(id: UUID, date: Date, content: String, entity: NSObject) {
+        switch entity {
+        case is MyStrengthNoteEntity:
+            guard let noteIndex = myNotes.firstIndex(where: { $0.myStrengthNoteID == id }) else { return }
+            myNotes[noteIndex].date = date
+            myNotes[noteIndex].content = content
+            
+        case is NetworkingNoteEntity:
+            guard let noteIndex = networkingNotes.firstIndex(where: { $0.networkingNoteID == id }) else { return }
+            networkingNotes[noteIndex].date = date
+            networkingNotes[noteIndex].content = content
+            
+        default:
+            fatalError("Unable to updateNote \(entity)")
+        }
+
         save()
     }
-
 }
 
 extension DotsModel {
@@ -262,26 +266,25 @@ extension DotsModel {
     
 //    func deleteConnectionStrength(strength entity: )
     
-    func deleteMyNote(myNote entity: MyStrengthNoteEntity) {
-        let targetEntity = myNotes.first {
-            $0.myStrengthNoteID == entity.myStrengthNoteID
+    func deleteNote(entity: NSObject) {
+        switch entity {
+        case let entity as MyStrengthNoteEntity:
+            let targetEntity = myNotes.first {
+                $0.myStrengthNoteID == entity.myStrengthNoteID
+            }
+            guard let targetEntity = targetEntity else { return }
+            manager.context.delete(targetEntity)
+            
+        case let entity as NetworkingNoteEntity:
+            let targetEntity = networkingNotes.first {
+                $0.networkingNoteID == entity.networkingNoteID
+            }
+            guard let targetEntity = targetEntity else { return }
+            manager.context.delete(targetEntity)
+            
+        default:
+            fatalError("Unable to deleteNote \(entity)")
         }
-        
-        guard let targetEntity = targetEntity else { return }
-        
-        manager.context.delete(targetEntity)
-        
-        save()
-    }
-    
-    func deleteConnectionNote(note entity: NetworkingNoteEntity) {
-        let targetEntity = networkingNotes.first {
-            $0.networkingNoteID == entity.networkingNoteID
-        }
-        
-        guard let targetEntity = targetEntity else { return }
-        
-        manager.context.delete(targetEntity)
         
         save()
     }
