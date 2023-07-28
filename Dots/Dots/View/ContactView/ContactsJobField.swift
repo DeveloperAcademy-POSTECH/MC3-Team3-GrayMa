@@ -58,11 +58,12 @@ struct ContactsJobField: View {
                 }
                 .frame(width: 340)
             }
-            
-            //모달에서 직무가 하나라도 있는지 리턴 받아야함
-            Text("\(errorMessage)")
-                .foregroundColor(textColor)
-                .opacity(inputError ? 1 : 0)
+            if inputError {
+                //모달에서 직무가 하나라도 있는지 리턴 받아야함
+                Text("\(errorMessage)")
+                    .foregroundColor(textColor)
+                    .opacity(inputError ? 1 : 0)
+            }
         }
     }
 }
