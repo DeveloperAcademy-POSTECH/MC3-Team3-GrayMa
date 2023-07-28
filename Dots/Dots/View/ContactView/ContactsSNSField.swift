@@ -15,7 +15,7 @@ struct ContactsSNSField: View {
     
     //input error 핸들링
     @State var inputError = false
-    @State var textColor = Color.black
+    @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
     let errorMessage = "링크드인 주소"
     
@@ -63,7 +63,7 @@ struct ContactsSNSField: View {
                         
                     //입력이 끝나고 return을 받으면 값이 참인지 판단합니다.
                     }else if !UserInputSNS.isEmpty && !fieldFocus{
-                        compareSns()
+                        compareSNS(compareText: UserInputSNS)
                     }
                     
                 }
@@ -78,11 +78,21 @@ struct ContactsSNSField: View {
     }
     private struct compareSNS : View {
         
-        var body: some View{
-            Image(systemName: "checkmark.circle.fill")
-                .resizable()
-                .foregroundColor(.green)
-                .frame(width: 24, height: 24)
+        let snsCondition = "https://www.linkedin.com/in/"
+        @State var compareText : String
+
+        var body: some View {
+            if compareText.hasPrefix(snsCondition) {
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .foregroundColor(.green)
+                    .frame(width: 24, height: 24)
+            }else{
+                Image(systemName: "exclamationmark.circle.fill")
+                    .resizable()
+                    .foregroundColor(.red)
+                    .frame(width: 24, height: 24)
+            }
         }
     }
 }

@@ -15,7 +15,7 @@ struct ContactsPhoneField: View {
     
     //input error 핸들링
     @State var inputError = false
-    @State var textColor = Color.black
+    @State var textColor = Color.theme.gray
     @State var fieldColor = Color.theme.bgBlank
     let errorMessage = "11자리를 정확히 입력해주세요"
     
@@ -73,7 +73,7 @@ struct ContactsPhoneField: View {
                             .onAppear{
                                 if !(UserInputPhone.count < 11) {
                                     UserInputPhone = convertPhoneNum(UserInputPhone)
-                                    fieldColor = Color.theme.bgBlank
+                                    fieldColor = Color.theme.gray
                                     textColor = Color.theme.gray5Dark
                                     inputError = false
                                 }else {
