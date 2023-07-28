@@ -20,6 +20,7 @@ struct ContactsSelectListView: View {
     @State private var navigationActive = false
     
     @State private var addAlert = false
+    @Binding var isContactsAdd : Bool
     
     var body: some View {
         NavigationView{
@@ -68,7 +69,7 @@ struct ContactsSelectListView: View {
         }
         .onAppear(perform: fetchContacts)
         .fullScreenCover(isPresented: $navigationActive, onDismiss: {presentationMode.wrappedValue.dismiss()}) {
-            AddContactsView(modalComtrol: $modalControl, selectedUserName: selectedName)
+            AddContactsView(modalComtrol: $modalControl, selectedUserName: selectedName, isContactsAdd: $isContactsAdd)
         }
     }
     
