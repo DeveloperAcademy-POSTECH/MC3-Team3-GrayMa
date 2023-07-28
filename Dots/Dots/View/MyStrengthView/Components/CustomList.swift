@@ -22,6 +22,7 @@ struct CustomList: View {
             .foregroundColor(.theme.bgPrimary)
             .frame(maxWidth: .infinity)
             .frame(height: 84)
+            .background(.ultraThinMaterial)
             .overlay() {
                 SwipeItemView(content: {
                     HStack {

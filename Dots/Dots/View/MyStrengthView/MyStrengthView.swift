@@ -14,80 +14,86 @@ struct MyStrengthView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView{
-                VStack(spacing: 8) {
-                    Group {
-                        if dotsModel.myStrength.isEmpty {
-                            Image("myStrengthVisual_none")
-                                .resizable()
-                                .scaledToFit()
-                                .padding(.horizontal, 50)
-                                .frame(maxWidth: .infinity)
-                        } else {
-                            MetaballAnimation(myStrength: toVisualizeStrength())
-                                .frame(height: UIScreen.main.bounds.height/3)
-                        }
+            ZStack(alignment: .top){
+                Color.theme.bgMain
+                Group {
+                    if dotsModel.myStrength.isEmpty {
+                        Image("myStrengthVisual_none")
+                            .resizable()
+                            .scaledToFit()
+                            .padding(.horizontal, 50)
+                            .frame(maxWidth: .infinity)
+                    } else {
+                        MetaballAnimation(myStrength: toVisualizeStrength())
+                            .frame(height: UIScreen.main.bounds.height/3)
                     }
-                    .padding(.top, 16)
-                    .padding(.bottom, 21)
-                    
-                    
-                    ScrollView {
-                        if dotsModel.myStrength.isEmpty {
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(Color.theme.gray5, lineWidth: 1.5)
-                                .foregroundColor(.theme.bgPrimary)
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 84)
-                                .overlay() {
-                                    HStack {
-                                        Text("저장된 강점이 없습니다.")
-                                            .modifier(regularBody(colorName: .theme.gray))
-                                            .padding(.leading, 29)
-                                        
-                                        Spacer()
+                }
+                .padding(.bottom, 21)
+                
+                ScrollView{
+                    VStack(spacing: 8) {
+                        Rectangle()
+                            .frame(height: UIScreen.main.bounds.height/3)
+                            .foregroundColor(.clear)
+                        
+                        
+                        ScrollView {
+                            if dotsModel.myStrength.isEmpty {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(Color.theme.gray5, lineWidth: 1.5)
+                                    .foregroundColor(.theme.bgPrimary)
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 84)
+                                    .overlay() {
+                                        HStack {
+                                            Text("저장된 강점이 없습니다.")
+                                                .modifier(regularBody(colorName: .theme.gray))
+                                                .padding(.leading, 29)
+                                            
+                                            Spacer()
+                                        }
                                     }
-                                }
-                                .padding(.horizontal, 16)
-                            
-                        } else {
-                            let sortedMyStrength = getSortMyStrength()
-                            ForEach(sortedMyStrength, id: \.self) { strength in
-                                CustomList(entity: strength)
                                     .padding(.horizontal, 16)
+                                
+                            } else {
+                                let sortedMyStrength = getSortMyStrength()
+                                ForEach(sortedMyStrength, id: \.self) { strength in
+                                    CustomList(entity: strength)
+                                        .padding(.horizontal, 16)
+                                }
                             }
                         }
                     }
+                    
                 }
+                .scrollIndicators(.hidden)
+                .toolbar(content: {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Text("내 강점")
+                            .modifier(boldTitle1(colorName: .theme.gray5Dark))
+                    }
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Button(action: { self.showModal = true }) {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 22)
+                                .foregroundColor(.theme.gray5Dark)
+                                
+                            
+                        }
+                    }
+                })
+                .sheet(isPresented: $showModal){
+                    StrengthModal()
+                        .presentationDetents([.height(UIScreen.main.bounds.height * 0.35)])
+                }
+               
                 
             }
             .background(Color.theme.bgMain)
-            .toolbar(content: {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Text("내 강점")
-                        .modifier(boldTitle1(colorName: .theme.gray5Dark))
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { self.showModal = true }) {
-                        Image(systemName: "plus")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(height: 22)
-                            .foregroundColor(.theme.gray5Dark)
-                            
-                        
-                    }
-                }
-            })
-            .sheet(isPresented: $showModal){
-                StrengthModal()
-                    .presentationDetents([.height(UIScreen.main.bounds.height * 0.35)])
             }
-            .background(Color.theme.bgMain)
-            
-        }
-        .background(.gray)
-        .navigationTitle("강점")
+
         
     }
 }
