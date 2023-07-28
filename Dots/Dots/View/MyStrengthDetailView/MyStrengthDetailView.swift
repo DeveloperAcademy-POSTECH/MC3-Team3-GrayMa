@@ -40,7 +40,7 @@ struct MyStrengthDetailView: View {
                     }
                 }
                 .padding(.leading, 16)
-                .padding(.bottom, 10)
+                .padding(.bottom, 4)
             }
             .scrollIndicators(.never)
             
