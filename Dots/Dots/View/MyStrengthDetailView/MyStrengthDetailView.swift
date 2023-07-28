@@ -70,11 +70,7 @@ struct MyStrengthDetailView: View {
                 if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
                     ForEach(notes) { note in
                         CustomDetailList(noteEntity: note)
-                            .frame(height: 62)
                     }
-                    .listRowBackground(Color.clear)
-                    .listRowSeparator(.hidden)
-                    .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                 } else {
                     RoundedRectangle(cornerRadius: 12)
                         .foregroundColor(.white)
@@ -87,13 +83,9 @@ struct MyStrengthDetailView: View {
                             }
                             .padding(.leading, 29)
                         }
-                        .listRowBackground(Color.clear)
-                        .listRowSeparator(.hidden)
-                        .listRowInsets(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
                 }
             }
             .padding(.horizontal, 16)
-            .listStyle(PlainListStyle())
         }
         .navigationBarItems(leading: backButton, trailing: Button(action: {
             self.showLevelModal = true

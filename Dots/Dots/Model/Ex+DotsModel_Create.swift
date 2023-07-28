@@ -199,7 +199,7 @@ extension DotsModel {
             note.relatedPerson = (entity as! NetworkingPersonEntity)
             
         default:
-            print("Error")
+            fatalError("Unable to addNote \(entity)")
         }
         
         save()
@@ -218,7 +218,7 @@ extension DotsModel {
             networkingNotes[noteIndex].content = content
             
         default:
-            print("Error")
+            fatalError("Unable to updateNote \(entity)")
         }
 
         save()
@@ -266,26 +266,25 @@ extension DotsModel {
     
 //    func deleteConnectionStrength(strength entity: )
     
-    func deleteMyNote(myNote entity: MyStrengthNoteEntity) {
-        let targetEntity = myNotes.first {
-            $0.myStrengthNoteID == entity.myStrengthNoteID
+    func deleteNote(entity: NSObject) {
+        switch entity {
+        case let entity as MyStrengthNoteEntity:
+            let targetEntity = myNotes.first {
+                $0.myStrengthNoteID == entity.myStrengthNoteID
+            }
+            guard let targetEntity = targetEntity else { return }
+            manager.context.delete(targetEntity)
+            
+        case let entity as NetworkingNoteEntity:
+            let targetEntity = networkingNotes.first {
+                $0.networkingNoteID == entity.networkingNoteID
+            }
+            guard let targetEntity = targetEntity else { return }
+            manager.context.delete(targetEntity)
+            
+        default:
+            fatalError("Unable to deleteNote \(entity)")
         }
-        
-        guard let targetEntity = targetEntity else { return }
-        
-        manager.context.delete(targetEntity)
-        
-        save()
-    }
-    
-    func deleteConnectionNote(note entity: NetworkingNoteEntity) {
-        let targetEntity = networkingNotes.first {
-            $0.networkingNoteID == entity.networkingNoteID
-        }
-        
-        guard let targetEntity = targetEntity else { return }
-        
-        manager.context.delete(targetEntity)
         
         save()
     }

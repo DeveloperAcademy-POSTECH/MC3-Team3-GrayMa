@@ -15,18 +15,18 @@ struct ConnectionNoteList: View {
     @State private var isError: Bool = false
     @State private var resetSwipe: Bool = false
     @State private var trashPresented: Bool = false
-
+    
     var titleText: String {
         guard let content = noteEntity.content else { return "" }
         
         let splitContent = content.split(separator: "\n")
-        return String(splitContent.first ?? "제목")
+        return String(splitContent.first ?? "제목 없음")
     }
     var subtitleText: String {
         guard let content = noteEntity.content else { return "" }
         
         let splitContent = content.split(separator: "\n")
-        return splitContent.count > 1 ? String(splitContent[1]) : "내용"
+        return splitContent.count > 1 ? String(splitContent[1]) : "내용 없음"
     }
     
     let calendar = Calendar.current
@@ -71,11 +71,12 @@ struct ConnectionNoteList: View {
                         .padding(.leading, 29)
                         Spacer()
                     }
+                    //                    .onTapGesture { self.showNoteViewModal = true }
                 }, right: {
                     HStack(spacing: 0) {
-                        Button(action: {
+                        Button {
                             isError = true
-                        }, label: {
+                        } label: {
                             Rectangle()
                                 .fill(.red)
                                 .cornerRadius(12, corners: .topRight)
@@ -85,10 +86,10 @@ struct ConnectionNoteList: View {
                                         .font(.system(size: 17))
                                         .foregroundColor(.white)
                                 }
-                        })
+                        }
                         .alert("이 기록을 삭제하겠습니까?", isPresented: $isError, actions: {
                             Button("취소", role: .cancel) { resetSwipe = true }
-                            Button("삭제", role: .destructive) { dotsModel.deleteConnectionNote(note: noteEntity) }
+                            Button("삭제", role: .destructive) { dotsModel.deleteNote(entity: noteEntity) }
                         }, message: {
                             Text("이 기록이 삭제됩니다.")
                         })
@@ -96,18 +97,19 @@ struct ConnectionNoteList: View {
                 }, itemHeight: 62, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
             }
             .cornerRadius(12, corners: .allCorners)
-
+            .frame(height: 62)
+        
         // 기존 강점노트 클릭시 나오는 Modal
-        .sheet(isPresented: $showNoteViewModal){
-            OpenNoteViewModal(textFieldContent: noteEntity.content ?? "", date: noteEntity.date!, id: noteEntity.networkingNoteID!, entity: noteEntity, placeholder: "상대에 대해 남기고 싶은 점을 자유롭게 기록해주세요.")
-        }
-        .onTapGesture {
-            if trashPresented {
-                trashPresented = false
-                resetSwipe = true
-            } else {
-                self.showNoteViewModal = true
+            .sheet(isPresented: $showNoteViewModal){
+                OpenNoteViewModal(textFieldContent: noteEntity.content ?? "", date: noteEntity.date!, id: noteEntity.networkingNoteID!, entity: noteEntity, placeholder: "상대에 대해 남기고 싶은 점을 자유롭게 기록해주세요.")
             }
-        }
+            .onTapGesture {
+                if trashPresented {
+                    trashPresented = false
+                    resetSwipe = true
+                } else {
+                    self.showNoteViewModal = true
+                }
+            }
     }
 }
