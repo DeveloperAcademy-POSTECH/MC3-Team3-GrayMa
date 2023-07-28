@@ -66,7 +66,7 @@ struct AddContactsView: View {
                         .foregroundColor(Color.theme.primary)
                     
                         .onTapGesture {
-                            if (coreDataUserName != "" && coreDataUserJob != "" ){
+                            if (coreDataUserName != "" && coreDataUserJob != "" && !coreDataUserStrength.isEmpty){
                                 //MARK: 균규니 코어 연동 부분 해당뷰에서 coreDataUserStrength를 변수로 가짐
                                 dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS /*, userStrength: coreDataUserStrength*/)
                                 //인맥 추가 알림 띄움
