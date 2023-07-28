@@ -51,7 +51,8 @@ struct MyStrengthView: View {
                                 .padding(.horizontal, 16)
                             
                         } else {
-                            ForEach(dotsModel.myStrength, id: \.self) { strength in
+                            let sortedMyStrength = getSortMyStrength()
+                            ForEach(sortedMyStrength, id: \.self) { strength in
                                 CustomList(entity: strength)
                                     .padding(.horizontal, 16)
                             }
@@ -88,6 +89,29 @@ struct MyStrengthView: View {
         .background(.gray)
         .navigationTitle("강점")
         
+    }
+}
+
+extension MyStrengthView {
+    func getSortMyStrength() -> [MyStrengthEntity] {
+        return dotsModel.myStrength.sorted { strength1, strength2 in
+            
+            guard let strength1Notes = strength1.notes?.allObjects as? [MyStrengthNoteEntity] else { return false }
+            
+            guard let strength2Notes = strength2.notes?.allObjects as? [MyStrengthNoteEntity] else { return true }
+            
+            let sortedStrength1Notes = strength1Notes.sorted { $0.date! > $1.date! }
+            
+            let sortedStrength2Notes = strength2Notes.sorted { $0.date! > $1.date! }
+            
+            if sortedStrength1Notes.isEmpty {
+                return false
+            } else if sortedStrength2Notes.isEmpty {
+                return true
+            } else {
+                return sortedStrength1Notes.first!.date! > sortedStrength2Notes.first!.date!
+            }
+        }
     }
 }
 
