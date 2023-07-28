@@ -24,7 +24,7 @@ struct MyStrengthView: View {
                                 .padding(.horizontal, 50)
                                 .frame(maxWidth: .infinity)
                         } else {
-                            MetaballAnimation(myStrength: dotsModel.myStrength)
+                            MetaballAnimation(myStrength: toVisualizeStrength())
                                 .frame(height: UIScreen.main.bounds.height/3)
                         }
                     }
@@ -111,6 +111,31 @@ extension MyStrengthView {
             } else {
                 return sortedStrength1Notes.first!.date! > sortedStrength2Notes.first!.date!
             }
+        }
+    }
+    
+    func toVisualizeStrength() -> [MyStrengthEntity] {
+        let candidateStrengthList: [MyStrengthEntity] = dotsModel.myStrength
+        var resultList: [MyStrengthEntity]
+        
+        if candidateStrengthList.count > 3 {
+            let sortedList = candidateStrengthList.sorted { strength1, strength2 in
+                if strength1.strengthLevel == strength2.strengthLevel {
+                    guard let strength1NoteCount = strength1.notes?.count else { return false }
+                    guard let strength2NoteCount = strength2.notes?.count else { return true}
+                    
+                    return strength1NoteCount > strength2NoteCount
+                } else {
+                    return strength1.strengthLevel > strength2.strengthLevel
+                }
+            }
+            
+            resultList = Array(sortedList[0...2])
+            
+            return resultList
+        } else {
+            resultList = candidateStrengthList
+            return resultList
         }
     }
 }
