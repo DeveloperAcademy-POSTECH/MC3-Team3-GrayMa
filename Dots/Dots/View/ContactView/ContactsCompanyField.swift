@@ -69,161 +69,156 @@ struct ContactsCompanyField: View {
 }
 
 
-    //직업 모달뷰
-     struct CompanyModalView: View {
-        @Environment(\.presentationMode) var presentationMode
-         @EnvironmentObject var dotsModel: DotsModel
-        
-        @Binding  var searchTextField : String
-        @State private var selectedHistoryList: String = ""
-        @State private var searchHistory: [SearchHistoryRowModel] = []
-        
-        var body: some View {
-            NavigationView{
-                VStack(spacing: 0) {
-                    SearchBar
-                    ExistCompanyList
-                    Spacer()
+//직업 모달뷰
+struct CompanyModalView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var dotsModel: DotsModel
+    
+    @Binding  var searchTextField : String
+    @State private var selectedHistoryList: String = ""
+    @State private var searchHistory: [SearchHistoryRowModel] = []
+    
+    // 중복된 값들을 필터링 해서 저장하는 배열
+    private var uniqueCompanies: [String] {
+        // Use Set to get unique company names and convert it back to an array
+        let uniqueCompanySet = Set(dotsModel.networkingPeople.compactMap { $0.company })
+        return Array(uniqueCompanySet)
+    }
+    
+    var body: some View {
+        NavigationView{
+            VStack(spacing: 0) {
+                SearchBar
+                ExistCompanyList
+                Spacer()
+            }
+            
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("취소") {
+                        presentationMode.wrappedValue.dismiss()
+                        print("취소 ㄱㄱ")
+                    }
                 }
                 
-                .toolbar {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("취소") {
-                            presentationMode.wrappedValue.dismiss()
-                            print("취소 ㄱㄱ")
-                        }
-                    }
-                    
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("완료") {
-                            presentationMode.wrappedValue.dismiss()
-                            //knowFilter()
-                            //                        print("\(type) 타입")
-                            //                        print("\(companyName) 회사이름")
-                            //                        print("\(jobName)  직무이름")
-                            //                        print("\(strengthName) 강점이름" )
-                            print("완료 ㄱㄱ")
-                        }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button("완료") {
+                        presentationMode.wrappedValue.dismiss()
+                        //knowFilter()
+                        //                        print("\(type) 타입")
+                        //                        print("\(companyName) 회사이름")
+                        //                        print("\(jobName)  직무이름")
+                        //                        print("\(strengthName) 강점이름" )
+                        print("완료 ㄱㄱ")
                     }
                 }
-                .onAppear {
+            }
+            .onAppear {
+                
+                searchHistory = loadRecentSearches(keyName: "recentCompany")
+                
+            }
+        }
+    }
+}
+
+extension CompanyModalView {
+    private var SearchBar: some View {
+        RoundedRectangle(cornerRadius: 40)
+            .stroke(Color.gray, lineWidth: 0.5)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .frame(height: 56)
+            .overlay {
+                HStack {
+                    Image(systemName: "magnifyingglass")
+                        .scaledToFit()
+                        .frame(width: 29)
+                        .padding(.trailing, 11)
+                        .padding(.leading, 14)
+                    VStack {
+                        TextField("회사 검색", text: $searchTextField, onCommit: {
+                            saveSearch(name: searchTextField, keyName: "recentCompany")
+                            selectedHistoryList.append(searchTextField)
+                        })
+                    }
                     
-                    searchHistory = loadRecentSearches(keyName: "recentCompany")
-                    
+                    Spacer()
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 24)
+            .padding(.bottom, 32)
+    }
+    
+    private var ExistCompanyList: some View {
+        ScrollView {
+            VStack(spacing: 0) {
+                if searchTextField.isEmpty || uniqueCompanies.filter({ $0.range(of: searchTextField, options: .caseInsensitive) != nil }).isEmpty {
+                    SearchHistory
+                } else {
+                    ForEach(uniqueCompanies.filter { $0.range(of: searchTextField, options: .caseInsensitive) != nil }, id: \.self) { company in
+                        Button {
+                            withAnimation(.easeIn(duration: 0.1)) {
+                                searchTextField = company
+                            }
+                        } label: {
+                            ZStack {
+                                Rectangle()
+                                    .frame(height: 44)
+                                    .foregroundColor(.theme.secondary)
+                                    .opacity(company == searchTextField ? 1 : 0)
+                                
+                                HStack {
+                                    Text(company)
+                                        .modifier(semiBoldCallout(colorName: .black))
+                                        .padding(.leading, 33)
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "checkmark")
+                                        .padding(.trailing, 47)
+                                        .opacity(company == searchTextField ? 1 : 0)
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     }
     
-    extension CompanyModalView {
-        private var SearchBar: some View {
-            RoundedRectangle(cornerRadius: 40)
-                .stroke(Color.gray, lineWidth: 0.5)
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .overlay {
+    private var SearchHistory: some View {
+        ForEach(Array(searchHistory.enumerated()), id: \.element) { index, history in
+            Button {
+                withAnimation(.easeIn(duration: 0.1)) {
+                    searchTextField = history.title
+                }
+            } label: {
+                ZStack {
+                    Rectangle()
+                        .frame(height: 44)
+                        .foregroundColor(.theme.secondary)
+                        .opacity(history.title == searchTextField ? 1 : 0)
+                    
                     HStack {
-                        Image(systemName: "magnifyingglass")
-                            .scaledToFit()
-                            .frame(width: 29)
-                            .padding(.trailing, 11)
-                            .padding(.leading, 14)
-                        VStack {
-                            TextField("회사 검색", text: $searchTextField, onCommit: {
-                                saveSearch(name: searchTextField, keyName: "recentCompany")
-                                selectedHistoryList.append(searchTextField)
-                            })
-                        }
+                        Text(history.title)
+                            .modifier(semiBoldCallout(colorName: .black))
+                            .padding(.leading, 33)
                         
                         Spacer()
-                    }
-                }
-                .padding(.horizontal, 16)
-                .padding(.top, 24)
-                .padding(.bottom, 32)
-        }
-        
-        private var ExistCompanyList: some View {
-            ScrollView {
-                VStack(spacing: 0) {
-                    if searchTextField.isEmpty || dotsModel.networkingPeople.filter { person in
-                        if let name = person.company {
-                            return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
-                        } else {
-                            return false
-                        }
-                    }.isEmpty {
-                        SearchHistory
-                    } else {
-                        ForEach(dotsModel.networkingPeople.filter { person in
-                            if let name = person.company {
-                                return name.range(of: self.searchTextField, options: .caseInsensitive) != nil
-                            } else {
-                                return false
-                            }
-                        }, id: \.self) { filteredCompany in
-                            Button {
-                                withAnimation(.easeIn(duration: 0.1)) {
-                                    searchTextField = filteredCompany.company ?? ""
-                                }
-                            } label: {
-                                ZStack {
-                                    Rectangle()
-                                        .frame(height: 44)
-                                        .foregroundColor(.theme.secondary)
-                                        .opacity(filteredCompany.company == searchTextField ? 1 : 0)
-                                    
-                                    HStack {
-                                        Text(filteredCompany.company ?? "")
-                                            .modifier(semiBoldCallout(colorName: .black))
-                                            .padding(.leading, 33)
-                                        
-                                        Spacer()
-                                        
-                                        Image(systemName: "checkmark")
-                                            .padding(.trailing, 47)
-                                            .opacity(filteredCompany.company == searchTextField ? 1 : 0)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        private var SearchHistory: some View {
-            ForEach(Array(searchHistory.enumerated()), id: \.element) { index, history in
-                Button {
-                    withAnimation(.easeIn(duration: 0.1)) {
-                        searchTextField = history.title
-                    }
-                } label: {
-                    ZStack {
-                        Rectangle()
-                            .frame(height: 44)
-                            .foregroundColor(.theme.secondary)
-                            .opacity(history.title == searchTextField ? 1 : 0)
                         
-                        HStack {
-                            Text(history.title)
-                                .modifier(semiBoldCallout(colorName: .black))
-                                .padding(.leading, 33)
-                            
-                            Spacer()
-                            
-                            Image(systemName: "checkmark")
-                                .padding(.trailing, 47)
-                                .opacity(history.title == searchTextField ? 1 : 0)
-                        }
+                        Image(systemName: "checkmark")
+                            .padding(.trailing, 47)
+                            .opacity(history.title == searchTextField ? 1 : 0)
                     }
                 }
             }
         }
-        
     }
     
+}
+
 extension CompanyModalView {
     
     func saveSearch(name: String, keyName: String) {
