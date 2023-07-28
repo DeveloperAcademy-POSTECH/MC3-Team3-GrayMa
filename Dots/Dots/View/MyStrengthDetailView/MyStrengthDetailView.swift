@@ -35,7 +35,7 @@ struct MyStrengthDetailView: View {
             // MARK: -  같은 강점 사람들 리스트
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(dummyPortraitData, id: \.self) { entity in
+                    ForEach(getRelatedPeople(), id: \.self) { entity in
                         PortraitBtn(entity: entity)
                     }
                 }
@@ -131,5 +131,19 @@ struct MyStrengthDetailView: View {
                 Text("내 강점")
             }
         }
+    }
+}
+
+// MARK: - Function
+extension MyStrengthDetailView {
+    func getRelatedPeople() -> [NetworkingPersonEntity] {
+        guard let strengthName = myStrengthEntity.ownStrength?.strengthName else { return [] }
+        let relatedPeople = dotsModel.networkingPeople.filter { person in
+            guard let strength = person.strengthSet?.allObjects as? [StrengthEntity] else { return false }
+            return strength.contains { strength in
+                strength.strengthName == strengthName
+            }
+        }
+        return relatedPeople
     }
 }
