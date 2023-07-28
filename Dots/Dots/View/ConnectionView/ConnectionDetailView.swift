@@ -136,13 +136,11 @@ struct ConnectionDetailView: View {
                         }
                         
                         HStack {    // 이미지 및 연락 버튼
-                            Circle()
+                            // MARK: 이미지 index가 없으면 일단 1번 이미지로 보이도록 임시로 처리 추후 수정 필요
+                            Image("user_default_profile \(person.profileImageIndex == 0 ? 1: person.profileImageIndex)")
+                                .resizable()
+                                .scaledToFit()
                                 .frame(width: 88)
-                                .foregroundColor(Color.theme.disabled)
-                                .overlay{
-                                    Text("\(convertUserName(name: name))")
-                                        .modifier(boldLargeTitle(colorName: Color.theme.text))
-                                }
                             
                             Spacer()
                             
