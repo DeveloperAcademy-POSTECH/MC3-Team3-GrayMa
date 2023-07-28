@@ -114,7 +114,7 @@ struct MyStrengthDetailView: View {
         
         // 새로운 강점노트 클릭시 나오는 Modal
         .sheet(isPresented: $showNoteModal){
-            StrengthNoteModal(myStrength: myStrengthEntity)
+            CreateNoteModal(entity: myStrengthEntity, placeholder: "어떤 것을 배웠나요? 자유롭게 기록해주세요.")
         }
     }
     

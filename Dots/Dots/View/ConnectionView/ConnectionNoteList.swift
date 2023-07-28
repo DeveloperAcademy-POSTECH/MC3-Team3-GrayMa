@@ -5,7 +5,6 @@
 //  Created by Chaeeun Shin on 2023/07/24.
 //
 
-
 import SwiftUI
 
 struct ConnectionNoteList: View {
@@ -100,9 +99,7 @@ struct ConnectionNoteList: View {
 
         // 기존 강점노트 클릭시 나오는 Modal
         .sheet(isPresented: $showNoteViewModal){
-            ConnectionNoteViewModal(id: noteEntity.networkingNoteID!, date: noteEntity.date!, textFieldContent: noteEntity.content ?? "")
-                .interactiveDismissDisabled(true)
-                .presentationDragIndicator(.hidden)
+            OpenNoteViewModal(textFieldContent: noteEntity.content ?? "", date: noteEntity.date!, id: noteEntity.networkingNoteID!, entity: noteEntity, placeholder: "상대에 대해 남기고 싶은 점을 자유롭게 기록해주세요.")
         }
         .onTapGesture {
             if trashPresented {

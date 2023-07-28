@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct CustomDetailList: View {
-    @State var showNoteViewModal = false
+    @EnvironmentObject var dotsModel: DotsModel
+    @ObservedObject var noteEntity: MyStrengthNoteEntity
+    
+    @State private var showNoteViewModal = false
     @State private var isError: Bool = false
     @State private var resetSwipe: Bool = false
     @State private var trashPresented: Bool = false
-    @ObservedObject var noteEntity: MyStrengthNoteEntity
-    @EnvironmentObject var dotsModel: DotsModel
     
     var titleText: String {
         guard let content = noteEntity.content else { return "" }
@@ -99,7 +100,7 @@ struct CustomDetailList: View {
         
         // 기존 강점노트 클릭시 나오는 Modal
             .sheet(isPresented: $showNoteViewModal){
-                StrengthNoteViewModal(id: noteEntity.myStrengthNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
+                OpenNoteViewModal(textFieldContent: noteEntity.content ?? "", date: noteEntity.date!, id: noteEntity.myStrengthNoteID!, entity: noteEntity, placeholder: "어떤 것을 배웠나요? 자유롭게 기록해주세요.")
             }
             .onTapGesture {
                 if trashPresented {

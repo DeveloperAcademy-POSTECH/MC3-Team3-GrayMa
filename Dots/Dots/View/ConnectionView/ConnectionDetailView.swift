@@ -177,9 +177,7 @@ struct ConnectionDetailView: View {
 //        .navigationBarItems(trailing: Button(action: { editProfile.toggle() }, label: { Text("편집") }))
         .navigationBarItems(trailing: NavigationLink(destination: ConnectionProfileEditView(person: person), label: { Text("편집") }))
         .sheet(isPresented: $showNote) {
-            ConnectionNoteModal(connection: person)
-                .interactiveDismissDisabled()
-                .presentationDragIndicator(.hidden)
+            CreateNoteModal(entity: person, placeholder: "상대에 대해 남기고 싶은 점을 자유롭게 기록해주세요.")
         }
         .sheet(isPresented: $addStrength) {
             ConnectionAddStrengthModal(person: person)

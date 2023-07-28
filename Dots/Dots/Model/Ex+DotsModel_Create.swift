@@ -163,28 +163,6 @@ extension DotsModel {
         save()
     }
     
-    func addMyNote(date: Date, content: String, strength: MyStrengthEntity) {
-        let newMyNote = MyStrengthNoteEntity(context: manager.context)
-        
-        newMyNote.myStrengthNoteID = UUID()
-        newMyNote.date = date
-        newMyNote.content = content
-        newMyNote.relatedStrength = strength
-        
-        save()
-    }
-    
-    func addConnectionNote(date: Date, content: String, connection: NetworkingPersonEntity) {
-        let newConnectionNote = NetworkingNoteEntity(context: manager.context)
-        
-        newConnectionNote.networkingNoteID = UUID()
-        newConnectionNote.date = date
-        newConnectionNote.content = content
-        newConnectionNote.relatedPerson = connection
-        
-        save()
-    }
-    
     func updateNetworking(id: UUID, profileImgIdx: Int, name: String, company: String, job: String, phoneNum: String, email: String, snsUrl: String, strengthList: [StrengthEntity] = []) {
         guard let personIndex = networkingPeople.firstIndex(where: { $0.peopleID == id }) else { return }
         
@@ -202,22 +180,49 @@ extension DotsModel {
         save()
     }
     
-    func updateMyNote(id: UUID, date: Date, content: String) {
-        guard let noteIndex = myNotes.firstIndex(where: { $0.myStrengthNoteID == id }) else { return }
-        myNotes[noteIndex].date = date
-        myNotes[noteIndex].content = content
+    func addNote(date: Date, content: String, entity: NSObject) {
+        switch entity {
+        case is MyStrengthEntity:
+            let note = MyStrengthNoteEntity(context: manager.context)
+            
+            note.myStrengthNoteID = UUID()
+            note.date = date
+            note.content = content
+            note.relatedStrength = (entity as! MyStrengthEntity)
+            
+        case is NetworkingPersonEntity:
+            let note = NetworkingNoteEntity(context: manager.context)
+            
+            note.networkingNoteID = UUID()
+            note.date = date
+            note.content = content
+            note.relatedPerson = (entity as! NetworkingPersonEntity)
+            
+        default:
+            print("Error")
+        }
         
         save()
     }
     
-    func updateConnectionNote(id: UUID, date: Date, content: String) {
-        guard let noteIndex = networkingNotes.firstIndex(where: { $0.networkingNoteID == id }) else { return }
-        networkingNotes[noteIndex].date = date
-        networkingNotes[noteIndex].content = content
-        
+    func updateNote(id: UUID, date: Date, content: String, entity: NSObject) {
+        switch entity {
+        case is MyStrengthNoteEntity:
+            guard let noteIndex = myNotes.firstIndex(where: { $0.myStrengthNoteID == id }) else { return }
+            myNotes[noteIndex].date = date
+            myNotes[noteIndex].content = content
+            
+        case is NetworkingNoteEntity:
+            guard let noteIndex = networkingNotes.firstIndex(where: { $0.networkingNoteID == id }) else { return }
+            networkingNotes[noteIndex].date = date
+            networkingNotes[noteIndex].content = content
+            
+        default:
+            print("Error")
+        }
+
         save()
     }
-
 }
 
 extension DotsModel {
