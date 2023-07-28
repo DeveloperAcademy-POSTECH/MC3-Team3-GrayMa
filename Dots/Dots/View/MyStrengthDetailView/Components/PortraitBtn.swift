@@ -7,22 +7,8 @@
 
 import SwiftUI
 
-struct DummyPortrait: Hashable {
-    var name: String
-    var portraitName: String?
-}
-
-var dummyPortraitData: [DummyPortrait] = [
-    DummyPortrait(name: "유빈"),
-    DummyPortrait(name: "마커스"),
-    DummyPortrait(name: "래쉬"),
-    DummyPortrait(name: "규니"),
-    DummyPortrait(name: "앤디"),
-    DummyPortrait(name: "애쉬")
-]
-
 struct PortraitBtn: View {
-    var entity: DummyPortrait
+    var entity: NetworkingPersonEntity
     
     var body: some View {
         ZStack {
@@ -45,7 +31,7 @@ struct PortraitBtn: View {
                     Circle()
                         .frame(width: 64)
                         .foregroundColor(Color.theme.secondary)
-                    Text(entity.name)
+                    Text(entity.name ?? "")
                         .modifier(boldTitle2(colorName: .theme.text))
                         .frame(width: 64)
                         .scaledToFit()

@@ -102,7 +102,8 @@ struct ConnectionDetailView: View {
                             }
                             
                             if let notes = person.networkingNotes?.allObjects as? [NetworkingNoteEntity], !notes.isEmpty {
-                                ForEach(notes) { note in
+                                let sortedNote = notes.sorted(by: { $0.date! > $1.date! })
+                                ForEach(sortedNote) { note in
                                     ConnectionNoteList(noteEntity: note)
                                 }
                             } else {
