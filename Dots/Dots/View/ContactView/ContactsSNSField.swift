@@ -36,7 +36,7 @@ struct ContactsSNSField: View {
                     Spacer()
                         .frame(width: 19,height: 20)
                     
-                    TextField("", text: $UserInputSNS)
+                    TextField("url을 입력해주세요", text: $UserInputSNS)
                         
                         .onTapGesture { fieldFocus = true }
                         //return 눌렸을때
