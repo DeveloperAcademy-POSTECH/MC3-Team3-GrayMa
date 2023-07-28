@@ -37,7 +37,7 @@ struct ContactsStrengthField: View {
                     .frame(width: 361, height: 56)
                     .onTapGesture { modalControl = true }
                     .sheet(isPresented: $modalControl){
-                        // jobModalView(searchTextField: $UserInputJob)
+                        AddStrengthSheet()
                     }
                 
                 HStack{
