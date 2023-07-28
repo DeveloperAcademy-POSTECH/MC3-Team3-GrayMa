@@ -73,7 +73,7 @@ struct ContactsPhoneField: View {
                             .onAppear{
                                 if !(UserInputPhone.count < 11) {
                                     UserInputPhone = convertPhoneNum(UserInputPhone)
-                                    fieldColor = Color.theme.gray
+                                    fieldColor = Color.theme.secondary
                                     textColor = Color.theme.gray5Dark
                                     inputError = false
                                 }else {

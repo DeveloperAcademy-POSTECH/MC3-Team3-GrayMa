@@ -59,7 +59,7 @@ struct ContactsSNSField: View {
                                 .foregroundColor(.gray)
                                 .frame(width: 24, height: 24)
                         }
-                        .onAppear{fieldColor = Color("secondary")}
+                        .onAppear{fieldColor = Color.theme.secondary}
                         
                     //입력이 끝나고 return을 받으면 값이 참인지 판단합니다.
                     }else if !UserInputSNS.isEmpty && !fieldFocus{
