@@ -60,14 +60,20 @@ extension CustomConnectionList {
     private var StrengthSet: some View {
         HStack(spacing: 8) {
             if let strengthList = entity.strengthSet?.allObjects as? [StrengthEntity] {
-                ForEach(strengthList) { strength in
+                ForEach(strengthList.prefix(2)) { strength in
                     Text(strength.strengthName ?? "스트렝쓰")
                         .modifier(contactsStrength(backgroundColor: .theme.secondary, textColor: .theme.text))
+                        .background(Color.theme.secondary)
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 4)
+                                .strokeBorder(Color.theme.secondary, lineWidth: 1)
+                        )
                 }
             }
         }
     }
-    
+        
     private var NavigatorIcon: some View {
         Image(systemName: "chevron.right")
             .resizable()
