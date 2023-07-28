@@ -15,6 +15,7 @@ struct MyStrengthView: View {
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top){
+                Color.theme.bgMain
                 Group {
                     if dotsModel.myStrength.isEmpty {
                         Image("myStrengthVisual_none")
@@ -27,7 +28,6 @@ struct MyStrengthView: View {
                             .frame(height: UIScreen.main.bounds.height/3)
                     }
                 }
-                .border(.red)
                 .padding(.bottom, 21)
                 
                 ScrollView{
@@ -66,7 +66,6 @@ struct MyStrengthView: View {
                     }
                     
                 }
-                .border(.blue)
                 .scrollIndicators(.hidden)
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarLeading) {
