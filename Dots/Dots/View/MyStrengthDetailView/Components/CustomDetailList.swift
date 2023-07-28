@@ -19,13 +19,13 @@ struct CustomDetailList: View {
         guard let content = noteEntity.content else { return "" }
         
         let splitContent = content.split(separator: "\n")
-        return String(splitContent.first ?? "제목")
+        return String(splitContent.first ?? "제목 없음")
     }
     var subtitleText: String {
         guard let content = noteEntity.content else { return "" }
         
         let splitContent = content.split(separator: "\n")
-        return splitContent.count > 1 ? String(splitContent[1]) : "내용"
+        return splitContent.count > 1 ? String(splitContent[1]) : "내용 없음"
     }
     
     let calendar = Calendar.current
@@ -73,9 +73,9 @@ struct CustomDetailList: View {
                     //                    .onTapGesture { self.showNoteViewModal = true }
                 }, right: {
                     HStack(spacing: 0) {
-                        Button(action: {
+                        Button {
                             isError = true
-                        }, label: {
+                        } label: {
                             Rectangle()
                                 .fill(.red)
                                 .cornerRadius(12, corners: .topRight)
@@ -85,7 +85,7 @@ struct CustomDetailList: View {
                                         .font(.system(size: 17))
                                         .foregroundColor(.white)
                                 }
-                        })
+                        }
                         .alert("이 기록을 삭제하겠습니까?", isPresented: $isError, actions: {
                             Button("취소", role: .cancel) { resetSwipe = true }
                             Button("삭제", role: .destructive) { dotsModel.deleteMyNote(myNote: noteEntity) }
@@ -100,8 +100,6 @@ struct CustomDetailList: View {
         // 기존 강점노트 클릭시 나오는 Modal
             .sheet(isPresented: $showNoteViewModal){
                 StrengthNoteViewModal(id: noteEntity.myStrengthNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
-                    .interactiveDismissDisabled(true)
-                    .presentationDragIndicator(.hidden)
             }
             .onTapGesture {
                 if trashPresented {

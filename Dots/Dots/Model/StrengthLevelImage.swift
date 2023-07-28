@@ -15,11 +15,11 @@ enum StrengthLevelImage: String, CaseIterable {
     var ballSize: CGFloat {
         switch self {
         case .weakDot:
-            return 100
+            return 70
         case .moderateDot:
-            return 110
+            return 85
         case .strongDot:
-            return 120
+            return 100
         }
     }
     var size: CGFloat { return 76 }

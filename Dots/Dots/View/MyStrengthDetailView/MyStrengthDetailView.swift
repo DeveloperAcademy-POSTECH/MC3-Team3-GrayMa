@@ -42,6 +42,7 @@ struct MyStrengthDetailView: View {
                 .padding(.leading, 16)
                 .padding(.bottom, 10)
             }
+            .scrollIndicators(.never)
             
             // 강점메모 만들기
             Button(action: {
@@ -65,7 +66,7 @@ struct MyStrengthDetailView: View {
             })
             
             // MARK: - 강점메모 리스트
-            List {
+            ScrollView {
                 if let notes = myStrengthEntity.notes?.allObjects as? [MyStrengthNoteEntity], !notes.isEmpty {
                     ForEach(notes) { note in
                         CustomDetailList(noteEntity: note)
@@ -114,17 +115,15 @@ struct MyStrengthDetailView: View {
         // 새로운 강점노트 클릭시 나오는 Modal
         .sheet(isPresented: $showNoteModal){
             StrengthNoteModal(myStrength: myStrengthEntity)
-                .interactiveDismissDisabled(true)
-                .presentationDragIndicator(.hidden)
         }
     }
     
     
     // 뒤로 가기 커스텀버튼 구현
     private var backButton: some View {
-        Button(action: {
+        Button {
             presentationMode.wrappedValue.dismiss()
-        }) {
+        } label: {
             HStack {
                 Image(systemName: "chevron.backward")
                 Text("내 강점")
