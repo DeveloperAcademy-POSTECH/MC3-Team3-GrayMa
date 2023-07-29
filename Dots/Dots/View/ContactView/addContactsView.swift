@@ -84,7 +84,7 @@ struct AddContactsView: View {
                 
                 ScrollView(showsIndicators: false){
                     //이미지 추가
-                    contactsImageSelect(userName: coreDataUserName, coreDataUserIdx: $coreDataUSerProfileImgIdx)
+                    ContactsImageSelect(userName: coreDataUserName, coreDataUserIdx: $coreDataUSerProfileImgIdx)
                         .onTapGesture {
                             userImgModal = true
                         }
@@ -230,7 +230,16 @@ private func fetchContact(name: String) -> [(Name: String, Company: String?, Job
     return selectedUserContacts
 }
    
-
+//성을 삭제하고 뷰에 올림
+func convertUserName(name: String) -> String {
+    var modifiedName = name
+    
+    if !modifiedName.isEmpty {
+        modifiedName.removeFirst()
+    }
+    
+    return modifiedName
+}
 
 
 //struct newContactsView_Previews: PreviewProvider {
