@@ -15,19 +15,18 @@ struct CustomConnectionList: View {
             HStack(spacing: 18) {
                 ProfileImage
                     .padding(.leading, 16)
-                    
+                    .padding(.bottom,10)
+                
                 VStack(alignment: .leading, spacing: 8) {
                     DefaultUserInfo
-                    
                     StrengthSet
                 }
-                
                 Spacer()
                 
                 NavigatorIcon
                     .padding(.trailing, 14)
             }
-            .frame(height: 53)
+            .frame(height: 84)
         }
         .frame(maxHeight: .infinity)
         .background(Color.theme.bgPrimary)
@@ -48,32 +47,42 @@ extension CustomConnectionList {
             if let company = entity.company {
                 Text(company + "・" + entity.job!)
                     .modifier(regularCallout(colorName: .theme.gray5Dark))
-                    .padding(.leading,16)
+                    .lineLimit(1)
+                    .padding(.leading,8)
+                    .frame(alignment: .leading)
+                    .minimumScaleFactor(0.5)
             } else {
                 Text(entity.job ?? "직업")
                     .modifier(regularCallout(colorName: .theme.gray5Dark))
                     .padding(.leading,16)
             }
         }
+        .frame(maxWidth: .infinity)
     }
     
     private var StrengthSet: some View {
-        HStack(spacing: 8) {
+        HStack {
             if let strengthList = entity.strengthSet?.allObjects as? [StrengthEntity] {
                 ForEach(strengthList.prefix(2)) { strength in
                     Text(strength.strengthName ?? "스트렝쓰")
-                        .modifier(contactsStrength(backgroundColor: .theme.secondary, textColor: .theme.text))
+                        .modifier(regularCaption1(colorName: .theme.text))
+                        .padding(.horizontal, 9.5)
+                        .frame(minWidth: 0,maxWidth: .infinity)
                         .background(Color.theme.secondary)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
                                 .strokeBorder(Color.theme.secondary, lineWidth: 1)
                         )
+                        .minimumScaleFactor(0.5)
+                        .fixedSize()
+                       
                 }
             }
+            
         }
     }
-        
+    
     private var NavigatorIcon: some View {
         Image(systemName: "chevron.right")
             .resizable()

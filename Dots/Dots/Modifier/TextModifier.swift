@@ -240,18 +240,3 @@ struct semiBoldCaption2: ViewModifier{
     }
 }
 
-struct contactsStrength: ViewModifier {
-    var backgroundColor: Color
-    var textColor: Color
-    
-    func body(content: Content) -> some View {
-        RoundedRectangle(cornerRadius: 4)
-            .frame(width: 64,height: 24)
-            .foregroundColor(backgroundColor)
-            .overlay() {
-                content
-                    .modifier(regularCaption1(colorName: textColor))
-            }
-
-    }
-}
