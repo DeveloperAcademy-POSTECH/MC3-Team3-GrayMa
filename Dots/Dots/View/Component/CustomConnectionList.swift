@@ -44,11 +44,14 @@ extension CustomConnectionList {
         HStack {
             Text(entity.name ?? "이름")
                 .modifier(boldCallout(colorName: .theme.gray5Dark))
+                .lineLimit(1)
+                .fixedSize()
+                .minimumScaleFactor(0.5)
             if let company = entity.company {
                 Text(company + "・" + entity.job!)
                     .modifier(regularCallout(colorName: .theme.gray5Dark))
                     .lineLimit(1)
-                    .padding(.leading,8)
+                    .fixedSize()
                     .frame(alignment: .leading)
                     .minimumScaleFactor(0.5)
             } else {
@@ -57,7 +60,6 @@ extension CustomConnectionList {
                     .padding(.leading,16)
             }
         }
-        .frame(maxWidth: .infinity)
     }
     
     private var StrengthSet: some View {
