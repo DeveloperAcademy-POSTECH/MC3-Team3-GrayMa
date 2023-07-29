@@ -32,6 +32,7 @@ struct AddContactsView: View {
     
     //MARK: 추후에 Arr 형식으로 전환되어야함
     @State var coreDataUserStrength: [String] = []
+    @State private var strengthList: [SearchStrengthRowModel] = []
     @State var selectedUserStrength: [StrengthEntity] = []
     
     
@@ -49,7 +50,7 @@ struct AddContactsView: View {
     
     var body: some View {
         NavigationView{
-            VStack{
+            VStack (alignment: .center){
                 
                 // 상단 메뉴바
                 HStack{
@@ -92,7 +93,7 @@ struct AddContactsView: View {
                         }
                     
                     
-                    VStack (alignment: .leading){
+                    VStack (alignment: .center){
                         
                         ContactsNameField(UserInputName: $coreDataUserName, fieldFocus: fieldFocus)
                         
@@ -112,14 +113,14 @@ struct AddContactsView: View {
                         WrappingHStack(alignment: .leading) {
                             
                             ForEach(coreDataUserStrength, id: \.self) { strength in
-                                StrengthNameArr(showCommon: false, strengthText: strength, isCommon: false)
+                                StrengthNameArr(showCommon: false, strengthText: strength,Arr: $coreDataUserStrength)
                             }
-                        }
+                        }.padding(16)
                         
                         //강점 Arr 디버깅 코드
-//                        ForEach(coreDataUserStrength, id: \.self) { Strength in
-//                            Text(Strength)
-//                        }
+                        //                        ForEach(coreDataUserStrength, id: \.self) { Strength in
+                        //                            Text(Strength)
+                        //                        }
                     }
                 }
             }
@@ -160,69 +161,75 @@ struct AddContactsView: View {
         }
     }
     
-    private struct StrengthNameArr: View {
+     struct StrengthNameArr: View {
         @State var showCommon: Bool
-        
         @State var strengthText: String?
-        let isCommon: Bool
-
+         @Binding var Arr : [String]
+         
         var body: some View {
-            if showCommon {
+            HStack{
                 Text(strengthText ?? "")
-                    .modifier(regularCallout(colorName: isCommon ? Color.theme.bgPrimary : Color.theme.text))
-                    .padding(9)
-                    .padding(.horizontal, 9.5)
-                    .background(isCommon ? Color.theme.primary : Color.theme.secondary)
-                    .clipShape(RoundedRectangle(cornerRadius: 50))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 50)
-                            .strokeBorder(isCommon ? Color.theme.primary : Color.theme.secondary, lineWidth: 1)
-                    )
-                    .fixedSize()
-            } else {
-                Text(strengthText ?? "")
-                    .modifier(regularCallout(colorName: Color.theme.text))
-                    .padding(9)
-                    .padding(.horizontal, 9.5)
-                    .background(Color.theme.secondary)
-                    .clipShape(RoundedRectangle(cornerRadius: 50))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 50)
-                            .strokeBorder(Color.theme.secondary, lineWidth: 1)
-                    )
-                    .fixedSize()
-
+                Button {
+                    withAnimation(.easeIn(duration: 0.1)) {
+                        deleteSelectedStrength(name: strengthText ?? "", Arr: Arr)
+                    }
+                } label: {
+                    Image(systemName: "x.circle.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24)
+                        .foregroundColor(.theme.disabled)
+                }
             }
+            .modifier(regularCallout(colorName: Color.theme.text))
+            .padding(9)
+            .padding(.horizontal, 9.5)
+            .background(Color.theme.secondary)
+            .clipShape(RoundedRectangle(cornerRadius: 50))
+            .overlay(
+                RoundedRectangle(cornerRadius: 50)
+                    .strokeBorder(Color.theme.secondary, lineWidth: 1)
+            )
+            .fixedSize()
+            
         }
-    }
-    
-    //기존에서 가져오기를 선택하였을 경우 이름을 사용해 연락처에서 정보를 가져옴
-    func fetchContact(name: String) -> [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String? /*, SNS: String?*/)]{
-        var selectedUserContacts : [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String? /*, SNS: String?)*/)] = []
-        
-        let store = CNContactStore()
-        let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey,CNContactOrganizationNameKey,CNContactJobTitleKey,CNContactPhoneNumbersKey,CNContactEmailAddressesKey]
-        let predicate = CNContact.predicateForContacts(matchingName: name)
-        let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
-        request.predicate = predicate
-        
-        do {
-            try store.enumerateContacts(with: request) { contact, stop in
-                let name = contact.familyName + contact.givenName
-                let company = contact.organizationName
-                let job = contact.jobTitle
-                let phoneNum = contact.phoneNumbers.first?.value.stringValue
-                let email = contact.emailAddresses.first
-                //let SNS = contact.urlAddresses
-                selectedUserContacts.append((Name: name, Company: company, Job: job, PhoneNumber: phoneNum, Email: email?.value as String?/*, SNS: SNS.hashValue as! String*/))
-                print("\(name)")
-            }
-        } catch {
-            print("Error fetching contacts: \(error)")
-        }
-        return selectedUserContacts
+         
+         func deleteSelectedStrength(name: String, Arr: [String]) {
+             guard let selectedIdx = Arr.firstIndex(of: name) else { return }
+             
+             self.Arr.remove(at: selectedIdx)
+         }
     }
 }
+
+    //기존에서 가져오기를 선택하였을 경우 이름을 사용해 연락처에서 정보를 가져옴
+private func fetchContact(name: String) -> [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String? /*, SNS: String?*/)]{
+    var selectedUserContacts : [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String? /*, SNS: String?)*/)] = []
+    
+    let store = CNContactStore()
+    let keysToFetch = [CNContactGivenNameKey, CNContactFamilyNameKey,CNContactOrganizationNameKey,CNContactJobTitleKey,CNContactPhoneNumbersKey,CNContactEmailAddressesKey]
+    let predicate = CNContact.predicateForContacts(matchingName: name)
+    let request = CNContactFetchRequest(keysToFetch: keysToFetch as [CNKeyDescriptor])
+    request.predicate = predicate
+    
+    do {
+        try store.enumerateContacts(with: request) { contact, stop in
+            let name = contact.familyName + contact.givenName
+            let company = contact.organizationName
+            let job = contact.jobTitle
+            let phoneNum = contact.phoneNumbers.first?.value.stringValue
+            let email = contact.emailAddresses.first
+            //let SNS = contact.urlAddresses
+            selectedUserContacts.append((Name: name, Company: company, Job: job, PhoneNumber: phoneNum, Email: email?.value as String?/*, SNS: SNS.hashValue as! String*/))
+            print("\(name)")
+        }
+    } catch {
+        print("Error fetching contacts: \(error)")
+    }
+    return selectedUserContacts
+}
+   
+
 
 
 //struct newContactsView_Previews: PreviewProvider {
