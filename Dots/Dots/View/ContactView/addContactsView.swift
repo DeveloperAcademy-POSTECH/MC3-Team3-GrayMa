@@ -33,17 +33,17 @@ struct AddContactsView: View {
     //MARK: 추후에 Arr 형식으로 전환되어야함
     @State var coreDataUserStrength: [String] = []
     @State var selectedUserStrength: [StrengthEntity] = []
-
+    
     
     @State var fieldFocus = false
     
     //유저 이미지 모달 컨트롤
     @State private var userImgModal = false
-
+    
     //Alert 컨트롤
     @State private var someThingWrongAlert = false
     
-   //Alert 연락처
+    //Alert 연락처
     @State private var addAlert = false
     @Binding var isContactsAdd : Bool
     
@@ -109,25 +109,32 @@ struct AddContactsView: View {
                         ContactsStrengthField(UserInputStrengthArr: $coreDataUserStrength)
                         
                         //선택된 강점 표시 부분
-                        ForEach(coreDataUserStrength, id: \.self) { Strength in
-                            Text(Strength)
+                        WrappingHStack(alignment: .leading) {
+                            
+                            ForEach(coreDataUserStrength, id: \.self) { strength in
+                                StrengthNameArr(showCommon: false, strengthText: strength, isCommon: false)
+                            }
                         }
                         
+                        //강점 Arr 디버깅 코드
+//                        ForEach(coreDataUserStrength, id: \.self) { Strength in
+//                            Text(Strength)
+//                        }
                     }
                 }
             }
         }
         .navigationBarHidden(true)
         
-//        .alert(isPresented: $addAlert) {
-//            Alert(title: Text("알림"),
-//                  message: Text("인맥이 추가되었습니다."),
-//                  dismissButton: .default(Text("확인"), action: {
-//                // 모달을 닫습니다.
-//                presentationMode.wrappedValue.dismiss()
-//                modalComtrol = false
-//            }))
-//        }
+        //        .alert(isPresented: $addAlert) {
+        //            Alert(title: Text("알림"),
+        //                  message: Text("인맥이 추가되었습니다."),
+        //                  dismissButton: .default(Text("확인"), action: {
+        //                // 모달을 닫습니다.
+        //                presentationMode.wrappedValue.dismiss()
+        //                modalComtrol = false
+        //            }))
+        //        }
         
         .alert(isPresented: $someThingWrongAlert){
             Alert(title: Text("알림"),
@@ -152,7 +159,42 @@ struct AddContactsView: View {
             }
         }
     }
-       
+    
+    private struct StrengthNameArr: View {
+        @State var showCommon: Bool
+        
+        @State var strengthText: String?
+        let isCommon: Bool
+
+        var body: some View {
+            if showCommon {
+                Text(strengthText ?? "")
+                    .modifier(regularCallout(colorName: isCommon ? Color.theme.bgPrimary : Color.theme.text))
+                    .padding(9)
+                    .padding(.horizontal, 9.5)
+                    .background(isCommon ? Color.theme.primary : Color.theme.secondary)
+                    .clipShape(RoundedRectangle(cornerRadius: 50))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 50)
+                            .strokeBorder(isCommon ? Color.theme.primary : Color.theme.secondary, lineWidth: 1)
+                    )
+                    .fixedSize()
+            } else {
+                Text(strengthText ?? "")
+                    .modifier(regularCallout(colorName: Color.theme.text))
+                    .padding(9)
+                    .padding(.horizontal, 9.5)
+                    .background(Color.theme.secondary)
+                    .clipShape(RoundedRectangle(cornerRadius: 50))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 50)
+                            .strokeBorder(Color.theme.secondary, lineWidth: 1)
+                    )
+                    .fixedSize()
+
+            }
+        }
+    }
     
     //기존에서 가져오기를 선택하였을 경우 이름을 사용해 연락처에서 정보를 가져옴
     func fetchContact(name: String) -> [(Name: String, Company: String?, Job: String?, PhoneNumber: String?, Email: String? /*, SNS: String?*/)]{

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContactsStrengthField: View {
     
-    //JobField가 가져야할 변수
+    //StrengthField가 가져야할 변수
     @Binding var UserInputStrengthArr : [String]
     
     @State var UserInputStrength = ""
@@ -37,7 +37,7 @@ struct ContactsStrengthField: View {
                     .frame(width: 361, height: 56)
                     .onTapGesture { modalControl = true }
                     .sheet(isPresented: $modalControl){
-                        AddStrengthSheet()
+                        AddStrengthSheet(selectedStrength: $UserInputStrengthArr)
                     }
                 
                 HStack{

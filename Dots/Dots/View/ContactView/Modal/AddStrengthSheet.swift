@@ -19,7 +19,7 @@ struct AddStrengthSheet: View {
     @State private var isKeyboardVisible = false
     
     // 선택된 강점은 여기 다 저장
-    @State private var selectedStrength: [String] = []
+    @Binding var selectedStrength: [String]
     
     @State private var strengthList: [SearchStrengthRowModel] = []
     @Environment(\.presentationMode) var presentation
@@ -67,7 +67,9 @@ struct AddStrengthSheet: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("완료") {
+                        //Arr를 들고 나가야함
                         presentation.wrappedValue.dismiss()
+                        
                     }
                 }
             }
@@ -247,8 +249,8 @@ extension AddStrengthSheet {
     }
 }
 
-struct AddStrengthSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        AddStrengthSheet()
-    }
-}
+//struct AddStrengthSheet_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddStrengthSheet()
+//    }
+//}
