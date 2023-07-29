@@ -221,7 +221,7 @@ extension AddStrengthSheet {
 
 extension AddStrengthSheet {
     func selectAction(strengthModel: SearchStrengthRowModel) {
-        if strengthModel.isSelected {
+        if strengthModel.isSelected && !selectedStrength.contains(strengthModel.title){
             selectedStrength.append(strengthModel.title)
             print("어팬드 \(selectedStrength)")
         } else {
