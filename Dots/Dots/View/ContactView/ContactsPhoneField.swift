@@ -93,6 +93,30 @@ struct ContactsPhoneField: View {
         }
     }
     
+    //이름, 핸드폰의 input의 길이를 측정 올바른 형식인지 판별합니다.
+    struct compareTextCount : View {
+        
+        var textMin : Int
+        var textMax : Int
+        var compareText : String
+        
+        var body: some View {
+            
+            if textMin < Int(compareText.count) && Int(compareText.count) < textMax{
+                Image(systemName: "checkmark.circle.fill")
+                    .resizable()
+                    .foregroundColor(Color("alertGreen"))
+                    .frame(width: 24, height: 24)
+            } else {
+                Image(systemName: "exclamationmark.circle.fill")
+                    .resizable()
+                    .foregroundColor(Color("primary"))
+                    .frame(width: 24, height: 24)
+            }
+        }
+    }
+
+    
     // 입력받은 번호를 000-0000-0000 형식으로 변환
    private func convertPhoneNum (_ phoneNum : String) -> String{
         

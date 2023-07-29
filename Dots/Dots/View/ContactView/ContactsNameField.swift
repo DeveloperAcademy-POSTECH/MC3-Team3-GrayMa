@@ -110,4 +110,12 @@ struct ContactsNameField: View {
         }
     }
     
+    private func compareTextCountReturn(textMin : Int, textMax : Int, compareText : String) -> Bool{
+        if textMin < Int(compareText.count) && Int(compareText.count) < textMax{
+            return true
+        } else {
+           return false
+        }
+    }
+    
 }
