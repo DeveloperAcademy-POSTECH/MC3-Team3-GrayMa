@@ -47,7 +47,6 @@
 		3DA321EC2A720F86005E70D0 /* ContactsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA321EB2A720F86005E70D0 /* ContactsListRow.swift */; };
 		3DA321EF2A735D0E005E70D0 /* AddStrengthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA321EE2A735D0E005E70D0 /* AddStrengthSheet.swift */; };
 		A1349E332A64E81C0006611C /* AddContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* AddContactsView.swift */; };
-		A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E342A64E9F90006611C /* contactsTextField.swift */; };
 		A1349E372A6618190006611C /* contactsJobCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E362A6618190006611C /* contactsJobCompany.swift */; };
 		A1349E3C2A6771910006611C /* contactsImageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3B2A6771910006611C /* contactsImageSelect.swift */; };
 		A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3D2A6796100006611C /* contactsUserProfile.swift */; };
@@ -114,7 +113,6 @@
 		3DA321EB2A720F86005E70D0 /* ContactsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListRow.swift; sourceTree = "<group>"; };
 		3DA321EE2A735D0E005E70D0 /* AddStrengthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStrengthSheet.swift; sourceTree = "<group>"; };
 		A1349E322A64E81C0006611C /* AddContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactsView.swift; sourceTree = "<group>"; };
-		A1349E342A64E9F90006611C /* contactsTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsTextField.swift; sourceTree = "<group>"; };
 		A1349E362A6618190006611C /* contactsJobCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsJobCompany.swift; sourceTree = "<group>"; };
 		A1349E3B2A6771910006611C /* contactsImageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsImageSelect.swift; sourceTree = "<group>"; };
 		A1349E3D2A6796100006611C /* contactsUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsUserProfile.swift; sourceTree = "<group>"; };
@@ -358,7 +356,6 @@
 			isa = PBXGroup;
 			children = (
 				A1349E322A64E81C0006611C /* AddContactsView.swift */,
-				A1349E342A64E9F90006611C /* contactsTextField.swift */,
 				A1349E362A6618190006611C /* contactsJobCompany.swift */,
 				A1349E3B2A6771910006611C /* contactsImageSelect.swift */,
 				A1349E3D2A6796100006611C /* contactsUserProfile.swift */,
@@ -483,7 +480,6 @@
 				300A8AED2A720A60005FAB3E /* ConnectionProfileEditView.swift in Sources */,
 				A1349E332A64E81C0006611C /* AddContactsView.swift in Sources */,
 				30D982912A68CFBE00E89B37 /* ConnectionDetailView.swift in Sources */,
-				A1349E352A64E9F90006611C /* contactsTextField.swift in Sources */,
 				A1349E3C2A6771910006611C /* contactsImageSelect.swift in Sources */,
 				300A8AF12A726F34005FAB3E /* WrappingHStack.swift in Sources */,
 				B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */,
