@@ -59,7 +59,7 @@ struct ContactsImageSelect: View {
                 Spacer()
                     .frame(height: 32)
                 
-                profileIamgeSelect(CoreDataUserIdx: $userImageIdx, userName: userName)
+                ProfileIamgeSelect(CoreDataUserIdx: $userImageIdx, userName: userName)
                 
                 HStack{
                     SelectBtn(fontWeight: .regular, content: "취소", textColor: .black, btnColor: Color("bgBlank"), action: {presentationMode.wrappedValue.dismiss()})

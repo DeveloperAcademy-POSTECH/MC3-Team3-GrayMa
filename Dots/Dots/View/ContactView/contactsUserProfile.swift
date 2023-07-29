@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct profileIamgeSelect : View{
+struct ProfileIamgeSelect : View{
     
     @Binding var CoreDataUserIdx : Int
     @State var userName : String
