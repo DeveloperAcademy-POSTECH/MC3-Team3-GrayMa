@@ -45,6 +45,7 @@ struct AddContactsView: View {
     
    //Alert 연락처
     @State private var addAlert = false
+    @Binding var isContactsAdd : Bool
     
     var body: some View {
         NavigationView{
@@ -69,7 +70,8 @@ struct AddContactsView: View {
                                 //MARK: 균규니 코어 연동 부분 해당뷰에서 coreDataUserStrength를 변수로 가짐
                                 dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS /*, userStrength: coreDataUserStrength*/)
                                 //인맥 추가 알림 띄움
-                                addAlert = true
+                                presentationMode.wrappedValue.dismiss()
+                                isContactsAdd = true
                             }else
                             {
                                 someThingWrongAlert = true

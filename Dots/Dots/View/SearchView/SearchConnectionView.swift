@@ -38,6 +38,7 @@ struct SearchConnectionView: View {
     @State var isDeleteAlertOn = false
     
     @State private var addAlert = false
+    @State var isContactsAdd = false
     
     var body: some View {
         NavigationStack {
@@ -85,11 +86,11 @@ struct SearchConnectionView: View {
 
                 }
             }
-            .fullScreenCover(isPresented: $contactsSelectListVisible, onDismiss: {addAlert = true}){
-                    ContactsSelectListView(modalControl: $contactsSelectListVisible)
+            .fullScreenCover(isPresented: $contactsSelectListVisible, onDismiss: {if isContactsAdd {addAlert = true}}){
+                ContactsSelectListView(modalControl: $contactsSelectListVisible, isContactsAdd: $isContactsAdd)
             }
-            .fullScreenCover(isPresented: $navigationActive, onDismiss: {addAlert = true}) {
-                    AddContactsView(modalComtrol: $navigationActive)
+            .fullScreenCover(isPresented: $navigationActive, onDismiss: {if isContactsAdd {addAlert = true}}) {
+                AddContactsView(modalComtrol: $navigationActive, isContactsAdd: $isContactsAdd)
             }
           
             .onAppear {

@@ -56,7 +56,7 @@ struct ContactsStrengthField: View {
                             .foregroundColor(Color("AlertGreen"))
                             .frame(width: 24, height: 24)
                             .onAppear{
-                                fieldColor = Color("secondary")
+                                fieldColor = Color.theme.secondary
                             }
                     }
                 }

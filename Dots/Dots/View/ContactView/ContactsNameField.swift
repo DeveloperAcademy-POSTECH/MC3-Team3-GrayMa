@@ -70,8 +70,8 @@ struct ContactsNameField: View {
                                     textColor = Color.theme.primary
                                     inputError = true
                                 }else {
-                                    fieldColor = Color.theme.gray
-                                    textColor = Color.theme.gray5Dark
+                                    fieldColor = Color.theme.secondary
+                                    textColor = Color.theme.gray
                                     inputError = false
                                 }}
                     }
