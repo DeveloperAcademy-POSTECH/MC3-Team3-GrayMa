@@ -49,7 +49,7 @@ struct ContactsJobField: View {
                     if !UserInputJob.isEmpty {
                         Image(systemName: "checkmark.circle.fill")
                             .resizable()
-                            .foregroundColor(Color("AlertGreen"))
+                            .foregroundColor(Color.theme.alertGreen)
                             .frame(width: 24, height: 24)
                             .onAppear{
                                 fieldColor = Color("secondary")
