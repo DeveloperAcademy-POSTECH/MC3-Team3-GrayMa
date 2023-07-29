@@ -61,7 +61,6 @@ extension SearchFilterListRow {
                 print("\(filterModel.$companyName) 직무 필터")
                 print("\(filterModel.$companyName) 강점 필터")
             }
-            
         }
         .buttonStyle(.borderless)
         .padding(10)
