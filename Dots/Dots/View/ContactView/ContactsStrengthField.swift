@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContactsStrengthField: View {
     
-    //JobField가 가져야할 변수
+    //StrengthField가 가져야할 변수
     @Binding var UserInputStrengthArr : [String]
     
     @State var UserInputStrength = ""
@@ -22,7 +22,7 @@ struct ContactsStrengthField: View {
     @State var inputError = false
     @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
-    let errorMessage = "최대 6개까지 가능"
+    let errorMessage = "강점은 최대 6개까지 저장 가능합니다"
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -37,7 +37,7 @@ struct ContactsStrengthField: View {
                     .frame(width: 361, height: 56)
                     .onTapGesture { modalControl = true }
                     .sheet(isPresented: $modalControl){
-                        AddStrengthSheet()
+                        AddStrengthSheet(selectedStrength: $UserInputStrengthArr)
                     }
                 
                 HStack{
@@ -50,67 +50,34 @@ struct ContactsStrengthField: View {
                     
                     Spacer()
                     
-                    if !UserInputStrengthArr.isEmpty {
+                    if !UserInputStrengthArr.isEmpty && UserInputStrengthArr.count < 7{
                         Image(systemName: "checkmark.circle.fill")
                             .resizable()
-                            .foregroundColor(Color("AlertGreen"))
+                            .foregroundColor(Color.theme.alertGreen)
                             .frame(width: 24, height: 24)
                             .onAppear{
-                                fieldColor = Color.theme.secondary
+                                fieldColor = Color.theme.bgBlank
+                                textColor = Color.theme.gray
+                                inputError = false
+                            }
+                    } else if UserInputStrengthArr.count > 6{
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .resizable()
+                            .foregroundColor(Color.theme.primary)
+                            .frame(width: 24, height: 24)
+                            .onAppear{
+                                fieldColor = Color("AlertBG")
+                                textColor = Color.theme.primary
+                                inputError = true
                             }
                     }
                 }
                 .frame(width: 340)
             }
             //모달에서 직무가 하나라도 있는지 리턴 받아야함
-            Text("\(errorMessage)")
-                .foregroundColor(textColor)
-                .opacity(inputError ? 1 : 0)
-        }
-    }
-}
-
-//강점 모달뷰
- struct strengthModalView: View {
-    @Environment(\.presentationMode) var presentationMode
-     @EnvironmentObject var dotsModel: DotsModel
-    
-    @Binding  var searchTextField : String
-    @State private var selectedHistoryList: String = ""
-    @State private var searchHistory: [SearchHistoryRowModel] = []
-    
-    var body: some View {
-        NavigationView{
-            VStack(spacing: 0) {
-//                SearchBar
-//                ExistJobList
-                Spacer()
-            }
-            
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("취소") {
-                        presentationMode.wrappedValue.dismiss()
-                        print("취소 ㄱㄱ")
-                    }
-                }
-                
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("완료") {
-                        presentationMode.wrappedValue.dismiss()
-                        //knowFilter()
-                        //                        print("\(type) 타입")
-                        //                        print("\(companyName) 회사이름")
-                        //                        print("\(jobName)  직무이름")
-                        //                        print("\(strengthName) 강점이름" )
-                        print("완료 ㄱㄱ")
-                    }
-                }
-            }
-            .onAppear {
-                
-//                searchHistory = loadRecentSearches(keyName: "recentjob")
-                
+            if inputError {
+                Text("\(errorMessage)")
+                    .foregroundColor(textColor)
             }
         }
     }

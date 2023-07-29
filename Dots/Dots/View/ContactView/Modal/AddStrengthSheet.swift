@@ -19,7 +19,7 @@ struct AddStrengthSheet: View {
     @State private var isKeyboardVisible = false
     
     // 선택된 강점은 여기 다 저장
-    @State private var selectedStrength: [String] = []
+    @Binding var selectedStrength: [String]
     
     @State private var strengthList: [SearchStrengthRowModel] = []
     @Environment(\.presentationMode) var presentation
@@ -67,7 +67,9 @@ struct AddStrengthSheet: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("완료") {
+                        //Arr를 들고 나가야함
                         presentation.wrappedValue.dismiss()
+                        
                     }
                 }
             }
@@ -124,30 +126,28 @@ extension AddStrengthSheet {
     }
     
     private var SelectedStrengthList: some View {
-        ScrollView(.horizontal) {
-            HStack {
-                ForEach(selectedStrength, id: \.self) { strength in
-                    HStack {
-                        Text(strength)
-                            .modifier(regularBody(colorName: .theme.text))
-                            .padding(.leading, 9)
-                        Button {
-                            withAnimation(.easeIn(duration: 0.1)) {
-                                deleteSelectedStrength(name: strength)
-                            }
-                        } label: {
-                            Image(systemName: "x.circle.fill")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 24)
-                                .foregroundColor(.theme.disabled)
+        WrappingHStack(alignment: .leading) {
+            ForEach(selectedStrength, id: \.self) { strength in
+                HStack {
+                    Text(strength)
+                        .modifier(regularBody(colorName: .theme.text))
+                        .padding(.leading, 9)
+                    Button {
+                        withAnimation(.easeIn(duration: 0.1)) {
+                            deleteSelectedStrength(name: strength)
                         }
+                    } label: {
+                        Image(systemName: "x.circle.fill")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24)
+                            .foregroundColor(.theme.disabled)
                     }
-                    .padding(.horizontal, 18)
-                    .padding(.vertical, 9)
-                    .background(Color.theme.secondary)
-                    .cornerRadius(12, corners: .allCorners)
                 }
+                .padding(.horizontal, 18)
+                .padding(.vertical, 9)
+                .background(Color.theme.secondary)
+                .cornerRadius(12, corners: .allCorners)
             }
         }
         .padding(.horizontal, 16)
@@ -219,7 +219,7 @@ extension AddStrengthSheet {
 
 extension AddStrengthSheet {
     func selectAction(strengthModel: SearchStrengthRowModel) {
-        if strengthModel.isSelected {
+        if strengthModel.isSelected && !selectedStrength.contains(strengthModel.title){
             selectedStrength.append(strengthModel.title)
             print("어팬드 \(selectedStrength)")
         } else {
@@ -247,8 +247,8 @@ extension AddStrengthSheet {
     }
 }
 
-struct AddStrengthSheet_Previews: PreviewProvider {
-    static var previews: some View {
-        AddStrengthSheet()
-    }
-}
+//struct AddStrengthSheet_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddStrengthSheet()
+//    }
+//}
