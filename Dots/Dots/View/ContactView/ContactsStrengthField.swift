@@ -22,7 +22,7 @@ struct ContactsStrengthField: View {
     @State var inputError = false
     @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
-    let errorMessage = "최대 6개까지 가능"
+    let errorMessage = "강점은 최대 6개까지 저장 가능합니다"
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -50,22 +50,35 @@ struct ContactsStrengthField: View {
                     
                     Spacer()
                     
-                    if !UserInputStrengthArr.isEmpty {
+                    if !UserInputStrengthArr.isEmpty && UserInputStrengthArr.count < 7{
                         Image(systemName: "checkmark.circle.fill")
                             .resizable()
-                            .foregroundColor(Color("AlertGreen"))
+                            .foregroundColor(Color.theme.alertGreen)
                             .frame(width: 24, height: 24)
                             .onAppear{
-                                fieldColor = Color.theme.secondary
+                                fieldColor = Color.theme.bgBlank
+                                textColor = Color.theme.gray
+                                inputError = false
+                            }
+                    } else if UserInputStrengthArr.count > 6{
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .resizable()
+                            .foregroundColor(Color.theme.primary)
+                            .frame(width: 24, height: 24)
+                            .onAppear{
+                                fieldColor = Color("AlertBG")
+                                textColor = Color.theme.primary
+                                inputError = true
                             }
                     }
                 }
                 .frame(width: 340)
             }
             //모달에서 직무가 하나라도 있는지 리턴 받아야함
-            Text("\(errorMessage)")
-                .foregroundColor(textColor)
-                .opacity(inputError ? 1 : 0)
+            if inputError {
+                Text("\(errorMessage)")
+                    .foregroundColor(textColor)
+            }
         }
     }
 }
