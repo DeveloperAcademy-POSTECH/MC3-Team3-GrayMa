@@ -1,17 +1,17 @@
 //
-//  StrengthNoteViewModal.swift
+//  OpenNoteModal.swift
 //  Dots
 //
-//  Created by Jae Ho Yoon on 7/20/23.
+//  Created by Jae Ho Yoon on 7/28/23.
 //
-// 기존 노트 열람
+
 import SwiftUI
 
-struct StrengthNoteViewModal: View, KRDate {
+struct OpenNoteViewModal: View, KRDate {
     @Environment(\.presentationMode) var presentation
     @EnvironmentObject var dotsModel: DotsModel
     @FocusState private var isTextEditorFocused: Bool
-    let id: UUID
+    
     @State var textFieldContent: String
     @State var date: Date
     @State private var isError: Bool = false
@@ -20,7 +20,9 @@ struct StrengthNoteViewModal: View, KRDate {
     @State private var notEdited: Bool = true
     @State private var textOriginal: String = ""
     
-    let placeholder = "어떤 것을 배웠나요? 자유롭게 기록해주세요."
+    let id: UUID
+    let entity: NSObject
+    let placeholder: String
     
     var body: some View {
         VStack {
@@ -47,7 +49,7 @@ struct StrengthNoteViewModal: View, KRDate {
     }
 }
 
-extension StrengthNoteViewModal {
+extension OpenNoteViewModal {
     private var noteModalTopBar: some View {
         ZStack {
             HStack {
@@ -62,7 +64,7 @@ extension StrengthNoteViewModal {
                 } label: {
                     Text("취소")
                 }
-                .alert("작성 중인 내용을 저장하지 않고 나가시겠습니까?", isPresented: $isError) {
+                .alert("작성 중인 내용을\n저장하지 않고 나가시겠습니까?", isPresented: $isError) {
                     Button("아니요", role: .cancel) { }
                     Button("네", role: .destructive) { presentation.wrappedValue.dismiss() }
                 }
@@ -79,7 +81,7 @@ extension StrengthNoteViewModal {
                     }
                 } else {
                     Button {
-                        dotsModel.updateMyNote(id: id, date: date, content: textFieldContent)
+                        dotsModel.updateNote(id: id, date: date, content: textFieldContent, entity: entity)
                         presentation.wrappedValue.dismiss()
                     } label: {
                         Text("저장")
@@ -99,7 +101,7 @@ extension StrengthNoteViewModal {
     }
 }
 
-extension StrengthNoteViewModal {
+extension OpenNoteViewModal {
     private var textEditor: some View {
         ZStack(alignment: .topLeading) {
             TextEditor(text: $textFieldContent)
@@ -120,7 +122,7 @@ extension StrengthNoteViewModal {
     }
 }
 
-extension StrengthNoteViewModal {
+extension OpenNoteViewModal {
     func viewMode() {
         dragDisabled = false
         dragIndicator = .visible

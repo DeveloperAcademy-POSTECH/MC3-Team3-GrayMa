@@ -1,5 +1,5 @@
 //
-//  CustomDetailList.swift
+//  StrengthNoteList.swift
 //  Dots
 //
 //  Created by Jae Ho Yoon on 7/19/23.
@@ -7,13 +7,14 @@
 
 import SwiftUI
 
-struct CustomDetailList: View {
-    @State var showNoteViewModal = false
+struct StrengthNoteList: View {
+    @EnvironmentObject var dotsModel: DotsModel
+    @ObservedObject var noteEntity: MyStrengthNoteEntity
+    
+    @State private var showNoteViewModal = false
     @State private var isError: Bool = false
     @State private var resetSwipe: Bool = false
     @State private var trashPresented: Bool = false
-    @ObservedObject var noteEntity: MyStrengthNoteEntity
-    @EnvironmentObject var dotsModel: DotsModel
     
     var titleText: String {
         guard let content = noteEntity.content else { return "" }
@@ -88,7 +89,7 @@ struct CustomDetailList: View {
                         }
                         .alert("이 기록을 삭제하겠습니까?", isPresented: $isError, actions: {
                             Button("취소", role: .cancel) { resetSwipe = true }
-                            Button("삭제", role: .destructive) { dotsModel.deleteMyNote(myNote: noteEntity) }
+                            Button("삭제", role: .destructive) { dotsModel.deleteNote(entity: noteEntity) }
                         }, message: {
                             Text("이 기록이 삭제됩니다.")
                         })
@@ -96,10 +97,11 @@ struct CustomDetailList: View {
                 }, itemHeight: 62, resetSwipe: $resetSwipe, trashPresented: $trashPresented)
             }
             .cornerRadius(12, corners: .allCorners)
+            .frame(height: 62)
         
         // 기존 강점노트 클릭시 나오는 Modal
             .sheet(isPresented: $showNoteViewModal){
-                StrengthNoteViewModal(id: noteEntity.myStrengthNoteID!, textFieldContent: noteEntity.content ?? "", date: noteEntity.date!)
+                OpenNoteViewModal(textFieldContent: noteEntity.content ?? "", date: noteEntity.date!, id: noteEntity.myStrengthNoteID!, entity: noteEntity, placeholder: "어떤 것을 배웠나요? 자유롭게 기록해주세요.")
             }
             .onTapGesture {
                 if trashPresented {
