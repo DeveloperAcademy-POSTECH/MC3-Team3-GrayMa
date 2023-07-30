@@ -15,7 +15,6 @@ struct CustomConnectionList: View {
             HStack(spacing: 18) {
                 ProfileImage
                     .padding(.leading, 16)
-                    .padding(.bottom,10)
                 
                 VStack(alignment: .leading, spacing: 8) {
                     DefaultUserInfo
@@ -35,9 +34,16 @@ struct CustomConnectionList: View {
 
 extension CustomConnectionList {
     private var ProfileImage: some View {
-        Image("user_default_profile \(entity.profileImageIndex == 0 ? 1 : entity.profileImageIndex)")
-            .resizable()
-            .scaledToFit()
+        ZStack {
+            Group {
+                Circle()
+                    .foregroundColor(Color.theme.secondary)
+                Image("user_default_profile \(entity.profileImageIndex == 0 ? 1 : entity.profileImageIndex)")
+                    .resizable()
+                    .scaledToFit()
+            }
+            .frame(width: 64)
+        }
     }
     
     private var DefaultUserInfo: some View {
@@ -78,7 +84,7 @@ extension CustomConnectionList {
                         )
                         .minimumScaleFactor(0.5)
                         .fixedSize()
-                       
+                    
                 }
             }
             
