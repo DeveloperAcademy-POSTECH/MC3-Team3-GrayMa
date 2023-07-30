@@ -15,6 +15,7 @@ struct ConnectionDetailView: View {
     @State private var showCommon = false
     @State private var addStrength = false
     @State private var isProfileEdited = false
+    @State private var scrollPosition: CGFloat = 0
     
     let person: NetworkingPersonEntity
     
@@ -22,18 +23,18 @@ struct ConnectionDetailView: View {
         NavigationStack {
             ZStack {
                 Color.theme.bgMain
-
-                BackgroundCircle(height: 210)
-                    .foregroundColor(Color.theme.secondary)
-                    .ignoresSafeArea()
-
+                
+                VStack {
+                    Rectangle()
+                        .frame(height: 230 + scrollPosition > 0 ? 230 + scrollPosition : 0)
+                        .foregroundColor(Color.theme.secondary)
+                        
+                    Spacer()
+                }
+                .ignoresSafeArea()
 
                 ScrollView {
                     ZStack {
-                        BackgroundCircle(height: 120)
-                            .foregroundColor(Color.theme.secondary)
-                            
-                        
                         LazyVStack(pinnedViews: [.sectionHeaders]) {
                             if let company = person.company, let job = person.job {
                                 if company.isEmpty {
@@ -132,11 +133,20 @@ struct ConnectionDetailView: View {
                                     Spacer()
                                 }
                                 .padding()
-                                .padding(.top, 46)
+                                .padding(.top, 14)
                             }
                         }   // LazyVStack
+                        
+                        GeometryReader { proxy in
+                            let offset = proxy.frame(in: .named("scroll")).minY
+                            Color.clear.preference(key: ScrollViewOffsetPreferenceKey.self, value: [offset])
+                        }
                     }   // ZStack
                     .ignoresSafeArea()
+                }
+                .coordinateSpace(name: "scroll")
+                .onPreferenceChange(ScrollViewOffsetPreferenceKey.self) { value in
+                    scrollPosition = value.first ?? 0
                 }
                 .scrollIndicators(.never)
             }
@@ -179,7 +189,7 @@ struct ConnectionDetailView: View {
     
     private var StickyHeader: some View {
         ZStack {
-            BackgroundCircle(height: 120)
+            BackgroundCircle(height: 110)
                 .foregroundColor(Color.theme.secondary)
             
             HStack {    // 이미지 및 연락 버튼
@@ -204,17 +214,6 @@ struct ConnectionDetailView: View {
             .padding()
         }
 
-    }
-    
-    
-    func convertUserName(name: String) -> String {
-        var modifiedName = name
-        
-        if !modifiedName.isEmpty {
-            modifiedName.removeFirst()
-        }
-        
-        return modifiedName
     }
 }
 
@@ -443,3 +442,13 @@ struct BackgroundCircle: Shape {
         return path
     }
 }
+
+
+struct ScrollViewOffsetPreferenceKey: PreferenceKey {
+    static var defaultValue: [CGFloat] = []
+
+    static func reduce(value: inout [CGFloat], nextValue: () -> [CGFloat]) {
+        value.append(contentsOf: nextValue())
+    }
+}
+
