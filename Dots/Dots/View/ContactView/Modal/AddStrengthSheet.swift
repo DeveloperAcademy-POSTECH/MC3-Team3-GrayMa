@@ -15,7 +15,6 @@ struct SearchStrengthRowModel: Hashable {
 struct AddStrengthSheet: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State private var strengthName: String = ""
-    @State private var isError: Bool = false
     @State private var isKeyboardVisible = false
     
     // 선택된 강점은 여기 다 저장
@@ -51,13 +50,6 @@ struct AddStrengthSheet: View {
             }
             .allowsTightening(true)
             .frame(width: UIScreen.main.bounds.width)
-            .alert("중복에러", isPresented: $isError) {
-                Button("확인") {
-                    isError = false
-                }
-            } message: {
-                Text("이미 나의 강점에 추가된 강점이거나, 존재하는 강점입니다.")
-            }
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("취소") {
@@ -109,6 +101,7 @@ extension AddStrengthSheet {
                                 }
                             }
                             .onSubmit {
+                                dotsModel.addStrength(name: strengthName)
                                 selectedStrength.append(strengthName)
                                 isKeyboardVisible = false
                                 strengthName = ""
@@ -246,9 +239,3 @@ extension AddStrengthSheet {
         }
     }
 }
-
-//struct AddStrengthSheet_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddStrengthSheet()
-//    }
-//}
