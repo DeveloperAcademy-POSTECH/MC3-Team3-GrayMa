@@ -59,7 +59,7 @@ struct ProfileImageModal: View {
             Spacer()
                 .frame(height: 32)
             
-            ProfileIamgeSelect(coreDataUserIdx: $userImageIdx, userName: userName)
+            ProfileImageSelect(coreDataUserIdx: $userImageIdx, userName: userName)
             
             HStack{
                 SelectBtn(fontWeight: .regular, content: "취소", textColor: .black, btnColor: Color("bgBlank"), action: {presentationMode.wrappedValue.dismiss()})

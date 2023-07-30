@@ -2,7 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>sta</key>
-	<string></string>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>빠른 인맥추가</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>QuickAdd</string>
+		</dict>
+	</array>
 </dict>
 </plist>

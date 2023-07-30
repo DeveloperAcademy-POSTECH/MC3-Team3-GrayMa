@@ -47,7 +47,7 @@
 		3DA321EC2A720F86005E70D0 /* ContactsListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA321EB2A720F86005E70D0 /* ContactsListRow.swift */; };
 		3DA321EF2A735D0E005E70D0 /* AddStrengthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA321EE2A735D0E005E70D0 /* AddStrengthSheet.swift */; };
 		A1349E332A64E81C0006611C /* AddContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E322A64E81C0006611C /* AddContactsView.swift */; };
-		A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3D2A6796100006611C /* contactsUserProfile.swift */; };
+		A1349E3E2A6796100006611C /* ContactsUserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1349E3D2A6796100006611C /* ContactsUserProfile.swift */; };
 		A192A2492A69742C0071A79C /* ContactsSelectListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A192A2482A69742C0071A79C /* ContactsSelectListView.swift */; };
 		A1EDAD392A713049002B6BC0 /* ContactsNameField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EDAD382A713049002B6BC0 /* ContactsNameField.swift */; };
 		A1EDAD3B2A7131E0002B6BC0 /* ContactsCompanyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EDAD3A2A7131E0002B6BC0 /* ContactsCompanyField.swift */; };
@@ -111,7 +111,7 @@
 		3DA321EB2A720F86005E70D0 /* ContactsListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsListRow.swift; sourceTree = "<group>"; };
 		3DA321EE2A735D0E005E70D0 /* AddStrengthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStrengthSheet.swift; sourceTree = "<group>"; };
 		A1349E322A64E81C0006611C /* AddContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactsView.swift; sourceTree = "<group>"; };
-		A1349E3D2A6796100006611C /* contactsUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = contactsUserProfile.swift; sourceTree = "<group>"; };
+		A1349E3D2A6796100006611C /* ContactsUserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsUserProfile.swift; sourceTree = "<group>"; };
 		A192A2482A69742C0071A79C /* ContactsSelectListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSelectListView.swift; sourceTree = "<group>"; };
 		A1EDAD382A713049002B6BC0 /* ContactsNameField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsNameField.swift; sourceTree = "<group>"; };
 		A1EDAD3A2A7131E0002B6BC0 /* ContactsCompanyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCompanyField.swift; sourceTree = "<group>"; };
@@ -121,6 +121,7 @@
 		A1EDAD422A7133F3002B6BC0 /* ContactsSNSField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsSNSField.swift; sourceTree = "<group>"; };
 		A1EDAD442A715D7A002B6BC0 /* ContactsStrengthField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsStrengthField.swift; sourceTree = "<group>"; };
 		A1FC02C92A75086900B3C319 /* ContactsImageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsImageSelect.swift; sourceTree = "<group>"; };
+		A1FC02CC2A760F5E00B3C319 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B42D94D22A6FDD0D008F555D /* ChangeLevelModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLevelModal.swift; sourceTree = "<group>"; };
 		B4717A642A72CA0000153B9E /* KRDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KRDate.swift; sourceTree = "<group>"; };
 		B496369B2A73568300C7F59F /* CreateNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteModal.swift; sourceTree = "<group>"; };
@@ -181,6 +182,7 @@
 		1379976E2A64C5AA008F5F01 /* Dots */ = {
 			isa = PBXGroup;
 			children = (
+				A1FC02CC2A760F5E00B3C319 /* Info.plist */,
 				1379976F2A64C5AA008F5F01 /* DotsApp.swift */,
 				1373F0612A6959CF001A704D /* Extensions */,
 				136AAC702A66D5DA00CA3797 /* Modifier */,
@@ -352,7 +354,7 @@
 			isa = PBXGroup;
 			children = (
 				A1349E322A64E81C0006611C /* AddContactsView.swift */,
-				A1349E3D2A6796100006611C /* contactsUserProfile.swift */,
+				A1349E3D2A6796100006611C /* ContactsUserProfile.swift */,
 				A192A2482A69742C0071A79C /* ContactsSelectListView.swift */,
 				A1EDAD382A713049002B6BC0 /* ContactsNameField.swift */,
 				A1EDAD3A2A7131E0002B6BC0 /* ContactsCompanyField.swift */,
@@ -477,7 +479,7 @@
 				300A8AF12A726F34005FAB3E /* WrappingHStack.swift in Sources */,
 				B4E7019B2A681C7F007A3876 /* PortraitBtn.swift in Sources */,
 				3D0B1F3C2A6FD8950012A6F4 /* MetaballAnimation.swift in Sources */,
-				A1349E3E2A6796100006611C /* contactsUserProfile.swift in Sources */,
+				A1349E3E2A6796100006611C /* ContactsUserProfile.swift in Sources */,
 				136AAC722A66D5F200CA3797 /* TextModifier.swift in Sources */,
 				3D0B1F2C2A6A2A040012A6F4 /* Ex+NetworkingPersonEntity.swift in Sources */,
 				A1EDAD3D2A7132DE002B6BC0 /* ContactsJobField.swift in Sources */,
@@ -623,6 +625,7 @@
 				DEVELOPMENT_TEAM = 34K3V5D9X5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Dots/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "연락처 자동 입력을 위해서 사용자의 연락처에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -653,6 +656,7 @@
 				DEVELOPMENT_TEAM = 34K3V5D9X5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Dots/Info.plist;
 				INFOPLIST_KEY_NSContactsUsageDescription = "연락처 자동 입력을 위해서 사용자의 연락처에 접근합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
