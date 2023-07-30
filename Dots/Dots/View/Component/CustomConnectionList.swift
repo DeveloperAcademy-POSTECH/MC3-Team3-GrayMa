@@ -53,13 +53,24 @@ extension CustomConnectionList {
                 .lineLimit(1)
                 .fixedSize()
                 .minimumScaleFactor(0.5)
-            if let company = entity.company {
-                Text(company + "・" + entity.job!)
-                    .modifier(regularCallout(colorName: .theme.gray5Dark))
-                    .lineLimit(1)
-                    .fixedSize()
-                    .frame(alignment: .leading)
-                    .minimumScaleFactor(0.5)
+            if let company = entity.company  {
+                if company != "" {
+                    Text(company + "・" + entity.job!)
+                        .modifier(regularCallout(colorName: .theme.gray5Dark))
+                        .lineLimit(1)
+                        .fixedSize()
+                        .frame(alignment: .leading)
+                        .minimumScaleFactor(0.5)
+                }
+                else {
+                    Text(entity.job!)
+                        .modifier(regularCallout(colorName: .theme.gray5Dark))
+                        .lineLimit(1)
+                        .fixedSize()
+                        .frame(alignment: .leading)
+                        .minimumScaleFactor(0.5)
+                }
+              
             } else {
                 Text(entity.job ?? "직업")
                     .modifier(regularCallout(colorName: .theme.gray5Dark))
