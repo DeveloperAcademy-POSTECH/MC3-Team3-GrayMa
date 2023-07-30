@@ -88,9 +88,15 @@ struct SearchConnectionView: View {
             }
             .fullScreenCover(isPresented: $contactsSelectListVisible, onDismiss: {if isContactsAdd {addAlert = true}}){
                 ContactsSelectListView(modalControl: $contactsSelectListVisible, isContactsAdd: $isContactsAdd)
+                    .onAppear{
+                        isContactsAdd = false
+                    }
             }
             .fullScreenCover(isPresented: $navigationActive, onDismiss: {if isContactsAdd {addAlert = true}}) {
                 AddContactsView(modalComtrol: $navigationActive, isContactsAdd: $isContactsAdd)
+                    .onAppear{
+                        isContactsAdd = false
+                    }
             }
           
             .onAppear {
