@@ -44,13 +44,23 @@ struct ConnectionDetailView: View {
                         
                         LazyVStack(pinnedViews: [.sectionHeaders]) {
                             if let company = person.company, let job = person.job {
-                                HStack {
-                                    Text("\(company) ﹒ \(job)")
-                                        .modifier(regularBody(colorName: Color.theme.text))
-                                    
-                                    Spacer()
+                                if company.isEmpty {
+                                    HStack {
+                                        Text("\(job)")
+                                            .modifier(regularBody(colorName: Color.theme.text))
+                                        
+                                        Spacer()
+                                    }
+                                    .padding()
+                                } else {
+                                    HStack {
+                                        Text("\(company) ﹒ \(job)")
+                                            .modifier(regularBody(colorName: Color.theme.text))
+                                        
+                                        Spacer()
+                                    }
+                                    .padding()
                                 }
-                                .padding()
                             }
                             Section(header: StickyHeader) {
                                 VStack {    // 강점 목록 및 비교
