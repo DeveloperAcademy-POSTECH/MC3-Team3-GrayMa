@@ -14,17 +14,9 @@ struct ConnectionDetailView: View {
     @State private var showNote = false
     @State private var showCommon = false
     @State private var addStrength = false
-    @State private var editProfile = false
+    @State private var isProfileEdited = false
     
     let person: NetworkingPersonEntity
-
-    init(person: NetworkingPersonEntity) {
-        self.person = person
-
-//         네비게이션바를 투명하게 - 스크롤시에도 색상 유지
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-//        UINavigationBar.appearance().shadowImage = UIImage()
-    }
     
     var body: some View {
         NavigationStack {
@@ -157,10 +149,8 @@ struct ConnectionDetailView: View {
         // MARK: Custom NavigationBar
         .navigationBarBackButtonHidden()
         .navigationBarItems(leading: BackButton)
-
-        // TODO: 인맥 편집 화면 연결 필요(인맥 등록뷰와 동일)
-//        .navigationBarItems(trailing: Button(action: { editProfile.toggle() }, label: { Text("편집") }))
-        .navigationBarItems(trailing: NavigationLink(destination: ConnectionProfileEditView(person: person), label: { Text("편집") }))
+        .navigationBarItems(trailing: NavigationLink(destination: ConnectionProfileEditView(isProfileEdited: $isProfileEdited, person: person), label: { Text("편집") }))
+        
         .sheet(isPresented: $showNote) {
             CreateNoteModal(entity: person, placeholder: "상대에 대해 남기고 싶은 점을 자유롭게 기록해주세요.")
         }
@@ -168,9 +158,12 @@ struct ConnectionDetailView: View {
             ConnectionAddStrengthModal(person: person)
                 .presentationDetents([.height(UIScreen.main.bounds.height * 0.4)])
         }
-//        .sheet(isPresented: $editProfile) {
-//            ConnectionProfileEditView(person: person)
-//        }
+        .alert(isPresented: $isProfileEdited) {
+            Alert(title: Text("정보가 수정되었습니다."),
+                  dismissButton: .default(Text("확인"),
+                                          action: {})
+            )
+        }
     }
     
     private var BackButton: some View {
