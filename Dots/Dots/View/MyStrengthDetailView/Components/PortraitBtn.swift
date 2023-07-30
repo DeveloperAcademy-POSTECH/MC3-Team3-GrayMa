@@ -27,15 +27,15 @@ struct PortraitBtn: View {
                                 endPoint: UnitPoint(x: 0.5, y: 1.46)
                             ))
                         .frame(width: 76)
-                    Circle()
-                        .frame(width: 64)
-                        .foregroundColor(Color.theme.secondary)
-                    
                     // MARK: 이미지 index가 없으면 일단 1번 이미지로 보이도록 임시로 처리 추후 수정 필요
-                    Image("user_default_profile \(entity.profileImageIndex == 0 ? 1 : entity.profileImageIndex)")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 64)
+                    Group {
+                        Circle()
+                            .foregroundColor(Color.theme.secondary)
+                        Image("user_default_profile \(entity.profileImageIndex == 0 ? 1 : entity.profileImageIndex)")
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .frame(width: 64)
                 }
                 Text(entity.name ?? "")
                     .modifier(regularCaption1(colorName: Color.theme.text))

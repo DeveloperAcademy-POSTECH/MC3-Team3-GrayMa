@@ -9,41 +9,48 @@ import SwiftUI
 
 struct ProfileImageSelect : View{
     
-    @Binding var CoreDataUserIdx : Int
+    @Binding var coreDataUserIdx : Int
     @State var userName : String
     
     var body: some View {
         VStack{
             ZStack{
-                if (CoreDataUserIdx == 0){
-                    //이미지 선택 디자인
-                    Ellipse()
-                        .frame(width: 88, height: 88)
-                        .foregroundColor(Color("secondary"))
-                   
-                    Text("\(convertUserName(name: userName))")
-                }else {
-                    Image("user_default_profile \(CoreDataUserIdx)")
-                        .resizable()
-                        .frame(width: 88, height: 88)
+                Group {
+                    Circle()
+                        .foregroundStyle(Color.theme.secondary)
+                    if (coreDataUserIdx == 0){
+                        Text("\(convertUserName(name: userName))")
+                    } else {
+                        Image("user_default_profile \(coreDataUserIdx)")
+                            .resizable()
+                            .scaledToFit()
+                    }
                 }
+                .frame(width: 88)
             }
             Spacer()
-                .frame(height: 20)
+                .frame(height: 4)
             //디버깅
             //Text("\(index)")
             
             HStack(alignment: .center){
                 ForEach(1...5, id: \.self) {idx in
-                    Image("user_default_profile \(idx)")
-                        .resizable()
-                        .frame(width: 64, height: 64)
-                        .padding(.leading, 6)
-                        .onTapGesture {
-                            CoreDataUserIdx = idx
+                    ZStack {
+                        Group {
+                            Circle()
+                                .foregroundStyle(Color.theme.secondary)
+                            Image("user_default_profile \(idx)")
+                                .resizable()
+                                .scaledToFit()
+                                .onTapGesture {
+                                    coreDataUserIdx = idx
+                                }
                         }
+                        .frame(width: 64)
+                    }
                 }
             }
+            .padding(16)
         }
     }
 }
