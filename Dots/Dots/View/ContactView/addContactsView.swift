@@ -70,7 +70,7 @@ struct AddContactsView: View {
                             //연락처 저장 필수 조건
                             if (coreDataUserName != "" && coreDataUserJob != "" && !coreDataUserStrength.isEmpty && coreDataUserStrength.count < 7){
                                 //MARK: 균규니 코어 연동 부분 해당뷰에서 coreDataUserStrength를 변수로 가짐
-                                dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS /*, userStrength: coreDataUserStrength*/)
+                                dotsModel.addNetworking(profileImgIdx: coreDataUSerProfileImgIdx, name: coreDataUserName, company: coreaDataUserCompany, job: coreDataUserJob, phoneNum: coreDataUserPhone, email: coreDataUserEmail, snsUrl: coreDataUserSNS, strengthStringList: coreDataUserStrength)
                                 //인맥 추가 알림 띄움
                                 presentationMode.wrappedValue.dismiss()
                                 isContactsAdd = true
