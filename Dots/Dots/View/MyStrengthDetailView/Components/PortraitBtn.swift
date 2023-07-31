@@ -12,7 +12,7 @@ struct PortraitBtn: View {
     
     var body: some View {
         NavigationLink {
-            ConnectionDetailView(person: entity)
+            ConnectionDetailView(person: entity, backButtonText: "내 강점")
         } label: {
             VStack {
                 ZStack {
