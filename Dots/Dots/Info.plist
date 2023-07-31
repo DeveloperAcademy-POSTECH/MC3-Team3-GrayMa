@@ -9,14 +9,5 @@
 		<key>UIColorName</key>
 		<string>bgMain</string>
 	</dict>
-	<key>UIApplicationShortcutItems</key>
-	<array>
-		<dict>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>빠른 인맥추가</string>
-			<key>UIApplicationShortcutItemType</key>
-			<string>QuickAdd</string>
-		</dict>
-	</array>
 </dict>
 </plist>
