@@ -137,7 +137,7 @@ extension AddStrengthModal {
     private var ExistStrengthList: some View {
         ZStack(alignment: .center) {
             RoundedRectangle(cornerRadius: 12)
-                .stroke(Color.gray,lineWidth:1)
+                .stroke(Color.theme.gray5,lineWidth:1)
                 .foregroundColor(.white)
             // db에 있는 값들을 리스트로 띄움
             ScrollView {
