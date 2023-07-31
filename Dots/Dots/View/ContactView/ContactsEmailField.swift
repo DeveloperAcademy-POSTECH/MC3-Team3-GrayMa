@@ -17,7 +17,7 @@ struct ContactsEmailField: View {
     @State var inputError = false
     @State var textColor = Color.theme.gray
     @State var fieldColor = Color("bgBlank")
-    let errorMessage = "@, .com 들어가야됨"
+    let errorMessage = "@, .com 포함해야합니다."
     
     var body: some View {
         VStack (alignment: .leading) {
@@ -64,6 +64,17 @@ struct ContactsEmailField: View {
                     //입력이 끝나고 return을 받으면 값이 참인지 판단합니다.
                     }else if !UserInputEmail.isEmpty && !fieldFocus{
                         compareEmail(compareText: UserInputEmail)
+                            .onAppear{
+                                if UserInputEmail.contains("@") && UserInputEmail.suffix(4) == ".com" {
+                                    fieldColor = Color.theme.secondary
+                                    textColor = Color.theme.gray
+                                    inputError = false
+                                }else {
+                                    fieldColor = Color("AlertBG")
+                                    textColor = Color.theme.primary
+                                    inputError = true
+                                }
+                            }
                     }
                     
                 }
@@ -93,7 +104,7 @@ struct ContactsEmailField: View {
             }else{
                 Image(systemName: "exclamationmark.circle.fill")
                     .resizable()
-                    .foregroundColor(Color.theme.alertRed)
+                    .foregroundColor(Color.theme.primary)
                     .frame(width: 24, height: 24)
             }
         }
