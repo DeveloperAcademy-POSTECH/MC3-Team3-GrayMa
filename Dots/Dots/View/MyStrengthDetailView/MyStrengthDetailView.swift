@@ -117,7 +117,7 @@ struct MyStrengthDetailView: View {
         Button {
             presentationMode.wrappedValue.dismiss()
         } label: {
-            HStack {
+            HStack(spacing: 3) {
                 Image(systemName: "chevron.backward")
                 Text("내 강점")
             }

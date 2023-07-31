@@ -18,6 +18,7 @@ struct ConnectionDetailView: View {
     @State private var scrollPosition: CGFloat = 0
     
     let person: NetworkingPersonEntity
+    var backButtonText: String = "인맥관리"
     
     var body: some View {
         NavigationStack {
@@ -158,8 +159,7 @@ struct ConnectionDetailView: View {
         
         // MARK: Custom NavigationBar
         .navigationBarBackButtonHidden()
-        .navigationBarItems(leading: BackButton)
-        .navigationBarItems(trailing: NavigationLink(destination: ConnectionProfileEditView(isProfileEdited: $isProfileEdited, person: person), label: { Text("편집") }))
+        .navigationBarItems(leading: BackButton, trailing: NavigationLink(destination: ConnectionProfileEditView(isProfileEdited: $isProfileEdited, person: person), label: { Text("편집") }))
         
         .sheet(isPresented: $showNote) {
             CreateNoteModal(entity: person, placeholder: "상대에 대해 남기고 싶은 점을 자유롭게 기록해주세요.")
@@ -182,7 +182,7 @@ struct ConnectionDetailView: View {
         } label: {
             HStack(spacing: 3) {
                 Image(systemName: "chevron.backward")
-                Text("인맥관리")
+                Text(backButtonText)
             }
         }
     }
