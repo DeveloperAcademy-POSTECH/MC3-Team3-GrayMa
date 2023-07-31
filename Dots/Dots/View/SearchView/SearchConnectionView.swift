@@ -25,8 +25,8 @@ struct SearchConnectionView: View {
     @State var actionSheetvisible = false
     
     //인맥추가 navigationLink 컨트롤 변수
-    @State var contactsSelectListVisible = false
-    @State private var navigationActive = false
+    @Binding var contactsSelectListVisible: Bool
+    @Binding var navigationActive: Bool
     
     // sheet 컨트롤 변수
     @State var isFilterSheetOn = false
@@ -39,6 +39,8 @@ struct SearchConnectionView: View {
     
     @State private var addAlert = false
     @State var isContactsAdd = false
+    
+    @Binding var tab: Tab
     
     var body: some View {
         NavigationStack {

@@ -12,6 +12,9 @@ struct DotsApp: App {
 //    let persistenceController = PersistenceController.shared
     @StateObject var dotsModel: DotsModel = DotsModel()
     let filterModel = FilterModel(companyName: "", jobName: "", strengthName: "")
+    private let actionService = ActionService.shared
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     init() {
         UIView.appearance(whenContainedInInstancesOf: [UIAlertController.self]).tintColor = .systemBlue
     }
@@ -21,6 +24,7 @@ struct DotsApp: App {
             MainView()
                 .environmentObject(dotsModel)
                 .environmentObject(filterModel)
+                .environmentObject(actionService)
         }
     }
 }

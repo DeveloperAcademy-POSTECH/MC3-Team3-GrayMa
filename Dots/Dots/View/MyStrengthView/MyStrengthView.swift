@@ -11,6 +11,7 @@ struct MyStrengthView: View {
     
     @EnvironmentObject var dotsModel: DotsModel
     @State var showModal = false
+    @Binding var tab: Tab
     
     var body: some View {
         NavigationStack {
@@ -146,9 +147,9 @@ extension MyStrengthView {
     }
 }
 
-struct MyStrengthView_Previews: PreviewProvider {
-    static var previews: some View {
-        MyStrengthView()
-            .environmentObject(DotsModel())
-    }
-}
+//struct MyStrengthView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MyStrengthView()
+//            .environmentObject(DotsModel())
+//    }
+//}
