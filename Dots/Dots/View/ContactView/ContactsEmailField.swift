@@ -88,12 +88,12 @@ struct ContactsEmailField: View {
             if compareText.contains(emailCondition) && compareText.suffix(4) == emailCondition2{
                 Image(systemName: "checkmark.circle.fill")
                     .resizable()
-                    .foregroundColor(.green)
+                    .foregroundColor(Color.theme.alertGreen)
                     .frame(width: 24, height: 24)
             }else{
                 Image(systemName: "exclamationmark.circle.fill")
                     .resizable()
-                    .foregroundColor(.red)
+                    .foregroundColor(Color.theme.alertRed)
                     .frame(width: 24, height: 24)
             }
         }
