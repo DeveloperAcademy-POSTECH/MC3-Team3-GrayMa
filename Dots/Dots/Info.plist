@@ -9,5 +9,24 @@
 		<key>UIColorName</key>
 		<string>bgMain</string>
 	</dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+        <dict>
+            <key>UIApplicationShortcutItemType</key>
+            <string>fromContact</string>
+            <key>UIApplicationShortcutItemIconSymbolName</key>
+            <string>person.crop.circle.badge.plus</string>
+            <key>UIApplicationShortcutItemTitle</key>
+            <string>연락처에서 인맥 추가하기</string>
+        </dict>
+		<dict>
+			<key>UIApplicationShortcutItemType</key>
+			<string>newContact</string>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>plus</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>새로운 인맥 입력하기</string>
+		</dict>
+	</array>
 </dict>
 </plist>
