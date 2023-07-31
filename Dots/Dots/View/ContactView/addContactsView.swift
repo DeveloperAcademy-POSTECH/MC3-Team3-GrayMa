@@ -20,7 +20,7 @@ struct AddContactsView: View {
     @State var selectedUserName : String? = ""
     
     //MARK:CoreDate 연동 변수
-    @State var coreDataUSerProfileImgIdx = 0
+    @State var coreDataUSerProfileImgIdx = 1
     @State var coreDataUserName  = ""
     
     @State var coreaDataUserCompany =  ""

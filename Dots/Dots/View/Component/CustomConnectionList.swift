@@ -84,16 +84,17 @@ extension CustomConnectionList {
             if let strengthList = entity.strengthSet?.allObjects as? [StrengthEntity] {
                 ForEach(strengthList.prefix(2)) { strength in
                     Text(strength.strengthName ?? "스트렝쓰")
+                        .truncationMode(.tail)
                         .modifier(regularCaption1(colorName: .theme.text))
                         .padding(.horizontal, 9.5)
-                        .frame(minWidth: 0,maxWidth: .infinity)
+                        .frame(minWidth: 0,maxWidth: (UIScreen.main.bounds.width - 200 )/2)
+                        .lineLimit(1)
                         .background(Color.theme.secondary)
                         .clipShape(RoundedRectangle(cornerRadius: 4))
                         .overlay(
                             RoundedRectangle(cornerRadius: 4)
                                 .strokeBorder(Color.theme.secondary, lineWidth: 1)
                         )
-                        .minimumScaleFactor(0.5)
                         .fixedSize()
                     
                 }
