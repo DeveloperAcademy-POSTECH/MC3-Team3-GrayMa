@@ -56,16 +56,18 @@ extension CustomConnectionList {
             if let company = entity.company  {
                 if company != "" {
                     Text(company + "・" + entity.job!)
-                        .modifier(regularCallout(colorName: .theme.gray5Dark))
+                        .modifier(regularFootNote(colorName: .theme.text))
                         .lineLimit(1)
                         .fixedSize()
+                        .truncationMode(.tail)
                         .frame(alignment: .leading)
                         .minimumScaleFactor(0.5)
                 }
                 else {
                     Text(entity.job!)
-                        .modifier(regularCallout(colorName: .theme.gray5Dark))
+                        .modifier(regularCallout(colorName: .theme.text))
                         .lineLimit(1)
+                        .truncationMode(.tail)
                         .fixedSize()
                         .frame(alignment: .leading)
                         .minimumScaleFactor(0.5)

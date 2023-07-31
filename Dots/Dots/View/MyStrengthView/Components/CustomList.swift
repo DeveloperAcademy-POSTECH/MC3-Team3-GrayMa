@@ -18,7 +18,7 @@ struct CustomList: View {
     
     var body: some View {
         RoundedRectangle(cornerRadius: 12)
-            .stroke(Color.theme.disabled, lineWidth: 1.5)
+            .stroke(Color.theme.gray5, lineWidth: 1.5)
             .foregroundColor(.theme.bgPrimary)
             .frame(maxWidth: .infinity)
             .frame(height: 84)
@@ -45,10 +45,10 @@ struct CustomList: View {
                                 
                                 if let numberOfNotes = entity.notes?.count, numberOfNotes > 0 {
                                     Text("\(numberOfNotes)")
-                                        .modifier(mediumCaption1(colorName: .theme.bgPrimary))
+                                        .modifier(mediumCaption1(colorName: .theme.text))
                                         .padding(.horizontal, 5)
                                         .padding(.vertical, 2)
-                                        .background(Color.theme.primary)
+                                        .background(Color.theme.secondary)
                                         .cornerRadius(4, corners: .allCorners)
                                 }
                                 
