@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct SearchStrengthRowModel: Hashable {
     var title: String
@@ -105,6 +106,7 @@ extension AddStrengthSheet {
                                 selectedStrength.append(strengthName)
                                 isKeyboardVisible = false
                                 strengthName = ""
+                                getStrengthList()
                             }
                     }
                     
