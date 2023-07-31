@@ -38,8 +38,10 @@ struct CustomList: View {
                                 
                                 Text(entity.ownStrength?.strengthName ?? "이름")
                                     .modifier(semiBoldSubHeadLine(colorName: .theme.gray5Dark))
+                                    .lineLimit(1)
+                                    .truncationMode(.tail)
                                     .padding(.leading, 12)
-                                    .padding(.trailing, 17)
+                                    .padding(.trailing, 13)
                                 
                                 if let numberOfNotes = entity.notes?.count, numberOfNotes > 0 {
                                     Text("\(numberOfNotes)")
