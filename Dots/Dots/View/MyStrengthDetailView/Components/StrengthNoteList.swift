@@ -83,8 +83,9 @@ struct StrengthNoteList: View {
                                 .cornerRadius(12, corners: .bottomRight)
                                 .overlay(){
                                     Image(systemName: "trash.fill")
-                                        .font(.system(size: 17))
+                                        .font(.system(size: 22))
                                         .foregroundColor(.white)
+                                        .offset(x: -2)
                                 }
                         }
                         .alert("이 기록을 삭제하겠습니까?", isPresented: $isError, actions: {

@@ -91,6 +91,7 @@ struct SearchFilterDetailView: View {
                 
             }
         }
+        .interactiveDismissDisabled()
     }
 }
 
