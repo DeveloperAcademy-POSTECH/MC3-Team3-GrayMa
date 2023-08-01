@@ -96,10 +96,10 @@ struct MyStrengthView: View {
             .background(Color.theme.bgMain)
         }
         .onTapGesture {
-            withAnimation(.interactiveSpring(duration: 0.5, extraBounce: 0.3)) {
+            withAnimation(.easeInOut(duration: 0.3)) {
                 isTapped.toggle()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    withAnimation(.snappy) {
+                    withAnimation(.easeIn(duration: 0.1)) {
                         isTapped.toggle()
                     }
                 }
