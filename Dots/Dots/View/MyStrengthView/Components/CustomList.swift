@@ -71,8 +71,9 @@ struct CustomList: View {
                                 .cornerRadius(12, corners: .bottomRight)
                                 .overlay(){
                                     Image(systemName: "trash.fill")
-                                        .font(.system(size: 17))
+                                        .font(.system(size: 22))
                                         .foregroundColor(.white)
+                                        .offset(x: -2)
                                 }
                         })
                     }

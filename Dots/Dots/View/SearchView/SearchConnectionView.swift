@@ -57,6 +57,26 @@ struct SearchConnectionView: View {
                     FilteredPerson
                 }
                 else {
+                    if dotsModel.networkingPeople.isEmpty {
+                        Button(action: { self.actionSheetvisible = true }) {
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(Color.theme.gray5, lineWidth: 1.5)
+                                .foregroundColor(.theme.bgPrimary)
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 84)
+                                .overlay() {
+                                    HStack {
+                                        Text("저장된 인맥이 없습니다.")
+                                            .modifier(regularBody(colorName: .theme.gray))
+                                            .padding(.leading, 29)
+                                        
+                                        Spacer()
+                                    }
+                                }
+                        }
+                        .padding(.horizontal, 16)
+                    }
+                    
                     if isKeyboardVisible && (name.isEmpty || dotsModel.networkingPeople.filter { person in
                         if let name = person.name {
                             return name.range(of: self.name) != nil || self.name.isEmpty
@@ -174,12 +194,12 @@ extension SearchConnectionView {
 
                     } label: {
                         Circle()
-                            .strokeBorder(Color.theme.gray5,lineWidth: 1.5)
+                            .strokeBorder(isFilterd ? Color.theme.primary : Color.theme.gray5, lineWidth: 1.5)
                             .frame(width: 36,height: 36)
                             .foregroundColor(.white)
                             .overlay(){
                                 Image(systemName: "slider.vertical.3")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(isFilterd ? Color.theme.primary : .black)
                             }
                     }
                     .padding(.trailing,9)
