@@ -25,6 +25,7 @@ struct MyStrengthView: View {
                             .scaledToFit()
                             .padding(.horizontal, 50)
                             .frame(maxWidth: .infinity)
+                            .scaleEffect(isTapped ? 1.07 : 1.0)
                     } else {
                         MetaballAnimation(isTapped: $isTapped, myStrength: toVisualizeStrength())
                             .frame(height: UIScreen.main.bounds.height/3)
