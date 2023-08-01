@@ -36,7 +36,7 @@ struct ContactsEmailField: View {
                     Spacer()
                         .frame(width: 19,height: 20)
                     
-                    TextField("abc@abc.com", text: $UserInputEmail)
+                    TextField("\("abc@abc.com")", text: $UserInputEmail)
                         
                         .onTapGesture { fieldFocus = true }
                         //return 눌렸을때
