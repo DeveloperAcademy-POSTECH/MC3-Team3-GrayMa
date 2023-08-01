@@ -66,15 +66,20 @@ struct SearchFilterView: View {
                 }
                 ToolbarItem(placement: .confirmationAction) {
                     Button("적용") {
-                        isFilterd = true
-                        isFilterSheetOn = false
+                        if filterModel.companyName.isEmpty && filterModel.jobName.isEmpty && filterModel.strengthName.isEmpty {
+                            isFilterd = false
+                            isFilterSheetOn = false
+                        } else {
+                            isFilterd = true
+                            isFilterSheetOn = false
+                        }
                     }
                 }
             }
             .sheet(isPresented: $isSheetOn) {
                 SearchFilterDetailView(isSheetOn: $isSheetOn, type: $type, keyName: $keyName)
             }
-            
+            .interactiveDismissDisabled()
         }
     }
 }

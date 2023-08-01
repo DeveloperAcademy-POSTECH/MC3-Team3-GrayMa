@@ -174,12 +174,12 @@ extension SearchConnectionView {
 
                     } label: {
                         Circle()
-                            .strokeBorder(Color.theme.gray5,lineWidth: 1.5)
+                            .strokeBorder(isFilterd ? Color.theme.primary : Color.theme.gray5, lineWidth: 1.5)
                             .frame(width: 36,height: 36)
                             .foregroundColor(.white)
                             .overlay(){
                                 Image(systemName: "slider.vertical.3")
-                                    .foregroundColor(.black)
+                                    .foregroundColor(isFilterd ? Color.theme.primary : .black)
                             }
                     }
                     .padding(.trailing,9)
