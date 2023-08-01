@@ -36,8 +36,21 @@ struct MyStrengthView: View {
                     VStack(spacing: 8) {
                         Rectangle()
                             .frame(height: UIScreen.main.bounds.height/3)
-                            .foregroundColor(.clear)
-                        
+                            .foregroundColor(Color.theme.bgMain)
+                            .opacity(0.001)
+                            .onTapGesture {
+                                let hapticFeedback = UIImpactFeedbackGenerator(style: .rigid)
+                                hapticFeedback.impactOccurred()
+                                
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    isTapped.toggle()
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                        withAnimation(.easeIn(duration: 0.1)) {
+                                            isTapped.toggle()
+                                        }
+                                    }
+                                }
+                            }
                         
                         ScrollView {
                             if dotsModel.myStrength.isEmpty {
@@ -94,16 +107,6 @@ struct MyStrengthView: View {
                 
             }
             .background(Color.theme.bgMain)
-        }
-        .onTapGesture {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                isTapped.toggle()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                    withAnimation(.easeIn(duration: 0.1)) {
-                        isTapped.toggle()
-                    }
-                }
-            }
         }
     }
 }
