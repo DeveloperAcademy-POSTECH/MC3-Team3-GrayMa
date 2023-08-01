@@ -26,7 +26,7 @@ struct SwipeItemView<Content: View, Right: View>: View {
     @State var anchor: CGFloat = 0
     
     let screenWidth = UIScreen.main.bounds.width
-    var anchorWidth: CGFloat { screenWidth / 3}
+    var anchorWidth: CGFloat = 78
     var swipeThreshold: CGFloat { screenWidth / 20 }
     
     @State var rightPast = false
@@ -78,7 +78,7 @@ struct SwipeItemView<Content: View, Right: View>: View {
                     .buttonStyle(.borderless)
             }
             .offset(x: hoffSet)
-            .frame(maxHeight: 84)
+            .frame(maxHeight: itemHeight)
             .contentShape(Rectangle())
             .gesture(drag)
             .onChange(of: resetSwipe) { newValue in
