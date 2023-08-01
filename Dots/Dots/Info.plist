@@ -2,6 +2,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIApplicationShortcutItems</key>
+	<array>
+		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>person.crop.circle.badge.plus</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>연락처에서 인맥 추가하기</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>fromContact</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>plus</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>새로운 인맥 입력하기</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>newContact</string>
+		</dict>
+	</array>
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>

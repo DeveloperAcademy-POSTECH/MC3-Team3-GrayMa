@@ -11,6 +11,7 @@ struct MetaballAnimation: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var dragOffset: CGSize = .zero
     @State var startAnimation: Bool = true
+    @Binding var isTapped: Bool
     
     let myStrength: [MyStrengthEntity]
     
@@ -104,6 +105,7 @@ struct MetaballAnimation: View {
             .animation(.easeInOut(duration: 3.6), value: offset)
             .blur(radius: 10)
             .opacity(0.9)
+            .scaleEffect(isTapped ? 1.15 : 1.0)
     }
 }
 

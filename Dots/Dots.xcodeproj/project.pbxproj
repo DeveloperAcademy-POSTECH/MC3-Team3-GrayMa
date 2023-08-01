@@ -57,7 +57,9 @@
 		A1EDAD432A7133F3002B6BC0 /* ContactsSNSField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EDAD422A7133F3002B6BC0 /* ContactsSNSField.swift */; };
 		A1EDAD452A715D7A002B6BC0 /* ContactsStrengthField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1EDAD442A715D7A002B6BC0 /* ContactsStrengthField.swift */; };
 		A1FC02CA2A75086900B3C319 /* ContactsImageSelect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1FC02C92A75086900B3C319 /* ContactsImageSelect.swift */; };
+		B4018DE12A77A4A00022DDFC /* Action.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4018DE02A77A4A00022DDFC /* Action.swift */; };
 		B42D94D32A6FDD0D008F555D /* ChangeLevelModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42D94D22A6FDD0D008F555D /* ChangeLevelModal.swift */; };
+		B46FFB712A77A38D00294F3C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B46FFB702A77A38D00294F3C /* AppDelegate.swift */; };
 		B4717A652A72CA0000153B9E /* KRDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4717A642A72CA0000153B9E /* KRDate.swift */; };
 		B496369C2A73568300C7F59F /* CreateNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B496369B2A73568300C7F59F /* CreateNoteModal.swift */; };
 		B496369E2A73569E00C7F59F /* OpenNoteModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B496369D2A73569E00C7F59F /* OpenNoteModal.swift */; };
@@ -122,7 +124,9 @@
 		A1EDAD442A715D7A002B6BC0 /* ContactsStrengthField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsStrengthField.swift; sourceTree = "<group>"; };
 		A1FC02C92A75086900B3C319 /* ContactsImageSelect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsImageSelect.swift; sourceTree = "<group>"; };
 		A1FC02CC2A760F5E00B3C319 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B4018DE02A77A4A00022DDFC /* Action.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Action.swift; sourceTree = "<group>"; };
 		B42D94D22A6FDD0D008F555D /* ChangeLevelModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLevelModal.swift; sourceTree = "<group>"; };
+		B46FFB702A77A38D00294F3C /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B4717A642A72CA0000153B9E /* KRDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KRDate.swift; sourceTree = "<group>"; };
 		B496369B2A73568300C7F59F /* CreateNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteModal.swift; sourceTree = "<group>"; };
 		B496369D2A73569E00C7F59F /* OpenNoteModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNoteModal.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 			children = (
 				A1FC02CC2A760F5E00B3C319 /* Info.plist */,
 				1379976F2A64C5AA008F5F01 /* DotsApp.swift */,
+				B46FFB702A77A38D00294F3C /* AppDelegate.swift */,
 				1373F0612A6959CF001A704D /* Extensions */,
 				136AAC702A66D5DA00CA3797 /* Modifier */,
 				137997842A64C64B008F5F01 /* View */,
@@ -205,6 +210,7 @@
 		137997832A64C647008F5F01 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B4018DE02A77A4A00022DDFC /* Action.swift */,
 				136AE40C2A720656009A6F9D /* FilterModel.swift */,
 				3D0B1F232A654BD20012A6F4 /* DotsModel.swift */,
 				3D0B1F272A67882F0012A6F4 /* Ex+DotsModel_Create.swift */,
@@ -460,6 +466,7 @@
 				3DA321EF2A735D0E005E70D0 /* AddStrengthSheet.swift in Sources */,
 				3D0B1F222A654AED0012A6F4 /* DotsDataManager.swift in Sources */,
 				B4EB47212A6774430073E514 /* MyStrengthDetailView.swift in Sources */,
+				B46FFB712A77A38D00294F3C /* AppDelegate.swift in Sources */,
 				3DA321E22A71F487005E70D0 /* StrengthLevelImage.swift in Sources */,
 				B4E701992A680678007A3876 /* StrengthNoteList.swift in Sources */,
 				137997872A64C661008F5F01 /* MainView.swift in Sources */,
@@ -468,6 +475,7 @@
 				A1EDAD432A7133F3002B6BC0 /* ContactsSNSField.swift in Sources */,
 				1373F0632A6959F4001A704D /* RounededCorner.swift in Sources */,
 				136AAC7C2A66E30E00CA3797 /* SelectBtn.swift in Sources */,
+				B4018DE12A77A4A00022DDFC /* Action.swift in Sources */,
 				137997702A64C5AA008F5F01 /* DotsApp.swift in Sources */,
 				A1EDAD392A713049002B6BC0 /* ContactsNameField.swift in Sources */,
 				A1EDAD412A7133A8002B6BC0 /* ContactsEmailField.swift in Sources */,
@@ -622,7 +630,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -657,7 +665,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"Dots/Preview Content\"";
 				DEVELOPMENT_TEAM = F5LF3NUCU2;
 				ENABLE_PREVIEWS = YES;
