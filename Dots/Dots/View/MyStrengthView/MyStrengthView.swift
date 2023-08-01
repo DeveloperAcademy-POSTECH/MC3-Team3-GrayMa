@@ -12,6 +12,7 @@ struct MyStrengthView: View {
     @EnvironmentObject var dotsModel: DotsModel
     @State var showModal = false
     @Binding var tab: Tab
+    @State var isTapped: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -25,7 +26,7 @@ struct MyStrengthView: View {
                             .padding(.horizontal, 50)
                             .frame(maxWidth: .infinity)
                     } else {
-                        MetaballAnimation(myStrength: toVisualizeStrength())
+                        MetaballAnimation(isTapped: $isTapped, myStrength: toVisualizeStrength())
                             .frame(height: UIScreen.main.bounds.height/3)
                     }
                 }
@@ -80,7 +81,7 @@ struct MyStrengthView: View {
                                 .scaledToFit()
                                 .frame(height: 22)
                                 .foregroundColor(.theme.gray5Dark)
-                                
+                            
                             
                         }
                     }
@@ -89,13 +90,21 @@ struct MyStrengthView: View {
                     StrengthModal()
                         .presentationDetents([.height(UIScreen.main.bounds.height * 0.35)])
                 }
-               
+                
                 
             }
             .background(Color.theme.bgMain)
+        }
+        .onTapGesture {
+            withAnimation(.interactiveSpring(duration: 0.5, extraBounce: 0.3)) {
+                isTapped.toggle()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    withAnimation(.snappy) {
+                        isTapped.toggle()
+                    }
+                }
             }
-
-        
+        }
     }
 }
 
