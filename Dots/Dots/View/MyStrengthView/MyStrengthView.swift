@@ -55,21 +55,23 @@ struct MyStrengthView: View {
                         
                         ScrollView {
                             if dotsModel.myStrength.isEmpty {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(Color.theme.gray5, lineWidth: 1.5)
-                                    .foregroundColor(.theme.bgPrimary)
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 84)
-                                    .overlay() {
-                                        HStack {
-                                            Text("저장된 강점이 없습니다.")
-                                                .modifier(regularBody(colorName: .theme.gray))
-                                                .padding(.leading, 29)
-                                            
-                                            Spacer()
+                                Button(action: { self.showModal = true }) {
+                                    RoundedRectangle(cornerRadius: 12)
+                                        .stroke(Color.theme.gray5, lineWidth: 1.5)
+                                        .foregroundColor(.theme.bgPrimary)
+                                        .frame(maxWidth: .infinity)
+                                        .frame(height: 84)
+                                        .overlay() {
+                                            HStack {
+                                                Text("저장된 강점이 없습니다.")
+                                                    .modifier(regularBody(colorName: .theme.gray))
+                                                    .padding(.leading, 29)
+                                                
+                                                Spacer()
+                                            }
                                         }
-                                    }
-                                    .padding(.horizontal, 16)
+                                }
+                                .padding(.horizontal, 16)
                                 
                             } else {
                                 let sortedMyStrength = getSortMyStrength()
