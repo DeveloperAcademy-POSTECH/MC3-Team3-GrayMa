@@ -55,7 +55,7 @@ struct ContactsSelectListView: View {
 //                        Text("\(selectedName)")
                     } else {
                         Picker("",selection: $selectedName) {
-                            ForEach(contactList.filter{$0.hasPrefix(searchText)}, id: \.self) { item in
+                            ForEach(contactList.filter{$0.contains(searchText)}, id: \.self) { item in
                                 Text(item)
                             }
                         }.pickerStyle(.inline)
