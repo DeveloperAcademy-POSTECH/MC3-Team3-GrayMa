@@ -2,31 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UILaunchScreen</key>
-	<dict>
-		<key>UIImageName</key>
-		<string>launchscreen</string>
-		<key>UIColorName</key>
-		<string>bgMain</string>
-	</dict>
 	<key>UIApplicationShortcutItems</key>
 	<array>
-        <dict>
-            <key>UIApplicationShortcutItemType</key>
-            <string>fromContact</string>
-            <key>UIApplicationShortcutItemIconSymbolName</key>
-            <string>person.crop.circle.badge.plus</string>
-            <key>UIApplicationShortcutItemTitle</key>
-            <string>연락처에서 인맥 추가하기</string>
-        </dict>
 		<dict>
+			<key>UIApplicationShortcutItemIconSymbolName</key>
+			<string>person.crop.circle.badge.plus</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>연락처에서 인맥 추가하기</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>newContact</string>
+			<string>fromContact</string>
+		</dict>
+		<dict>
 			<key>UIApplicationShortcutItemIconSymbolName</key>
 			<string>plus</string>
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>새로운 인맥 입력하기</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>newContact</string>
 		</dict>
 	</array>
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>bgMain</string>
+		<key>UIImageName</key>
+		<string>launchscreen</string>
+	</dict>
 </dict>
 </plist>
