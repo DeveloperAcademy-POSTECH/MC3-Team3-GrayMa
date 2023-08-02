@@ -163,3 +163,6 @@ MC3 그래 임마! 팀 입니다.
 4. Pull Request가 작성되면 충돌 확인 후 merge 한다.
 5. 종료된 Pull Request branch는 삭제한다.
 ```
+
+### 개인정보 처리방침
+
