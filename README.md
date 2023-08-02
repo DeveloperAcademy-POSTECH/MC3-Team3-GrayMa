@@ -13,7 +13,8 @@ MC3 그래 임마! 팀 입니다.
 <div align="center">
 <br>
 
-![ReadmeImage](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/4f2592bc-467d-4c47-8d9c-fac9711f3791)
+![Thumnail](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/4385be2f-80dc-4e43-a8c8-448efcea37bf)
+
 
 <br>
 
