@@ -1,7 +1,90 @@
 # MC3-Team3-GrayMa
 MC3 그래 임마! 팀 입니다.
 
+<br>
+
+<br>
+
+<div align="leading">
+  
+# Dots
+</div>
+
+<div align="center">
+<br>
+
+![Thumnail](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/4385be2f-80dc-4e43-a8c8-448efcea37bf)
+
+
+<br>
+
+[<img width = "200" src="https://github-production-user-asset-6210df.s3.amazonaws.com/120548537/251533420-0eb9b31b-8203-48b7-8dcd-3725a8c9da49.png">](https://www.apple.com/kr/store)
+  
+</div>
+
+
+
+## 💻 Development Environment
+
+<img height="20" src="https://img.shields.io/badge/iOS-16.0+-lightgray">  <img height="20" src="https://img.shields.io/badge/Xcode-14.0.1-skyblue">  <img height="20" src="https://img.shields.io/badge/Swift-5.7.1-orange"> 
+<br>
+
+<br>
+  
+## 🛠️ Tools
+**Design**  
+  
+<img height="23" src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white"/>  
+
+**Cowork**  
+
+<img height="23" src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/> [![Notion](https://img.shields.io/badge/Notion-FFFFFF?style=flat-square&logo=Notion&logoColor=black)](https://www.notion.so/MC3-70503eff657d443ab7c226662d992bc9)
+  <img height="23" src="https://img.shields.io/badge/Miro-F2CA02?style=flat-square&logo=Miro&logoColor=black"/>
+<img height="23" src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white"/>  
+
+<br>
+
+<br>
+
+## 📑 App Introduction
+
+  Dots는 내 강점을 기록하며 자신감을 쌓고 강점을 기반으로 인맥을 저장하고 기록할 수 있는 앱입니다.
+
+
+**Feature 1**  
+- 자신에 대한 강점을 기록하고 강점을 노트를 통해 기록할 수 있습니다.
+
+**Feature 2**
+- 인맥에 대해 이름,직무,회사,전화번호,강점을 입력받고 공통점을 비교할 수 있습니다.
+
+<br>
+
+<br>
+  
+
+
+<br>
+
+## 👩‍💻🧑‍💻 Authors
+
+
+|[<img src="https://github.com/seunggyun-jeong.png" width="100px">](https://github.com/seunggyun-jeong)|[<img src="https://github.com/up-ub.png" width="100px">](https://github.com/up-ub)|[<img src="https://github.com/chaen805.png" width="100px">](https://github.com/chaen805)|[<img src="https://github.com/Medi0202.png" width="100px">](https://github.com/Medi0202)|[<img src="https://github.com/HIBAR97.png" width="100px">](https://github.com/HIBAR97)|[<img src="https://github.com/kdb1217.png" width="100px">](https://github.com/kdb1217)|  
+|:----:|:----:|:----:|:----:|:----:|:----:|
+|[Gyunni](https://github.com/seunggyun-jeong)|[Yubin](https://github.com/up-ub)|[Ash](https://github.com/chaen805)|[Marcus](https://github.com/Medi0202)|[Andy](https://github.com/HIBAR973)|[Rash](https://github.com/kdb1217)|
+<br>
+
+
+ ### 📱 Screenshots
+|내 강점 기록|강점 비교와 상대 기록|강점 시각화와 리스트|
+|:-:|:-:|:-:|
+|![ 내 강점 기록](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/7fcd5b21-3b96-42ad-8af5-0dd9302e3926)|![강점비교와 상대 기록](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/b24fc5f8-4176-47c9-8356-6acd246bfdec)|![강점시각화강점리스트](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/fe7b1427-9f59-4006-8c61-d4bc6755277b)|
+|필터 검색|커리어 인맥 관리|
+|![이름 회사 직무 강점기반 인맥검색](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/dfdd0391-fb1e-4c5d-b6d2-bbbb3444d2b7)|![커리어 인맥 관리](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/c032bc7f-4b1e-44f4-8f0b-3ca204d98f84)
+
 ---
+<br>
+
+
 
 # 📌 Commit Style Guide
 
