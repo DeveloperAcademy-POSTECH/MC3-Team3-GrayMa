@@ -6,14 +6,11 @@ MC3 그래 임마! 팀 입니다.
 <br>
 
 <div align="center">
-<img width = "100" src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/6dd120a3-c39d-4545-b350-71e3643f0d9f">
   
-# App name
+# Dots
 </div>
 
 <div align="center">
-<img width = "1000" src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/d44d16fc-d8bf-4429-a111-69d2e9b18592">
-
 <br>
 
 <br>
@@ -39,7 +36,6 @@ MC3 그래 임마! 팀 입니다.
 <br>
   
 ## 🔍 Preview
-<img width = "1000" src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/764b9b1a-6d17-4b65-afae-0d31a320e4b3">
 <br>
 
 <br>
