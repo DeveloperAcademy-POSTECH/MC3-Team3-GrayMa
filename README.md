@@ -5,7 +5,7 @@ MC3 그래 임마! 팀 입니다.
 
 <br>
 
-<div align="center">
+<div align="leading">
   
 # Dots
 </div>
@@ -13,32 +13,15 @@ MC3 그래 임마! 팀 입니다.
 <div align="center">
 <br>
 
+![ReadmeImage](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/4f2592bc-467d-4c47-8d9c-fac9711f3791)
+
 <br>
 
 [<img width = "200" src="https://github-production-user-asset-6210df.s3.amazonaws.com/120548537/251533420-0eb9b31b-8203-48b7-8dcd-3725a8c9da49.png">](https://www.apple.com/kr/store)
   
 </div>
 
-<br>
 
-## 📑 Description
-  
-앱에 대한 설명
-  
-**Feature 1**  
-- 자신에 대한 강점을 기록하고 강점을 노트를 통해 기록할 수 있습니다.
-
-**Feature 2**
-- 인맥에 대해 이름,직무,회사,전화번호,강점을 입력받고 공통점을 비교할 수 있습니다.
-
-<br>
-
-<br>
-  
-## 🔍 Preview
-<br>
-
-<br>
 
 ## 💻 Development Environment
 
@@ -62,44 +45,45 @@ MC3 그래 임마! 팀 입니다.
 
 <br>
 
+## 📑 App Introduction
+
+  Dots는 내 강점을 기록하며 자신감을 쌓고 강점을 기반으로 인맥을 저장하고 기록할 수 있는 앱입니다.
+
+
+**Feature 1**  
+- 자신에 대한 강점을 기록하고 강점을 노트를 통해 기록할 수 있습니다.
+
+**Feature 2**
+- 인맥에 대해 이름,직무,회사,전화번호,강점을 입력받고 공통점을 비교할 수 있습니다.
+
+<br>
+
+<br>
+  
+
+
+<br>
+
 ## 👩‍💻🧑‍💻 Authors
 
-<table>
-  <tr align=center>
-    <td><img src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/43640bd5-32f0-4b71-8753-1a47454ae502"></td>
-    <td><img src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/43640bd5-32f0-4b71-8753-1a47454ae502"></td>
-    <td><img src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/43640bd5-32f0-4b71-8753-1a47454ae502"></td>
-    <td><img src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/43640bd5-32f0-4b71-8753-1a47454ae502"></td>
-    <td><img src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/43640bd5-32f0-4b71-8753-1a47454ae502"></td>
-    <td><img src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/43640bd5-32f0-4b71-8753-1a47454ae502"></td>
-  <tr align=center>
-    <td>https://github.com/seunggyun-jeong</td>
-    <td>https://github.com/up-ub</td>
-    <td>https://github.com/kdb1217</td>
-    <td>https://github.com/HIBAR97</td>
-    <td>https://github.com/Medi0202</td>
-    <td>https://github.com/chaen805</td>
-  </tr>
-    <tr align=center>
-    <td>규니</td>
-    <td>유빈</td>
-    <td>래쉬</td>
-    <td>앤디</td>
-    <td>마커스</td>
-    <td>애쉬</td>
-  </tr>
-  <tr align=center>
-    <td>iOS Developer</td>
-    <td>Designer</td>
-    <td>iOS Developer</td>
-    <td>iOS Developer</td>
-    <td>iOS Developer</td>
-    <td>iOS Developer</td>
-  </tr>
-</table>
 
+|[<img src="https://github.com/seunggyun-jeong.png" width="100px">](https://github.com/seunggyun-jeong)|[<img src="https://github.com/up-ub.png" width="100px">](https://github.com/up-ub)|[<img src="https://github.com/chaen805.png" width="100px">](https://github.com/chaen805)|[<img src="https://github.com/Medi0202.png" width="100px">](https://github.com/Medi0202)|[<img src="https://github.com/HIBAR97.png" width="100px">](https://github.com/HIBAR97)|[<img src="https://github.com/kdb1217.png" width="100px">](https://github.com/kdb1217)|  
+|:----:|:----:|:----:|:----:|:----:|:----:|
+|[Gyunni](https://github.com/seunggyun-jeong)|[Yubin](https://github.com/up-ub)|[Ash](https://github.com/chaen805)|[Marcus](https://github.com/Medi0202)|[Andy](https://github.com/HIBAR973)|[Rash](https://github.com/kdb1217)|
+<br>
+
+
+ ### 📱 Screenshots
+|내 강점 기록|강점 비교와 상대 기록|강점 시각화와 리스트|
+|:-:|:-:|:-:|
+|![ 내 강점 기록](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/7fcd5b21-3b96-42ad-8af5-0dd9302e3926)|![강점비교와 상대 기록](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/b24fc5f8-4176-47c9-8356-6acd246bfdec)|![강점시각화강점리스트](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/fe7b1427-9f59-4006-8c61-d4bc6755277b)|
+|필터 검색|커리어 인맥 관리|
+|![이름 회사 직무 강점기반 인맥검색](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/dfdd0391-fb1e-4c5d-b6d2-bbbb3444d2b7)|![커리어 인맥 관리](https://github.com/DeveloperAcademy-POSTECH/MC3-Team3-GrayMa/assets/84852135/c032bc7f-4b1e-44f4-8f0b-3ca204d98f84)
 
 ---
+<br>
+
+
 
 # 📌 Commit Style Guide
 
