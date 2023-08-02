@@ -1,7 +1,6 @@
 # MC3-Team3-GrayMa
 MC3 그래 임마! 팀 입니다.
 
-
 <br>
 
 <br>
@@ -30,10 +29,10 @@ MC3 그래 임마! 팀 입니다.
 앱에 대한 설명
   
 **Feature 1**  
-- feature
+- 자신에 대한 강점을 기록하고 강점을 노트를 통해 기록할 수 있습니다.
 
 **Feature 2**
-- feature
+- 인맥에 대해 이름,직무,회사,전화번호,강점을 입력받고 공통점을 비교할 수 있습니다.
 
 <br>
 
@@ -59,7 +58,8 @@ MC3 그래 임마! 팀 입니다.
 
 **Cowork**  
 
-<img height="23" src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/>  <img height="23" src="https://img.shields.io/badge/Notion-FFFFFF?style=flat-square&logo=Notion&logoColor=black"/>  <img height="23" src="https://img.shields.io/badge/Miro-F2CA02?style=flat-square&logo=Miro&logoColor=black"/>
+<img height="23" src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/> [![Notion](https://img.shields.io/badge/Notion-FFFFFF?style=flat-square&logo=Notion&logoColor=black)](https://www.notion.so/MC3-70503eff657d443ab7c226662d992bc9)
+  <img height="23" src="https://img.shields.io/badge/Miro-F2CA02?style=flat-square&logo=Miro&logoColor=black"/>
 <img height="23" src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white"/>  
 
 <br>
@@ -77,12 +77,12 @@ MC3 그래 임마! 팀 입니다.
     <td><img src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/43640bd5-32f0-4b71-8753-1a47454ae502"></td>
     <td><img src="https://github.com/hyunjuntyler/readme-templates/assets/120548537/43640bd5-32f0-4b71-8753-1a47454ae502"></td>
   <tr align=center>
-    <td></td>
-    <td>Link</td>
-    <td>Link</td>
-    <td>Link</td>
-    <td>Link</td>
-    <td>[깃허브](https://github.com/chaen805)</td>
+    <td>https://github.com/seunggyun-jeong</td>
+    <td>https://github.com/up-ub</td>
+    <td>https://github.com/kdb1217</td>
+    <td>https://github.com/HIBAR97</td>
+    <td>https://github.com/Medi0202</td>
+    <td>https://github.com/chaen805</td>
   </tr>
     <tr align=center>
     <td>규니</td>
